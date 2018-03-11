@@ -30,11 +30,7 @@ class User_test(models.Model):
 class Usertest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
-    test = models.OneToOneField(
-        Test,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.score

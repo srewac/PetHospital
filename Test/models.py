@@ -1,10 +1,12 @@
 from django.db import models
+from Disease.models import Disease, SubDisease
 
 
 # Create your models here.
 class Question(models.Model):
     text = models.CharField(max_length=1000)
     score = models.IntegerField(default=2)
+    sub_disease = models.ForeignKey(SubDisease, on_delete=models.CASCADE)
 
     def __str__(self):
         return Question.text
@@ -26,6 +28,7 @@ class TestPaper(models.Model):
         through='TestPaper_Question',
         through_fields=('testpaper', 'question'),
     )
+    disease = models.ForeignKey(Disease, on_delete=models.CASCADE)
 
     def get_full_score(self):
         pass
