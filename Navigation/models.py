@@ -12,8 +12,8 @@ class Role(models.Model):
 class Room(models.Model):
     name = models.CharField(max_length=200)
     desc = models.CharField(max_length=1000)
-    pic_url = models.CharField(max_length=500, default=None)
-    video_url = models.CharField(max_length=1000, default=None)
+    pic_url = models.CharField(max_length=500, default=None, blank=True)
+    video_url = models.CharField(max_length=1000, default=None, blank=True)
     room_with_role = models.ManyToManyField(
         Role,
         through='Room_Role',

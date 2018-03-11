@@ -9,7 +9,7 @@ class Question(models.Model):
     sub_disease = models.ForeignKey(SubDisease, on_delete=models.CASCADE)
 
     def __str__(self):
-        return Question.text
+        return self.text
 
 
 class Choice(models.Model):
@@ -45,6 +45,7 @@ class Test(models.Model):
 
     def __str__(self):
         return self.name
+
 
 
 class TestPaper_Question(models.Model):
