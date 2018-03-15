@@ -19,7 +19,7 @@ from User import views as userviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('sign_in/', userviews.index, name='sign_in'),
+    path('index/', userviews.index, name='sign_in'),
 ]
 
 # 设置静态文件路径
