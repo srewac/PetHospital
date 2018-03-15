@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Pet Hospital - Sign in</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!-- Custom Theme files -->
+	<link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+
+	<!-- easy-responsive-tabs -->
+    <link rel="stylesheet" type="text/css" href="/static/css/verify.css">
+	<link href="/static/css/style.css" type="text/css" rel="stylesheet" media="all">
+	<link href="/static/css/font-awesome.css" rel="stylesheet">
+	<!-- font-awesome icons -->
+	<!-- //Custom Theme files -->
+	<!-- js -->
+	<script src="/static/js/jquery-2.2.3.min.js"></script>
+	<!-- //js -->
+	<!-- web-fonts -->
+	<link href="//fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Junge" rel="stylesheet">
+	<link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+	    rel='stylesheet' type='text/css'>
+	<!-- //web-fonts -->
+</head>
+
+<body>
+	<div class="agileits-banner">
+            <div class="banner-top w3layouts"></div>
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="signin-form">
+                            <h3 >登录</h3>
+                            <h4 style="color: red;">{{ login_err }}</h4>
+                                <form action="/sign_in/" method="post">
+                                    <input type="email" name="email" placeholder="E-mail" required="">
+                                    <input type="password" name="password" placeholder="Password" required="">
+                                    <div id="myverify"></div>
+                                    <div>
+                                        <input type="submit" value="Sign In" id="verifykey" required="" onclick="veri()">
+                                    </div>
+                                </form>
+                            <p><a href="/sign_up/"> Don't have an account?</a></p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        <div class="banner-w3text w3layouts"></div>
+        </div>
+    </div>
+
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="/static/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/js/verify.js" ></script>
+    <script type="text/javascript">
+        function veri(){
+            if(flag == false)
+                document.getElementById("verifykey").setCustomValidity("请先进行验证");
+            else
+                document.getElementById("verifykey").setCustomValidity("");
+
+        }
+    </script >
+    <script>
+        var flag=false;
+        $('#myverify').slideVerify({
+		    	type : 2,		//类型
+        		vOffset : 5,	//误差量，根据需求自行调整
+		        vSpace : 5,	//间隔
+                imgUrl : '/static/images/',
+		        imgName : ['verify-1.jpg', 'verify-2.jpg'],
+		        imgSize : {
+		        	width: '400px',
+		        	height: '200px',
+		        },
+		        blockSize : {
+		        	width: '40px',
+		        	height: '40px',
+		        },
+		        barSize : {
+		        	width : '400px',
+		        	height : '40px',
+		        },
+		        ready : function() {
+		    	},
+		        success : function() {
+		    	    flag = true;
+		        	//alert('验证成功，添加你自己的代码！');
+		        	//......后续操作
+		        },
+		        error : function() {
+		    	    alert('验证失败！');
+		        }
+
+		    });
+    </script>
+</body>
+
+</html>

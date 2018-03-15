@@ -15,7 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from User import views as userviews
+from Test import views as testviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('index/', userviews.index, name='sign_in'),
+    path('sign_up/', userviews.sign_up, name='sign_up'),
+    path('sign_in/', userviews.sign_in, name='sign_in'),
+    path('test/', testviews.test, name='test'),
+    path('select_paper/', testviews.select_paper, name='select_paper'),
+    path('test_management/', testviews.test_management, name='test_management'),
 ]
+
+# 设置静态文件路径
+
