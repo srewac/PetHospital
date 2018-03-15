@@ -24,7 +24,7 @@ SECRET_KEY = 'w5%grgv@c_&3i!ma6ugzbsdhe)3yik7+y%ev53ht$^8o4fvkk('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['59.110.171.196',]
 
 # Application definition
 
@@ -130,3 +130,5 @@ STATICFILES_DIRS = (
     ('fonts', os.path.join(STATIC_ROOT, 'fonts').replace('\\','/')),
     ('js', os.path.join(STATIC_ROOT, 'js').replace('\\','/')),
 )
+
+
