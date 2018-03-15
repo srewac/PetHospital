@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'User.apps.UserConfig',
     'Test.apps.TestConfig',
     'Disease.apps.DiseaseConfig',
+    'Manage.apps.ManageConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
