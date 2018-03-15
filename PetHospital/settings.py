@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'User.apps.UserConfig',
     'Test.apps.TestConfig',
     'Disease.apps.DiseaseConfig',
+    'Manage.apps.ManageConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -122,3 +123,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/').replace('\\','/')
+STATICFILES_DIRS = (
+    ('css', os.path.join(STATIC_ROOT, 'css').replace('\\','/')),
+    ('images', os.path.join(STATIC_ROOT, 'images').replace('\\','/')),
+    ('fonts', os.path.join(STATIC_ROOT, 'fonts').replace('\\','/')),
+    ('js', os.path.join(STATIC_ROOT, 'js').replace('\\','/')),
+)
