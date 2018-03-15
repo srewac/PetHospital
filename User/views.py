@@ -6,3 +6,8 @@ def index(request):
 
 def sign_up(request):
     return render(request,'User/sign_up.html')
+
+def sign_in(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    return render(request,'User/sign_up.html')

@@ -5,18 +5,9 @@
 	<title>Pet Hospital - Sign in</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<script type="application/x-javascript">
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
 
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-	</script>
 	<!-- Custom Theme files -->
 	<link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-	<link href="/static/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css' />
 
 	<!-- easy-responsive-tabs -->
     <link rel="stylesheet" type="text/css" href="/static/css/verify.css">
@@ -43,15 +34,15 @@
                     <div class="modal-header">
                         <div class="signin-form">
                             <h3>Sign In</h3>
-                                <form action="#" method="post">
+                                <form action="/sign_in/" method="post">
                                     <input type="email" name="email" placeholder="E-mail" required="">
                                     <input type="password" name="password" placeholder="Password" required="">
                                     <div id="myverify"></div>
                                     <div>
-                                        <input type="submit" value="Sign In" onclick="veri()">
+                                        <input type="submit" value="Sign In" id="verifykey" required="" onclick="veri()">
                                     </div>
                                 </form>
-                            <p><a href="/sign_up/ "> Don't have an account?</a></p>
+                            <p><a href="/sign_up/"> Don't have an account?</a></p>
                         </div>
                     </div>
                 </div>
@@ -65,10 +56,11 @@
     <script type="text/javascript" src="/static/js/verify.js" ></script>
     <script type="text/javascript">
         function veri(){
-            console.log('123121111111');
             if(flag == false)
-                alert('false');
-                return;
+                document.getElementById("verifykey").setCustomValidity("请先进行验证");
+            else
+                document.getElementById("verifykey").setCustomValidity("");
+
         }
     </script >
     <script>
