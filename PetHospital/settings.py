@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'pet_hospital',  # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '1234',
         'HOST': '127.0.0.1',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '3306',  # Set to empty string for default.
     }
@@ -130,5 +130,8 @@ STATICFILES_DIRS = (
     ('fonts', os.path.join(STATIC_ROOT, 'fonts').replace('\\','/')),
     ('js', os.path.join(STATIC_ROOT, 'js').replace('\\','/')),
 )
+# upload folder
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media/').replace('\\','/')
 
 
