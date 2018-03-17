@@ -1,5 +1,9 @@
 from django.shortcuts import render
 
 
-def index(request):
+def test_index(request):
+    return render(request, 'backend/test/tables.html')
+
+
+def testpapaer_index(request):
     return render(request, 'backend/test/tables.html')

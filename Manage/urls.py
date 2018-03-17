@@ -7,5 +7,6 @@ urlpatterns = [
     path('', dashboard.index, name='index'),
     path('user/', user.index, name='user_show'),
     path('disease/', disease.index, name='disease_show'),
-    path('test/', test.index, name='test_show'),
+    path('test/test', test.test_index, name='test_show'),
+    path('test/testpaper', test.testpapaer_index, name='testpaper_show')
 ]
