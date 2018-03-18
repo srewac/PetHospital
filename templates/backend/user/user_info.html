@@ -4,15 +4,64 @@
         function delete_confirm(user_id) {
             var r = confirm("确认删除？");
             if (r) {
-                $.ajax({
-                    url: 'delete/' + user_id, success: function (result) {
-                        $('#user'+result).hide();
-                    }, error: function (result) {
-                            alert("delete error")
-                    }
-                });
+                window.location.href = 'delete/' + user_id;
+                {#                $.ajax({#}
+                {#                    url: 'delete/' + user_id, success: function (result) {#}
+                {#                        $('#user'+result).remove();#}
+                {#                    }, error: function (result) {#}
+                {#                            alert("delete error")#}
+                {#                    }#}
+                {#                });#}
             }
         }
+
+        function editInfo(id) {
+            //获取表格中的一行数据
+            var id = id
+            var email = document.getElementById("user" + id).cells[0].innerText;
+            var name = document.getElementById("user" + id).cells[1].innerText;
+            var authority = document.getElementById("user" + id).cells[2].innerText;
+            var password = document.getElementById("user" + id).cells[3].innerText;
+            //向模态框中传值
+            $('#id').val(id);
+            $('#email').val(email);
+            $('#name').val(name);
+            $('#password').val(password);
+            if (authority == 0) {
+                document.getElementById('administrator').checked = true;
+            } else {
+                document.getElementById('intern').checked = true;
+            }
+            $('#update').modal('show');
+        }
+
+        function update() {
+            //获取模态框数据
+            var id = $('#id').val();
+            var email = $('#email').val();
+            var name = $('#name').val();
+            var password = $('#password').val();
+            var authority = $('input:radio[name="authority"]:checked').val();
+            $.ajax({
+                type: "post",
+                url: "update/" + id,
+                data: {'email': email, 'name': name, 'password': password, 'authority': authority},
+                dataType: 'html',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                success: function (result) {
+                    result = JSON.parse(result);
+                    $('#update').modal('hide');
+                    document.getElementById("user" + id).cells[0].innerText = result.email;
+                    document.getElementById("user" + id).cells[1].innerText = result.name;
+                    document.getElementById("user" + id).cells[2].innerText = result.authority;
+                    document.getElementById("user" + id).cells[3].innerText = result.password;
+                },
+                error: function (result) {
+                    alert(result)
+                }
+            });
+        }
+
     </script>
     <div id="page-wrapper">
         <div class="row">
@@ -30,7 +79,7 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <table width="100%" class="table table-bordered table-hover"
+                        <table width="100%" class="table table-striped table-bordered table-hover"
                                id="dataTables-example">
                             <thead>
                             <tr>
@@ -49,7 +98,9 @@
                                     <td>{{ user.authority }}</td>
                                     <td>{{ user.password }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-warning">修改</button>
+                                        <button type="button" class="btn btn-warning" onclick="editInfo({{ user.id }})">
+                                            修改
+                                        </button>
                                         <button type="button" class="btn btn-danger"
                                                 onclick="delete_confirm({{ user.id }})">删除
                                         </button>
@@ -68,5 +119,35 @@
         </div>
         <!-- /.row -->
     </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                </div>
+                <form></form>
+                <div class="modal-body">
+                    <input type="text" name="id" id="id" hidden="hidden"/>
+                    邮箱：<input type="text" name="email" id="email"/>
+                    姓名：<input type="text" name="name" id="name"/>
+                    密码：<input type="text" name="password" id="password"/>
+                    权限：<input type="radio" name="authority" class="authority" id="intern" value="0"/>实习生
+                    <input type="radio" name="authority" class="authority" id="administrator" value="1"/>管理员
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="update()">提交更改</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+
 {% endblock %}
 
