@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from User.models import User
 from django.urls import reverse
+from django.http import JsonResponse
 
 
 def index(request):
@@ -11,5 +12,4 @@ def index(request):
 def user_delete(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     user.delete()
-    return redirect(reverse('Manage:user_show'))
-
+    return JsonResponse([user_id], safe=False)

@@ -4,7 +4,13 @@
         function delete_confirm(user_id) {
             var r = confirm("确认删除？");
             if (r) {
-                window.location.href = 'delete/'+user_id
+                $.ajax({
+                    url: 'delete/' + user_id, success: function (result) {
+                        $('#user'+result).hide();
+                    }, error: function (result) {
+                            alert("delete error")
+                    }
+                });
             }
         }
     </script>
@@ -24,7 +30,7 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <table width="100%" class="table table-striped table-bordered table-hover"
+                        <table width="100%" class="table table-bordered table-hover"
                                id="dataTables-example">
                             <thead>
                             <tr>
@@ -37,7 +43,7 @@
                             </thead>
                             <tbody>
                             {% for user in users %}
-                                <tr>
+                                <tr id='user{{ user.id }}'>
                                     <td>{{ user.email }}</td>
                                     <td>{{ user.name }}</td>
                                     <td>{{ user.authority }}</td>
