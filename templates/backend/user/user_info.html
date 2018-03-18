@@ -5,19 +5,11 @@
             var r = confirm("确认删除？");
             if (r) {
                 window.location.href = 'delete/' + user_id;
-                {#                $.ajax({#}
-                {#                    url: 'delete/' + user_id, success: function (result) {#}
-                {#                        $('#user'+result).remove();#}
-                {#                    }, error: function (result) {#}
-                {#                            alert("delete error")#}
-                {#                    }#}
-                {#                });#}
             }
         }
 
         function editInfo(id) {
             //获取表格中的一行数据
-            var id = id
             var email = document.getElementById("user" + id).cells[0].innerText;
             var name = document.getElementById("user" + id).cells[1].innerText;
             var authority = document.getElementById("user" + id).cells[2].innerText;
