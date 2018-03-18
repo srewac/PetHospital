@@ -26,7 +26,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
     <link href="/static/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css'/>
     <!-- easy-responsive-tabs -->
-
     <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="all">
     <link href="/static/css/font-awesome.css" rel="stylesheet">
     <!-- font-awesome icons -->
@@ -60,9 +59,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <a class="sign" href="#">{{ request.session.username }}</a>
                             <a class="sign" href="{% url 'sign_out' %}">注销</a>
                         {% else %}
-                            <a class="sign" href="#" data-toggle="modal" data-target="#myModal2">
+                            <a class="sign" href="{% url 'sign_in' %}" >
                                 <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
-                            <a class="sign" href="#" data-toggle="modal" data-target="#myModal3">
+                            <a class="sign" href="{% url 'sign_up' %}" >
                                 <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
                         {% endif %}
                     </li>
@@ -135,8 +134,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             {% csrf_token %}
                             <input type="email" name="email" placeholder="E-mail" required="">
                             <input type="password" name="password" placeholder="Password" required="">
+                            <div id="mpanel3" style="margin-top: 20px"></div>
+
                             <div class="tp">
-                                <input type="submit" value="Sign In">
+                                <input type="submit" id="submit-btn" value="Sign In" >
                             </div>
                         </form>
                     </div>
@@ -617,6 +618,30 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/static/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/js/verify.js" ></script>
+<script>
+        var flag=false;
+        $('#mpanel3').codeVerify({
+        		type : 2,
+        		figure : 100,	//位数，仅在type=2时生效
+        		arith : 0,	//算法，支持加减乘，不填为随机，仅在type=2时生效
+		    	width : '200px',
+		    	height : '50px',
+		    	fontSize : '30px',
+		    	btnId : 'submit-btn',
+		    	ready : function() {
+		    	},
+		    	success : function() {
+		    		{#alert('验证匹配！');#}
+		    	},
+		    	error : function() {
+
+        		    {#document.getElementById("password2").setCustomValidity("Passwords Don't Match");#}
+		    		alert('验证码不匹配！');
+		    	}
+		    });
+
+</script>
 </body>
 
 </html>

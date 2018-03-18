@@ -1,10 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign Up Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords"
+          content="Validation Signup Form Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Muli:300,400" rel="stylesheet">
+    <!-- /fonts -->
+    <!-- css -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type='text/css' media="all"/>
+    <link href="/static/css/sign_style.css" rel="stylesheet" type='text/css' media="all"/>
+    <link href="/static/css/verify.css" rel="stylesheet" type='text/css' media="all"/>
+    <!-- /css -->
 </head>
 <body>
+<h1 class="w3ls">Sign Up Form</h1>
+<div class="content-agileits">
+
+    <form action="{% url 'sign_up' %}" method="post" data-toggle="validator" role="form">
+        {% csrf_token %}
+        <div>
+            <label for="inputEmail" class="error-label">{{ register_err }}</label>
+            <a class="glyphicon glyphicon-refresh sign-refresh" href="{% url 'sign_up' %}"></a>
+        </div>
+        <div class="form-group 小贝壳网站模板 w3 w3l">
+            <label for="firstname" class="control-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username"
+                   data-error="Enter Your First Name" required>
+        </div>
+        <div class="form-group w3l agileinfo wthree w3-agileits">
+            <label for="inputEmail" class="control-label">Email</label>
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email"
+                   data-error="This email address is invalid" required>
+        </div>
+        <div class="form-group agile agileits-小贝壳网站模板 w3-agile">
+            <label for="inputPassword" class="control-label">Password</label>
+            <div class="form-group agileits-小贝壳网站模板">
+                <input type="password" data-minlength="4" class="form-control" id="inputPassword" name="inputPassword"
+                       placeholder="Password" required>
+                <div class="help-block">Minimum of 4 characters</div>
+            </div>
+        </div>
+        <div class="form-group agile agileits-小贝壳网站模板 w3-agile">
+            <label for="inputPassword" class="control-label">Confirm Password</label>
+            <div class="form-group w3-agile">
+                <input type="password" class="form-control" id="inputPasswordConfirm" name="inputPasswordConfirm"
+                       data-match="#inputPassword" data-match-error="Whoops, these don't match"
+                       placeholder="Confirm Password" required>
+            </div>
+        </div>
+
+        <!--div class="form-group w3l agileinfo wthree w3-agileits">
+            <label for="Code" class="control-label">Code</label>
+            <div id="mpanel3"></div>
+        </div-->
+
+        <div class="form-group">
+            <button type="submit" style="margin-top: 30px" class="btn btn-lg" id="submit-btn" onclick="">Sign Up
+            </button>
+        </div>
+    </form>
+</div>
+<p class="copyright-w3ls">Already have an account? Click here to <a href="{% url 'sign_in' %}">Sign In</a></p>
+<!-- js files -->
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<!--script src="js/validator.min.js"></script>
+<!-- /js files -->
+
+<!-- password-script -->
+<script type="text/javascript">
+    window.onload = function () {
+        {#document.getElementById("inputPassword").onchange = validatePassword;#}
+        document.getElementById("inputPasswordConfirm").onchange = validatePassword;
+        {#document.getElementById("varify-input-code").onchange = $('#mpanel3').codeVerify#}
+    }
+
+    var P_Input1 = document.getElementById("inputPassword");
+    var P_Input2 = document.getElementById("inputPasswordConfirm");
+
+    if ('oninput' in P_Input1) {
+        P_Input1.addEventListener("input", validatePassword, false);
+    } else {
+        P_Input1.onpropertychange = validatePassword;
+    }
+
+    if ('oninput' in P_Input2) {
+        P_Input2.addEventListener("input", validatePassword, false);
+    } else {
+        P_Input2.onpropertychange = validatePassword;
+    }
+
+
+    function validatePassword() {
+
+        var pass1 = P_Input1.value;
+        var pass2 = P_Input2.value;
+        if (pass1 != pass2)
+            document.getElementById("inputPasswordConfirm").setCustomValidity("Passwords Don't Match")
+        else
+            document.getElementById("inputPasswordConfirm").setCustomValidity("")
+        //empty string means no validation error
+    }
+
+    {#function veri() {#}
+    {#    if (flag == false)#}
+    {#        document.getElementById("varify-input-code").setCustomValidity("Wrong!");#}
+    {#    else#}
+    {#        alert("验证成功")#}
+
+</script>
+<!-- //password-script -->
+
+<script type="text/javascript" src="/static/js/verify.js"></script>
+<script>
+    var flag = false;
+    $('#mpanel3').codeVerify({
+        type: 2,
+        figure: 100,	//位数，仅在type=2时生效
+        arith: 0,	//算法，支持加减乘，不填为随机，仅在type=2时生效
+        width: '200px',
+        height: '50px',
+        fontSize: '30px',
+        btnId: 'submit-btn',
+        ready: function () {
+        },
+        success: function () {
+
+        },
+        error: function () {
+            {#document.getElementById("varify-input-code").setCustomValidity("Wrong!");#}
+        }
+    });
+</script>
 
 </body>
 </html>

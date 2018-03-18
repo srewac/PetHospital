@@ -1,0 +1,352 @@
+/*--A Design by 小贝壳网站模板 
+Author: W3layout
+Author URL: http://www.smallseashell.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+--*/
+
+/*--- reset code ---*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:100%;
+	font:inherit;
+	vertical-align:baseline;
+}
+article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+ol,ul {
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}
+blockquote,q {
+	quotes:none;
+}
+blockquote:before,blockquote:after,q:before,q:after {
+	content:'';
+	content:none;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+/* start editing from here */
+a {
+	text-decoration:none;
+}
+.txt-rt {
+	text-align:right;
+}/* text align right */
+.txt-lt {
+	text-align:left;
+}/* text align left */
+.txt-center {
+	text-align:center;
+/*-- 小贝壳网站模板 --*/	
+}/* text align center */
+.float-rt {
+	float:right;
+}/* float right */
+.float-lt {
+	float:left;
+}/* float left */
+.clear {
+	clear:both;
+}/* clear float */
+.pos-relative {
+	position:relative;
+}/* Position Relative */
+.pos-absolute {
+	position:absolute;
+}/* Position Absolute */
+.vertical-base {	
+	vertical-align:baseline;
+}/* vertical align baseline */
+.vertical-top {	
+	vertical-align:top;
+}/* vertical align top */
+nav.vertical ul li {	
+	display:block;
+}/* vertical menu */
+nav.horizontal ul li {	
+	display: inline-block;
+}/* horizontal menu */
+img {
+	max-width:100%;
+}
+
+/*--- end reset code ---*/
+body {
+	background:url(../images/content.jpg) no-repeat;
+	background-position:center;
+	background-attachment:fixed;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+	-ms-background-size:100% 100%;
+	font-family: 'Muli', sans-serif;
+}
+h1.w3ls {
+    text-align: center;
+    font-size: 45px;
+    font-weight: normal;
+    padding: 40px 0;
+	color:#fff;
+}
+label.control-label {
+    color: #fff;
+    padding-bottom: 10px;
+}
+label.error-label {
+    color:red;
+    padding-bottom: 10px;
+}
+a.sign-refresh{
+	color:grey;
+	float:right;
+	text-decoration:none;
+}
+.content-agileits {
+    width: 35%;
+    margin: 0 auto;
+    background: rgba(0,0,0,0.5);
+    padding: 30px 40px;
+    border: 5px solid rgba(95, 78, 78, 0.3);
+}
+input#username,input#inputEmail,input#Phone,input#inputPassword,input#inputPasswordConfirm,input#varify-input-code {
+	border-radius:0;
+	-webkit-border-radius:0;
+	-moz-border-radius:0;
+	-o-border-radius:0;
+	-ms-border-radius:0;
+}
+input#username,input#inputEmail,input#Phone,input#varify-input-code {
+	width: 100%;
+    height: 45px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #fff;
+    background-color: rgba(53, 33, 32, 0.42);
+    border: 1px solid rgb(177, 177, 177);
+}
+input#inputPassword,input#inputPasswordConfirm {
+	width: 100%;
+    height: 45px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #fff;
+    background-color: rgba(53, 33, 32, 0.42);
+    border: 1px solid rgb(177, 177, 177);
+}
+.help-block.with-errors {
+	color: #dc423f;
+}
+.content-agileits button.btn.btn-lg {
+    width: 100%;
+    height: 45px;
+    margin: 0 auto;
+    text-align: center;
+    float: none;
+	color:#fff;
+	font-size:17px;
+	font-weight:normal;
+    display: block;
+	border-radius:0;
+	-webkit-border-radius:0;
+	-moz-border-radius:0;
+	-o-border-radius:0;
+	-ms-border-radius:0;
+	background-color:#ff6d3a;
+	transition:all 0.5s ease-in-out;
+	-webkit-transition:all 0.5s ease-in-out;
+	-moz-transition:all 0.5s ease-in-out;
+	-o-transition:all 0.5s ease-in-out;
+	-ms-transition:all 0.5s ease-in-out;
+}
+.content-agileits button.btn.btn-lg:hover {
+	background-color:#ff4200;
+}
+p.copyright-w3ls {
+    text-align: center;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 40px 0;
+	color:#fff;
+}
+p.copyright-w3ls a {
+	color:#ff6d3a;
+}
+p.copyright-w3ls a:hover {
+	color:#ff4200;
+}
+
+/*-- responsive design --*/
+@media (max-width:1366px) {
+	.content-agileits {
+    width: 40%;
+}
+p.copyright-w3ls {
+	font-size:16px;
+}
+}
+
+@media (max-width:1280px) {
+h1.w3ls {
+	font-size:40px;
+	padding:30px 0;
+}
+}
+
+@media (max-width: 1080px) {
+.content-agileits {
+    width: 50%;
+}
+label.control-label {
+	font-size:14px;
+}
+label.error-label {
+	font-size:14px;
+}
+input#firstname, input#lastname, input#inputEmail, input#Phone {
+	font-size: 15px;
+}
+.help-block.with-errors {
+	font-size:14px;
+}
+input#inputPassword, input#inputPasswordConfirm {
+	font-size:15px;
+}
+.help-block {
+	font-size:14px;
+} 
+.content-agileits button.btn.btn-lg {
+	font-size:16px;
+}
+}
+
+@media (max-width: 900px) {
+.content-agileits {
+    width: 55%;
+}
+}
+
+@media (max-width: 800px) {
+h1.w3ls {
+    font-size: 40px;
+    padding: 25px 0;
+}
+.content-agileits {
+    width: 65%;
+}
+p.copyright-w3ls {
+    font-size: 14px;
+}
+input#firstname, input#lastname, input#inputEmail, input#Phone {
+	height:40px;
+	font-size:14px;
+}
+input#inputPassword, input#inputPasswordConfirm {
+	height:40px;
+	font-size:14px;
+}
+}
+
+@media (max-width: 667px) {
+h1.w3ls {
+    font-size: 35px;
+    padding: 25px 0;
+}
+}
+
+@media (max-width: 640px) {
+.content-agileits button.btn.btn-lg {
+	height:40px;
+}
+}
+
+@media (max-width: 568px) {
+h1.w3ls {
+    font-size: 30px;
+    padding: 25px 0;
+}
+}
+
+@media (max-width: 480px) {
+.content-agileits {
+    width: 75%;
+	padding: 20px 30px;
+}
+p.copyright-w3ls {
+    font-size: 14px;
+    line-height: 30px;
+    padding: 20px 10px;
+}
+}
+
+@media (max-width: 414px) {
+h1.w3ls {
+    font-size: 28px;
+    padding: 20px 0;
+}
+.content-agileits {
+    width: 80%;
+    padding: 20px 30px;
+}
+}
+
+@media (max-width: 384px) {
+.content-agileits {
+    width: 80%;
+    padding: 20px 25px;
+}
+}
+
+@media (max-width: 375px) {
+.content-agileits {
+    width: 85%;
+    padding: 20px 25px;
+}
+}
+
+@media (max-width: 320px) {
+h1.w3ls {
+    font-size: 24px;
+    padding: 20px 0;
+}
+.content-agileits {
+    width: 90%;
+    padding: 20px 20px;
+}
+label.control-label {
+    font-size: 13px;
+}
+label.error-label {
+    font-size: 13px;
+}
+.help-block.with-errors {
+    font-size: 12px;
+}
+input#firstname, input#lastname, input#inputEmail, input#Phone {
+	font-size:13px;
+}
+input#inputPassword, input#inputPasswordConfirm {
+	font-size:13px;
+}
+.help-block {
+    font-size: 12px;
+}
+.content-agileits button.btn.btn-lg {
+    font-size: 14px;
+}
+p.copyright-w3ls {
+    font-size: 13px;
+    line-height: 30px;
+    padding: 20px 10px;
+}
+}
+/*-- /responsive design --*/

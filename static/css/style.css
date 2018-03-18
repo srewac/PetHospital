@@ -1482,6 +1482,30 @@ h3.agileits-title span {
 	display: inline-block;
 }
 
+.contact-agileinfo input[type="email"] {
+	width: 100%;
+	color: #999;
+	background: none;
+	outline: none;
+	font-size: 1em;
+	padding: .7em .8em;
+	border: solid 1px #ccc;
+	-webkit-appearance: none;
+	display: inline-block;
+}
+
+.contact-agileinfo input[type="password"] {
+	width: 100%;
+	color: #999;
+	background: none;
+	outline: none;
+	font-size: 1em;
+	padding: .7em .8em;
+	border: solid 1px #ccc;
+	-webkit-appearance: none;
+	display: inline-block;
+}
+
 input.email {
 	margin: 1em 0;
 }
