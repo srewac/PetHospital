@@ -32,10 +32,9 @@ def user_update(request, user_id):
 
 
 def user_create(request):
-    user = User(email=request.POST['email'],
-                name=request.POST['name'],
-                password=request.POST['password'],
-                authority=request.POST['authority'])
+    user = User(email=request.POST['_email'],
+                name=request.POST['_name'],
+                password=request.POST['_password'],
+                authority=request.POST['_authority'])
     user.save()
-    print(user)
     return redirect(reverse('Manage:user_show'))

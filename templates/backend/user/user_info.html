@@ -63,15 +63,6 @@
         }
 
         function create() {
-{#            var email = $('#_email').val();#}
-{#            var name = $('#_name').val();#}
-{#            var password = $('#_password').val();#}
-{#            var authority = $('input:radio[name="_authority"]:checked').val();#}
-{#            if (email != '' && name != '' && password != '' && authority != '') {#}
-{#                $('#create').modal('hide');#}
-{#            } else {#}
-{##}
-{#            }#}
             $('#create').modal('hide');
             $("#user_create").submit();
         }
@@ -181,11 +172,10 @@
                 </div>
                 <form id='user_create' method="post" action="{% url 'Manage:user_create' %}">
                     <div class="modal-body">
-                        邮箱：<input type="text" name="email" id="_email"/>
-                        姓名：<input type="text" name="name" id="_name"/>
-                        密码：<input type="text" name="password" id="_password"/>
-                        权限：<input type="radio" name="authority" class="authority" id="_intern" value="0"
-                                  aria-selected="true"/>实习生
+                        邮箱：<input type="text" name="_email" id="_email"/>
+                        姓名：<input type="text" name="_name" id="_name"/>
+                        密码：<input type="text" name="_password" id="_password"/>
+                        权限：<input type="radio" name="_authority" class="authority" id="_intern" value="0"/>实习生
                         <input type="radio" name="_authority" class="authority" id="_administrator" value="1"/>管理员
                     </div>
                     <div class="modal-footer">
