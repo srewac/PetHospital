@@ -29,3 +29,13 @@ def user_update(request, user_id):
                  'password': user.password,
                  'authority': user.authority}
     return JsonResponse(user_dict)
+
+
+def user_create(request):
+    user = User(email=request.POST['email'],
+                name=request.POST['name'],
+                password=request.POST['password'],
+                authority=request.POST['authority'])
+    user.save()
+    print(user)
+    return redirect(reverse('Manage:user_show'))

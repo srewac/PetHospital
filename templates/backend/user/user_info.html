@@ -12,14 +12,14 @@
             //获取表格中的一行数据
             var email = document.getElementById("user" + id).cells[0].innerText;
             var name = document.getElementById("user" + id).cells[1].innerText;
-            var authority = document.getElementById("user" + id).cells[2].innerText;
-            var password = document.getElementById("user" + id).cells[3].innerText;
+            var password = document.getElementById("user" + id).cells[2].innerText;
+            var authority = document.getElementById("user" + id).cells[3].innerText;
             //向模态框中传值
             $('#id').val(id);
             $('#email').val(email);
             $('#name').val(name);
             $('#password').val(password);
-            if (authority == 1) {
+            if (authority == '管理员') {
                 document.getElementById('administrator').checked = true;
             } else {
                 document.getElementById('intern').checked = true;
@@ -45,8 +45,12 @@
                     $('#update').modal('hide');
                     document.getElementById("user" + id).cells[0].innerText = result.email;
                     document.getElementById("user" + id).cells[1].innerText = result.name;
-                    document.getElementById("user" + id).cells[2].innerText = result.authority;
-                    document.getElementById("user" + id).cells[3].innerText = result.password;
+                    document.getElementById("user" + id).cells[2].innerText = result.password;
+                    if (result.authority == 0)
+                        document.getElementById("user" + id).cells[3].innerText = '实习生';
+                    else
+                        document.getElementById("user" + id).cells[3].innerText = '管理员';
+
                 },
                 error: function (result) {
                     alert(result)
@@ -54,11 +58,33 @@
             });
         }
 
+        function createUser() {
+            $('#create').modal('show');
+        }
+
+        function create() {
+{#            var email = $('#_email').val();#}
+{#            var name = $('#_name').val();#}
+{#            var password = $('#_password').val();#}
+{#            var authority = $('input:radio[name="_authority"]:checked').val();#}
+{#            if (email != '' && name != '' && password != '' && authority != '') {#}
+{#                $('#create').modal('hide');#}
+{#            } else {#}
+{##}
+{#            }#}
+            $('#create').modal('hide');
+            $("#user_create").submit();
+        }
     </script>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">用户管理</h1>
+                <h1 class="page-header">用户管理
+                    <button type="button" class="btn btn-success"
+                            style="float: right;margin: 10px" onclick="createUser()">创建用户
+                    </button>
+                </h1>
+
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -77,8 +103,8 @@
                             <tr>
                                 <th>Email</th>
                                 <th>Name</th>
-                                <th>Authority</th>
                                 <th>Password</th>
+                                <th>Authority</th>
                                 <th>Operation</th>
                             </tr>
                             </thead>
@@ -87,8 +113,13 @@
                                 <tr id='user{{ user.id }}'>
                                     <td>{{ user.email }}</td>
                                     <td>{{ user.name }}</td>
-                                    <td>{{ user.authority }}</td>
                                     <td>{{ user.password }}</td>
+                                    <td>{% if user.authority == 0 %}
+                                        实习生
+                                    {% else %}
+                                        管理员
+                                    {% endif %}
+                                    </td>
                                     <td>
                                         <button type="button" class="btn btn-warning" onclick="editInfo({{ user.id }})">
                                             修改
@@ -112,7 +143,7 @@
         <!-- /.row -->
     </div>
 
-    <!-- 模态框（Modal） -->
+    <!-- 模态框（Modal）edit -->
     <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -140,6 +171,35 @@
     </div>
     <!-- 模态框（Modal）end -->
 
+    <!-- 模态框（Modal）create -->
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">创建用户</h4>
+                </div>
+                <form id='user_create' method="post" action="{% url 'Manage:user_create' %}">
+                    <div class="modal-body">
+                        邮箱：<input type="text" name="email" id="_email"/>
+                        姓名：<input type="text" name="name" id="_name"/>
+                        密码：<input type="text" name="password" id="_password"/>
+                        权限：<input type="radio" name="authority" class="authority" id="_intern" value="0"
+                                  aria-selected="true"/>实习生
+                        <input type="radio" name="_authority" class="authority" id="_administrator" value="1"/>管理员
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="create()">创建</button>
+                    </div>
+                </form>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
 
 {% endblock %}
 
