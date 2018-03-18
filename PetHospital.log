@@ -1,0 +1,56 @@
+*** Starting uWSGI 2.0.17 (64bit) on [Thu Mar 15 17:12:22 2018] ***
+compiled with version: 5.4.0 20160609 on 15 March 2018 09:04:47
+os: Linux-4.4.0-93-generic #116-Ubuntu SMP Fri Aug 11 21:17:51 UTC 2017
+nodename: iZ2zegiyyobukfr3r5dghaZ
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /etc/uwsgi/sites
+detected binary path: /home/vcmt/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to ~/Project/PetHospital
+chdir(): No such file or directory [core/uwsgi.c line 2629]
+*** Starting uWSGI 2.0.17 (64bit) on [Thu Mar 15 17:16:35 2018] ***
+compiled with version: 5.4.0 20160609 on 15 March 2018 09:04:47
+os: Linux-4.4.0-93-generic #116-Ubuntu SMP Fri Aug 11 21:17:51 UTC 2017
+nodename: iZ2zegiyyobukfr3r5dghaZ
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /root/Project/PetHospital
+detected binary path: /home/vcmt/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to ~/Project/PetHospital
+chdir(): No such file or directory [core/uwsgi.c line 2629]
+*** Starting uWSGI 2.0.17 (64bit) on [Thu Mar 15 17:20:15 2018] ***
+compiled with version: 5.4.0 20160609 on 15 March 2018 09:04:47
+os: Linux-4.4.0-93-generic #116-Ubuntu SMP Fri Aug 11 21:17:51 UTC 2017
+nodename: iZ2zegiyyobukfr3r5dghaZ
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /root/Project/PetHospital
+detected binary path: /home/vcmt/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to ~/Project/PetHospital
+chdir(): No such file or directory [core/uwsgi.c line 2629]
+*** Starting uWSGI 2.0.17 (64bit) on [Thu Mar 15 18:04:18 2018] ***
+compiled with version: 5.4.0 20160609 on 15 March 2018 09:04:47
+os: Linux-4.4.0-93-generic #116-Ubuntu SMP Fri Aug 11 21:17:51 UTC 2017
+nodename: iZ2zegiyyobukfr3r5dghaZ
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /root/Project/PetHospital/PetHospital
+detected binary path: /home/vcmt/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to ~/Project/PetHospital
+chdir(): No such file or directory [core/uwsgi.c line 2629]
