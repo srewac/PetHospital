@@ -23,7 +23,7 @@
     <!-- /css -->
 </head>
 <body>
-<h1 class="w3ls">Sign Up Form</h1>
+<h1 class="w3ls">注册</h1>
 <div class="content-agileits">
 
     <form action="{% url 'sign_up' %}" method="post" data-toggle="validator" role="form">
@@ -33,7 +33,7 @@
             <a class="glyphicon glyphicon-refresh sign-refresh" href="{% url 'sign_up' %}"></a>
         </div>
         <div class="form-group 小贝壳网站模板 w3 w3l">
-            <label for="firstname" class="control-label">Username</label>
+            <label for="firstname" class="control-label">用户名</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Username"
                    data-error="Enter Your First Name" required>
         </div>
@@ -43,7 +43,7 @@
                    data-error="This email address is invalid" required>
         </div>
         <div class="form-group agile agileits-小贝壳网站模板 w3-agile">
-            <label for="inputPassword" class="control-label">Password</label>
+            <label for="inputPassword" class="control-label">密码</label>
             <div class="form-group agileits-小贝壳网站模板">
                 <input type="password" data-minlength="4" class="form-control" id="inputPassword" name="inputPassword"
                        placeholder="Password" required>
@@ -51,26 +51,29 @@
             </div>
         </div>
         <div class="form-group agile agileits-小贝壳网站模板 w3-agile">
-            <label for="inputPassword" class="control-label">Confirm Password</label>
+            <label for="inputPassword" class="control-label">确认密码</label>
             <div class="form-group w3-agile">
                 <input type="password" class="form-control" id="inputPasswordConfirm" name="inputPasswordConfirm"
                        data-match="#inputPassword" data-match-error="Whoops, these don't match"
                        placeholder="Confirm Password" required>
             </div>
         </div>
-
-        <!--div class="form-group w3l agileinfo wthree w3-agileits">
-            <label for="Code" class="control-label">Code</label>
-            <div id="mpanel3"></div>
-        </div-->
+        <div class="form-group w3l agileinfo wthree w3-agileits">
+            <label for="emailVerify" class="control-label">邮箱验证</label>
+            <div>
+                <input type="text" class="form-control" id="emailVerify" name="emailVerify"
+                       data-match-error="Whoops, these don't match">
+                <button type="submit" class="btn btn-st" id="emailVerify-btn" name="emailVerify" >发送邮箱验证码</button>
+            </div>
+        </div>
 
         <div class="form-group">
-            <button type="submit" style="margin-top: 30px" class="btn btn-lg" id="submit-btn" onclick="">Sign Up
+            <button type="submit" style="margin-top: 30px" class="btn btn-lg" id="submit-btn" onclick="" name="signup">注册
             </button>
         </div>
     </form>
 </div>
-<p class="copyright-w3ls">Already have an account? Click here to <a href="{% url 'sign_in' %}">Sign In</a></p>
+<p class="copyright-w3ls">已有账户？ 点击<a href="{% url 'sign_in' %}">登录</a></p>
 <!-- js files -->
 <script src="/static/js/jquery-1.10.2.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
@@ -112,36 +115,9 @@
         //empty string means no validation error
     }
 
-    {#function veri() {#}
-    {#    if (flag == false)#}
-    {#        document.getElementById("varify-input-code").setCustomValidity("Wrong!");#}
-    {#    else#}
-    {#        alert("验证成功")#}
 
 </script>
 <!-- //password-script -->
-
-<script type="text/javascript" src="/static/js/verify.js"></script>
-<script>
-    var flag = false;
-    $('#mpanel3').codeVerify({
-        type: 2,
-        figure: 100,	//位数，仅在type=2时生效
-        arith: 0,	//算法，支持加减乘，不填为随机，仅在type=2时生效
-        width: '200px',
-        height: '50px',
-        fontSize: '30px',
-        btnId: 'submit-btn',
-        ready: function () {
-        },
-        success: function () {
-
-        },
-        error: function () {
-            {#document.getElementById("varify-input-code").setCustomValidity("Wrong!");#}
-        }
-    });
-</script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-/*--A Design by 小贝壳网站模板 
+/*--A Design by 小贝壳网站模板
 Author: W3layout
 Author URL: http://www.smallseashell.com
 License: Creative Commons Attribution 3.0 Unported
@@ -118,7 +118,7 @@ a.sign-refresh{
     padding: 30px 40px;
     border: 5px solid rgba(95, 78, 78, 0.3);
 }
-input#username,input#inputEmail,input#Phone,input#inputPassword,input#inputPasswordConfirm,input#varify-input-code {
+input#username,input#inputEmail,input#Phone,input#inputPassword,input#inputPasswordConfirm,input#varify-input-code,input#emailVerify {
 	border-radius:0;
 	-webkit-border-radius:0;
 	-moz-border-radius:0;
@@ -133,6 +133,16 @@ input#username,input#inputEmail,input#Phone,input#varify-input-code {
     color: #fff;
     background-color: rgba(53, 33, 32, 0.42);
     border: 1px solid rgb(177, 177, 177);
+}
+input#emailVerify {
+	width: 60%;
+    height: 45px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #fff;
+    background-color: rgba(53, 33, 32, 0.42);
+    border: 1px solid rgb(177, 177, 177);
+	display: inline;
 }
 input#inputPassword,input#inputPasswordConfirm {
 	width: 100%;
@@ -156,6 +166,26 @@ input#inputPassword,input#inputPasswordConfirm {
 	font-size:17px;
 	font-weight:normal;
     display: block;
+	border-radius:0;
+	-webkit-border-radius:0;
+	-moz-border-radius:0;
+	-o-border-radius:0;
+	-ms-border-radius:0;
+	background-color:#ff6d3a;
+	transition:all 0.5s ease-in-out;
+	-webkit-transition:all 0.5s ease-in-out;
+	-moz-transition:all 0.5s ease-in-out;
+	-o-transition:all 0.5s ease-in-out;
+	-ms-transition:all 0.5s ease-in-out;
+}
+.content-agileits button.btn.btn-st {
+    width: 30%;
+    height: 45px;
+    text-align: center;
+    float: right;
+	color:#fff;
+	font-size:15px;
+	font-weight:normal;
 	border-radius:0;
 	-webkit-border-radius:0;
 	-moz-border-radius:0;
