@@ -1,9 +1,15 @@
 from django.urls import path
 
-from . import views
+from .views import dashboard, user, test, disease, basic
 
 app_name = 'Manage'
 urlpatterns = [
-    path('manage/', views.index, name='manage'),
-    path('forms/', views.forms, name='forms'),
+    path('', dashboard.index, name='index'),
+    path('user/', user.index, name='user_show'),
+    path('user/delete/<int:user_id>', user.user_delete, name='user_delete'),
+    path('user/update/<int:user_id>', user.user_update, name='user_update'),
+    path('user/create', user.user_create, name='user_create'),
+    path('disease/', disease.index, name='disease_show'),
+    path('test/test', test.test_index, name='test_show'),
+    path('test/testpaper', test.testpapaer_index, name='testpaper_show')
 ]
