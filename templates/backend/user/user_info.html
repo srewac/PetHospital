@@ -1,19 +1,23 @@
 {% extends 'backend/base_page.html' %}
 {% block main_content %}
     <script>
-        function delete_confirm(user_id) {
+        function delete_confirm(id) {
             var r = confirm("确认删除？");
             if (r) {
-                window.location.href = 'delete/' + user_id;
+                $.ajax({
+                    type:"post",
+                    url:"delete/"+id,
+                    success: function(result){
+                        $('#dataTables-example').DataTable().ajax.reload();
+                    },
+                    error: function(result){
+                        alert('delete error');
+                    }
+                });
             }
         }
 
-        function editInfo(id) {
-            //获取表格中的一行数据
-            var email = document.getElementById("user" + id).cells[0].innerText;
-            var name = document.getElementById("user" + id).cells[1].innerText;
-            var password = document.getElementById("user" + id).cells[2].innerText;
-            var authority = document.getElementById("user" + id).cells[3].innerText;
+        function editInfo(email, name, password, authority, id) {
             //向模态框中传值
             $('#id').val(id);
             $('#email').val(email);
@@ -41,19 +45,11 @@
                 dataType: 'html',
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 success: function (result) {
-                    result = JSON.parse(result);
+                    $('#dataTables-example').DataTable().ajax.reload();
                     $('#update').modal('hide');
-                    document.getElementById("user" + id).cells[0].innerText = result.email;
-                    document.getElementById("user" + id).cells[1].innerText = result.name;
-                    document.getElementById("user" + id).cells[2].innerText = result.password;
-                    if (result.authority == 0)
-                        document.getElementById("user" + id).cells[3].innerText = '实习生';
-                    else
-                        document.getElementById("user" + id).cells[3].innerText = '管理员';
-
                 },
                 error: function (result) {
-                    alert(result)
+                    alert('error');
                 }
             });
         }
@@ -100,27 +96,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for user in users %}
-                                <tr id='user{{ user.id }}'>
-                                    <td>{{ user.email }}</td>
-                                    <td>{{ user.name }}</td>
-                                    <td>{{ user.password }}</td>
-                                    <td>{% if user.authority == 0 %}
-                                        实习生
-                                    {% else %}
-                                        管理员
-                                    {% endif %}
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning" onclick="editInfo({{ user.id }})">
-                                            修改
-                                        </button>
-                                        <button type="button" class="btn btn-danger"
-                                                onclick="delete_confirm({{ user.id }})">删除
-                                        </button>
-                                    </td>
-                                </tr>
-                            {% endfor %}
+                            <tr>
+                                <td>Email</td>
+                                <td>Name</td>
+                                <td>Password</td>
+                                <td>Authority</td>
+                                <td>Operation</td>
+                            </tr>
                             </tbody>
                         </table>
                         <!-- /.table-responsive -->
@@ -193,3 +175,25 @@
 
 {% endblock %}
 
+{% block datatable_script %}
+    <script>
+        $(document).ready(function () {
+            var table = $('#dataTables-example').DataTable({
+                "ajax": "{% url 'Manage:user_dict' %}",
+                "columnDefs": [{
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify'>修改<button type='button' class='btn btn-danger' name='delete'>删除</button>"
+                }]
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                editInfo(data[0], data[1], data[2], data[3], data[4]);
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                delete_confirm(data[4]);
+            });
+        });
+    </script>
+{% endblock %}

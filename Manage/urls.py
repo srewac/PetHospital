@@ -6,6 +6,7 @@ app_name = 'Manage'
 urlpatterns = [
     path('', dashboard.index, name='index'),
     path('user/', user.index, name='user_show'),
+    path('user/user_dict', user.user_dict, name='user_dict'),
     path('user/delete/<int:user_id>', user.user_delete, name='user_delete'),
     path('user/update/<int:user_id>', user.user_update, name='user_update'),
     path('user/create', user.user_create, name='user_create'),
