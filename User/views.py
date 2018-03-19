@@ -63,7 +63,7 @@ def sign_in(request):
 
 def sign_out(request):
     request.session.clear();
-    return HttpResponseRedirect('/User/index/');
+    return HttpResponseRedirect('/User/sign_in/');
 
 
 def test(request):

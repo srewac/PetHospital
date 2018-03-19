@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Sign In Form</title>
+    <title>PetHospital: Sign in</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords"
@@ -23,7 +23,7 @@
     <!-- /css -->
 </head>
 <body>
-<h1 class="w3ls">Sign In Form</h1>
+<h1 class="w3ls">登录</h1>
 <div class="content-agileits">
     <form action="{% url 'sign_in' %}" method="post" data-toggle="validator" role="form">
         {% csrf_token %}
@@ -33,26 +33,26 @@
         </div>
 
         <div class="form-group w3l agileinfo wthree w3-agileits">
-            <label for="inputEmail" class="control-label">Email</label>
+            <label for="inputEmail" class="control-label">邮箱</label>
             <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email"
                    data-error="This email address is invalid" required>
         </div>
         <div class="form-group w3l agileinfo wthree w3-agileits">
-            <label for="inputPassword" class="control-label">Password</label>
+            <label for="inputPassword" class="control-label">密码</label>
             <input type="password" data-minlength="4" class="form-control" id="inputPassword" name="inputPassword"
                    placeholder="Password" required>
             <!--div class="help-block">Minimum of 4 characters</div-->
         </div>
         <div class="form-group w3l agileinfo wthree w3-agileits">
-            <label for="Verify" class="control-label">Verify</label>
+            <label for="Verify" class="control-label">验证</label>
             <div id="mpanel3"></div>
         </div>
         <div class="form-group">
-            <button type="submit"style="margin-top: 20px" class="btn btn-lg" id="sign_in-btn" onclick="veri()">Sign In</button>
+            <button type="submit"style="margin-top: 20px" class="btn btn-lg" id="sign_in-btn" onclick="veri()">登录</button>
         </div>
     </form>
 </div>
-<p class="copyright-w3ls">Don't have an account? Click here to <a href="{% url 'sign_up' %}">Sign Up</a></p>
+<p class="copyright-w3ls">没有账号？ 点此<a href="{% url 'sign_up' %}">注册</a></p>
 <!-- js files -->
 <script src="/static/js/jquery-1.10.2.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>

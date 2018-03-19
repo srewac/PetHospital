@@ -2,7 +2,10 @@ from django.shortcuts import render
 
 # Create your views here.
 def test(request):
-    return render(request, 'Test/test.html')
+    if request.session.get('username', None):
+        return render(request, 'Test/test.html')
+    else:
+        return render(request, 'User/sign_in.html')
 
 def select_paper(request):
     return render(request, 'Test/select_paper.html')
