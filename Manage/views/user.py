@@ -40,9 +40,14 @@ def user_update(request):
 
 
 def user_create(request):
-    user = User(email=request.POST['email'],
-                name=request.POST['name'],
-                password=request.POST['password'],
-                authority=request.POST['authority'])
-    user.save()
-    return redirect(reverse('Manage:user_show'))
+    check_user = User.objects.filter(email=request.POST['email'])
+    print(check_user)
+    if len(check_user) > 0:
+        return JsonResponse(False, safe=False)
+    else:
+        user = User(email=request.POST['email'],
+                    name=request.POST['name'],
+                    password=request.POST['password'],
+                    authority=request.POST['authority'])
+        user.save()
+        return JsonResponse(True, safe=False)
