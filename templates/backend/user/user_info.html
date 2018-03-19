@@ -1,4 +1,7 @@
 {% extends 'backend/base_page.html' %}
+{% block title %}
+    账户管理
+{% endblock %}
 {% block main_content %}
     <script>
         function delete_confirm(id) {
@@ -76,9 +79,9 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">用户管理
+                <h1 class="page-header">账户管理
                     <button type="button" class="btn btn-success"
-                            style="float: right;margin: 10px" onclick="createUser()">创建用户
+                            style="float: right;margin: 10px" onclick="createUser()">新建账户
                     </button>
                 </h1>
 
@@ -90,7 +93,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        所有用户信息
+                        所有账户信息
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -165,11 +168,11 @@
                 </div>
                 <form id='user_create' method="post" action="{% url 'Manage:user_create' %}">
                     <div class="modal-body">
-                        邮箱：<input type="text" name="email" id="email"/>
-                        姓名：<input type="text" name="name" id="name"/>
-                        密码：<input type="text" name="password" id="password"/>
-                        权限：<input type="radio" name="authority" class="authority" id="intern" value="0"/>实习生
-                        <input type="radio" name="authority" class="authority" id="administrator" value="1"/>管理员
+                        邮箱：<input type="text" name="email"/>
+                        姓名：<input type="text" name="name"/>
+                        密码：<input type="text" name="password" />
+                        权限：<input type="radio" name="authority" class="authority" value="0"/>实习生
+                        <input type="radio" name="authority" class="authority" value="1"/>管理员
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
