@@ -9,7 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -295,7 +298,16 @@
 
                     </li>
                     <li>
-                        <a href="{% url 'Manage:disease_show' %}"><i class="fa fa-table fa-fw"></i> 病例管理</a>
+                        <a href="#"><i class="fa fa-table fa-fw"></i> 病例管理<span
+                                class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{% url 'Manage:disease_example_show' %}">所有病例</a>
+                            </li>
+                            <li>
+                                <a href="#">新建病例</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i> 测试管理<span
@@ -376,14 +388,8 @@
 <!-- Custom Theme JavaScript -->
 <script src="/static/dist/js/sb-admin-2.js"></script>
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-<script>
-    $(document).ready(function () {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
-</script>
-
+{% block datatable_script %}
+{% endblock %}
 </body>
 
 </html>
