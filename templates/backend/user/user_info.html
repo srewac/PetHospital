@@ -5,12 +5,12 @@
             var r = confirm("确认删除？");
             if (r) {
                 $.ajax({
-                    type:"post",
-                    url:"delete/"+id,
-                    success: function(result){
+                    type: "post",
+                    url: "delete/" + id,
+                    success: function (result) {
                         $('#dataTables-example').DataTable().ajax.reload();
                     },
-                    error: function(result){
+                    error: function (result) {
                         alert('delete error');
                     }
                 });
@@ -32,24 +32,20 @@
         }
 
         function update() {
+            var form = new FormData(document.getElementById('user_modify'));
             //获取模态框数据
-            var id = $('#id').val();
-            var email = $('#email').val();
-            var name = $('#name').val();
-            var password = $('#password').val();
-            var authority = $('input:radio[name="authority"]:checked').val();
             $.ajax({
                 type: "post",
-                url: "update/" + id,
-                data: {'email': email, 'name': name, 'password': password, 'authority': authority},
-                dataType: 'html',
-                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                url: "{% url 'Manage:user_update' %}",
+                data: form,
+                processData: false,
+                contentType: false,
                 success: function (result) {
                     $('#dataTables-example').DataTable().ajax.reload();
                     $('#update').modal('hide');
                 },
                 error: function (result) {
-                    alert('error');
+                    alert('update error');
                 }
             });
         }
@@ -59,8 +55,22 @@
         }
 
         function create() {
+            var form = new FormData(document.getElementById('user_create'));
+            $.ajax({
+                type: "post",
+                url: "{% url 'Manage:user_create' %}",
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    $('#dataTables-example').DataTable().ajax.reload();
+                    $('#update').modal('hide');
+                },
+                error: function (result) {
+                    alert('update error');
+                }
+            });
             $('#create').modal('hide');
-            $("#user_create").submit();
         }
     </script>
     <div id="page-wrapper">
@@ -124,19 +134,20 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title" id="myModalLabel">修改信息</h4>
                 </div>
-                <form></form>
-                <div class="modal-body">
-                    <input type="text" name="id" id="id" hidden="hidden"/>
-                    邮箱：<input type="text" name="email" id="email"/>
-                    姓名：<input type="text" name="name" id="name"/>
-                    密码：<input type="text" name="password" id="password"/>
-                    权限：<input type="radio" name="authority" class="authority" id="intern" value="0"/>实习生
-                    <input type="radio" name="authority" class="authority" id="administrator" value="1"/>管理员
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" onclick="update()">提交更改</button>
-                </div>
+                <form method="post" id="user_modify">
+                    <div class="modal-body">
+                        <input type="text" name="id" id="id" hidden="hidden"/>
+                        邮箱：<input type="text" name="email" id="email"/>
+                        姓名：<input type="text" name="name" id="name"/>
+                        密码：<input type="text" name="password" id="password"/>
+                        权限：<input type="radio" name="authority" class="authority" id="intern" value="0"/>实习生
+                        <input type="radio" name="authority" class="authority" id="administrator" value="1"/>管理员
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="update()">提交更改</button>
+                    </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -154,11 +165,11 @@
                 </div>
                 <form id='user_create' method="post" action="{% url 'Manage:user_create' %}">
                     <div class="modal-body">
-                        邮箱：<input type="text" name="_email" id="_email"/>
-                        姓名：<input type="text" name="_name" id="_name"/>
-                        密码：<input type="text" name="_password" id="_password"/>
-                        权限：<input type="radio" name="_authority" class="authority" id="_intern" value="0"/>实习生
-                        <input type="radio" name="_authority" class="authority" id="_administrator" value="1"/>管理员
+                        邮箱：<input type="text" name="email" id="email"/>
+                        姓名：<input type="text" name="name" id="name"/>
+                        密码：<input type="text" name="password" id="password"/>
+                        权限：<input type="radio" name="authority" class="authority" id="intern" value="0"/>实习生
+                        <input type="radio" name="authority" class="authority" id="administrator" value="1"/>管理员
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -183,7 +194,7 @@
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,
-                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify'>修改<button type='button' class='btn btn-danger' name='delete'>删除</button>"
+                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify' style='margin-right:5px'>修改<button type='button' class='btn btn-danger' name='delete'>删除</button>"
                 }]
             });
             $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
