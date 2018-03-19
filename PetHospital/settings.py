@@ -139,4 +139,10 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media/').replace('\\','/')
 
+EMAIL_HOST = "smtp.163.com"   # 服务器
+EMAIL_PORT = 25               # 一般情况下都为25
+EMAIL_HOST_USER = "pethospital_verify@163.com"   # 账号
+EMAIL_HOST_PASSWORD = "poi233"  # 密码
+EMAIL_USE_TLS = False             # 一般都为False
+EMAIL_FROM = "pethospital_verify@163.com"        # 邮箱来自
 
