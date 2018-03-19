@@ -53,9 +53,12 @@ def sign_in(request):
             request.session['user_id'] = user.id
             request.session['username'] = user.name
             request.session['email'] = user.email
+            request.session['authority'] = user.authority
             request.session.set_expiry(600)
-            print(user.id)
-            return HttpResponseRedirect('/User/index/')
+            if user.authority==1:
+                return HttpResponseRedirect('/Manage')
+            else:
+                return HttpResponseRedirect('/User/index/')
 
         else:
             return render(request, 'User/sign_in.html',{'login_err': "用户名或密码错误"})
