@@ -26,22 +26,21 @@ def user_delete(request, user_id):
 
 def user_update(request):
     user = get_object_or_404(User, pk=request.POST['id'])
+    check_users = User.objects.filter(email=request.POST['email'])
+    if len(check_users) > 0:
+        for check_user in check_users:
+            if check_user.email != user.email:
+                return JsonResponse(False, safe=False)
     user.email = request.POST['email']
     user.name = request.POST['name']
     user.password = request.POST['password']
     user.authority = request.POST['authority']
     user.save()
-    user_d = {'id': user.id,
-              'email': user.email,
-              'name': user.name,
-              'password': user.password,
-              'authority': user.authority}
-    return JsonResponse(user_d)
+    return JsonResponse(True, safe=False)
 
 
 def user_create(request):
     check_user = User.objects.filter(email=request.POST['email'])
-    print(check_user)
     if len(check_user) > 0:
         return JsonResponse(False, safe=False)
     else:

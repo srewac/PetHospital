@@ -5,7 +5,7 @@
 {% block main_content %}
     <script>
         function delete_confirm(id) {
-            var r = confirm("确认删除？");
+            var r = confirm("确认删除");
             if (r) {
                 $.ajax({
                     type: "post",
@@ -19,7 +19,7 @@
                 });
             }
         }
-
+        //TODO:密码位数，名字格式等判断未做
         function editInfo(email, name, password, authority, id) {
             //向模态框中传值
             $('#id').val(id);
@@ -35,21 +35,66 @@
         }
 
         function update() {
-            var form = new FormData(document.getElementById('user_modify'));
-            $.ajax({
-                type: "post",
-                url: "{% url 'Manage:user_update' %}",
-                data: form,
-                processData: false,
-                contentType: false,
-                success: function (result) {
-                    $('#dataTables-example').DataTable().ajax.reload();
-                    $('#update').modal('hide');
-                },
-                error: function (result) {
-                    alert('update error');
-                }
-            });
+            var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+            if ($("#user_modify div:eq(0) #email").val() == '') {
+                $("#user_modify div:eq(0) p").html('请输入邮箱！');
+                $("#user_modify div:eq(0) p").show();
+            } else if (!myreg.test($("#user_modify div:eq(0) #email").val())) {
+                $("#user_modify div:eq(0) p").html('邮箱格式错误，请重新输入！');
+                $("#user_modify div:eq(0) p").show();
+            } else {
+                $("#user_modify div:eq(0) p").html('');
+                $("#user_modify div:eq(0) p").hide();
+
+            }
+            if ($("#user_modify div:eq(1) #name").val() == '') {
+                $("#user_modify div:eq(1) p").html('请输入姓名！');
+                $("#user_modify div:eq(1) p").show();
+            } else {
+                $("#user_modify div:eq(1) p").html('');
+                $("#user_modify div:eq(1) p").hide();
+
+            }
+            if ($("#user_modify div:eq(2) #password").val() == '') {
+                $("#user_modify div:eq(2) p").html('请输入密码！');
+                $("#user_modify div:eq(2) p").show();
+            } else {
+                $("#user_modify div:eq(2) p").html('请输入密码！');
+                $("#user_modify div:eq(2) p").hide();
+            }
+            if ($("#user_modify div:eq(0) p").is(":hidden") && $("#user_modify div:eq(1) p").is(":hidden") && $("#user_modify div:eq(2) p").is(":hidden")) {
+                var form = new FormData(document.getElementById('user_modify'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:user_update' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == false) {
+                            $("#user_modify div:eq(0) p").html('邮箱已存在，请重新输入！');
+                            $("#user_modify div:eq(0) p").show();
+                        } else {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            $('#update').modal('hide');
+                        }
+                    },
+                    error: function (result) {
+                        alert('update error');
+                    }
+                });
+            }
+        }
+
+        function quit_modify() {
+            $("#user_modify div:eq(0) input").val("");
+            $("#user_modify div:eq(0) p").html('');
+            $("#user_modify div:eq(1) input").val('');
+            $("#user_modify div:eq(1) p").html('');
+            $("#user_modify div:eq(2) input").val('');
+            $("#user_modify div:eq(2) p").html('');
+            $("#user_modify div:eq(3) #intern").attr('checked', 'checked');
+            $('#update').modal('hide');
         }
 
         function createUser() {
@@ -58,7 +103,10 @@
 
         function create() {
             var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
-            if (!myreg.test($("#user_create div:eq(0) #email").val())) {
+            if ($("#user_create div:eq(0) #email").val() == '') {
+                $("#user_create div:eq(0) p").html('请输入邮箱！');
+                $("#user_create div:eq(0) p").show();
+            } else if (!myreg.test($("#user_create div:eq(0) #email").val())) {
                 $("#user_create div:eq(0) p").html('邮箱格式错误，请重新输入！');
                 $("#user_create div:eq(0) p").show();
             } else {
@@ -81,7 +129,7 @@
                 $("#user_create div:eq(2) p").html('请输入密码！');
                 $("#user_create div:eq(2) p").hide();
             }
-            if ($("#user_create div:eq(0) p").is(":hidden") && $("#user_create div:eq(1) p").is(":hidden") && $("#user_create div:eq(2) p").is(":hidden")){
+            if ($("#user_create div:eq(0) p").is(":hidden") && $("#user_create div:eq(1) p").is(":hidden") && $("#user_create div:eq(2) p").is(":hidden")) {
                 var form = new FormData(document.getElementById('user_create'));
                 $.ajax({
                     type: "post",
@@ -90,7 +138,7 @@
                     processData: false,
                     contentType: false,
                     success: function (result) {
-                        if (result == true){
+                        if (result == true) {
                             $('#dataTables-example').DataTable().ajax.reload();
                             quit_create();
                         } else {
@@ -114,11 +162,6 @@
             $("#user_create div:eq(2) p").html('');
             $("#user_create div:eq(3) #intern").attr('checked', 'checked');
             $('#create').modal('hide');
-        }
-
-        <!--判断邮箱格式是否正确-->
-        function isEmail(str) {
-            return /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(str)
         }
     </script>
     <div id="page-wrapper">
@@ -179,7 +222,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" onclick="quit_modify()" aria-hidden="true">×</button>
                     <h4 class="modal-title" id="myModalLabel">修改信息</h4>
                 </div>
                 <div class="modal-body">
@@ -216,7 +259,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-default" onclick="quit_modify()">关闭</button>
                     <button type="button" class="btn btn-primary" onclick="update()">提交更改</button>
                 </div>
 
