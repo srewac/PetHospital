@@ -2,7 +2,6 @@ from django.db import models
 from Disease.models import Disease, SubDisease
 
 
-# Create your models here.
 class Question(models.Model):
     text = models.CharField(max_length=1000)
     score = models.IntegerField(default=2)
@@ -15,6 +14,7 @@ class Question(models.Model):
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text = models.CharField(max_length=100)
+    correct = models.BooleanField(default=False)
 
     def __str__(self):
         return self.text
@@ -39,13 +39,12 @@ class TestPaper(models.Model):
 
 class Test(models.Model):
     name = models.CharField(max_length=500)
-    duration = models.IntegerField(default=60) #考试时间
+    duration = models.IntegerField(default=60)  # 考试时间
     close_time = models.DateTimeField('close date')
     test_paper = models.ForeignKey(TestPaper, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
-
 
 
 class TestPaper_Question(models.Model):
