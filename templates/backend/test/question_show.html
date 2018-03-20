@@ -72,7 +72,7 @@
                     success: function (result) {
                         $('#dataTables-example').DataTable().ajax.reload();
                         $("#question_create").modal('hide');
-
+                        quit_create()
                     },
                     error: function (result) {
                         alert('question create error');
@@ -83,6 +83,11 @@
         }
 
         function quit_create() {
+            $("#question_create_textarea").val("");
+            $("#choice1_create").val("");
+            $("#choice2_create").val("");
+            $("#choice3_create").val("");
+            $("#choice4_create").val("");
             $("#error_question_create").html("");
             $("#error_question_create").hide();
             $("#error_choice1_create").html("");
