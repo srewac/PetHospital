@@ -26,7 +26,7 @@
 <h1 class="w3ls">注册</h1>
 <div class="content-agileits">
 
-    <form action="{% url 'sign_up' %}" method="post" data-toggle="validator" role="form">
+    <form action="{% url 'sign_up' %}" method="post" data-toggle="validator" role="form" id="sign_up">
         {% csrf_token %}
         <div>
             <label for="inputEmail" class="error-label">{{ register_err }}</label>
@@ -62,13 +62,15 @@
             <label for="emailVerify" class="control-label">邮箱验证</label>
             <div>
                 <input type="text" class="form-control" id="emailVerify" name="emailVerify"
-                       data-match-error="Whoops, these don't match">
-                <button type="submit" class="btn btn-st" id="emailVerify-btn" name="emailVerify" >发送邮箱验证码</button>
+                       data-match-error="Whoops, these don't match" required>
+                <input type="button" value="发送邮箱验证码" class="" id="emailVerify-btn" name="emailVerify-btn"
+                       onclick="email_veri()">
             </div>
         </div>
 
         <div class="form-group">
-            <button type="submit" style="margin-top: 30px" class="btn btn-lg" id="submit-btn" onclick="" name="signup">注册
+            <button type="submit" style="margin-top: 30px" class="btn btn-lg" id="submit-btn" onclick="" name="signup">
+                注册
             </button>
         </div>
     </form>
@@ -113,6 +115,53 @@
         else
             document.getElementById("inputPasswordConfirm").setCustomValidity("")
         //empty string means no validation error
+    }
+
+    var InterValObj; //timer变量，控制时间
+    var count = 300; //间隔函数，1秒执行
+    var curCount;//当前剩余秒数
+
+    function email_veri() {
+
+        var form = new FormData(document.getElementById('sign_up'));
+        //获取模态框数据
+        $.ajax({
+            type: "post",
+            url: "{% url 'email_verify' %}",
+            data: form,
+            processData: false,
+            contentType: false,
+            success:
+                function deal_with_email(result) {
+                if (result == 0)
+                    alert("请填写用户名");
+                else if (result == 1)
+                    alert("请填写邮箱");
+                else
+                    curCount=count;
+                    var obj = document.getElementById('emailVerify-btn');
+                    obj.setAttribute("disabled", true);
+                    obj.value = "重新发送(" + curCount + ")";
+                    InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+            },
+            error: function (result) {
+                alert('unexpected error');
+            }
+        });
+    }
+
+    //timer处理函数
+    function SetRemainTime() {
+        var obj = document.getElementById('emailVerify-btn');
+            if (curCount == 0) {
+                window.clearInterval(InterValObj);//停止计时器
+                obj.removeAttribute("disabled")//启用按钮
+                obj.value = "重新发送验证码";
+            }
+            else {
+                curCount--;
+                obj.value = "重新发送(" + curCount + ")";
+            }
     }
 
 
