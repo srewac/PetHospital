@@ -36,40 +36,69 @@
     <!-- //web-fonts -->
 </head>
 <body>
-<div class="agile_secives " id="services">
-    <div class="container">
-        <h3 class="agileits-title two">What Do You Want to Do</h3>
-        <div class="markets-grids">
-            <div class="col-md-4 w3ls-markets-grid">
-                <a href="{% url 'select_paper' %}">
+<div class="agileits-banner">
+    <div class="bnr-agileinfo">
+        <div class="banner-top w3layouts">
+            <div class="container">
+                <ul class="agile_top_section">
+                    <li>
+                        <p> Pet Hospital</p>
+                    </li>
+                    <li>
+                        <p></p>
+                    </li>
+                    <li>
+                        {% if request.session.user_id %}
+                            <a class="sign" href="#">{{ request.session.username }}</a>
+                            <a class="sign" href="{% url 'sign_out' %}">注销</a>
+                        {% else %}
+                            <a class="sign" href="{% url 'sign_in' %}" >
+                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
+                            <a class="sign" href="{% url 'sign_up' %}" >
+                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <h3 class="agileits-title two" style="margin-top: 60px">What Do You Want to Do</h3>
+        <div class="container">
+            <div class="markets-grids" align="center">
+                <div class="col-md-4 w3ls-markets-grid" style="margin-left: 20%">
+                    <a href="{% url 'select_paper' %}">
+                        <div class="agileits-icon-grid">
+                            <div class="icon-left">
+                                <i class="fa fa-flask" aria-hidden="true"></i>
+                            </div>
+                            <div class="icon-right">
+                                <h5>选择考卷</h5>
+                                <p>Select Paper</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 w3ls-markets-grid">
                     <div class="agileits-icon-grid">
                         <div class="icon-left">
-                            <i class="fa fa-flask" aria-hidden="true"></i>
+                            <i class="fa fa-line-chart" aria-hidden="true"></i>
                         </div>
                         <div class="icon-right">
-                            <h5>选择考卷</h5>
-                            <p>Select Paper</p>
+                            <h5>查询成绩</h5>
+                            <p>Results</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                </a>
-            </div>
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-line-chart" aria-hidden="true"></i>
-                    </div>
-                    <div class="icon-right">
-                        <h5>查询成绩</h5>
-                        <p>Results</p>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
+                <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
         </div>
+        <div class="banner-w3text w3layouts">
+        </div>
+
     </div>
 </div>
+
 
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/static/js/bootstrap.js"></script>
