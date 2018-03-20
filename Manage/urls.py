@@ -13,6 +13,7 @@ urlpatterns = [
     # path('disease/', disease.index, name='disease_show'),
     path('disease_example', disease.disease_example, name='disease_example_show'),
     path('disease_example_dict', disease.disease_example_dict, name='disease_example_dict'),
+    path('disease_example_create', disease.disease_example_create, name='disease_example_create'),
     path('test/test', test.test_index, name='test_show'),
     path('test/testpaper', test.testpapaer_index, name='testpaper_show')
 ]
