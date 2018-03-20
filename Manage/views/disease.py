@@ -21,6 +21,10 @@ def disease_example_dict(request):
     return JsonResponse(disease_example_d, safe=False)
 
 
+def disease_example_create(request):
+    return render(request,'backend/disease/disease_example_create.html')
+
+
 def get_all_diseases():
     disease_all = {}
     diseases = Disease.objects.all()

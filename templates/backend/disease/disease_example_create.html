@@ -1,0 +1,148 @@
+{% extends 'backend/base_page.html' %}
+{% block title %}
+    新建病例
+{% endblock %}
+{% block main_content %}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-11">
+                <h1 class="page-header">新建病例
+                    <button type="button" class="btn btn-success"
+                            style="float: right;margin: 10px" onclick="">保存
+                    </button>
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-l2">
+                <div class="panel-body">
+                    <div class="col-lg-6">
+                        <h1>病例名称</h1>
+                        <form method="post" role="form" id="disease_example_name" style="margin:10px 30px">
+                            <div class="form-group">
+                                <label>病例名称：</label>
+                                <input class="form-control" type="text" name="disease_name" id="disease_name"/>
+                                <p class="error-message" hidden="hidden" style="color: red">Example block-level help
+                                    text
+                                    here.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>病例描述：</label>
+                                <input class="form-control" type="text" name="disease_description"
+                                       id="disease_description"/>
+                                <p class="error-message" hidden="hidden" style="color: red">Example block-level help
+                                    text
+                                    here.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>选择病大类：</label>
+                                <select class="form-control" id="select_disease">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>选择病小类：</label>
+                                <select class="form-control" id="select_subdisease">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>上传病例图片</label>
+                                <input type="file">
+                            </div>
+                            <div class="form-group">
+                                <label>上传病例视频</label>
+                                <input type="file">
+                            </div>
+                        </form>
+                        <h1>接诊情况</h1>
+                        <form method="post" role="form" id="disease_example_treatment" style="margin:10px 30px">
+                            <div class="form-group">
+                                <label>接诊情况描述：</label>
+                                <input class="form-control" type="text" name="treatment_description"
+                                       id="treatment_description"/>
+                                <p class="error-message" hidden="hidden" style="color: red">Example block-level help
+                                    text
+                                    here.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>上传接诊图片</label>
+                                <input type="file">
+                            </div>
+                            <div class="form-group">
+                                <label>上传接诊视频</label>
+                                <input type="file">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6">
+                        <h1>病例检查</h1>
+                        <form method="post" role="form" id="disease_example_check" style="margin:10px 30px">
+                            <div class="form-group">
+                                <label>病例检查描述：</label>
+                                <input class="form-control" type="text" name="check_description"
+                                       id="check_description"/>
+                                <p class="error-message" hidden="hidden" style="color: red">Example block-level help
+                                    text
+                                    here.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>上传病例检查图片</label>
+                                <input type="file">
+                            </div>
+                            <div class="form-group">
+                                <label>上传病例检查视频</label>
+                                <input type="file">
+                            </div>
+                        </form>
+                        <h1>诊断结果</h1>
+                        <form method="post" role="form" id="disease_example_result" style="margin:10px 30px">
+                            <div class="form-group">
+                                <label>诊断结果描述：</label>
+                                <input class="form-control" type="text" name="result_description"
+                                       id="result_description"/>
+                                <p class="error-message" hidden="hidden" style="color: red">Example block-level help
+                                    text
+                                    here.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>上传诊断结果图片</label>
+                                <input type="file">
+                            </div>
+                            <div class="form-group">
+                                <label>上传诊断结果视频</label>
+                                <input type="file">
+                            </div>
+                        </form>
+                        <h1>治疗方案</h1>
+                        <form method="post" role="form" id="disease_example_solution" style="margin:10px 30px">
+                            <div class="form-group">
+                                <label>治疗方案描述：</label>
+                                <input class="form-control" type="text" name="solution_description"
+                                       id="solution_description"/>
+                                <p class="error-message" hidden="hidden" style="color: red">Example block-level help
+                                    text
+                                    here.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>上传治疗方案图片</label>
+                                <input type="file">
+                            </div>
+                            <div class="form-group">
+                                <label>上传治疗方案视频</label>
+                                <input type="file">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
