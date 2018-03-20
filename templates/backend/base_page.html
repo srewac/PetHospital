@@ -317,7 +317,20 @@
                                 <a href="{% url 'Manage:test_show' %}">考场管理</a>
                             </li>
                             <li>
-                                <a href="{% url 'Manage:testpaper_show' %}">考卷管理</a>
+                                <a href="#">考卷管理<span
+                                        class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="{% url 'Manage:testpaper_show' %}">所有考卷</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'Manage:question_show' %}">所有考题</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">生成考卷</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
 
