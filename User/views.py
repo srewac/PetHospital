@@ -19,30 +19,42 @@ def sign_up(request):
         username = request.POST.get('username')
         email = request.POST.get('inputEmail')
         password1 = request.POST.get('inputPassword')
+        password2 = request.POST.get('inputPasswordConfirm')
         verifyCode = request.POST.get('emailVerify')
+
+        Reg_Dict = {
+            'username': username,
+            'email': email,
+            'password1': password1,
+            'password2': password2,
+        }
 
         user1 = models.User.objects.filter(email=email)
         user2 = models.User.objects.filter(name=username)
+
         if user1:
-            return render(request, 'User/sign_up.html', {'register_err': "邮箱已经用于注册"})
+            Reg_Dict['register_err'] = "邮箱已经用于注册"
+            return render(request, 'User/sign_up.html', Reg_Dict)
         elif user2:
-            return render(request, 'User/sign_up.html', {'register_err': "用户名已存在"})
+            Reg_Dict['register_err'] = "用户名已存在"
+            return render(request, 'User/sign_up.html', Reg_Dict)
         elif 'verifyCode' not in request.session:
-            return render(request, 'User/sign_up.html', {'register_err': "邮箱验证码已过期"})
+            Reg_Dict['register_err'] = "邮箱验证码已过期"
+            return render(request, 'User/sign_up.html', Reg_Dict)
         elif verifyCode != request.session['verifyCode'] and request.session['verifyCode'] != None and \
                 request.session['username'] == username:
-            return render(request, 'User/sign_up.html', {'register_err': "邮箱验证码不正确"})
+            Reg_Dict['register_err'] = "邮箱验证码不正确"
+            return render(request, 'User/sign_up.html', Reg_Dict)
+
         else:
             models.User.objects.create(email=email, password=password1, name=username)
             return render(request, 'User/sign_in.html')
 
 
-
-
 def email_verify(request):
     username = request.POST.get('username')
     email = request.POST.get('inputEmail')
-    if not username :
+    if not username:
         return JsonResponse(0, safe=False)
     elif not email:
         return JsonResponse(1, safe=False)
