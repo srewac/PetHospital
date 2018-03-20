@@ -5,7 +5,7 @@
 {% block main_content %}
     <script>
         function delete_confirm(id) {
-            var r = confirm("确认删除？");
+            var r = confirm("确认删除");
             if (r) {
                 $.ajax({
                     type: "post",
@@ -19,7 +19,7 @@
                 });
             }
         }
-
+        //TODO:密码位数，名字格式等判断未做
         function editInfo(email, name, password, authority, id) {
             //向模态框中传值
             $('#id').val(id);
@@ -35,22 +35,66 @@
         }
 
         function update() {
-            var form = new FormData(document.getElementById('user_modify'));
-            //获取模态框数据
-            $.ajax({
-                type: "post",
-                url: "{% url 'Manage:user_update' %}",
-                data: form,
-                processData: false,
-                contentType: false,
-                success: function (result) {
-                    $('#dataTables-example').DataTable().ajax.reload();
-                    $('#update').modal('hide');
-                },
-                error: function (result) {
-                    alert('update error');
-                }
-            });
+            var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+            if ($("#user_modify div:eq(0) #email").val() == '') {
+                $("#user_modify div:eq(0) p").html('请输入邮箱！');
+                $("#user_modify div:eq(0) p").show();
+            } else if (!myreg.test($("#user_modify div:eq(0) #email").val())) {
+                $("#user_modify div:eq(0) p").html('邮箱格式错误，请重新输入！');
+                $("#user_modify div:eq(0) p").show();
+            } else {
+                $("#user_modify div:eq(0) p").html('');
+                $("#user_modify div:eq(0) p").hide();
+
+            }
+            if ($("#user_modify div:eq(1) #name").val() == '') {
+                $("#user_modify div:eq(1) p").html('请输入姓名！');
+                $("#user_modify div:eq(1) p").show();
+            } else {
+                $("#user_modify div:eq(1) p").html('');
+                $("#user_modify div:eq(1) p").hide();
+
+            }
+            if ($("#user_modify div:eq(2) #password").val() == '') {
+                $("#user_modify div:eq(2) p").html('请输入密码！');
+                $("#user_modify div:eq(2) p").show();
+            } else {
+                $("#user_modify div:eq(2) p").html('请输入密码！');
+                $("#user_modify div:eq(2) p").hide();
+            }
+            if ($("#user_modify div:eq(0) p").is(":hidden") && $("#user_modify div:eq(1) p").is(":hidden") && $("#user_modify div:eq(2) p").is(":hidden")) {
+                var form = new FormData(document.getElementById('user_modify'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:user_update' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == false) {
+                            $("#user_modify div:eq(0) p").html('邮箱已存在，请重新输入！');
+                            $("#user_modify div:eq(0) p").show();
+                        } else {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            $('#update').modal('hide');
+                        }
+                    },
+                    error: function (result) {
+                        alert('update error');
+                    }
+                });
+            }
+        }
+
+        function quit_modify() {
+            $("#user_modify div:eq(0) input").val("");
+            $("#user_modify div:eq(0) p").html('');
+            $("#user_modify div:eq(1) input").val('');
+            $("#user_modify div:eq(1) p").html('');
+            $("#user_modify div:eq(2) input").val('');
+            $("#user_modify div:eq(2) p").html('');
+            $("#user_modify div:eq(3) #intern").attr('checked', 'checked');
+            $('#update').modal('hide');
         }
 
         function createUser() {
@@ -58,21 +102,65 @@
         }
 
         function create() {
-            var form = new FormData(document.getElementById('user_create'));
-            $.ajax({
-                type: "post",
-                url: "{% url 'Manage:user_create' %}",
-                data: form,
-                processData: false,
-                contentType: false,
-                success: function (result) {
-                    $('#dataTables-example').DataTable().ajax.reload();
-                    $('#update').modal('hide');
-                },
-                error: function (result) {
-                    alert('update error');
-                }
-            });
+            var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+            if ($("#user_create div:eq(0) #email").val() == '') {
+                $("#user_create div:eq(0) p").html('请输入邮箱！');
+                $("#user_create div:eq(0) p").show();
+            } else if (!myreg.test($("#user_create div:eq(0) #email").val())) {
+                $("#user_create div:eq(0) p").html('邮箱格式错误，请重新输入！');
+                $("#user_create div:eq(0) p").show();
+            } else {
+                $("#user_create div:eq(0) p").html('');
+                $("#user_create div:eq(0) p").hide();
+
+            }
+            if ($("#user_create div:eq(1) #name").val() == '') {
+                $("#user_create div:eq(1) p").html('请输入姓名！');
+                $("#user_create div:eq(1) p").show();
+            } else {
+                $("#user_create div:eq(1) p").html('');
+                $("#user_create div:eq(1) p").hide();
+
+            }
+            if ($("#user_create div:eq(2) #password").val() == '') {
+                $("#user_create div:eq(2) p").html('请输入密码！');
+                $("#user_create div:eq(2) p").show();
+            } else {
+                $("#user_create div:eq(2) p").html('请输入密码！');
+                $("#user_create div:eq(2) p").hide();
+            }
+            if ($("#user_create div:eq(0) p").is(":hidden") && $("#user_create div:eq(1) p").is(":hidden") && $("#user_create div:eq(2) p").is(":hidden")) {
+                var form = new FormData(document.getElementById('user_create'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:user_create' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == true) {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            quit_create();
+                        } else {
+                            $("#user_create div:eq(0) p").show();
+                            $("#user_create div:eq(0) p").html('邮箱已存在，请重新输入！');
+                        }
+                    },
+                    error: function (result) {
+                        alert('update error');
+                    }
+                });
+            }
+        }
+
+        function quit_create() {
+            $("#user_create div:eq(0) input").val("");
+            $("#user_create div:eq(0) p").html('');
+            $("#user_create div:eq(1) input").val('');
+            $("#user_create div:eq(1) p").html('');
+            $("#user_create div:eq(2) input").val('');
+            $("#user_create div:eq(2) p").html('');
+            $("#user_create div:eq(3) #intern").attr('checked', 'checked');
             $('#create').modal('hide');
         }
     </script>
@@ -134,23 +222,48 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" onclick="quit_modify()" aria-hidden="true">×</button>
                     <h4 class="modal-title" id="myModalLabel">修改信息</h4>
                 </div>
-                <form method="post" id="user_modify">
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form method="post" role="form" id="user_modify" style="margin:10px 30px">
                         <input type="text" name="id" id="id" hidden="hidden"/>
-                        邮箱：<input type="text" name="email" id="email"/>
-                        姓名：<input type="text" name="name" id="name"/>
-                        密码：<input type="text" name="password" id="password"/>
-                        权限：<input type="radio" name="authority" class="authority" id="intern" value="0"/>实习生
-                        <input type="radio" name="authority" class="authority" id="administrator" value="1"/>管理员
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="update()">提交更改</button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <label>邮箱：</label>
+                            <input class="form-control" type="email" name="email" id="email"/>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>姓名：</label>
+                            <input class="form-control" type="text" name="name" id="name"/>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>密码：</label>
+                            <input class="form-control" type="text" name="password" id="password"/>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>权限：</label>
+                            <div class="radio-inline">
+                                <label><input type="radio" name="authority" class="authority" id="intern" value="0"/>实习生</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label><input type="radio" name="authority" class="authority" id="administrator"
+                                              value="1"/>管理员</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="quit_modify()">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="update()">提交更改</button>
+                </div>
+
+
             </div>
             <!-- /.modal-content -->
         </div>
@@ -163,22 +276,48 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="quit_create()">
+                        ×
+                    </button>
                     <h4 class="modal-title" id="myModalLabel">创建用户</h4>
                 </div>
-                <form id='user_create' method="post" action="{% url 'Manage:user_create' %}">
-                    <div class="modal-body">
-                        邮箱：<input type="text" name="email"/>
-                        姓名：<input type="text" name="name"/>
-                        密码：<input type="text" name="password" />
-                        权限：<input type="radio" name="authority" class="authority" value="0"/>实习生
-                        <input type="radio" name="authority" class="authority" value="1"/>管理员
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="create()">创建</button>
-                    </div>
-                </form>
+
+                <div class="modal-body">
+                    <form id='user_create' method="post" style="margin:10px 30px">
+                        <div class="form-group">
+                            <label>邮箱：</label>
+                            <input class="form-control" type="email" name="email" id="email"/>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>姓名：</label>
+                            <input class="form-control" type="text" name="name" id="name"/>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>密码：</label>
+                            <input class="form-control" type="text" name="password" id="password"/>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>权限：</label>
+                            <div class="radio-inline">
+                                <label><input type="radio" name="authority" class="authority" id="intern" value="0"
+                                              checked/>实习生</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label><input type="radio" name="authority" class="authority" id="administrator"
+                                              value="1"/>管理员</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="quit_create()">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="create()">创建</button>
+                </div>
+
 
             </div>
             <!-- /.modal-content -->
