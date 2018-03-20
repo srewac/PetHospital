@@ -50,7 +50,7 @@ def email_verify(request):
         verifycode = sendEmail.random_str()
         request.session['username'] = username
         request.session['verifyCode'] = verifycode
-        request.session.set_expiry(300)
+        request.session.set_expiry(60)
         sendEmail.send_register_email(email, verifycode, "register")
         return JsonResponse(2, safe=False)
 
@@ -70,7 +70,7 @@ def sign_in(request):
             request.session['username'] = user.name
             request.session['email'] = user.email
             request.session['authority'] = user.authority
-            request.session.set_expiry(600)
+            request.session.set_expiry(100)
             if user.authority == 1:
                 return HttpResponseRedirect('/Manage')
             else:

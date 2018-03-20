@@ -63,7 +63,7 @@
             <div>
                 <input type="text" class="form-control" id="emailVerify" name="emailVerify"
                        data-match-error="Whoops, these don't match" required>
-                <input type="button" value="发送邮箱验证码" class="" id="emailVerify-btn" name="emailVerify-btn"
+                <input type="button" value="发送邮箱验证码" class="emailVerify-btn" id="emailVerify-btn" name="emailVerify-btn"
                        onclick="email_veri()">
             </div>
         </div>
@@ -118,7 +118,7 @@
     }
 
     var InterValObj; //timer变量，控制时间
-    var count = 300; //间隔函数，1秒执行
+    var count = 100; //间隔函数，1秒执行
     var curCount;//当前剩余秒数
 
     function email_veri() {
