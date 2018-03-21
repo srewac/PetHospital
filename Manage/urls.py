@@ -19,5 +19,9 @@ urlpatterns = [
     path('test/test', test.test_index, name='test_show'),
     path('test/testpaper', test.testpapaer_index, name='testpaper_show'),
     path('test/question', test.question_index, name='question_show'),
-    path('test/question_dict', test.question_dict, name='question_dict')
+    path('test/sub_disease_dict/<int:disease_id>', test.sub_disease_dict, name='sub_disease_dict'),
+    path('test/question_dict', test.question_dict, name='question_dict'),
+    path('test/question_create', test.question_create, name='question_create'),
+    path('test/question_modify', test.question_modify, name='question_modify'),
+    path('test/question_modify_dict/<int:question_id>', test.question_modify_dict, name='question_modify_dict'),
 ]
