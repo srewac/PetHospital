@@ -15,7 +15,7 @@ class QuestionCreateForm(forms.Form):
         SUBDISEASES.append((str(sub_disease.id), sub_disease.name))
 
     disease_selector = forms.ChoiceField(
-        widget=forms.Select(attrs={'class': 'form-control', 'onChange': 'getSubDiseaseOptions(this.value)'}),
+        widget=forms.Select(attrs={'class': 'form-control', 'onChange': "getSubDiseaseOptions(this.value, 'create')"}),
         choices=DISEASES)
     sub_disease_selector = forms.ChoiceField(
         widget=forms.Select(attrs={'class': 'form-control'}),
