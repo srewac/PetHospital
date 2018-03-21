@@ -62,7 +62,7 @@ def email_verify(request):
         verifycode = sendEmail.random_str()
         request.session['username'] = username
         request.session['verifyCode'] = verifycode
-        request.session.set_expiry(60)
+        request.session.set_expiry(100)
         sendEmail.send_register_email(email, verifycode, "register")
         return JsonResponse(2, safe=False)
 

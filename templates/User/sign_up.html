@@ -142,12 +142,14 @@
                         alert("请填写用户名");
                     else if (result == 1)
                         alert("请填写邮箱");
-                    else
+                    else{
                         curCount = count;
-                    var obj = document.getElementById('emailVerify-btn');
-                    obj.setAttribute("disabled", true);
-                    obj.value = "重新发送(" + curCount + ")";
-                    InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+                        var obj = document.getElementById('emailVerify-btn');
+                        obj.setAttribute("disabled", true);
+                        obj.value = "重新发送(" + curCount + ")";
+                        InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+                    }
+
                 },
             error: function (result) {
                 alert('unexpected error');
