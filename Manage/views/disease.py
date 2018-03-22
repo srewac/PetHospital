@@ -3,14 +3,12 @@ from Disease.models import Disease, SubDisease, DiseaseExample
 from django.http import JsonResponse
 
 
-def index(request):
-    return render(request, 'backend/disease/disease_show.html', {'disease_all': get_all_diseases()})
-
-
+# 进入病例管理界面
 def disease_example(request):
     return render(request, 'backend/disease/disease_example_show.html')
 
 
+# 返回所有病例的简要信息
 def disease_example_dict(request):
     disease_examples = DiseaseExample.objects.all()
     disease_example_d = {'data': []}
@@ -21,16 +19,6 @@ def disease_example_dict(request):
     return JsonResponse(disease_example_d, safe=False)
 
 
+# 进入病例创建界面
 def disease_example_create(request):
     return render(request, 'backend/disease/disease_example_create.html')
-
-
-def get_all_diseases():
-    disease_all = {}
-    diseases = Disease.objects.all()
-    for disease in diseases:
-        disease_all[disease.name] = []
-        sub_diseases = disease.subdisease_set.all()
-        for sub_disease in sub_diseases:
-            disease_all[disease.name].append(sub_disease)
-    return disease_all
