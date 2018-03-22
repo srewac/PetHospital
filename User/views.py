@@ -7,8 +7,8 @@ from django.http import JsonResponse
 
 
 # Create your views here.
-def index(request):
-    return render(request, 'User/index.html')
+# def index(request):
+#     return render(request, 'index.html')
 
 
 # 注册
@@ -86,7 +86,7 @@ def sign_in(request):
             if user.authority == 1:
                 return HttpResponseRedirect('/Manage')
             else:
-                return HttpResponseRedirect('/User/index/')
+                return HttpResponseRedirect('/index/')
 
         else:
             return render(request, 'User/sign_in.html', {'login_err': "用户名或密码错误"})
