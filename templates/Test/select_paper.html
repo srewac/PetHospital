@@ -53,9 +53,9 @@
                             <a class="sign" href="#">{{ request.session.username }}</a>
                             <a class="sign" href="{% url 'sign_out' %}">注销</a>
                         {% else %}
-                            <a class="sign" href="{% url 'sign_in' %}" >
+                            <a class="sign" href="{% url 'sign_in' %}">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
-                            <a class="sign" href="{% url 'sign_up' %}" >
+                            <a class="sign" href="{% url 'sign_up' %}">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
                         {% endif %}
                     </li>
@@ -64,106 +64,115 @@
         </div>
         <h3 class="agileits-title two" style="margin-top: 60px" id="selectedpaperid">选择试卷</h3>
         <div class="container">
-        <div class="markets-grids">
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-eyedropper" aria-hidden="true"></i>
+            <div class="markets-grids">
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
+                        <div class="icon-left">
+                            <i class="fa fa-eyedropper" aria-hidden="true"></i>
+                        </div>
+                        <div class="icon-right">
+                            <h5>传染病</h5>
+                            <select>
+                                {% for test in testpaper %}
+                                    <option value={{ test.id }}>{{ test.name }}</option>
+                                    {#                                {% if test.disease == "传染病" %}#}
+                                    {#                                    <option value={{ test.id }}>{{ test.name }}</option>#}
+                                    {#                                {% endif %}#}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="icon-right">
-                        <h5>传染病</h5>
-                        <select>
-                            {% for test in testpaper %}
-                                <option value={{ test.id }}>{{ test.name }}</option>
-{#                                {% if test.disease == "传染病" %}#}
-{#                                    <option value={{ test.id }}>{{ test.name }}</option>#}
-{#                                {% endif %}#}
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
-            </div>
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-bug" aria-hidden="true"></i>
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
+                        <div class="icon-left">
+                            <i class="fa fa-bug" aria-hidden="true"></i>
+                        </div>
+                        <div class="icon-right">
+                            <h5>寄生虫病</h5>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="icon-right">
-                        <h5>寄生虫病</h5>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
-            </div>
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-medkit" aria-hidden="true"></i>
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
+                        <div class="icon-left">
+                            <i class="fa fa-medkit" aria-hidden="true"></i>
+                        </div>
+                        <div class="icon-right">
+                            <h5>内科</h5>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="icon-right">
-                        <h5>内科</h5>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
-            </div>
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-bed" aria-hidden="true"></i>
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
+                        <div class="icon-left">
+                            <i class="fa fa-bed" aria-hidden="true"></i>
+                        </div>
+                        <div class="icon-right">
+                            <h5>外产科疾病</h5>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="icon-right">
-                        <h5>外产科疾病</h5>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
-            </div>
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
+                        <div class="icon-left">
+                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="icon-right">
+                            <h5>常用手术</h5>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="icon-right">
-                        <h5>常用手术</h5>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
-            </div>
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-shield" aria-hidden="true"></i>
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
+                        <div class="icon-left">
+                            <i class="fa fa-shield" aria-hidden="true"></i>
+                        </div>
+                        <div class="icon-right">
+                            <h5>免疫</h5>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="icon-right">
-                        <h5>免疫</h5>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
+                <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
+            <div align="center">
+                {#            <form action="" method="post">#}
+                {#                {% csrf_token %}#}
+                {#                <input id="selectedpaper" name="selectedpaper" hidden value="">#}
+                {#                <button href="" class="button button-isi"style="margin-bottom: 45px;margin-top: 70px;"><span>开始考试</span>#}
+                {#                <i class="icon glyphicon glyphicon-arrow-right"></i></button>#}
+                {#            </form>#}
+                <a href="{% url 'Test:select_disease' %}" class="button button-isi"
+                   style="margin-bottom: 45px;margin-top: 70px;">
+                    <span>返回</span>
+                    <i class="icon glyphicon glyphicon-arrow-right"></i></a>
+            </div>
         </div>
-        <div align="center">
-{#            <form action="" method="post">#}
-{#                {% csrf_token %}#}
-{#                <input id="selectedpaper" name="selectedpaper" hidden value="">#}
-{#                <button href="" class="button button-isi"style="margin-bottom: 45px;margin-top: 70px;"><span>开始考试</span>#}
-{#                <i class="icon glyphicon glyphicon-arrow-right"></i></button>#}
-{#            </form>#}
+        <div class="banner-w3text w3layouts">
         </div>
     </div>
-        <div class="banner-top w3layouts">
+</div>
+<div class="copy-w3right">
+    <div class="container">
+        <div class="top-nav bottom-w3lnav">
+            <p>© 2018 Pet Hospital. All Rights Reserved | Designed by our Team</p>
         </div>
     </div>
 </div>
 
-
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/static/js/bootstrap.js"></script>
 <script type="text/javascript">
-function selectpaper(x,y)
-{
-    document.getElementById("selectedpaper").value=x;
-    document.getElementById("selectedpaperid").innerHTML=y+" 试卷："+x;
-}
+    function selectpaper(x, y) {
+        document.getElementById("selectedpaper").value = x;
+        document.getElementById("selectedpaperid").innerHTML = y + " 试卷：" + x;
+    }
 </script>
 </body>
 </html>

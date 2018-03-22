@@ -62,7 +62,7 @@
                 </ul>
             </div>
         </div>
-        <h3 class="agileits-title two" style="margin-top: 60px" >选择试卷</h3>
+        <h3 class="agileits-title two" style="margin-top: 60px">选择病种</h3>
         <div class="container">
             <div class="markets-grids">
                 {% for idx in disease %}
@@ -83,6 +83,12 @@
                 {% endfor %}
 
                 <div class="clearfix"></div>
+                <div align="center">
+                    <a href="{% url 'Test:test' %}" class="button button-isi"
+                       style="margin-bottom: 45px;margin-top: 70px;">
+                        <span>返回</span>
+                        <i class="icon glyphicon glyphicon-arrow-right"></i></a>
+                </div>
             </div>
 
         </div>
