@@ -154,7 +154,7 @@
                     success: function (result) {
                         if (result == true) {
                             $('#dataTables-example').DataTable().ajax.reload();
-                            create_clean();
+                            clean_create();
                             $('#create').modal('hide');
                         } else {
                             $("#user_create div:eq(0) p").show();
@@ -168,7 +168,7 @@
             }
         }
 
-        function create_clean() {
+        function clean_create() {
             $("#user_create div:eq(0) input").val("");
             $("#user_create div:eq(0) p").html('');
             $("#user_create div:eq(1) input").val('');
@@ -296,7 +296,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                            onclick="create_clean()">
+                            onclick="clean_create()">
                         ×
                     </button>
                     <h4 class="modal-title" id="myModalLabel">创建用户</h4>
@@ -333,7 +333,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="create_clean()">关闭
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_create()">关闭
                     </button>
                     <button type="button" class="btn btn-primary" onclick="create()">创建</button>
                 </div>
@@ -352,7 +352,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                            onclick="create_clean()">
+                            onclick="">
                         ×
                     </button>
                     <h4 class="modal-title" id="myModalLabel">删除用户</h4>

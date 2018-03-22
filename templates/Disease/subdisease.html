@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pet Hospital: HomePage</title>
+    <title>Pet Hospital: Learn select disease</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Pets Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -36,8 +36,9 @@
     <!-- //web-fonts -->
 </head>
 <body>
-<div class="agileits-banner-cd">
-    <div class="bnr-agileinfo">
+
+<div class="agileits-banner-cat">
+    <div>
         <div class="banner-top w3layouts">
             <div class="container">
                 <ul class="agile_top_section">
@@ -61,55 +62,33 @@
                 </ul>
             </div>
         </div>
-        <h3 class="agileits-title two" style="margin-top: 60px">实习生导览</h3>
+        <h3 class="agileits-title two" style="margin-top: 60px">选择疾病种类</h3>
         <div class="container">
-            <div class="markets-grids" align="center">
-                <div class="col-md-4 w3ls-markets-grid">
-                    <a href="">
-                        <div class="agileits-icon-grid">
-                            <div class="icon-left">
-                                <i class="fa fa-flask" aria-hidden="true"></i>
+            <div class="markets-grids">
+                {% for idx in subdisease %}
+                    <div class="col-md-4">
+                        <a href="">
+                            <div class="subdisease-grid">
+
+                                <h3 class="subdisease-grid-h">{{ idx.name }}</h3>
+
                             </div>
-                            <div class="icon-right">
-                                <h5>3D导览</h5>
-                                <p>Navigation</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4 w3ls-markets-grid">
-                    <a href="{% url 'Disease:select_disease' %}">
-                        <div class="agileits-icon-grid">
-                            <div class="icon-left">
-                                <i class="fa fa-line-chart" aria-hidden="true"></i>
-                            </div>
-                            <div class="icon-right">
-                                <h5>职能学习</h5>
-                                <p>Study</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4 w3ls-markets-grid">
-                    <a href="{% url 'Test:test' %}">
-                        <div class="agileits-icon-grid">
-                            <div class="icon-left">
-                                <i class="fa fa-line-chart" aria-hidden="true"></i>
-                            </div>
-                            <div class="icon-right">
-                                <h5>测试</h5>
-                                <p>Test</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                {% endfor %}
+
                 <div class="clearfix"></div>
+                <div align="center">
+                    <a href="{% url 'Disease:select_disease' %}" class="button button-isi"
+                       style="margin-bottom: 45px;margin-top: 70px;">
+                        <i class="icon glyphicon glyphicon-arrow-left"></i>
+                        <span>返回</span>
+                    </a>
+                </div>
             </div>
+
         </div>
-        <div class="banner-w3text w3layouts">
+        <div class="banner-top w3layouts" style="margin-top: 140px">
         </div>
     </div>
 </div>
@@ -117,9 +96,11 @@
     <div class="container">
         <div class="top-nav bottom-w3lnav">
             <p>© 2018 Pet Hospital. All Rights Reserved | Designed by our Team</p>
+
         </div>
     </div>
 </div>
+
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/static/js/bootstrap.js"></script>
 </body>
