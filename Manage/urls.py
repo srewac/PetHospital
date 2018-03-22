@@ -25,4 +25,6 @@ urlpatterns = [
     path('test/question_create_dict', test.question_create_dict, name='question_create_dict'),
     path('test/question_modify', test.question_modify, name='question_modify'),
     path('test/question_modify_dict/<int:question_id>', test.question_modify_dict, name='question_modify_dict'),
+    # basic urls
+    path('basic/room', basic.room, name='room'),
 ]
