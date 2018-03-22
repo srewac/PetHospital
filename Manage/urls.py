@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import dashboard, user, test, disease, basic
+from .views import dashboard, user, test, disease,basic
 
 app_name = 'Manage'
 urlpatterns = [
@@ -25,4 +25,6 @@ urlpatterns = [
     path('test/question_create_dict', test.question_create_dict, name='question_create_dict'),
     path('test/question_modify', test.question_modify, name='question_modify'),
     path('test/question_modify_dict/<int:question_id>', test.question_modify_dict, name='question_modify_dict'),
+    # people urls
+    path('basic/',basic.people,name="people_show")
 ]
