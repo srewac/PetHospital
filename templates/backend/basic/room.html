@@ -1,0 +1,374 @@
+{% extends 'backend/base_page.html' %}
+{% block title %}
+    科室管理
+{% endblock %}
+{% block main_content %}
+    <script>
+        function delete_confirm(id) {
+            $('#delete_id').val(id);
+            $('#delete').modal('show');
+        }
+
+        function delete_ok() {
+            var id = $('#delete_id').val();
+            $.ajax({
+                type: "post",
+                url: "room_delete/" + id,
+                success: function (result) {
+                    $('#dataTables-example').DataTable().ajax.reload();
+                    $('#delete').modal('hide');
+                },
+                error: function (result) {
+                    alert('delete error');
+                }
+            });
+        }
+
+        function modify_room_show(name, pic_url, video_url, desc, room_roles, id) {
+            //向模态框中传值
+            $('#name').val(name);
+            $('#desc').val(desc);
+            $('#pic').val(pic_url);
+            $('#video').val(video_url);
+            room_roles.split(' ').forEach(function (room_role) {
+                if (room_role == '前台') document.getElementById('proscenium').checked = true;
+                else if (room_role == '助理') document.getElementById('assistant').checked = true;
+                else if (room_role == '执业兽医师') document.getElementById('veterinary_practitioner').checked = true;
+            });
+            $('#id').val(id);
+            $('#update').modal('show');
+
+        }
+
+        function modify_validation() {
+
+        }
+
+        function modify() {
+            modify_validation();
+            var form = new FormData(document.getElementById('room_modify'));
+            $.ajax({
+                type: "post",
+                url: "{% url 'Manage:room_modify' %}",
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    if (result == false) {
+                        $("#room_modify div:eq(0) p").html('科室已存在，请重新输入！');
+                        $("#room_modify div:eq(0) p").show();
+                    } else {
+                        $('#dataTables-example').DataTable().ajax.reload();
+                        clean_modify();
+                    }
+                },
+                error: function (result) {
+                    alert('update error');
+                }
+            });
+
+        }
+
+        function clean_modify() {
+            $("#room_modify div:eq(0) input").val('');
+            $("#room_modify div:eq(0) p").html('');
+            $("#room_modify div:eq(1) input").val('');
+            $("#room_modify div:eq(1) p").html('');
+            $("#room_modify div:eq(2) input").val('');
+            $("#room_modify div:eq(2) p").html('');
+            $("#room_modify div:eq(3) textarea").val('');
+            $("#room_modify div:eq(3) p").html('');
+            document.getElementById('proscenium').checked = false;
+            document.getElementById('assistant').checked = false;
+            document.getElementById('veterinary_practitioner').checked = false;
+            $('#update').modal('hide');
+        }
+
+        function create_room_show() {
+            $('#create').modal('show');
+        }
+
+        function create_validation() {
+        }
+
+        function create() {
+            create_validation();
+            var form = new FormData(document.getElementById('room_create'));
+            $.ajax({
+                type: "post",
+                url: "{% url 'Manage:room_create' %}",
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    if (result == true) {
+                        $('#dataTables-example').DataTable().ajax.reload();
+                        clean_create();
+                    } else {
+                        $("#user_create div:eq(0) p").show();
+                        $("#user_create div:eq(0) p").html('科室已存在，请重新输入！');
+                    }
+                },
+                error: function (result) {
+                    alert('update error');
+                }
+            });
+        }
+
+        function clean_create() {
+            $("#room_create div:eq(0) input").val("");
+            $("#room_create div:eq(0) p").html('');
+            $("#room_create div:eq(1) input").val('');
+            $("#room_create div:eq(1) p").html('');
+            $("#room_create div:eq(2) input").val('');
+            $("#room_create div:eq(2) p").html('');
+            $("#room_create div:eq(3) textarea").val('');
+            $("#room_create div:eq(3) p").html('');
+            document.getElementById('proscenium').checked = false;
+            document.getElementById('assistant').checked = false;
+            document.getElementById('veterinary_practitioner').checked = false;
+            $('#create').modal('hide');
+        }
+    </script>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">科室管理
+                    <button type="button" class="btn btn-success"
+                            style="float: right;margin: 10px" onclick="create_room_show()">新建科室
+                    </button>
+                </h1>
+
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            所有科室信息
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <table width="100%" class="table table-striped table-bordered table-hover"
+                                   id="dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th>科室名称</th>
+                                    <th>科室图片</th>
+                                    <th>科室视频</th>
+                                    <th style="width:50%;">科室简介</th>
+                                    <th>科室权限</th>
+                                    <th>Operation</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>科室名称</td>
+                                    <td>科室图片</td>
+                                    <td>科室视频</td>
+                                    <td style="width:50%;">科室简介</td>
+                                    <th>科室权限</th>
+                                    <td>Operation</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+    </div>
+
+    <!-- 模态框（Modal）edit -->
+    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="clean_modify()"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" role="form" id="room_modify" style="margin:10px 30px">
+                        <input type="text" name="id" id="id" hidden="hidden"/>
+                        <div class="form-group">
+                            <label>科室名称：</label>
+                            <input class="form-control" type="text" name="name" id="name"/>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>科室图片：</label>
+                            <input class="form-control" type="text" name="pic" id="pic"/>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>科室视频：</label>
+                            <input class="form-control" type="text" name="video" id="video"/>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>科室简介：</label>
+                            <textarea class="form-control" name="desc" id="desc" rows="3"></textarea>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>科室权限：</label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="proscenium" id="proscenium" value="0">前台
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="assistant" id="assistant" value="1">助理
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="veterinary_practitioner" id="veterinary_practitioner"
+                                       value="2">执业兽医师
+                            </label>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_modify()">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-delete" onclick="modify()">修改</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）create -->
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            onclick="clean_create()">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">创建科室</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form method="post" role="form" id="room_create" style="margin:10px 30px">
+                        <input type="text" name="id" id="id" hidden="hidden"/>
+                        <div class="form-group">
+                            <label>科室名称：</label>
+                            <input class="form-control" type="text" name="name" id="name"/>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>科室图片：</label>
+                            <input class="form-control" type="text" name="pic" id="pic"/>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>科室视频：</label>
+                            <input class="form-control" type="text" name="video" id="video"/>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>科室简介：</label>
+                            <textarea class="form-control" name="desc" id="desc" rows="3"></textarea>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                         <div class="form-group">
+                            <label>科室权限：</label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="proscenium" id="proscenium" value="0">前台
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="assistant" id="assistant" value="1">助理
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="veterinary_practitioner" id="veterinary_practitioner"
+                                       value="2">执业兽医师
+                            </label>
+                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                                here.</p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_create()">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="create()">创建</button>
+                </div>
+
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）delete -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            onclick="">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">删除用户</h4>
+                </div>
+
+                <div class="modal-body">
+                    <h5>是否确定删除？</h5>
+                    <input hidden="hidden" id="delete_id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-delete" onclick="delete_ok()">删除</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+{% endblock %}
+{% block datatable_script %}
+    <script>
+        $(document).ready(function () {
+            var table = $('#dataTables-example').DataTable({
+                "ajax": "{% url 'Manage:room_dict' %}",
+                "columnDefs": [{
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify' style='margin-right:5px;margin-bottom:5px;'>修改</button><button type='button' class='btn btn-danger' name='delete'>删除</button>"
+                }]
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                modify_room_show(data[0], data[1], data[2], data[3], data[4], data[5]);
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                delete_confirm(data[5]);
+            });
+        });
+    </script>
+{% endblock %}

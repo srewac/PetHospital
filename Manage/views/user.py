@@ -6,8 +6,7 @@ from django.http import JsonResponse
 
 # 进入用户管理界面
 def index(request):
-    users = User.objects.all()
-    return render(request, 'backend/user/user_info.html', {'users': users})
+    return render(request, 'backend/user/user_info.html')
 
 
 # 返回所有账户信息
