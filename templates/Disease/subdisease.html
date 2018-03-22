@@ -38,7 +38,7 @@
 <body>
 
 <div class="agileits-banner">
-    <div class="bnr-agileinfo">
+    <div>
         <div class="banner-top w3layouts">
             <div class="container">
                 <ul class="agile_top_section">
@@ -66,19 +66,14 @@
         <div class="container">
             <div class="markets-grids">
                 {% for idx in subdisease %}
-                    <div class="col-md-4 w3ls-markets-grid">
-                        <div class="agileits-icon-grid" style="height: 100px;margin-top: 30px;">
-                            <a href="">
-                                <div class="icon-left">
-                                    <i class="fa fa-{% if idx.id == 1 %}eyedropper{% endif %}{% if idx.id == 2 %}bug{% endif %}{% if idx.id == 3 %}medkit{% endif %}{% if idx.id == 4 %}bed{% endif %}{% if idx.id == 5 %}calendar-plus-o{% endif %}{% if idx.id == 6 %}shield{% endif %}"
-                                       aria-hidden="true"></i>
-                                </div>
-                                <div class="icon-right">
-                                    <h2 style="color: white;">{{ idx.name }}</h2>
-                                </div>
-                                <div class="clearfix"></div>
-                            </a>
+                    <div class="col-md-4">
+                        <a href="">
+                        <div class="subdisease-grid">
+
+                            <h3 class="subdisease-grid-h" >{{ idx.name }}</h3>
+
                         </div>
+                        </a>
                     </div>
                 {% endfor %}
 
