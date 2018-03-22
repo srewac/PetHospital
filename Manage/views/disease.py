@@ -3,10 +3,6 @@ from Disease.models import Disease, SubDisease, DiseaseExample
 from django.http import JsonResponse
 
 
-def index(request):
-    return render(request, 'backend/disease/disease_show.html', {'disease_all': get_all_diseases()})
-
-
 def disease_example(request):
     return render(request, 'backend/disease/disease_example_show.html')
 
