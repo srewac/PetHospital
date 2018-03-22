@@ -57,6 +57,20 @@ body a:focus {
 	-moz-background-size: cover;
 	position: relative;
 }
+.agileits-banner-cat {
+	background: url(../images/a1.jpg)no-repeat center 0px;
+	-webkit-background-size: cover;
+	background-size: cover;
+	-moz-background-size: cover;
+	position: relative;
+}
+.agileits-banner-cd {
+	background: url(../images/a2.jpg)no-repeat center 0px;
+	-webkit-background-size: cover;
+	background-size: cover;
+	-moz-background-size: cover;
+	position: relative;
+}
 
 .bnr-agileinfo {
 	-webkit-background-size: cover;
@@ -915,7 +929,7 @@ h3.agileits-title span {
 	height: 100px;
 	margin-top: 30px;
 	border-radius:15px 15px 15px 15px;
-	border: 3px;
+	border: 2px;
 	border-style: solid;
 }
 .subdisease-grid-h{
