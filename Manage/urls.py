@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import dashboard, user, test, disease, basic
+from .views import dashboard, user, test, disease
+from .views.basic import people
 
 app_name = 'Manage'
 urlpatterns = [
@@ -28,5 +29,9 @@ urlpatterns = [
     path('test/question_delete/<int:question_id>', test.question_delete, name='question_delete'),
 
     # people urls
-    path('basic/',basic.people,name="people_show")
+    path('basic/people', people.people, name="people_show"),
+    path('basic/people/people_dict', people.people_dict, name='people_dict'),
+    path('basic/people/delete/<int:people_id>', people.people_delete, name='people_delete'),
+    path('basic/people/update', people.people_update, name='people_update'),
+    path('basic/people/create', people.people_create, name='people_create'),
 ]
