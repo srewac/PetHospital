@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import dashboard, user, test, disease
 
-from .views.basic import people，room
+from .views.basic import people,room
 
 
 app_name = 'Manage'
