@@ -74,9 +74,10 @@
                         <h5>传染病</h5>
                         <select>
                             {% for test in testpaper %}
-                                {% if test.disease == "传染病" %}
-                                    <option value={{ test.id }}>{{ test.name }}</option>
-                                {% endif %}
+                                <option value={{ test.id }}>{{ test.name }}</option>
+{#                                {% if test.disease == "传染病" %}#}
+{#                                    <option value={{ test.id }}>{{ test.name }}</option>#}
+{#                                {% endif %}#}
                             {% endfor %}
                         </select>
                     </div>
@@ -141,13 +142,12 @@
             <div class="clearfix"></div>
         </div>
         <div align="center">
-            <form action="" method="post">
-                {% csrf_token %}
-                <input id="selectedpaper" name="selectedpaper" hidden value="">
-                <button href="" class="button button-isi"style="margin-bottom: 45px;margin-top: 70px;"><span>开始考试</span>
-                <i class="icon glyphicon glyphicon-arrow-right"></i></button>
-            </form>
-
+{#            <form action="" method="post">#}
+{#                {% csrf_token %}#}
+{#                <input id="selectedpaper" name="selectedpaper" hidden value="">#}
+{#                <button href="" class="button button-isi"style="margin-bottom: 45px;margin-top: 70px;"><span>开始考试</span>#}
+{#                <i class="icon glyphicon glyphicon-arrow-right"></i></button>#}
+{#            </form>#}
         </div>
     </div>
         <div class="banner-top w3layouts">
