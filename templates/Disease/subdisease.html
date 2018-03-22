@@ -38,7 +38,7 @@
 <body>
 
 <div class="agileits-banner">
-    <div class="bnr-agileinfo">
+    <div>
         <div class="banner-top w3layouts">
             <div class="container">
                 <ul class="agile_top_section">
@@ -66,11 +66,11 @@
         <div class="container">
             <div class="markets-grids">
                 {% for idx in subdisease %}
-                    <div class="col-md-4 w3ls-markets-grid">
+                    <div class="col-md-4">
                         <a href="">
-                        <div class="agileits-icon-grid" style="color: white;height: 100px;margin-top: 30px;border-radius:15px 15px 15px 15px;border: 3px;border-style: solid;">
+                        <div class="subdisease-grid">
 
-                            <h3 style="color: white;margin-top:20px;line-height: 100%;overflow: hidden;text-align: center;" >{{ idx.name }}</h3>
+                            <h3 class="subdisease-grid-h" >{{ idx.name }}</h3>
 
                         </div>
                         </a>
