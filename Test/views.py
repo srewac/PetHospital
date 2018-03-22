@@ -13,9 +13,9 @@ def test(request):
     # else:
         # return render(request, 'User/sign_in.html')
 
-def select_paper(request, disease):
+def select_paper(request, disease_name):
     if request.method == "GET":
-        disease = Disease.objects.get(name=disease)
+        disease = Disease.objects.get(name=disease_name)
         #testpaper = TestPaper.objects.get(disease=disease)
         return render_to_response('Test/select_paper.html',locals())
     else:

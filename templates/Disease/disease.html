@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pet Hospital: Test</title>
+    <title>Pet Hospital: Learn select disease</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Pets Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -36,6 +36,7 @@
     <!-- //web-fonts -->
 </head>
 <body>
+
 <div class="agileits-banner">
     <div class="bnr-agileinfo">
         <div class="banner-top w3layouts">
@@ -61,39 +62,31 @@
                 </ul>
             </div>
         </div>
-        <h3 class="agileits-title two" style="margin-top: 60px">What Do You Want to Do</h3>
+        <h3 class="agileits-title two" style="margin-top: 60px">选择疾病种类</h3>
         <div class="container">
-            <div class="markets-grids" align="center">
-                <div class="col-md-4 w3ls-markets-grid" style="margin-left: 20%">
-                    <a href="{% url 'Test:select_disease' %}">
+            <div class="markets-grids">
+                {% for idx in disease %}
+                    <div class="col-md-4 w3ls-markets-grid">
                         <div class="agileits-icon-grid">
-                            <div class="icon-left">
-                                <i class="fa fa-flask" aria-hidden="true"></i>
-                            </div>
-                            <div class="icon-right">
-                                <h5>选择考卷</h5>
-                                <p>Select Paper</p>
-                            </div>
-                            <div class="clearfix"></div>
+                            <a href="/Disease/{{ idx.name }}/select_subdisease">
+                                <div class="icon-left">
+                                    <i class="fa fa-{% if idx.id == 1 %}eyedropper{% endif %}{% if idx.id == 2 %}bug{% endif %}{% if idx.id == 3 %}medkit{% endif %}{% if idx.id == 4 %}bed{% endif %}{% if idx.id == 5 %}calendar-plus-o{% endif %}{% if idx.id == 6 %}shield{% endif %}"
+                                       aria-hidden="true"></i>
+                                </div>
+                                <div class="icon-right">
+                                    <h2 style="color: white;">{{ idx.name }}</h2>
+                                </div>
+                                <div class="clearfix"></div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="col-md-4 w3ls-markets-grid">
-                    <div class="agileits-icon-grid">
-                        <div class="icon-left">
-                            <i class="fa fa-line-chart" aria-hidden="true"></i>
-                        </div>
-                        <div class="icon-right">
-                            <h5>查询成绩</h5>
-                            <p>Results</p>
-                        </div>
-                        <div class="clearfix"></div>
                     </div>
-                </div>
+                {% endfor %}
+
                 <div class="clearfix"></div>
             </div>
+
         </div>
-        <div class="banner-w3text w3layouts">
+        <div class="banner-top w3layouts" style="margin-top: 140px">
         </div>
     </div>
 </div>
@@ -101,9 +94,11 @@
     <div class="container">
         <div class="top-nav bottom-w3lnav">
             <p>© 2018 Pet Hospital. All Rights Reserved | Designed by our Team</p>
+
         </div>
     </div>
 </div>
+
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/static/js/bootstrap.js"></script>
 </body>
