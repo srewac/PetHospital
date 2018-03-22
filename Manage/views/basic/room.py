@@ -7,6 +7,7 @@ def room(request):
     return render(request, 'backend/basic/room.html')
 
 
+# 获取科室列表
 def room_dict(request):
     rooms = Room.objects.all()
     room_d = {'data': []}
@@ -19,6 +20,7 @@ def room_dict(request):
     return JsonResponse(room_d, safe=False)
 
 
+# 修改科室
 def room_modify(request):
     room = get_object_or_404(Room, pk=request.POST['id'])
     for r in room.roles.all():
@@ -45,6 +47,7 @@ def room_modify(request):
     return JsonResponse(True, safe=False)
 
 
+# 创建科室
 def room_create(request):
     check_room = Room.objects.filter(name=request.POST['name'])
     if len(check_room) > 0:
@@ -67,6 +70,7 @@ def room_create(request):
         return JsonResponse(True, safe=False)
 
 
+# 删除科室
 def room_delete(request, room_id):
     room = get_object_or_404(Room, pk=room_id)
     for r in room.roles.all():
