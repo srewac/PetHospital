@@ -317,6 +317,9 @@
                                 <a href="{% url 'Manage:test_show' %}">考场管理</a>
                             </li>
                             <li>
+                                <a href="{% url 'Manage:question_show' %}">所有考题</a>
+                            </li>
+                            <li>
                                 <a href="#">考卷管理<span
                                         class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
@@ -342,7 +345,7 @@
                                 <a href="{% url 'Manage:room' %}">科室管理</a>
                             </li>
                             <li>
-                                <a href="buttons.html">人员管理</a>
+                                <a href="{% url 'Manage:people_show' %}">人员管理</a>
                             </li>
                             <li>
                                 <a href="notifications.html">药品管理</a>
