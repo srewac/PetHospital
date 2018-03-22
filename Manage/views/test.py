@@ -24,8 +24,9 @@ def question_dict(request):
         choice_text = ''
         correct_choice = None
         choices = question.choice_set.all()
+        choice_text = 'A.' + choices[0].text + '\n' + 'B.' + choices[1].text + '\n' + 'C.' + choices[
+            2].text + '\n' + 'D.' + choices[3].text
         for i in range(len(choices)):
-            choice_text = choice_text + str(i) + ":" + choices[i].text + ' '
             if choices[i].correct:
                 correct_choice = choices[i]
         questions_d['data'].append(

@@ -291,13 +291,13 @@
                                id="dataTables-example">
                             <thead>
                             <tr>
-                                <th>题目</th>
-                                <th>选项</th>
-                                <th>正确答案</th>
+                                <th width="30%">题目</th>
+                                <th width="20%">选项</th>
+                                <th width="10%">正确答案</th>
                                 <th>分值</th>
                                 <th>病大类</th>
                                 <th>病小类</th>
-                                <th>操作</th>
+                                <th width="13%">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -569,7 +569,7 @@
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,
-                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify' style='margin-right:5px;margin-bottom:5px'>修改</button><button type='button' class='btn btn-danger' name='delete'>删除</button>"
+                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify' style='margin-right:5px;margin-bottom:5px'>修改</button><button type='button' class='btn btn-danger' name='delete' style='margin-right:5px;margin-bottom:5px'>删除</button>"
                 }]
             });
             $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
