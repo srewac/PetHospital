@@ -57,6 +57,20 @@ body a:focus {
 	-moz-background-size: cover;
 	position: relative;
 }
+.agileits-banner-cat {
+	background: url(../images/a1.jpg)no-repeat center 0px;
+	-webkit-background-size: cover;
+	background-size: cover;
+	-moz-background-size: cover;
+	position: relative;
+}
+.agileits-banner-cd {
+	background: url(../images/a2.jpg)no-repeat center 0px;
+	-webkit-background-size: cover;
+	background-size: cover;
+	-moz-background-size: cover;
+	position: relative;
+}
 
 .bnr-agileinfo {
 	-webkit-background-size: cover;
@@ -906,6 +920,16 @@ h3.agileits-title span {
 .agileits-icon-grid {
 	padding: 1.5em 1em;
 	box-shadow: 0 0px 1px rgb(247, 244, 244), 0 1px 2px rgba(236, 236, 236, 0.24);
+    color: white;
+	height: 100px;
+	margin-top: 30px;
+	border-radius:15px 15px 15px 15px;
+	border: 1px;
+	border-style: solid;
+}
+.agileits-icon-grid:hover {
+	color: #fff;
+	border-color: #FF5722;
 }
 
 .subdisease-grid{
@@ -915,8 +939,12 @@ h3.agileits-title span {
 	height: 100px;
 	margin-top: 30px;
 	border-radius:15px 15px 15px 15px;
-	border: 3px;
+	border: 2px;
 	border-style: solid;
+}
+.subdisease-grid:hover {
+	color: #fff;
+	border-color: #FF5722;
 }
 .subdisease-grid-h{
 	color: white;
@@ -935,6 +963,7 @@ h3.agileits-title span {
 	padding: 1.2em 0 0 0;
 	margin-right: 1em;
 	background: #ff5722;
+    border-radius: 10px 10px 10px 10px;
 }
 
 .icon-left i.fa {
