@@ -5,8 +5,7 @@ from django.http import JsonResponse
 
 
 def index(request):
-    users = User.objects.all()
-    return render(request, 'backend/user/user_info.html', {'users': users})
+    return render(request, 'backend/user/user_info.html')
 
 
 def user_dict(request):

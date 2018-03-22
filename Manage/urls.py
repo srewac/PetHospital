@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import dashboard, user, test, disease, basic
+from .views import dashboard, user, test, disease
+from .views.basic import room
 
 app_name = 'Manage'
 urlpatterns = [
@@ -28,5 +29,9 @@ urlpatterns = [
     path('test/question_delete/<int:question_id>', test.question_delete, name='question_delete'),
 
     # basic urls
-    path('basic/room', basic.room, name='room'),
+    path('basic/room', room.room, name='room'),
+    path('basic/room_dict', room.room_dict, name='room_dict'),
+    path('basic/room_modify', room.room_modify, name='room_modify'),
+    path('basic/room_create', room.room_create, name='room_create'),
+    path('basic/room_delete/<int:room_id>', room.room_delete, name='room_delete'),
 ]

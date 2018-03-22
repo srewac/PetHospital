@@ -22,7 +22,7 @@ def disease_example_dict(request):
 
 
 def disease_example_create(request):
-    return render(request,'backend/disease/disease_example_create.html')
+    return render(request, 'backend/disease/disease_example_create.html')
 
 
 def get_all_diseases():
