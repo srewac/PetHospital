@@ -127,8 +127,9 @@
     var curCount;//当前剩余秒数
 
     function email_veri() {
-
         var form = new FormData(document.getElementById('sign_up'));
+        var obj = document.getElementById('emailVerify-btn');
+        obj.setAttribute("disabled", true);
         //获取模态框数据
         $.ajax({
             type: "post",
@@ -138,16 +139,20 @@
             contentType: false,
             success:
                 function deal_with_email(result) {
-                    if (result == 0)
+                    if (result == 0) {
+                        obj.removeAttribute("disabled")//启用按钮
                         alert("请填写用户名");
-                    else if (result == 1)
-                        alert("请填写邮箱");
-                    else
+                    }
+                    else if (result == 1) {
+                        obj.removeAttribute("disabled")//启用按钮
+                         alert("请填写邮箱");
+                    }
+                    else {
                         curCount = count;
-                    var obj = document.getElementById('emailVerify-btn');
-                    obj.setAttribute("disabled", true);
-                    obj.value = "重新发送(" + curCount + ")";
-                    InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+                        obj.value = "重新发送(" + curCount + ")";
+                        InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+                    }
+
                 },
             error: function (result) {
                 alert('unexpected error');

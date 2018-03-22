@@ -60,7 +60,7 @@
         loadDom: function () {
             var panelHtml = '<div class="cerify-code-panel">' +
                 '<div class="verify-code"></div><div class="verify-code-area"><div class="verify-input-area">' +
-                '<input type="text" class="varify-input-code form-control" id="varify-input-code"name="varify-input-code"/>' +
+                '<input type="text" class="varify-input-code form-control" id="varify-input-code"name="varify-input-code" autocomplete="off"/>' +
                 '</div><div class="verify-change-area"><a class="verify-change-code"></a></div></div></div>';
             this.$element.append(panelHtml);
 

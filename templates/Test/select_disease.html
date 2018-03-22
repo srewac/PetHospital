@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Select Paper</title>
+    <title>Pet Hospital: TEST select disease</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Pets Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -65,24 +65,22 @@
         <h3 class="agileits-title two" style="margin-top: 60px" id="selectedpaperid">选择试卷</h3>
         <div class="container">
         <div class="markets-grids">
+            {% for idx in disease %}
             <div class="col-md-4 w3ls-markets-grid">
                 <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-eyedropper" aria-hidden="true"></i>
-                    </div>
-                    <div class="icon-right">
-                        <h5>传染病</h5>
-                        <select>
-                            {% for test in testpaper %}
-                                {% if test.disease == "传染病" %}
-                                    <option value={{ test.id }}>{{ test.name }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="clearfix"></div>
+                    <a href="/Test/{{ idx.id }}/select_paper" >
+                        <div class="icon-left">
+                            <i class="fa fa-{% if idx.id == 1 %}eyedropper{% endif %}{% if idx.id == 2 %}bug{% endif %}{% if idx.id == 3 %}medkit{% endif %}{% if idx.id == 4 %}bed{% endif %}{% if idx.id == 5 %}calendar-plus-o{% endif %}{% if idx.id == 6 %}shield{% endif %}" aria-hidden="true"></i>
+                        </div>
+                        <div class="icon-right">
+                            <h2 style="color: white;">{{ idx.name }}</h2>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
                 </div>
             </div>
+            {% endfor %}
+            <!--
             <div class="col-md-4 w3ls-markets-grid">
                 <div class="agileits-icon-grid">
                     <div class="icon-left">
@@ -137,20 +135,12 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-            </div>
+            </div>-->
             <div class="clearfix"></div>
         </div>
-        <div align="center">
-            <form action="" method="post">
-                {% csrf_token %}
-                <input id="selectedpaper" name="selectedpaper" hidden value="">
-                <button href="" class="button button-isi"style="margin-bottom: 45px;margin-top: 70px;"><span>开始考试</span>
-                <i class="icon glyphicon glyphicon-arrow-right"></i></button>
-            </form>
 
-        </div>
     </div>
-        <div class="banner-top w3layouts">
+        <div class="banner-top w3layouts" style="margin-top: 140px">
         </div>
     </div>
 </div>
