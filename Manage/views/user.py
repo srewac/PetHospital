@@ -20,8 +20,7 @@ def user_dict(request):
 def user_delete(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     user.delete()
-    # return redirect(reverse('Manage:user_show'))
-    return JsonResponse([user_id], safe=False)
+    return JsonResponse(True, safe=False)
 
 
 def user_update(request):
