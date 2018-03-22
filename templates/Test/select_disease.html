@@ -53,9 +53,9 @@
                             <a class="sign" href="#">{{ request.session.username }}</a>
                             <a class="sign" href="{% url 'sign_out' %}">注销</a>
                         {% else %}
-                            <a class="sign" href="{% url 'sign_in' %}" >
+                            <a class="sign" href="{% url 'sign_in' %}">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
-                            <a class="sign" href="{% url 'sign_up' %}" >
+                            <a class="sign" href="{% url 'sign_up' %}">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
                         {% endif %}
                     </li>
@@ -64,96 +64,103 @@
         </div>
         <h3 class="agileits-title two" style="margin-top: 60px" id="selectedpaperid">选择试卷</h3>
         <div class="container">
-        <div class="markets-grids">
-            {% for idx in disease %}
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <a href="/Test/{{ idx.id }}/select_paper" >
+            <div class="markets-grids">
+                {% for idx in disease %}
+                    <div class="col-md-4 w3ls-markets-grid">
+                        <div class="agileits-icon-grid">
+                            <a href="/Test/{{ idx.id }}/select_paper">
+                                <div class="icon-left">
+                                    <i class="fa fa-{% if idx.id == 1 %}eyedropper{% endif %}{% if idx.id == 2 %}bug{% endif %}{% if idx.id == 3 %}medkit{% endif %}{% if idx.id == 4 %}bed{% endif %}{% if idx.id == 5 %}calendar-plus-o{% endif %}{% if idx.id == 6 %}shield{% endif %}"
+                                       aria-hidden="true"></i>
+                                </div>
+                                <div class="icon-right">
+                                    <h2 style="color: white;">{{ idx.name }}</h2>
+                                </div>
+                                <div class="clearfix"></div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!--
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
                         <div class="icon-left">
-                            <i class="fa fa-{% if idx.id == 1 %}eyedropper{% endif %}{% if idx.id == 2 %}bug{% endif %}{% if idx.id == 3 %}medkit{% endif %}{% if idx.id == 4 %}bed{% endif %}{% if idx.id == 5 %}calendar-plus-o{% endif %}{% if idx.id == 6 %}shield{% endif %}" aria-hidden="true"></i>
+                            <i class="fa fa-bug" aria-hidden="true"></i>
                         </div>
                         <div class="icon-right">
-                            <h2 style="color: white;">{{ idx.name }}</h2>
+                            <h5>寄生虫病</h5>
                         </div>
                         <div class="clearfix"></div>
-                    </a>
+                    </div>
                 </div>
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
+                        <div class="icon-left">
+                            <i class="fa fa-medkit" aria-hidden="true"></i>
+                        </div>
+                        <div class="icon-right">
+                            <h5>内科</h5>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
+                        <div class="icon-left">
+                            <i class="fa fa-bed" aria-hidden="true"></i>
+                        </div>
+                        <div class="icon-right">
+                            <h5>外产科疾病</h5>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
+                        <div class="icon-left">
+                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="icon-right">
+                            <h5>常用手术</h5>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
+                        <div class="icon-left">
+                            <i class="fa fa-shield" aria-hidden="true"></i>
+                        </div>
+                        <div class="icon-right">
+                            <h5>免疫</h5>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>-->
+                <div class="clearfix"></div>
             </div>
-            {% endfor %}
-            <!--
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-bug" aria-hidden="true"></i>
-                    </div>
-                    <div class="icon-right">
-                        <h5>寄生虫病</h5>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-medkit" aria-hidden="true"></i>
-                    </div>
-                    <div class="icon-right">
-                        <h5>内科</h5>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-bed" aria-hidden="true"></i>
-                    </div>
-                    <div class="icon-right">
-                        <h5>外产科疾病</h5>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                    </div>
-                    <div class="icon-right">
-                        <h5>常用手术</h5>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-shield" aria-hidden="true"></i>
-                    </div>
-                    <div class="icon-right">
-                        <h5>免疫</h5>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>-->
-            <div class="clearfix"></div>
-        </div>
 
-    </div>
+        </div>
         <div class="banner-top w3layouts" style="margin-top: 140px">
         </div>
     </div>
 </div>
+<div class="copy-w3right">
+    <div class="container">
+        <div class="top-nav bottom-w3lnav">
+            <p>© 2018 Pet Hospital. All Rights Reserved | Designed by our Team</p>
 
+        </div>
+    </div>
+</div>
 
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/static/js/bootstrap.js"></script>
 <script type="text/javascript">
-function selectpaper(x,y)
-{
-    document.getElementById("selectedpaper").value=x;
-    document.getElementById("selectedpaperid").innerHTML=y+" 试卷："+x;
-}
+    function selectpaper(x, y) {
+        document.getElementById("selectedpaper").value = x;
+        document.getElementById("selectedpaperid").innerHTML = y + " 试卷：" + x;
+    }
 </script>
 </body>
 </html>
