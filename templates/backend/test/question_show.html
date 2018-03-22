@@ -29,7 +29,27 @@
             });
         }
 
-        function create_question() {
+        function delete_confirm(question_id) {
+            $('#delete_id').val(question_id);
+            $('#delete').modal('show');
+        }
+
+        function delete_ok(){
+            var id = $("#delete_id").val();
+            $.ajax({
+                type: "post",
+                url: "question_delete/" + id,
+                success: function (result) {
+                    $('#dataTables-example').DataTable().ajax.reload();
+                    $('#delete').modal('hide');
+                },
+                error: function (result) {
+                    alert('delete error');
+                }
+            });
+        }
+
+        function create_question_show() {
             $.ajax({
                 type: "POST",
                 url: "{% url "Manage:question_create_dict" %}",
@@ -45,10 +65,11 @@
                 },
                 error: function (result) {
                     alert('question modify error');
-                }});
+                }
+            });
         }
 
-        function create() {
+        function create_validation() {
             if ($("#question_create_textarea").val() == '') {
                 $("#error_question_create").html("问题不能为空");
                 $("#error_question_create").show();
@@ -84,6 +105,11 @@
                 $("#error_choice4_create").html("");
                 $("#error_choice4_create").hide();
             }
+        }
+
+        <!--0:save_and_quit 1:save_and_continue-->
+        function create(type) {
+            create_validation();
             if ($("#error_question_create").is(":hidden") && $("#error_choice1_create").is(":hidden") && $("#error_choice2_create").is(":hidden") && $("#error_choice3_create").is(":hidden") && $("#error_choice4_create").is(":hidden")) {
                 var form = new FormData(document.getElementById('question_create_form'));
                 $.ajax({
@@ -94,8 +120,9 @@
                     contentType: false,
                     success: function (result) {
                         $('#dataTables-example').DataTable().ajax.reload();
-                        $("#question_create").modal('hide');
-                        quit_create()
+                        clean_create();
+                        if (type == 0)
+                            $("#question_create").modal('hide');
                     },
                     error: function (result) {
                         alert('question create error');
@@ -105,7 +132,7 @@
 
         }
 
-        function quit_create() {
+        function clean_create() {
             $("#question_create_textarea").val("");
             $("#choice1_create").val("");
             $("#choice2_create").val("");
@@ -123,12 +150,13 @@
             $("#error_choice4_create").hide();
         }
 
-        function modify_question(question_id) {
+        function modify_question_show(question_id) {
             $.ajax({
                 type: "POST",
                 url: "question_modify_dict/" + question_id,
                 success: function (result) {
                     result = JSON.parse(result);
+                    $("#question_modify_id").val(result.id);
                     $("#question_modify_textarea").val(result.text);
                     $("#question_modify select[name='score']").val(result.score);
                     $("#question_modify_disease").empty();
@@ -142,10 +170,10 @@
                     $("#question_modify_disease").val(result.disease);
                     $("#question_modify_sub_disease").val(result.sub_disease);
                     for (var i = 1; i < 5; i++) {
-                        $("#choice"+i+"_modify").val(result.choices[i-1][0]);
-                        $("#choice"+i+"_modify").val();
-                        if (result.choices[i-1][1]==true){
-                            $("#question_modify input[name='correct_choice']").get(i-1).checked = true;
+                        $("#choice" + i + "_modify").val(result.choices[i - 1][0]);
+                        $("#choice" + i + "_modify").val();
+                        if (result.choices[i - 1][1] == true) {
+                            $("#question_modify input[name='correct_choice']").get(i - 1).checked = true;
                         }
                     }
                     $("#question_modify").modal('show');
@@ -158,16 +186,92 @@
             })
         }
 
-        function modify(question_id){
-
+        function modify_validation() {
+            if ($("#question_modify_textarea").val() == '') {
+                $("#error_question_modify").html("问题不能为空");
+                $("#error_question_modify").show();
+            } else {
+                $("#error_question_modify").html("");
+                $("#error_question_modify").hide();
+            }
+            if ($("#choice1_modify").val() == '') {
+                $("#error_choice1_modify").html("选项不能为空");
+                $("#error_choice1_modify").show();
+            } else {
+                $("#error_choice1_modify").html("");
+                $("#error_choice1_modify").hide();
+            }
+            if ($("#choice2_modify").val() == '') {
+                $("#error_choice2_modify").html("选项不能为空");
+                $("#error_choice2_modify").show();
+            } else {
+                $("#error_choice2_modify").html("");
+                $("#error_choice2_modify").hide();
+            }
+            if ($("#choice3_modify").val() == '') {
+                $("#error_choice3_modify").html("选项不能为空");
+                $("#error_choice3_modify").show();
+            } else {
+                $("#error_choice3_modify").html("");
+                $("#error_choice3_modify").hide();
+            }
+            if ($("#choice4_modify").val() == '') {
+                $("#error_choice4_modify").html("选项不能为空");
+                $("#error_choice4_modify").show();
+            } else {
+                $("#error_choice4_modify").html("");
+                $("#error_choice4_modify").hide();
+            }
         }
+
+        function modify() {
+            modify_validation();
+            if ($("#error_question_modify").is(":hidden") && $("#error_choice1_modify").is(":hidden") && $("#error_choice2_modify").is(":hidden") && $("#error_choice3_modify").is(":hidden") && $("#error_choice4_modify").is(":hidden")) {
+                var form = new FormData(document.getElementById('question_modify_form'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:question_modify' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        $('#dataTables-example').DataTable().ajax.reload();
+                        clean_modify();
+                        $("#question_modify").modal('hide');
+                    },
+                    error: function (result) {
+                        alert('question modify error');
+                    }
+                });
+            }
+        }
+
+        function clean_modify() {
+            $("#question_modify_textarea").val("");
+            $("#choice1_modify").val("");
+            $("#choice2_modify").val("");
+            $("#choice3_modify").val("");
+            $("#choice4_modify").val("");
+            $("#error_question_modify").html("");
+            $("#error_question_modify").hide();
+            $("#error_choice1_modify").html("");
+            $("#error_choice1_modify").hide();
+            $("#error_choice2_modify").html("");
+            $("#error_choice2_modify").hide();
+            $("#error_choice3_modify").html("");
+            $("#error_choice3_modify").hide();
+            $("#error_choice4_modify").html("");
+            $("#error_choice4_modify").hide();
+        }
+
+
     </script>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">所有考题
                     <button type="button" class="btn btn-success"
-                            style="float: right;margin: 10px" onclick="create_question()">新建考题
+                            style="float: right;margin: 10px" onclick="create_question_show()">新建考题
                     </button>
                 </h1>
 
@@ -224,7 +328,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                onclick="quit_create()">
+                                onclick="clean_create()">
                             ×
                         </button>
                         <h4 class="modal-title" id="myModalLabel">新建题目</h4>
@@ -311,9 +415,11 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="quit_create()">关闭
+                        <button type="button" class="btn btn-primary" onclick="create(1)">创建并继续</button>
+                        <button type="button" class="btn btn-primary" onclick="create(0)">创建并离开</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_create()">关闭
                         </button>
-                        <button type="button" class="btn btn-primary" onclick="create()">创建</button>
+
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -331,18 +437,19 @@
                                 onclick="quit_modify()">
                             ×
                         </button>
-                        <h4 class="modal-title" id="myModalLabel">新建题目</h4>
+                        <h4 class="modal-title" id="myModalLabel">修改题目</h4>
                     </div>
                     <div class="modal-body">
                         <form id='question_modify_form' method="post" style="margin:10px 30px">
                             <div class="row">
+                                <input type="text" name="id" id="question_modify_id" hidden="hidden"/>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="question_modify_textarea">题目：</label>
                                         <textarea class="form-control" rows="4" name="question"
                                                   id="question_modify_textarea"></textarea>
                                         <p class="error-message" hidden="hidden" style="color: red"
-                                           id="error_question_create"></p>
+                                           id="error_question_modify"></p>
                                     </div>
                                     <div class="form-group">
                                         <label>病大类：</label>
@@ -413,9 +520,9 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="quit_create()">关闭
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_modify()">关闭
                         </button>
-                        <button type="button" class="btn btn-primary" onclick="create()">创建</button>
+                        <button type="button" class="btn btn-primary" onclick="modify()">修改</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -423,7 +530,34 @@
             <!-- /.modal -->
         </div>
         <!-- 模态框（Modal）end -->
+        <!-- 模态框（Modal）delete -->
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                onclick="quit_create()">
+                            ×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">删除用户</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5>是否确定删除？</h5>
+                        <input hidden="hidden" id="delete_id">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" id="btn-delete" onclick="delete_ok()">删除</button>
+                    </div>
 
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+        <!-- 模态框（Modal）end -->
     </div>
 {% endblock %}
 
@@ -440,12 +574,12 @@
             });
             $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                modify_question(data[6]);
+                modify_question_show(data[6]);
             });
-            {#            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {#}
-            {#                var data = table.row($(this).parents('tr')).data();#}
-            {#                delete_confirm(data[4]);#}
-            {#            });#}
+            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                delete_confirm(data[6]);
+            });
         });
     </script>
 {% endblock %}

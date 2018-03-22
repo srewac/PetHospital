@@ -72,14 +72,17 @@ def question_create_dict(request):
 
 
 def question_modify(request):
-    question = Question(text=request.POST['question'],
-                        score=request.POST['score'],
-                        sub_disease_id=request.POST['sub_disease_selector'])
-    question.save()
+    assert request.POST['id'] is not None
+    question = Question.objects.get(pk=request.POST['id'])
+    question.text = request.POST['question']
+    question.score = request.POST['score']
+    question.sub_disease_id = request.POST['sub_disease_selector']
+    question.choice_set.all().delete()
     question.choice_set.create(text=request.POST['choice1'], correct=(request.POST['correct_choice'] == 'choice1'))
     question.choice_set.create(text=request.POST['choice2'], correct=(request.POST['correct_choice'] == 'choice2'))
     question.choice_set.create(text=request.POST['choice3'], correct=(request.POST['correct_choice'] == 'choice3'))
     question.choice_set.create(text=request.POST['choice4'], correct=(request.POST['correct_choice'] == 'choice4'))
+    question.save()
     return JsonResponse(True, safe=False)
 
 
@@ -97,6 +100,7 @@ def question_modify_dict(request, question_id):
     for choice in question.choice_set.all():
         CHOICES.append((choice.text, choice.correct))
     question_d = {
+        'id': question.id,
         'text': question.text,
         'score': question.score,
         'disease_all': DISEASES,
@@ -106,3 +110,9 @@ def question_modify_dict(request, question_id):
         'choices': CHOICES
     }
     return JsonResponse(json.dumps(question_d), safe=False)
+
+
+def question_delete(request, question_id):
+    question = Question.objects.get(pk=question_id)
+    question.delete()
+    return JsonResponse(True, safe=False)

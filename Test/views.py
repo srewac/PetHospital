@@ -8,14 +8,14 @@ from Disease.models import Disease
 
 # Create your views here.
 def test(request):
-    if request.session.get('username', None):
-        return render(request, 'Test/test.html')
-    else:
-        return render(request, 'User/sign_in.html')
+    # if request.session.get('username', None):
+    return render(request, 'Test/test.html')
+    # else:
+        # return render(request, 'User/sign_in.html')
 
-def select_paper(request, disease_id):
+def select_paper(request, disease):
     if request.method == "GET":
-        disease = Disease.objects.get(id=disease_id)
+        disease = Disease.objects.get(name=disease)
         #testpaper = TestPaper.objects.get(disease=disease)
         return render_to_response('Test/select_paper.html',locals())
     else:

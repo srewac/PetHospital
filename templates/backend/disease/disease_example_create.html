@@ -3,6 +3,50 @@
     新建病例
 {% endblock %}
 {% block main_content %}
+    <script type="text/javascript">
+        function change() {
+            if (typeof FileReader != "undefined") {
+                var dvPreview = $("#imgPreview");
+                var regex = /(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                $($("#fileUpload")[0].files).each(function () {
+                    var file = $(this);
+                    if (regex.test(file[0].name.toLowerCase())) {
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file[0]);
+                        reader.onload = function () {
+                            var img = "<img class=\"disease_example_name_img\" src=\"" + this.result + "\">" + "</img>"
+                            dvPreview.prepend(img);
+                        }
+                    } else {
+                        alert(file[0].name + " is not a valid image file.");
+                        return false;
+                    }
+                });
+            }
+            else {
+                alert("This browser does not support HTML5 FileReader.");
+            }
+        }
+
+
+        /*-----------------------------删除图片------------------------------*/
+        $(document).on('click', $(".deleteImg"), function () {
+            //处理未来事件
+            $(this).parent().parent().remove();
+        })
+    </script>
+
+
+    {#TODO:设置imgPreview中img标签的属性，需要修改#}
+    <style>
+        #imgPreview img {
+            margin-right: 10px;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+
+
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-11">
@@ -55,12 +99,19 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>上传病例图片</label>
-                                <input type="file">
+                                <label>上传病例图片</label><br>
+                                <div id="imgPreview" class="imgPreview" style="float: left;"></div>
+                                <span class="upload-img"
+                                      style="display: block;width: 50px;height: 50px;overflow: hidden;
+                                      position: relative;background: url('/static/images/upload.png') no-repeat 0;background-size: contain">
+                                <input id="fileUpload" accept="image/*" type="file" onchange="change()"
+                                       name="disease_img"
+                                       style="height: 50px;opacity: 0;filter: alpha(opacity=0);position: absolute;top: 0;right: 0"
+                                       multiple="multiple"/></span>
                             </div>
                             <div class="form-group">
                                 <label>上传病例视频</label>
-                                <input type="file">
+                                <input type="file" multiple="multiple">
                             </div>
                         </form>
                         <h1>接诊情况</h1>
@@ -75,11 +126,11 @@
                             </div>
                             <div class="form-group">
                                 <label>上传接诊图片</label>
-                                <input type="file">
+                                <input type="file" multiple="multiple">
                             </div>
                             <div class="form-group">
                                 <label>上传接诊视频</label>
-                                <input type="file">
+                                <input type="file" multiple="multiple">
                             </div>
                         </form>
                     </div>
@@ -96,11 +147,11 @@
                             </div>
                             <div class="form-group">
                                 <label>上传病例检查图片</label>
-                                <input type="file">
+                                <input type="file" multiple="multiple">
                             </div>
                             <div class="form-group">
                                 <label>上传病例检查视频</label>
-                                <input type="file">
+                                <input type="file" multiple="multiple">
                             </div>
                         </form>
                         <h1>诊断结果</h1>
@@ -115,11 +166,11 @@
                             </div>
                             <div class="form-group">
                                 <label>上传诊断结果图片</label>
-                                <input type="file">
+                                <input type="file" multiple="multiple">
                             </div>
                             <div class="form-group">
                                 <label>上传诊断结果视频</label>
-                                <input type="file">
+                                <input type="file" multiple="multiple">
                             </div>
                         </form>
                         <h1>治疗方案</h1>
@@ -134,15 +185,16 @@
                             </div>
                             <div class="form-group">
                                 <label>上传治疗方案图片</label>
-                                <input type="file">
+                                <input type="file" multiple="multiple">
                             </div>
                             <div class="form-group">
                                 <label>上传治疗方案视频</label>
-                                <input type="file">
+                                <input type="file" multiple="multiple">
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 {% endblock %}
