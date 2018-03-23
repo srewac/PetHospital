@@ -20,6 +20,11 @@ def question_index(request):
     return render(request, 'backend/test/question_show.html')
 
 
+# 进入考卷生成
+def testpaper_create_show(request):
+    return render(request, 'backend/test/testpaper_create_show.html', )
+
+
 # 返回所有考题
 def question_dict(request):
     questions = Question.objects.all()
@@ -135,4 +140,69 @@ def question_modify_dict(request, question_id):
 def question_delete(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     question.delete()
+    return JsonResponse(True, safe=False)
+
+
+# 创建考卷详情
+def testpaper_create(request):
+    testpaper = TestPaper(name=request.POST['name'],
+                          desc=request.POST['desc'],
+                          disease_id=request.POST['disease'])
+    testpaper.save()
+    return JsonResponse(testpaper.id, safe=False)
+
+
+# 考卷选择考题
+def select_question(request, testpaper_id):
+    return render(request, 'backend/test/select_question.html', {'testpaper_id': str(testpaper_id)})
+
+
+# 选择某一病类的考题
+def select_question_dict(request, testpaper_id):
+    testpaper = get_object_or_404(TestPaper, pk=testpaper_id)
+    questions = Question.objects.filter(sub_disease__disease=testpaper.disease)
+    questions_d = {'data': []}
+    for question in questions:
+        question_in_testpaper = '1' if question in testpaper.questions.all() else '0'
+        correct_choice = None
+        assert (len(question.choice_set.all()) == 4)
+        choices = question.choice_set.all()
+        choice_text = 'A.' + choices[0].text + ' ' + 'B.' + choices[1].text + ' ' + 'C.' + choices[
+            2].text + ' ' + 'D.' + choices[3].text
+        for i in range(len(choices)):
+            if choices[i].correct:
+                correct_choice = choices[i]
+        questions_d['data'].append(
+            [question.text, choice_text, correct_choice.text, question.score, question.sub_disease.disease.name,
+             question.sub_disease.name, str(question.id) + ';' + question_in_testpaper])
+    return JsonResponse(questions_d, safe=False)
+
+
+# 为试卷添加考题
+def testpapaer_question_add(request, testpaper_id, question_id):
+    testpaper = TestPaper.objects.get(pk=testpaper_id)
+    question = Question.objects.get(pk=question_id)
+    if question in testpaper.questions.all():
+        return JsonResponse(False, safe=False)
+    else:
+        testpaper.questions.add(question)
+        return JsonResponse(True, safe=False)
+
+
+# 为试卷删除考题
+def testpapaer_question_delete(request, testpaper_id, question_id):
+    testpaper = TestPaper.objects.get(pk=testpaper_id)
+    question = Question.objects.get(pk=question_id)
+    if question in testpaper.questions.all():
+        testpaper.questions.remove(question)
+        return JsonResponse(True, safe=False)
+    else:
+        return JsonResponse(False, safe=False)
+
+
+# 清空某张试卷全部试题
+def testpaper_questino_delete_all(request, testpapaer_id):
+    testpaper = TestPaper.objects.get(pk=testpapaer_id)
+    for question in testpaper.questions.all():
+        testpaper.questions.remove(question)
     return JsonResponse(True, safe=False)

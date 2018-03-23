@@ -1,0 +1,349 @@
+{% extends 'backend/base_page.html' %}
+{% block title %}
+    试卷生成
+{% endblock %}
+{% block main_content %}
+    <script>
+        function create_validation() {
+            if ($("#name").val() == '') {
+                $("#error_name").html("试卷名不能为空");
+                $("#error_name").show();
+            } else {
+                $("#error_name").html("");
+                $("#error_name").hide();
+            }
+            if ($("#desc").val() == '') {
+                $("#error_desc").html("描述不能为空");
+                $("#error_desc").show();
+            } else {
+                $("#error_desc").html("");
+                $("#error_desc").hide();
+            }
+        }
+
+        function create() {
+            create_validation();
+            if ($("#error_name").is(":hidden") && $("#error_desc").is(":hidden")) {
+                var form = new FormData(document.getElementById('testpaper_create'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:testpaper_create' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        window.location.href = 'select_question/'+result
+                    },
+                    error: function (result) {
+                        alert('testpaper create error');
+                    }
+                });
+            }
+
+        }
+
+    </script>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">试卷生成
+                    <button type="button" class="btn btn-success"
+                            style="float: right;margin: 10px" onclick="create()">选择考题
+                    </button>
+                </h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-4">
+                <h3>试卷详情</h3>
+                <form method="post" id="testpaper_create" style="margin-top:30px;">
+                    <div class="form-group">
+                        <label for="name">试卷名</label>
+                        <input class="form-control" name="name" type="text" id="name">
+                        <p class="error-message" hidden="hidden" style="color: red" id="error_name"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="desc">试卷描述</label>
+                        <input class="form-control" name="desc" type="text" id="desc">
+                        <p class="error-message" hidden="hidden" style="color: red" id="error_desc"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="disease">病大类</label>
+                        <select class="form-control" name="disease" id="disease"></select>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 col-lg-offset-1">
+                <h3>考卷生成规则</h3>
+                <div style="margin-top: 30px">
+                    <p>为规范考试，严肃考风考纪。对考试的出卷工作提出以下要求，望各教师遵照执行。</p>
+                    <p>1．根据命题要求，各命题教师应选择难度适中、题目多样性好的试卷，并给出标准答案；相同知识点题目不得超过20%。</p>
+                    <p>2．考试内容的范围，原则上是该病种的全部内容，包括基础知识、基本理论、基本技能的掌握和综合运用所学知识的能力。试题要尽量避免死记硬背的内容，重点考核学生理解、运用知识的能力。。</p>
+                    <p>3、试题结构要按照教学大纲的要求，全面测量学生应具备的知识与能力，试题的覆盖面要广，应有一定的难度和区分度。考试命题应做到：基本题、水平题、难度题的比例基本保持为7:2:1。</p>
+                    <p>4、试题的份量以考试时间30分钟为适量</p>
+                    <p>5、出卷老师出卷完毕认真检查，经校对无误后发布试卷。</p>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <!-- 模态框（Modal）create -->
+        <div class="modal fade" id="question_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                onclick="clean_create()">
+                            ×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">新建题目</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id='question_create_form' method="post" style="margin:10px 30px">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="question_create_textarea">题目：</label>
+                                        <textarea class="form-control" rows="4" name="question"
+                                                  id="question_create_textarea"></textarea>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_question_create"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>病大类：</label>
+                                        <select class="form-control" name="disease_selector"
+                                                id="question_create_disease"
+                                                onchange="getSubDiseaseOptions(this.value, 'create')"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>病小类：</label>
+                                        <select class="form-control" name="sub_disease_selector"
+                                                id="question_create_sub_disease">
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>分值：</label>
+                                        <select class="form-control" name="score">
+                                            <option value="1">1</option>
+                                            <option value="2" selected="selected">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>选项1：</label>
+                                        <input type="text" class="form-control" name="choice1" id="choice1_create"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" checked="checked" value="choice1">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice1_create"></p>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项2：</label>
+                                        <input type="text" class="form-control" name="choice2" id="choice2_create"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice2">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice2_create"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项3：</label>
+                                        <input type="text" class="form-control" name="choice3" id="choice3_create"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice3">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice3_create"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项4：</label>
+                                        <input type="text" class="form-control" name="choice4" id="choice4_create"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice4">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice4_create"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="create(1)">创建并继续</button>
+                        <button type="button" class="btn btn-primary" onclick="create(0)">创建并离开</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_create()">关闭
+                        </button>
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+        <!-- 模态框（Modal）end -->
+        <!-- 模态框（Modal）modify -->
+        <div class="modal fade" id="question_modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                onclick="quit_modify()">
+                            ×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">修改题目</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id='question_modify_form' method="post" style="margin:10px 30px">
+                            <div class="row">
+                                <input type="text" name="id" id="question_modify_id" hidden="hidden"/>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="question_modify_textarea">题目：</label>
+                                        <textarea class="form-control" rows="4" name="question"
+                                                  id="question_modify_textarea"></textarea>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_question_modify"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>病大类：</label>
+                                        <select class="form-control" name="disease_selector"
+                                                id="question_modify_disease"
+                                                onchange="getSubDiseaseOptions(this.value, 'modify')"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>病小类：</label>
+                                        <select class="form-control" name="sub_disease_selector"
+                                                id="question_modify_sub_disease"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>分值：</label>
+                                        <select class="form-control" name="score">
+                                            <option value="1">1</option>
+                                            <option value="2" selected="selected">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>选项1：</label>
+                                        <input type="text" class="form-control" name="choice1" id="choice1_modify"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" checked="checked" value="choice1">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice1_modify"></p>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项2：</label>
+                                        <input type="text" class="form-control" name="choice2" id="choice2_modify"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice2">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice2_modify"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项3：</label>
+                                        <input type="text" class="form-control" name="choice3" id="choice3_modify"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice3">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice3_modify"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项4：</label>
+                                        <input type="text" class="form-control" name="choice4" id="choice4_modify"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice4">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice4_modify"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_modify()">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="modify()">修改</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+        <!-- 模态框（Modal）end -->
+        <!-- 模态框（Modal）delete -->
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                onclick="quit_create()">
+                            ×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">删除用户</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5>是否确定删除？</h5>
+                        <input hidden="hidden" id="delete_id">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" id="btn-delete" onclick="delete_ok()">删除</button>
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+        <!-- 模态框（Modal）end -->
+    </div>
+{% endblock %}
+{% block datatable_script %}
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "{% url "Manage:question_create_dict" %}",
+                success: function (result) {
+                    result = JSON.parse(result);
+                    $.each(result.disease_all, function (id, name) {
+                        $("#disease").append($("<option>").val(id).text(name));
+                    });
+                },
+                error: function (result) {
+                }
+            });
+        });
+
+    </script>
+{% endblock %}
