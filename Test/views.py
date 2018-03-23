@@ -11,7 +11,7 @@ def test(request):
     if request.session.get('username', None):
         return render(request, 'Test/test.html')
     else:
-        return render(request, 'User/sign_in.html')
+        return HttpResponseRedirect('/User/sign_in/');
 
 def select_paper(request, disease_name):
     if request.session.get('username', None):
@@ -24,7 +24,7 @@ def select_paper(request, disease_name):
             # TODO: page for single test
             return render(request, 'User/index.html')
     else:
-        return render(request, 'User/sign_in.html')
+        return HttpResponseRedirect('/User/sign_in/');
 
 
 def select_disease(request):
@@ -34,8 +34,7 @@ def select_disease(request):
             disease = Disease.objects.all()
             return render_to_response('Test/select_disease.html', locals())
     else:
-        return render(request, 'User/sign_in.html')
-
+        return HttpResponseRedirect('/User/sign_in/');
 
 def test_management(request):
     return render(request, 'Test/test_management.html')
