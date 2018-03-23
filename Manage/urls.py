@@ -36,7 +36,7 @@ urlpatterns = [
     path('test/testpaper_question_add/<int:testpaper_id>/<int:question_id>', test.testpapaer_question_add, name='testpapaer_question_add'),
     path('test/testpaper_question_delete/<int:testpaper_id>/<int:question_id>', test.testpapaer_question_delete,
          name='testpapaer_question_delete'),
-    path('test/testpaper_question_delete_all/<int:testpapaer_id>', test.testpaper_questino_delete_all, name='testpaper_question_delete_all')
+    path('test/testpaper_question_delete_all/<int:testpapaer_id>', test.testpaper_questino_delete_all, name='testpaper_question_delete_all'),
     # people urls
     path('basic/people', people.people, name="people_show"),
     path('basic/people/people_dict', people.people_dict, name='people_dict'),
