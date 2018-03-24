@@ -56,7 +56,7 @@
         </div>
         <!-- /.row -->
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 <h3>试卷详情</h3>
                 <form method="post" id="testpaper_create" style="margin-top:30px;">
                     <div class="form-group">
@@ -75,7 +75,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-6 col-lg-offset-1">
+            <div class="col-lg-6 ">
                 <h3>考卷生成规则</h3>
                 <div style="margin-top: 30px">
                     <p>为规范考试，严肃考风考纪。对考试的出卷工作提出以下要求，望各教师遵照执行。</p>
@@ -89,243 +89,6 @@
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
-        <!-- 模态框（Modal）create -->
-        <div class="modal fade" id="question_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                onclick="clean_create()">
-                            ×
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">新建题目</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id='question_create_form' method="post" style="margin:10px 30px">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="question_create_textarea">题目：</label>
-                                        <textarea class="form-control" rows="4" name="question"
-                                                  id="question_create_textarea"></textarea>
-                                        <p class="error-message" hidden="hidden" style="color: red"
-                                           id="error_question_create"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>病大类：</label>
-                                        <select class="form-control" name="disease_selector"
-                                                id="question_create_disease"
-                                                onchange="getSubDiseaseOptions(this.value, 'create')"></select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>病小类：</label>
-                                        <select class="form-control" name="sub_disease_selector"
-                                                id="question_create_sub_disease">
-
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>分值：</label>
-                                        <select class="form-control" name="score">
-                                            <option value="1">1</option>
-                                            <option value="2" selected="selected">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>选项1：</label>
-                                        <input type="text" class="form-control" name="choice1" id="choice1_create"/>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="correct_choice" checked="checked" value="choice1">
-                                            正确选项
-                                        </label>
-                                        <p class="error-message" hidden="hidden" style="color: red"
-                                           id="error_choice1_create"></p>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label>选项2：</label>
-                                        <input type="text" class="form-control" name="choice2" id="choice2_create"/>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="correct_choice" value="choice2">
-                                            正确选项
-                                        </label>
-                                        <p class="error-message" hidden="hidden" style="color: red"
-                                           id="error_choice2_create"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>选项3：</label>
-                                        <input type="text" class="form-control" name="choice3" id="choice3_create"/>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="correct_choice" value="choice3">
-                                            正确选项
-                                        </label>
-                                        <p class="error-message" hidden="hidden" style="color: red"
-                                           id="error_choice3_create"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>选项4：</label>
-                                        <input type="text" class="form-control" name="choice4" id="choice4_create"/>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="correct_choice" value="choice4">
-                                            正确选项
-                                        </label>
-                                        <p class="error-message" hidden="hidden" style="color: red"
-                                           id="error_choice4_create"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="create(1)">创建并继续</button>
-                        <button type="button" class="btn btn-primary" onclick="create(0)">创建并离开</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_create()">关闭
-                        </button>
-
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal -->
-        </div>
-        <!-- 模态框（Modal）end -->
-        <!-- 模态框（Modal）modify -->
-        <div class="modal fade" id="question_modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                onclick="quit_modify()">
-                            ×
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">修改题目</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id='question_modify_form' method="post" style="margin:10px 30px">
-                            <div class="row">
-                                <input type="text" name="id" id="question_modify_id" hidden="hidden"/>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="question_modify_textarea">题目：</label>
-                                        <textarea class="form-control" rows="4" name="question"
-                                                  id="question_modify_textarea"></textarea>
-                                        <p class="error-message" hidden="hidden" style="color: red"
-                                           id="error_question_modify"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>病大类：</label>
-                                        <select class="form-control" name="disease_selector"
-                                                id="question_modify_disease"
-                                                onchange="getSubDiseaseOptions(this.value, 'modify')"></select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>病小类：</label>
-                                        <select class="form-control" name="sub_disease_selector"
-                                                id="question_modify_sub_disease"></select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>分值：</label>
-                                        <select class="form-control" name="score">
-                                            <option value="1">1</option>
-                                            <option value="2" selected="selected">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>选项1：</label>
-                                        <input type="text" class="form-control" name="choice1" id="choice1_modify"/>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="correct_choice" checked="checked" value="choice1">
-                                            正确选项
-                                        </label>
-                                        <p class="error-message" hidden="hidden" style="color: red"
-                                           id="error_choice1_modify"></p>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label>选项2：</label>
-                                        <input type="text" class="form-control" name="choice2" id="choice2_modify"/>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="correct_choice" value="choice2">
-                                            正确选项
-                                        </label>
-                                        <p class="error-message" hidden="hidden" style="color: red"
-                                           id="error_choice2_modify"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>选项3：</label>
-                                        <input type="text" class="form-control" name="choice3" id="choice3_modify"/>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="correct_choice" value="choice3">
-                                            正确选项
-                                        </label>
-                                        <p class="error-message" hidden="hidden" style="color: red"
-                                           id="error_choice3_modify"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>选项4：</label>
-                                        <input type="text" class="form-control" name="choice4" id="choice4_modify"/>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="correct_choice" value="choice4">
-                                            正确选项
-                                        </label>
-                                        <p class="error-message" hidden="hidden" style="color: red"
-                                           id="error_choice4_modify"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_modify()">关闭
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="modify()">修改</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal -->
-        </div>
-        <!-- 模态框（Modal）end -->
-        <!-- 模态框（Modal）delete -->
-        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                onclick="quit_create()">
-                            ×
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">删除用户</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h5>是否确定删除？</h5>
-                        <input hidden="hidden" id="delete_id">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                        </button>
-                        <button type="button" class="btn btn-primary" id="btn-delete" onclick="delete_ok()">删除</button>
-                    </div>
-
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal -->
-        </div>
-        <!-- 模态框（Modal）end -->
     </div>
 {% endblock %}
 {% block datatable_script %}
@@ -333,7 +96,7 @@
         $(document).ready(function () {
             $.ajax({
                 type: "POST",
-                url: "{% url "Manage:question_create_dict" %}",
+                url: "{% url "Manage:disease_sub_disease_dict" %}",
                 success: function (result) {
                     result = JSON.parse(result);
                     $.each(result.disease_all, function (id, name) {
