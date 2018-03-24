@@ -232,8 +232,6 @@ def testpaper_dict(request):
 # 删除试卷
 def testpaper_delete(request, testpaper_id):
     testpaper = get_object_or_404(TestPaper, pk=testpaper_id)
-    # for question in testpaper.questions.all():
-    #     testpaper.questions.remove(question)
     testpaper.delete()
     return JsonResponse(True, safe=False)
 
