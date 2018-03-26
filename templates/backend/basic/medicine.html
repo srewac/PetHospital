@@ -1,9 +1,10 @@
 {% extends 'backend/base_page.html' %}
 {% block title %}
-    人员管理
+    药品管理
 {% endblock %}
 {% block main_content %}
     <script>
+
         function delete_confirm(id) {
             $('#delete_id').val(id);
             $('#delete').modal('show');
@@ -13,7 +14,7 @@
             var id = $('#delete_id').val();
             $.ajax({
                 type: "post",
-                url: "people/delete/" + id,
+                url: "medicine/delete/" + id,
                 success: function (result) {
                     $('#dataTables-example').DataTable().ajax.reload();
                     $('#delete').modal('hide');
@@ -24,69 +25,60 @@
             });
         }
 
-        function modify_user_show(name, age, sex, job, room, desc, id) {
+        function modify_medicine_show(name, desc, price, id) {
             //向模态框中传值
             $('#name').val(name);
-            $('#age').val(age);
-            $('#sex').val(sex);
-            $('#job').val(job);
-            $('#room').val(room);
             $('#desc').val(desc);
+            $('#price').val(price);
             $('#id').val(id);
 
             $('#update').modal('show');
         }
 
-        function modify_validation() {
-            if ($("#people_modify div:eq(0) #name").val() == '') {
-                $("#people_modify div:eq(0) p").html('请输入姓名！');
-                $("#people_modify div:eq(0) p").show();
+         function modify_validation() {
+            if ($("#medicine_modify div:eq(0) #name").val() == '') {
+                $("#medicine_modify div:eq(0) p").html('请输入药品名称！');
+                $("#medicine_modify div:eq(0) p").show();
             }
             else {
-                $("#people_modify div:eq(0) p").html('');
-                $("#people_modify div:eq(0) p").hide();
-            }
-            var age = /^([0-9.]+)$/;
-            if ($("#people_modify div:eq(1) #age").val() == '') {
-                $("#people_modify div:eq(1) p").html('请输入年龄！');
-                $("#people_modify div:eq(1) p").show();
-            }
-            else if(!age.test($("#people_modify div:eq(1) #age").val())){
-                $("#people_modify div:eq(1) p").html('年龄请输入数字！');
-                $("#people_modify div:eq(1) p").show();
-            }
-            else {
-                $("#people_modify div:eq(1) p").html('');
-                $("#people_modify div:eq(1) p").hide();
+                $("#medicine_modify div:eq(0) p").html('');
+                $("#medicine_modify div:eq(0) p").hide();
             }
 
-            if ($("#people_modify div:eq(3) #job").val() == '') {
-                $("#people_modify div:eq(3) p").html('请输入职务！');
-                $("#people_modify div:eq(3) p").show();
+            if ($("#medicine_modify div:eq(1) #desc").val() == '') {
+                $("#medicine_modify div:eq(1) p").html('请输入药品概述！');
+                $("#medicine_modify div:eq(1) p").show();
             }
             else {
-                $("#people_modify div:eq(3) p").html('');
-                $("#people_modify div:eq(3) p").hide();
+                $("#medicine_modify div:eq(1) p").html('');
+                $("#medicine_modify div:eq(1) p").hide();
             }
 
-            if ($("#people_modify div:eq(5) #desc").val() == '') {
-                $("#people_modify div:eq(5) p").html('请输入概述！');
-                $("#people_modify div:eq(5) p").show();
+            var price = /^([0-9.]+)$/;
+            if ($("#medicine_modify div:eq(2) #price").val() == '') {
+                $("#medicine_modify div:eq(2) p").html('请输入价格！');
+                $("#medicine_modify div:eq(2) p").show();
+            }
+            else if (!price.test($("#medicine_modify div:eq(2) #price").val())) {
+                $("#medicine_modify div:eq(2) p").html('价格请输入数字！');
+                $("#medicine_modify div:eq(2) p").show();
             }
             else {
-                $("#people_modify div:eq(5) p").html('');
-                $("#people_modify div:eq(5) p").hide();
+                $("#medicine_modify div:eq(2) p").html('');
+                $("#medicine_modify div:eq(2) p").hide();
             }
+
+
         }
 
         function modify() {
             modify_validation();
-            if ($("#people_modify div:eq(0) p").is(":hidden") && $("#people_modify div:eq(1) p").is(":hidden")
-                && $("#people_modify div:eq(3) p").is(":hidden") && $("#people_modify div:eq(5) p").is(":hidden")) {
-                var form = new FormData(document.getElementById('people_modify'));
+            if ($("#medicine_modify div:eq(0) p").is(":hidden") && $("#medicine_modify div:eq(1) p").is(":hidden")
+                && $("#medicine_modify div:eq(2) p").is(":hidden") ) {
+                var form = new FormData(document.getElementById('medicine_modify'));
                 $.ajax({
                     type: "post",
-                    url: "{% url 'Manage:people_update' %}",
+                    url: "{% url 'Manage:medicine_update' %}",
                     data: form,
                     processData: false,
                     contentType: false,
@@ -107,73 +99,63 @@
         }
 
         function clean_modify() {
-            $("#people_modify div:eq(0) input").val("");
-            $("#people_modify div:eq(0) p").html('');
-            $("#people_modify div:eq(1) input").val('');
-            $("#people_modify div:eq(1) p").html('');
-            $("#people_modify div:eq(3) input").val('');
-            $("#people_modify div:eq(3) p").html('');
-            $("#people_modify div:eq(5) textarea").val('');
-            $("#people_modify div:eq(5) p").html('');
+            $("#medicine_modify div:eq(0) input").val("");
+            $("#medicine_modify div:eq(0) p").html('');
+            $("#medicine_modify div:eq(1) textarea").val('');
+            $("#medicine_modify div:eq(1) p").html('');
+            $("#medicine_modify div:eq(2) input").val("");
+            $("#medicine_modify div:eq(2) p").html('');
 
             $('#update').modal('hide');
         }
 
-        function create_user_show() {
+        function create_medicine_show() {
             $('#create').modal('show');
         }
 
         function create_validation() {
-            if ($("#people_create div:eq(0) #name").val() == '') {
-                $("#people_create div:eq(0) p").html('请输入姓名！');
-                $("#people_create div:eq(0) p").show();
+            if ($("#medicine_create div:eq(0) #name").val() == '') {
+                $("#medicine_create div:eq(0) p").html('请输入药品名称！');
+                $("#medicine_create div:eq(0) p").show();
             }
             else {
-                $("#people_create div:eq(0) p").html('');
-                $("#people_create div:eq(0) p").hide();
+                $("#medicine_create div:eq(0) p").html('');
+                $("#medicine_create div:eq(0) p").hide();
             }
 
-            var age = /^([0-9.]+)$/;
-            if ($("#people_create div:eq(1) #age").val() == '') {
-                $("#people_create div:eq(1) p").html('请输入年龄！');
-                $("#people_create div:eq(1) p").show();
-            }
-            else if(!age.test($("#people_create div:eq(1) #age").val())){
-                $("#people_create div:eq(1) p").html('年龄请输入数字！');
-                $("#people_create div:eq(1) p").show();
+            if ($("#medicine_create div:eq(1) #desc").val() == '') {
+                $("#medicine_create div:eq(1) p").html('请输入药品概述！');
+                $("#medicine_create div:eq(1) p").show();
             }
             else {
-                $("#people_create div:eq(1) p").html('');
-                $("#people_create div:eq(1) p").hide();
+                $("#medicine_create div:eq(1) p").html('');
+                $("#medicine_create div:eq(1) p").hide();
             }
 
-            if ($("#people_create div:eq(3) #job").val() == '') {
-                $("#people_create div:eq(3) p").html('请输入职务！');
-                $("#people_create div:eq(3) p").show();
+            var price = /^([0-9.]+)$/;
+            if ($("#medicine_create div:eq(2) #price").val() == '') {
+                $("#medicine_create div:eq(2) p").html('请输入价格！');
+                $("#medicine_create div:eq(2) p").show();
+            }
+            else if (!price.test($("#medicine_create div:eq(2) #price").val())) {
+                $("#medicine_create div:eq(2) p").html('价格请输入数字！');
+                $("#medicine_create div:eq(2) p").show();
             }
             else {
-                $("#people_create div:eq(3) p").html('');
-                $("#people_create div:eq(3) p").hide();
+                $("#medicine_create div:eq(2) p").html('');
+                $("#medicine_create div:eq(2) p").hide();
             }
 
-            if ($("#people_create div:eq(5) #desc").val() == '') {
-                $("#people_create div:eq(5) p").html('请输入概述！');
-                $("#people_create div:eq(5) p").show();
-            }
-            else {
-                $("#people_create div:eq(5) p").html('');
-                $("#people_create div:eq(5) p").hide();
-            }
         }
 
         function create() {
             create_validation();
-            if ($("#people_create div:eq(0) p").is(":hidden") && $("#people_create div:eq(1) p").is(":hidden") &&
-                $("#people_create div:eq(3) p").is(":hidden") && $("#people_create div:eq(5) p").is(":hidden")) {
-                var form = new FormData(document.getElementById('people_create'));
+            if ($("#medicine_create div:eq(0) p").is(":hidden") && $("#medicine_create div:eq(1) p").is(":hidden") &&
+                $("#medicine_create div:eq(2) p").is(":hidden")) {
+                var form = new FormData(document.getElementById('medicine_create'));
                 $.ajax({
                     type: "post",
-                    url: "{% url 'Manage:people_create' %}",
+                    url: "{% url 'Manage:medicine_create' %}",
                     data: form,
                     processData: false,
                     contentType: false,
@@ -191,26 +173,26 @@
                     }
                 });
             }
+
         }
 
         function create_clean() {
-            $("#people_create div:eq(0) input").val("");
-            $("#people_create div:eq(0) p").html('');
-            $("#people_create div:eq(1) input").val('');
-            $("#people_create div:eq(1) p").html('');
-            $("#people_create div:eq(3) input").val('');
-            $("#people_create div:eq(3) p").html('');
-            $("#people_create div:eq(5) textarea").val('');
-            $("#people_create div:eq(5) p").html('');
+            $("#medicine_create div:eq(0) input").val("");
+            $("#medicine_create div:eq(0) p").html('');
+            $("#medicine_create div:eq(1) textarea").val('');
+            $("#medicine_create div:eq(1) p").html('');
+            $("#medicine_create div:eq(2) input").val("");
+            $("#medicine_create div:eq(2) p").html('');
         }
+
 
     </script>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">人员管理
+                <h1 class="page-header">药品管理
                     <button type="button" class="btn btn-success"
-                            style="float: right;margin: 10px" onclick="create_user_show()">新建人员
+                            style="float: right;margin: 10px" onclick="create_medicine_show()">新建药品
                     </button>
                 </h1>
 
@@ -222,7 +204,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        所有人员信息
+                        所有药品信息
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -230,23 +212,17 @@
                                id="dataTables-example">
                             <thead>
                             <tr>
-                                <th>姓名</th>
-                                <th>年龄</th>
-                                <th>性别</th>
-                                <th>职务</th>
-                                <th>科室</th>
-                                <th>概述</th>
+                                <th>药品名称</th>
+                                <th>药品描述</th>
+                                <th>价格</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <th>姓名</th>
-                                <th>年龄</th>
-                                <th>性别</th>
-                                <th>职务</th>
-                                <th>科室</th>
-                                <th>概述</th>
+                                <th>药品名称</th>
+                                <th>药品描述</th>
+                                <th>价格</th>
                                 <th>操作</th>
                             </tr>
                             </tbody>
@@ -274,41 +250,21 @@
                     <h4 class="modal-title" id="myModalLabel">修改信息</h4>
                 </div>
                 <div class="modal-body">
-                    <form method="post" role="form" id="people_modify" style="margin:10px 30px">
+                    <form method="post" role="form" id="medicine_modify" style="margin:10px 30px">
                         <input type="text" name="id" id="id" hidden="hidden"/>
                         <div class="form-group">
-                            <label>姓名：</label>
+                            <label>药品名称：</label>
                             <input class="form-control" type="text" name="name" id="name"/>
                             <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                         <div class="form-group">
-                            <label>年龄：</label>
-                            <input class="form-control" type="text" name="age" id="age"/>
-                            <p class="error-message" hidden="hidden" style="color: red"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>性别：</label>
-                            <select class="form-control" name="sex" id="sex">
-                                <option>男</option>
-                                <option>女</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>职务：</label>
-                            <input class="form-control" type="text" name="job" id="job"/>
-                            <p class="error-message" hidden="hidden" style="color: red"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>科室：</label>
-                            <select class="form-control" name="room" id="room">
-                                {% for room in rooms %}
-                                    <option>{{ room.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>概述：</label>
+                            <label>药品概述：</label>
                             <textarea class="form-control" rows="3" name="desc" id="desc"></textarea>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>价格：</label>
+                            <input class="form-control" type="text" name="price" id="price"/>
                             <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                     </form>
@@ -336,44 +292,24 @@
                             onclick="create_clean()">
                         ×
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">创建人员</h4>
+                    <h4 class="modal-title" id="myModalLabel">创建药品</h4>
                 </div>
 
                 <div class="modal-body">
-                    <form id='people_create' method="post" style="margin:10px 30px">
+                    <form id='medicine_create' method="post" style="margin:10px 30px">
                         <div class="form-group">
-                            <label>姓名：</label>
+                            <label>药品名称：</label>
                             <input class="form-control" type="text" name="name" id="name"/>
                             <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                         <div class="form-group">
-                            <label>年龄：</label>
-                            <input class="form-control" type="text" name="age" id="age"/>
-                            <p class="error-message" hidden="hidden" style="color: red"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>性别：</label>
-                            <select class="form-control" name="sex" id="sex">
-                                <option>男</option>
-                                <option>女</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>职务：</label>
-                            <input class="form-control" type="text" name="job" id="job"/>
-                            <p class="error-message" hidden="hidden" style="color: red"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>科室：</label>
-                            <select class="form-control" name="room" id="room">
-                                {% for room in rooms %}
-                                    <option>{{ room.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>概述：</label>
+                            <label>药品概述：</label>
                             <textarea class="form-control" rows="3" name="desc" id="desc"></textarea>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>价格：</label>
+                            <input class="form-control" type="text" name="price" id="price"/>
                             <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                     </form>
@@ -421,13 +357,12 @@
     <!-- 模态框（Modal）end -->
 
 
-
 {% endblock %}
 {% block datatable_script %}
     <script>
         $(document).ready(function () {
             var table = $('#dataTables-example').DataTable({
-                "ajax": "{% url 'Manage:people_dict' %}",
+                "ajax": "{% url 'Manage:medicine_dict' %}",
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,
@@ -436,11 +371,11 @@
             });
             $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                modify_user_show(data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
+                modify_medicine_show(data[0], data[1], data[2], data[3]);
             });
             $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                delete_confirm(data[6]);
+                delete_confirm(data[3]);
             });
 
         });
