@@ -338,7 +338,7 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> 基本功能管理<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{% url 'Manage:room' %}">科室管理</a>
+                                <a href="{% url 'Manage:room_show' %}">科室管理</a>
                             </li>
                             <li>
                                 <a href="{% url 'Manage:people_show' %}">人员管理</a>
@@ -353,13 +353,13 @@
                                 <a href="{% url 'Manage:charge_show' %}">收费管理</a>
                             </li>
                             <li>
-                                <a href="grid.html">化验管理</a>
+                                <a href="{% url 'Manage:analysis_show' %}">化验管理</a>
                             </li>
                             <li>
-                                <a href="grid.html">疫苗管理</a>
+                                <a href="{% url 'Manage:vaccine_show' %}">疫苗管理</a>
                             </li>
                             <li>
-                                <a href="grid.html">住院管理</a>
+                                <a href="{% url 'Manage:inhospital_show' %}">住院管理</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

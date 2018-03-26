@@ -109,8 +109,8 @@
                         $('#dataTables-example').DataTable().ajax.reload();
                         clean_create();
                     } else {
-                        $("#user_create div:eq(0) p").show();
-                        $("#user_create div:eq(0) p").html('科室已存在，请重新输入！');
+                        $("#room_create div:eq(0) p").show();
+                        $("#room_create div:eq(0) p").html('科室已存在，请重新输入！');
                     }
                 },
                 error: function (result) {
@@ -120,7 +120,7 @@
         }
 
         function clean_create() {
-            $("#room_create div:eq(0) input").val("");
+            $("#room_create div:eq(0) input").val('');
             $("#room_create div:eq(0) p").html('');
             $("#room_create div:eq(1) input").val('');
             $("#room_create div:eq(1) p").html('');
@@ -334,12 +334,12 @@
                             onclick="">
                         ×
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">删除用户</h4>
+                    <h4 class="modal-title" id="myModalLabel">删除科室</h4>
                 </div>
 
                 <div class="modal-body">
                     <h5>是否确定删除？</h5>
-                    <input hidden="hidden" id="delete_id">
+                    <input hidden="hidden" id="delete_id" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
@@ -362,7 +362,7 @@
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,
-                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify' style='margin-right:5px;margin-bottom:5px;'>修改</button><button type='button' class='btn btn-danger' name='delete'>删除</button>"
+                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify' style='margin-right:5px'>修改<button type='button' class='btn btn-danger' name='delete'>删除</button>"
                 }]
             });
             $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
