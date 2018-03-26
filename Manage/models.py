@@ -60,7 +60,7 @@ class Inhospital(models.Model):
     price = models.IntegerField()
     in_time = models.DateTimeField('in time')
     out_time = models.DateTimeField('out time')
-    disease = models.ForeignKey(SubDisease, on_delete=models.CASCADE)
+    sub_disease = models.ForeignKey(SubDisease, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.patient

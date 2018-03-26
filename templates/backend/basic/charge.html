@@ -1,6 +1,6 @@
 {% extends 'backend/base_page.html' %}
 {% block title %}
-    人员管理
+    收费管理
 {% endblock %}
 {% block main_content %}
     <script>
@@ -13,7 +13,7 @@
             var id = $('#delete_id').val();
             $.ajax({
                 type: "post",
-                url: "people/delete/" + id,
+                url: "charge/delete/" + id,
                 success: function (result) {
                     $('#dataTables-example').DataTable().ajax.reload();
                     $('#delete').modal('hide');
@@ -24,69 +24,64 @@
             });
         }
 
-        function modify_user_show(name, age, sex, job, room, desc, id) {
+        function modify_user_show(name, price, room, people, id) {
             //向模态框中传值
             $('#name').val(name);
-            $('#age').val(age);
-            $('#sex').val(sex);
-            $('#job').val(job);
-            $('#room').val(room);
-            $('#desc').val(desc);
+            $('#price').val(price);
+            $('#room_modify').val(room);
             $('#id').val(id);
-
-            $('#update').modal('show');
+            $.ajax({
+                type: "post",
+                url: "charge/modify_charge_init/" + people,
+                success: function (data) {
+                    $('#people_modify').empty();
+                    for (var i = 0; i < data.length; i++) {
+                        $('#people_modify').append("<option value='" + data[i][0] + "'>" + data[i][1] + "</option>");
+                    }
+                    $('#people_modify').val(people);
+                    $('#update').modal('show');
+                },
+                error: function (result) {
+                    alert("Init error!")
+                }
+            });
         }
 
         function modify_validation() {
-            if ($("#people_modify div:eq(0) #name").val() == '') {
-                $("#people_modify div:eq(0) p").html('请输入姓名！');
-                $("#people_modify div:eq(0) p").show();
+
+            if ($("#charge_modify div:eq(0) #name").val() == '') {
+                $("#charge_modify div:eq(0) p").html('请输入收费名称！');
+                $("#charge_modify div:eq(0) p").show();
             }
             else {
-                $("#people_modify div:eq(0) p").html('');
-                $("#people_modify div:eq(0) p").hide();
+                $("#charge_modify div:eq(0) p").html('');
+                $("#charge_modify div:eq(0) p").hide();
             }
+
             var age = /^([0-9.]+)$/;
-            if ($("#people_modify div:eq(1) #age").val() == '') {
-                $("#people_modify div:eq(1) p").html('请输入年龄！');
-                $("#people_modify div:eq(1) p").show();
+            if ($("#charge_modify div:eq(1) #price").val() == '') {
+                $("#charge_modify div:eq(1) p").html('请输入收费价格！');
+                $("#charge_modify div:eq(1) p").show();
             }
-            else if(!age.test($("#people_modify div:eq(1) #age").val())){
-                $("#people_modify div:eq(1) p").html('年龄请输入数字！');
-                $("#people_modify div:eq(1) p").show();
+            else if (!age.test($("#charge_modify div:eq(1) #price").val())) {
+                $("#charge_modify div:eq(1) p").html('收费价格请输入数字！');
+                $("#charge_modify div:eq(1) p").show();
             }
             else {
-                $("#people_modify div:eq(1) p").html('');
-                $("#people_modify div:eq(1) p").hide();
+                $("#charge_modify div:eq(1) p").html('');
+                $("#charge_modify div:eq(1) p").hide();
             }
 
-            if ($("#people_modify div:eq(3) #job").val() == '') {
-                $("#people_modify div:eq(3) p").html('请输入职务！');
-                $("#people_modify div:eq(3) p").show();
-            }
-            else {
-                $("#people_modify div:eq(3) p").html('');
-                $("#people_modify div:eq(3) p").hide();
-            }
-
-            if ($("#people_modify div:eq(5) #desc").val() == '') {
-                $("#people_modify div:eq(5) p").html('请输入概述！');
-                $("#people_modify div:eq(5) p").show();
-            }
-            else {
-                $("#people_modify div:eq(5) p").html('');
-                $("#people_modify div:eq(5) p").hide();
-            }
         }
 
         function modify() {
             modify_validation();
-            if ($("#people_modify div:eq(0) p").is(":hidden") && $("#people_modify div:eq(1) p").is(":hidden")
-                && $("#people_modify div:eq(3) p").is(":hidden") && $("#people_modify div:eq(5) p").is(":hidden")) {
-                var form = new FormData(document.getElementById('people_modify'));
+            if ($("#charge_modify div:eq(0) p").is(":hidden") && $("#charge_modify div:eq(1) p").is(":hidden")
+                && $("#charge_modify div:eq(2) p").is(":hidden") && $("#charge_modify div:eq(3) p").is(":hidden")) {
+                var form = new FormData(document.getElementById('charge_modify'));
                 $.ajax({
                     type: "post",
-                    url: "{% url 'Manage:people_update' %}",
+                    url: "{% url 'Manage:charge_update' %}",
                     data: form,
                     processData: false,
                     contentType: false,
@@ -106,74 +101,110 @@
             }
         }
 
+        function modify_room_change() {
+            var form = new FormData(document.getElementById('charge_modify'));
+            $.ajax({
+                type: "post",
+                url: "{% url 'Manage:modify_charge_room_select' %}",
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $('#people_modify').empty();
+                    for (var i = 0; i < data.length; i++) {
+                        $('#people_modify').append("<option value='" + data[i][0] + "'>" + data[i][1] + "</option>");
+                    }
+                },
+                error: function (result) {
+                    alert('room change error');
+                }
+            });
+        }
+
         function clean_modify() {
-            $("#people_modify div:eq(0) input").val("");
-            $("#people_modify div:eq(0) p").html('');
-            $("#people_modify div:eq(1) input").val('');
-            $("#people_modify div:eq(1) p").html('');
-            $("#people_modify div:eq(3) input").val('');
-            $("#people_modify div:eq(3) p").html('');
-            $("#people_modify div:eq(5) textarea").val('');
-            $("#people_modify div:eq(5) p").html('');
+            $("#charge_modify div:eq(0) input").val("");
+            $("#charge_modify div:eq(0) p").html('');
+            $("#charge_modify div:eq(1) input").val('');
+            $("#charge_modify div:eq(1) p").html('');
+            $("#charge_modify div:eq(2) p").html('');
+            $("#charge_modify div:eq(3) p").html('');
 
             $('#update').modal('hide');
         }
 
-        function create_user_show() {
+        function create_charge_show() {
             $('#create').modal('show');
         }
 
+        function create_room_change() {
+            var form = new FormData(document.getElementById('charge_create'));
+            $.ajax({
+                type: "post",
+                url: "{% url 'Manage:create_charge_room_select' %}",
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $('#people_create').empty();
+                    for (var i = 0; i < data.length; i++) {
+                        $('#people_create').append("<option value='" + data[i][0] + "'>" + data[i][1] + "</option>");
+                    }
+                },
+                error: function (result) {
+                    alert('room change error');
+                }
+            });
+        }
+
         function create_validation() {
-            if ($("#people_create div:eq(0) #name").val() == '') {
-                $("#people_create div:eq(0) p").html('请输入姓名！');
-                $("#people_create div:eq(0) p").show();
+            if ($("#charge_create div:eq(0) #name").val() == '') {
+                $("#charge_create div:eq(0) p").html('请输入收费名称！');
+                $("#charge_create div:eq(0) p").show();
             }
             else {
-                $("#people_create div:eq(0) p").html('');
-                $("#people_create div:eq(0) p").hide();
+                $("#charge_create div:eq(0) p").html('');
+                $("#charge_create div:eq(0) p").hide();
             }
 
             var age = /^([0-9.]+)$/;
-            if ($("#people_create div:eq(1) #age").val() == '') {
-                $("#people_create div:eq(1) p").html('请输入年龄！');
-                $("#people_create div:eq(1) p").show();
+            if ($("#charge_create div:eq(1) #price").val() == '') {
+                $("#charge_create div:eq(1) p").html('请输入收费价格！');
+                $("#charge_create div:eq(1) p").show();
             }
-            else if(!age.test($("#people_create div:eq(1) #age").val())){
-                $("#people_create div:eq(1) p").html('年龄请输入数字！');
-                $("#people_create div:eq(1) p").show();
+            else if (!age.test($("#charge_create div:eq(1) #price").val())) {
+                $("#charge_create div:eq(1) p").html('收费价格请输入数字！');
+                $("#charge_create div:eq(1) p").show();
             }
             else {
-                $("#people_create div:eq(1) p").html('');
-                $("#people_create div:eq(1) p").hide();
+                $("#charge_create div:eq(1) p").html('');
+                $("#charge_create div:eq(1) p").hide();
             }
 
-            if ($("#people_create div:eq(3) #job").val() == '') {
-                $("#people_create div:eq(3) p").html('请输入职务！');
-                $("#people_create div:eq(3) p").show();
+            if ($("#charge_create div:eq(2) select").val() == 'unselected') {
+                $("#charge_create div:eq(2) p").html('请选择科室！');
+                $("#charge_create div:eq(2) p").show();
             }
             else {
-                $("#people_create div:eq(3) p").html('');
-                $("#people_create div:eq(3) p").hide();
+                $("#charge_create div:eq(2) p").hide();
             }
 
-            if ($("#people_create div:eq(5) #desc").val() == '') {
-                $("#people_create div:eq(5) p").html('请输入概述！');
-                $("#people_create div:eq(5) p").show();
+            if ($("#charge_create div:eq(3) select").val() == 'unselected') {
+                $("#charge_create div:eq(3) p").html('请选择负责人员！');
+                $("#charge_create div:eq(3) p").show();
             }
             else {
-                $("#people_create div:eq(5) p").html('');
-                $("#people_create div:eq(5) p").hide();
+                $("#charge_create div:eq(3) p").hide();
             }
         }
 
         function create() {
             create_validation();
-            if ($("#people_create div:eq(0) p").is(":hidden") && $("#people_create div:eq(1) p").is(":hidden") &&
-                $("#people_create div:eq(3) p").is(":hidden") && $("#people_create div:eq(5) p").is(":hidden")) {
-                var form = new FormData(document.getElementById('people_create'));
+            if ($("#charge_create div:eq(0) p").is(":hidden") && $("#charge_create div:eq(1) p").is(":hidden") &&
+                $("#charge_create div:eq(2) p").is(":hidden") && $("#charge_create div:eq(3) p").is(":hidden")) {
+                var form = new FormData(document.getElementById('charge_create'));
                 $.ajax({
                     type: "post",
-                    url: "{% url 'Manage:people_create' %}",
+                    url: "{% url 'Manage:charge_create' %}",
                     data: form,
                     processData: false,
                     contentType: false,
@@ -194,23 +225,26 @@
         }
 
         function create_clean() {
-            $("#people_create div:eq(0) input").val("");
-            $("#people_create div:eq(0) p").html('');
-            $("#people_create div:eq(1) input").val('');
-            $("#people_create div:eq(1) p").html('');
-            $("#people_create div:eq(3) input").val('');
-            $("#people_create div:eq(3) p").html('');
-            $("#people_create div:eq(5) textarea").val('');
-            $("#people_create div:eq(5) p").html('');
+
+            $("#charge_create div:eq(0) input").val("");
+            $("#charge_create div:eq(0) p").html('');
+            $("#charge_create div:eq(1) input").val('');
+            $("#charge_create div:eq(1) p").html('');
+            $("#charge_create div:eq(2) select").val('unselected');
+            $("#charge_create div:eq(2) p").html('');
+            $("#charge_create div:eq(3) select").empty();
+            $("#charge_create div:eq(3) select").append("<option value='" + "unselected" + "'>" + "--请先选择科室--" + "</option>");
+            $("#charge_create div:eq(3) p").html('');
         }
 
     </script>
+
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">人员管理
+                <h1 class="page-header">收费管理
                     <button type="button" class="btn btn-success"
-                            style="float: right;margin: 10px" onclick="create_user_show()">新建人员
+                            style="float: right;margin: 10px" onclick="create_charge_show()">新建收费
                     </button>
                 </h1>
 
@@ -222,7 +256,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        所有人员信息
+                        所有收费信息
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -230,23 +264,19 @@
                                id="dataTables-example">
                             <thead>
                             <tr>
-                                <th>姓名</th>
-                                <th>年龄</th>
-                                <th>性别</th>
-                                <th>职务</th>
+                                <th>收费名称</th>
+                                <th>收费价格</th>
                                 <th>科室</th>
-                                <th>概述</th>
+                                <th>负责人</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <th>姓名</th>
-                                <th>年龄</th>
-                                <th>性别</th>
-                                <th>职务</th>
+                                <th>收费名称</th>
+                                <th>收费价格</th>
                                 <th>科室</th>
-                                <th>概述</th>
+                                <th>负责人</th>
                                 <th>操作</th>
                             </tr>
                             </tbody>
@@ -271,44 +301,35 @@
                             aria-hidden="true">
                         ×
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                    <h4 class="modal-title" id="myModalLabel">修改收费</h4>
                 </div>
                 <div class="modal-body">
-                    <form method="post" role="form" id="people_modify" style="margin:10px 30px">
+                    <form method="post" role="form" id="charge_modify" style="margin:10px 30px">
                         <input type="text" name="id" id="id" hidden="hidden"/>
                         <div class="form-group">
-                            <label>姓名：</label>
+                            <label>收费名称：</label>
                             <input class="form-control" type="text" name="name" id="name"/>
                             <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                         <div class="form-group">
-                            <label>年龄：</label>
-                            <input class="form-control" type="text" name="age" id="age"/>
-                            <p class="error-message" hidden="hidden" style="color: red"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>性别：</label>
-                            <select class="form-control" name="sex" id="sex">
-                                <option>男</option>
-                                <option>女</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>职务：</label>
-                            <input class="form-control" type="text" name="job" id="job"/>
+                            <label>收费价格：</label>
+                            <input class="form-control" type="text" name="price" id="price"/>
                             <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                         <div class="form-group">
                             <label>科室：</label>
-                            <select class="form-control" name="room" id="room">
+                            <select class="form-control" name="room_modify" id="room_modify" onchange="modify_room_change()">
                                 {% for room in rooms %}
-                                    <option>{{ room.name }}</option>
+                                    <option value="{{ room.id }}">{{ room.name }}</option>
                                 {% endfor %}
                             </select>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                         <div class="form-group">
-                            <label>概述：</label>
-                            <textarea class="form-control" rows="3" name="desc" id="desc"></textarea>
+                            <label>负责人：</label>
+                            <select class="form-control" name="people_modify" id="people_modify">
+                                <option selected value="unselected">--请先选择科室--</option>
+                            </select>
                             <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                     </form>
@@ -336,44 +357,36 @@
                             onclick="create_clean()">
                         ×
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">创建人员</h4>
+                    <h4 class="modal-title" id="myModalLabel">创建收费</h4>
                 </div>
 
                 <div class="modal-body">
-                    <form id='people_create' method="post" style="margin:10px 30px">
+                    <form id='charge_create' method="post" style="margin:10px 30px">
                         <div class="form-group">
-                            <label>姓名：</label>
+                            <label>收费名称：</label>
                             <input class="form-control" type="text" name="name" id="name"/>
                             <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                         <div class="form-group">
-                            <label>年龄：</label>
-                            <input class="form-control" type="text" name="age" id="age"/>
-                            <p class="error-message" hidden="hidden" style="color: red"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>性别：</label>
-                            <select class="form-control" name="sex" id="sex">
-                                <option>男</option>
-                                <option>女</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>职务：</label>
-                            <input class="form-control" type="text" name="job" id="job"/>
+                            <label>收费价格：</label>
+                            <input class="form-control" type="text" name="price" id="price"/>
                             <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                         <div class="form-group">
                             <label>科室：</label>
-                            <select class="form-control" name="room" id="room">
+                            <select class="form-control" name="room_create" id="room_create" onchange="create_room_change()">
+                                <option value="unselected">--选择科室--</option>
                                 {% for room in rooms %}
-                                    <option>{{ room.name }}</option>
+                                    <option value="{{ room.id }}">{{ room.name }}</option>
                                 {% endfor %}
                             </select>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                         <div class="form-group">
-                            <label>概述：</label>
-                            <textarea class="form-control" rows="3" name="desc" id="desc"></textarea>
+                            <label>负责人：</label>
+                            <select class="form-control" name="people_create" id="people_create">
+                                <option selected value="unselected">--请先选择科室--</option>
+                            </select>
                             <p class="error-message" hidden="hidden" style="color: red"></p>
                         </div>
                     </form>
@@ -401,7 +414,7 @@
                             onclick="">
                         ×
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">删除人员</h4>
+                    <h4 class="modal-title" id="myModalLabel">删除收费</h4>
                 </div>
 
                 <div class="modal-body">
@@ -420,14 +433,12 @@
     </div>
     <!-- 模态框（Modal）end -->
 
-
-
 {% endblock %}
 {% block datatable_script %}
     <script>
         $(document).ready(function () {
             var table = $('#dataTables-example').DataTable({
-                "ajax": "{% url 'Manage:people_dict' %}",
+                "ajax": "{% url 'Manage:charge_dict' %}",
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,
@@ -436,11 +447,11 @@
             });
             $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                modify_user_show(data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
+                modify_user_show(data[0], data[1], data[5], data[6], data[4]);
             });
             $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                delete_confirm(data[6]);
+                delete_confirm(data[4]);
             });
 
         });
