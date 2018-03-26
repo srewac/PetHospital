@@ -6,5 +6,6 @@ urlpatterns = [
     path('test/', views.test, name='test'),
     path('select_disease/', views.select_disease, name='select_disease'),
     path('<str:disease_name>/select_paper/', views.select_paper, name='select_paper'),
-    path('test_management/', views.test_management, name='test_management'),
+    path('selected_paper/', views.selected_paper, name='selected_paper'),
+    path('paper/', views.paper, name='paper'),
 ]

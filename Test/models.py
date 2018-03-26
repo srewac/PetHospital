@@ -23,15 +23,14 @@ class Choice(models.Model):
 class TestPaper(models.Model):
     name = models.CharField(max_length=500)
     desc = models.CharField(max_length=1000)
-    testpaper_with_question = models.ManyToManyField(
-        Question,
-        through='TestPaper_Question',
-        through_fields=('testpaper', 'question'),
-    )
+    questions = models.ManyToManyField(Question)
     disease = models.ForeignKey(Disease, on_delete=models.CASCADE)
 
     def get_full_score(self):
-        pass
+        full_score = 0
+        for question in self.questions.all():
+            full_score = full_score + question.score
+        return full_score
 
     def __str__(self):
         return self.name
@@ -47,9 +46,9 @@ class Test(models.Model):
         return self.name
 
 
-class TestPaper_Question(models.Model):
-    testpaper = models.ForeignKey(TestPaper, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return "testpaper{}_question{}".format(self.testpaper, self.question)
+# class TestPaper_Question(models.Model):
+#     testpaper = models.ForeignKey(TestPaper, on_delete=models.CASCADE)
+#     question = models.ForeignKey(Question, on_delete=models.CASCADE)
+#
+#     def __str__(self):
+#         return "testpaper{}_question{}".format(self.testpaper, self.question)

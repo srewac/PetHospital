@@ -52,7 +52,7 @@
         function create_question_show() {
             $.ajax({
                 type: "POST",
-                url: "{% url "Manage:question_create_dict" %}",
+                url: "{% url "Manage:disease_sub_disease_dict" %}",
                 success: function (result) {
                     result = JSON.parse(result);
                     $.each(result.disease_all, function (id, name) {

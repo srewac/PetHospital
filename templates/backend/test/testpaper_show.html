@@ -1,0 +1,256 @@
+{% extends 'backend/base_page.html' %}
+{% block title %}
+    所有考卷
+{% endblock %}
+{% block main_content %}
+    <script>
+        function modify_testpaper(testpaper_id) {
+            $('#modify_id').val(testpaper_id);
+            $.ajax({
+                type: 'post',
+                url: '/Manage/test/testpaper_modify_dict/' + testpaper_id,
+                success: function (result) {
+                    result = JSON.parse(result);
+                    $('#testpaper_name').val(result.name);
+                    $('#testpaper_desc').val(result.desc);
+                    $('#testpaper_disease').val(result.disease);
+                },
+                error: function (result) {
+                    alert('testpaper data load error')
+                }
+            });
+            $('#testpaper_modify').modal('show')
+        }
+
+        function modify_valication() {
+            var error_name = $('#error_testpaper_name');
+            var error_desc = $('#error_testpaper_desc');
+            if ($('#testpaper_name').val() == '') {
+                error_name.html('试卷名称不能为空');
+                error_name.show();
+            } else {
+                error_name.html('');
+                error_name.hide();
+            }
+            if ($('#testpaper_desc').val() == '') {
+                error_desc.html('试卷描述不能为空');
+                error_desc.show()
+            } else {
+                error_desc.html('');
+                error_desc.hide();
+            }
+        }
+
+        function modify() {
+            modify_valication();
+            if ($('#error_testpaper_desc').is(':hidden') && $('#error_testpaper_name').is(':hidden')) {
+                var form = new FormData(document.getElementById('testpaper_modify_form'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:testpaper_modify' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                    $('#dataTables-example').DataTable().ajax.reload();
+                        $('#testpaper_modify').modal('hide');
+                    },
+                    error: function (result) {
+                        alert('modify testpaper error')
+                    }
+                });
+            }
+        }
+
+        function delete_testpaper(testpaper_id) {
+            $('#delete_id').val(testpaper_id);
+            $('#testpaper_delete').modal('show');
+        }
+
+        function delete_ok() {
+            var testpaper_id = $('#delete_id').val();
+            $.ajax({
+                type: 'post',
+                url: 'testpaper_delete/' + testpaper_id,
+                success: function (result) {
+                    $('#dataTables-example').DataTable().ajax.reload();
+                    $('#testpaper_delete').modal('hide');
+                },
+                error: function (result) {
+                    alert('delete testpaper error')
+                }
+            });
+        }
+
+    </script>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">所有考卷
+                    <button type="button" class="btn btn-success"
+                            style="float: right;margin: 10px"
+                            onclick="window.location.href='{% url 'Manage:testpaper_create_show' %}' ">新建考卷
+                    </button>
+                </h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        所有试卷信息
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <table width="100%" class="table table-striped table-bordered table-hover"
+                               id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>试卷名</th>
+                                <th>试卷描述</th>
+                                <th>病大类</th>
+                                <th>试卷总分</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>试卷名</td>
+                                <td>试卷描述</td>
+                                <td>病大类</td>
+                                <td>试卷总分</td>
+                                <td>操作</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+
+    <!-- 模态框（Modal）modify -->
+    <div class="modal fade" id="testpaper_modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="clean_modify()"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" role="form" id="testpaper_modify_form" style="margin:10px 30px">
+                        <input type="text" name="id" id="modify_id" hidden="hidden"/>
+                        <div class="form-group">
+                            <label for="name">试卷名：</label>
+                            <input class="form-control" type="text" name="name" id="testpaper_name"/>
+                            <p class="error-message" hidden="hidden" style="color: red" id="error_testpaper_name"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc">试卷描述：</label>
+                            <textarea class="form-control" rows="3" name="desc" id="testpaper_desc"></textarea>
+                            <p class="error-message" hidden="hidden" style="color: red" id="error_testpaper_desc"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="disease">病大类：</label>
+                            <select class="form-control" name="disease" id="testpaper_disease">
+                            </select>
+                            <p class="help-block">注意：如果修改此项将删除试卷所有已有试题！</p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_modify()">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="modify()">提交更改</button>
+                </div>
+
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）delete -->
+    <div class="modal fade" id="testpaper_delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            onclick="">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">删除时间</h4>
+                </div>
+
+                <div class="modal-body">
+                    <h5>是否确定删除？</h5>
+                    <input hidden="hidden" id="delete_id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-delete" onclick="delete_ok()">删除</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+
+{% endblock %}
+
+{% block datatable_script %}
+    <script>
+        $(document).ready(function () {
+            var table = $('#dataTables-example').DataTable({
+                "ajax": "{% url 'Manage:testpaper_dict' %}",
+                "columnDefs": [{
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify_detail' style='margin-right:5px'>修改描述</button><button type='button' class='btn btn-warning' name='modify_questions' style='margin-right:5px'>修改选题</button><button type='button' class='btn btn-danger' name='delete'>删除</button>"
+                }]
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="modify_detail"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                modify_testpaper(data[4]);
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="modify_questions"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                window.location.href = '/Manage/test/select_question/' + data[4];
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                delete_testpaper(data[4]);
+            });
+            $.ajax({
+                type: "POST",
+                url: "{% url "Manage:disease_sub_disease_dict" %}",
+                success: function (result) {
+                    result = JSON.parse(result);
+                    $.each(result.disease_all, function (id, name) {
+                        $("#testpaper_disease").append($("<option>").val(id).text(name));
+                    });
+                },
+                error: function (result) {
+                }
+            });
+        });
+    </script>
+{% endblock %}
