@@ -82,7 +82,7 @@ def sign_in(request):
             request.session['username'] = user.name
             request.session['email'] = user.email
             request.session['authority'] = user.authority
-            request.session.set_expiry(100)
+            request.session.set_expiry(1000000)
             if user.authority == 1:
                 return HttpResponseRedirect('/Manage')
             else:
