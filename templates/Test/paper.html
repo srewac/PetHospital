@@ -31,25 +31,31 @@
         <p>考试说明：{{ selectedtest.test_paper.desc }}</p>
     </div>
     <div style="width: 60%;margin: 0 auto;">
-        <form action="{% url 'Test:paper' %}" method="post">
+        <form action="{% url 'Test:paper' %}" method="POST" onsubmit="return submitcheck()" name="answer">
         {% csrf_token %}
-            {% for question in selectedtest.test_paper.questions.all %}
+            {% for question_idx in question %}
             <hr style="height: 1px;border:none;border-top:1px dashed; margin-top: 20px;">
-            <li>{{ forloop.counter }}.  {{ question.text }}<br />
+            <li>{{ forloop.counter }}.  {{ question_idx.text }}<br />
                 {% for choice in choice %}
-                    {% if choice.question == question %}
-                     <input type="radio" style="margin-right: 10px;" value="{{ choice.id }}"/><label> {{ choice.text }}</label><br />
+                    {% if choice.question == question_idx %}
+                     <input type="radio" style="margin-right: 10px;" value="{{ choice.id }}" name="{{ question_idx.id }}"/><label> {{ choice.text }}</label><br />
                     {% endif %}
                 {% endfor %}
             </li>
             {% endfor %}
-        <div style="text-align: center;margin-top: 30px;">
+        <div style="text-align: center;margin-top: 30px;margin-bottom: 70px;">
             <input type="submit">
         </div>
         </form>
     </div>
 </div>
-
-
+<script type="text/javascript">
+    function submitcheck() {
+        if(confirm("确认提交")==true)
+            return true;
+        else
+            return false;
+    }
+</script>
 </body>
 </html>

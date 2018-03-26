@@ -39,14 +39,20 @@ def selected_paper(request):
 
 def paper(request):
     if request.session.get('test_id', None):
+        test_id = request.session['test_id']
+        selectedtest = Test.objects.get(id=test_id)
+        question = Question.objects.filter(testpaper__test=test_id)
+        choice = Choice.objects.filter(question__testpaper__test=test_id)
         if request.method =="GET":
-            test_id = request.session['test_id']
-            selectedtest = Test.objects.get(id=test_id)
-            choice = Choice.objects.filter(question__testpaper__test=test_id)
             return render_to_response('Test/paper.html', locals())
         else:
-            del request.session['test_id']
             #TODO: submit answers
+            for question_id in question:
+                id = question_id.id
+                answer = request.POST.get(str(id))
+                print(id)
+                print(answer)
+            del request.session['test_id']
             return HttpResponseRedirect('/Test/test/')
     else:
         return HttpResponseRedirect('/Test/test/')

@@ -22,4 +22,4 @@ def select_subdisease(request, disease_name):
             subdisease = disease.subdisease_set.all()
             return render_to_response('Disease/subdisease.html', locals())
     else:
-        return HttpResponseRedirect('/User/sign_in/');
+        return HttpResponseRedirect('/User/sign_in/')
