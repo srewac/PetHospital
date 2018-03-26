@@ -17,7 +17,6 @@ urlpatterns = [
     path('disease_example_create', disease.disease_example_create, name='disease_example_create'),
     # test urls
     path('test/sub_disease_dict/<int:disease_id>', test.sub_disease_dict, name='sub_disease_dict'),
-    path('test/test', test.test_index, name='test_show'),
     path('test/question', test.question_index, name='question_show'),
     path('test/question_dict', test.question_dict, name='question_dict'),
     path('test/question_create', test.question_create, name='question_create'),
@@ -38,6 +37,10 @@ urlpatterns = [
     path('test/testpaper_question_delete/<int:testpaper_id>/<int:question_id>', test.testpaper_question_delete,
          name='testpaper_question_delete'),
     path('test/testpaper_question_delete_all/<int:testpaper_id>', test.testpaper_question_delete_all, name='testpaper_question_delete_all'),
+    path('test/test', test.test_index, name='test_show'),
+    path('test/test_dict', test.test_dict, name='test_dict'),
+    path('test/test_create', test.test_create, name='test_create'),
+    path('test/test_delete/<int:test_id>', test.test_delete, name='test_delete'),
     # room urls
     path('basic/room', room.room, name='room'),
     path('basic/room_dict', room.room_dict, name='room_dict'),

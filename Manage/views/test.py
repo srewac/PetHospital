@@ -1,13 +1,12 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from django.utils import timezone
+
 from Test.models import Question, TestPaper, Test, Choice
 from Disease.models import Disease, SubDisease
-from django.http import JsonResponse
-import json
+from User.models import User
 
-
-# 进入考场管理
-def test_index(request):
-    return render(request, 'backend/test/tables.html')
+import json, datetime
 
 
 # 进入考题管理
@@ -257,4 +256,69 @@ def testpaper_modify(request):
             testpaper.questions.remove(question)
         testpaper.disease = get_object_or_404(Disease, pk=request.POST['disease'])
     testpaper.save()
+    return JsonResponse(True, safe=False)
+
+
+# 进入考场管理
+def test_index(request):
+    testpapers_d = {}
+    for testpaper in TestPaper.objects.all():
+        testpapers_d[testpaper.id] = testpaper.name
+    return render(request, 'backend/test/test_show.html', {'testpapers': testpapers_d})
+
+
+# 获取所有考场信息
+def test_dict(request):
+    tests = Test.objects.all()
+    test_d = {'data': []}
+    for test in tests:
+        exceed = 1 if test.has_exceeded_close_time() else 0
+        close_date = str(test.close_time.date())
+        close_time = str(test.close_time.hour) + ':' + str(test.close_time.minute)
+        test_d['data'].append([test.name,
+                               test.test_paper.name,
+                               test.duration,
+                               close_date + ' ' + close_time,
+                               "已结束" if exceed == 1 else "持续中",
+                               str(exceed) + ';' + str(test.id)])
+    return JsonResponse(test_d, safe=False)
+
+
+# 创建考场（返回0表示考试时长未负，返回1表示结束时间输入不全，返回2表示结束日期早于当前时间，返回3表示一起正常）
+def test_create(request):
+    # 如果考试时间为负，返回0
+    if int(request.POST['duration']) < 0:
+        return JsonResponse(0, safe=False)
+    # 如果结束时间不全，返回1
+    close_time = str(request.POST['close_time'])
+    if close_time == '':
+        return JsonResponse(1, safe=False)
+    # 如果结束时间年份过大，返回3
+    year = [int(v) for v in close_time.replace('T', '-').replace(':', '-').split('-')][0]
+    if year > 3000:
+        return JsonResponse(3, safe=False)
+    # 如果结束时间小于当前时间，返回2
+    processed_date = datetime.datetime(*[int(v) for v in close_time.replace('T', '-').replace(':', '-').split('-')])
+    if processed_date <= timezone.now():
+        return JsonResponse(2, safe=False)
+    # 如果一切正常进行添加操作，返回4
+    test = Test(name=request.POST['name'],
+                test_paper_id=request.POST['testpaper'],
+                duration=request.POST['duration'],
+                close_time=processed_date)
+    test.save()
+    for user in User.objects.filter(authority=0).all():
+        test.user_set.add(user)
+    return JsonResponse(4, safe=False)
+
+
+# 删除考场
+def test_delete(request, test_id):
+    print('in')
+    test = get_object_or_404(Test, pk=test_id)
+    for test_taker in test.user_set.all():
+        for usertest in test_taker.usertest_set.all():
+            usertest.delete()
+        test.user_set.remove(test_taker)
+    test.delete()
     return JsonResponse(True, safe=False)
