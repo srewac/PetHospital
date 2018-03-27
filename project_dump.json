@@ -1,0 +1,1146 @@
+[
+{
+    "model": "Navigation.role",
+    "pk": 1,
+    "fields": {
+        "name": "\u524d\u53f0"
+    }
+},
+{
+    "model": "Navigation.role",
+    "pk": 2,
+    "fields": {
+        "name": "\u52a9\u7406"
+    }
+},
+{
+    "model": "Navigation.role",
+    "pk": 3,
+    "fields": {
+        "name": "\u6267\u4e1a\u517d\u533b\u5e08"
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 1,
+    "fields": {
+        "name": "\u524d\u53f0",
+        "desc": "\u5305\u62ec\u63a5\u5f85\u6302\u53f7\u3001\u5bfc\u533b\u54a8\u8be2\u3001\u75c5\u5386\u6863\u6848\u53d1\u51fa\u4e0e\u56de\u6536\u3001\u6536\u8d39\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            1
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 2,
+    "fields": {
+        "name": "\u6863\u6848\u5ba4",
+        "desc": "\u5305\u62ec\u75c5\u4f8b\u6863\u6848\u7684\u5408\u7406\u4fdd\u5b58\u4e0e\u6570\u636e\u7edf\u8ba1\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            1
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 3,
+    "fields": {
+        "name": "\u514d\u75ab\u5ba4",
+        "desc": "\u5305\u62ec\u4e3a\u5065\u5eb7\u5ba0\u7269\u63a5\u79cd\u75ab\u82d7\u7684\u6d41\u7a0b\uff0c\u5bf9\u5e38\u89c1\u5e76\u53d1\u75c7\u7684\u5904\u7406\u6d41\u7a0b\uff0c\u5bf9\u5e38\u89c1\u514d\u75ab\u76f8\u5173\u95ee\u9898\u7684\u89e3\u7b54\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 4,
+    "fields": {
+        "name": "\u5316\u9a8c\u5ba4",
+        "desc": "\u5305\u62ec\u5bf9\u9001\u68c0\u6837\u672c\u7684\u9884\u5904\u7406\uff0c\u5bf9\u76f8\u5e94\u6837\u672c\u8fdb\u884c\u8840\u5e38\u89c4\u3001\u8840\u6db2\u751f\u5316\u3001\u7535\u89e3\u8d28\u3001\u8840\u6c14\u3001\u8840\u51dd\u6307\u6807\u3001\u6fc0\u7d20\u6307\u6807\u3001\u5c3f\u5e38\u89c4\u3001\u5fae\u751f\u7269\u5b66\u68c0\u67e5\u3001\u836f\u654f\u3001\u76ae\u80a4\u522e\u7247\u3001\u7caa\u4fbf\u68c0\u67e5\u3001\u4f20\u67d3\u75c5\u68c0\u67e5\u7b49\u68c0\u67e5\u64cd\u4f5c\u6d41\u7a0b\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 5,
+    "fields": {
+        "name": "\u5f71\u50cf\u5ba4",
+        "desc": "\u5305\u62ecX\u7ebf\u68c0\u67e5\u3001B\u8d85\u68c0\u67e5\u4ee5\u53caCT\u3001MRI\u68c0\u67e5\u3002\u5982X\u7ebf\u68c0\u67e5\uff1aX\u5149\u673a\u7684\u7ed3\u6784\u529f\u80fd\u4ecb\u7ecd\u3001\u5168\u8eab\u5404\u90e8\u4f4d\u7684\u6446\u4f4d\u3001\u62cd\u6444\u6761\u4ef6\u7684\u9009\u62e9\u3001\u62cd\u6444\u6d41\u7a0b\u3001\u6d17\u7247\u7684\u64cd\u4f5c\u6d41\u7a0b\u3002B\u8d85\u68c0\u67e5\uff1a\u626b\u67e5\u63a2\u5934\u7684\u9009\u62e9\u3001\u5168\u8eab\u5404\u4e2a\u90e8\u4f4d\u626b\u67e5\u7684\u6446\u4f4d\u3001\u8179\u90e8\u626b\u67e5\u6d41\u7a0b\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 6,
+    "fields": {
+        "name": "\u4e13\u79d1\u68c0\u67e5\u5ba4",
+        "desc": "\u5305\u62ec\u5bf9\u773c\u79d1\u3001\u9aa8\u79d1\u3001\u795e\u7ecf\u79d1\u3001\u5fc3\u810f\u79d1\u7b49\u4e13\u79d1\u75be\u75c5\u7684\u68c0\u67e5\uff0c\u5982\u773c\u79d1\uff08\u68c0\u773c\u955c\u68c0\u67e5\u3001\u773c\u538b\u68c0\u67e5\u3001\u88c2\u9699\u706f\u68c0\u67e5\u3001\u773c\u5e95\u68c0\u67e5\u3001\u6cea\u6db2\u5206\u6ccc\u91cf\u68c0\u67e5\u7b49\uff09\u3001\u5fc3\u810f\u79d1\u68c0\u67e5\uff08\u5fc3\u810f\u542c\u8bca\u3001\u5fc3\u7535\u56fe\u68c0\u67e5\u7b49\uff09\u3001\u795e\u7ecf\u5b66\u68c0\u67e5\uff08\u6b65\u6001\u68c0\u67e5\u3001\u5404\u79cd\u53cd\u5c04\u68c0\u67e5\u7b49\uff09\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            3
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 7,
+    "fields": {
+        "name": "\u5904\u7f6e\u5ba4",
+        "desc": "\u5305\u62ec\u53e3\u670d\u6295\u836f\u3001\u6362\u836f\u3001\u6e05\u6d17\u8033\u9053\u3001\u6324\u809b\u95e8\u817a\u3001\u4fee\u526a\u6307\u7532\u3001\u9f3b\u9972\u7ba1\u653e\u7f6e\u3001\u704c\u80a0\u3001\u5b89\u4e50\u6b7b\u7b49\u57fa\u672c\u5904\u7f6e\u64cd\u4f5c\u6d41\u7a0b\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 8,
+    "fields": {
+        "name": "\u836f\u623f",
+        "desc": "\u5305\u62ec\u5bf9\u5404\u79cd\u836f\u7269\u7684\u5b58\u653e\u8981\u6c42\u3001\u5904\u65b9\u7684\u5ba1\u6838\u6d41\u7a0b\u3001\u836f\u7269\u7684\u53d1\u653e\u6d41\u7a0b\u3001\u5e38\u89c1\u836f\u7269\u7684\u4f7f\u7528\u8bf4\u660e\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 9,
+    "fields": {
+        "name": "\u6ce8\u5c04\u5ba4",
+        "desc": "\u5305\u62ec\u9759\u8109\u6ce8\u5c04\u3001\u76ae\u4e0b\u6ce8\u5c04\u3001\u808c\u8089\u6ce8\u5c04\u3001\u5c40\u90e8\u5c01\u95ed\u6ce8\u5c04\u7684\u64cd\u4f5c\u6d41\u7a0b\uff0c\u5e38\u89c1\u95ee\u9898\u7684\u5904\u7406\u65b9\u6cd5\uff0c\u8f93\u6db2\u6cf5\u3001\u52a0\u70ed\u57ab\u7684\u4f7f\u7528\u65b9\u6cd5\uff0c\u6ce8\u5c04\u5ba4\u7684\u6d88\u6bd2\u6d41\u7a0b\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 10,
+    "fields": {
+        "name": "\u624b\u672f\u51c6\u5907\u5ba4",
+        "desc": "\u5305\u62ec\u672f\u524d\u5bf9\u5ba0\u7269\u8fdb\u884c\u9ebb\u524d\u7ed9\u836f\u3001\u6ce8\u5c04\u9ebb\u9189\u3001\u5438\u5165\u9ebb\u9189\u7684\u6d41\u7a0b\uff0c\u4fdd\u5b9a\u3001\u5243\u6bdb\u3001\u6d88\u6bd2\u7684\u6d41\u7a0b\uff0c\u5e38\u89c1\u624b\u672f\u5668\u68b0\u7684\u4ecb\u7ecd\uff0c\u624b\u672f\u5668\u68b0\u5305\u7684\u51c6\u5907\u3001\u706d\u83cc\u6d41\u7a0b\uff0c\u624b\u672f\u4eba\u5458\u7684\u6d88\u6bd2\u3001\u7a7f\u6234\u624b\u672f\u8863\u6d41\u7a0b\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 11,
+    "fields": {
+        "name": "\u624b\u672f\u5ba4",
+        "desc": "\u5305\u62ec\u624b\u672f\u5ba4\u7684\u5e03\u5c40\u4ecb\u7ecd\uff0c\u624b\u672f\u5ba4\u6d88\u6bd2\u6d41\u7a0b\uff0c\u624b\u672f\u65e0\u83cc\u8981\u6c42\uff0c\u5e38\u89c4\u624b\u672f\u3001\u7279\u6b8a\u624b\u7b49\u7684\u64cd\u4f5c\u89c4\u8303\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            3
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 12,
+    "fields": {
+        "name": "\u4f4f\u9662\u90e8",
+        "desc": "\u5305\u62ec\u5bf9\u9700\u8981\u4f4f\u9662\u7684\u75c5\u4f8b\u8fdb\u884c\u62a4\u7406\u5206\u7ea7\uff0c\u4e0d\u540c\u62a4\u7406\u7ea7\u522b\u7684\u8981\u6c42\uff0c\u4f4f\u9662\u90e8\u7684\u5de5\u4f5c\u6d41\u7a0b\uff0c\u4f4f\u9662\u90e8\u7684\u6d88\u6bd2\u6d41\u7a0b\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 13,
+    "fields": {
+        "name": "\u75c5\u7406\u5256\u68c0\u5ba4",
+        "desc": "\u5305\u62ec\u5bf9\u75c5\u6b7b\u52a8\u7269\u5256\u89e3\u7684\u6d41\u7a0b\uff0c\u75c5\u7406\u5256\u68c0\u5ba4\u7684\u6d88\u6bd2\u6d41\u7a0b\uff0c\u75c5\u5386\u5256\u68c0\u8fc7\u7a0b\u7684\u4eba\u5458\u8981\u6c42\uff0c\u75c5\u7406\u5256\u68c0\u8fc7\u7a0b\u4e2d\u7684\u4eba\u9053\u5173\u6000\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "User.user",
+    "pk": 1,
+    "fields": {
+        "email": "admin1@example.com",
+        "password": "admin1",
+        "name": "admin1",
+        "authority": 1,
+        "tests": []
+    }
+},
+{
+    "model": "User.user",
+    "pk": 2,
+    "fields": {
+        "email": "admin2@example.cpm",
+        "password": "admin2",
+        "name": "admin2",
+        "authority": 1,
+        "tests": []
+    }
+},
+{
+    "model": "User.user",
+    "pk": 3,
+    "fields": {
+        "email": "admin3@example.com",
+        "password": "admin3",
+        "name": "admin3",
+        "authority": 1,
+        "tests": []
+    }
+},
+{
+    "model": "User.user",
+    "pk": 4,
+    "fields": {
+        "email": "intern1@test.com",
+        "password": "intern1",
+        "name": "intern1",
+        "authority": 0,
+        "tests": [
+            4,
+            5,
+            7,
+            8
+        ]
+    }
+},
+{
+    "model": "User.user",
+    "pk": 5,
+    "fields": {
+        "email": "intern2@test.com",
+        "password": "intern2",
+        "name": "intern2",
+        "authority": 0,
+        "tests": [
+            4,
+            5,
+            7,
+            8
+        ]
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 1,
+    "fields": {
+        "text": "qweqwe",
+        "score": 2,
+        "sub_disease": 1
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 2,
+    "fields": {
+        "text": "qweqw",
+        "score": 2,
+        "sub_disease": 1
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 3,
+    "fields": {
+        "text": "qweqw",
+        "score": 2,
+        "sub_disease": 1
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 1,
+    "fields": {
+        "question": 1,
+        "text": "qwe",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 2,
+    "fields": {
+        "question": 1,
+        "text": "qwe",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 3,
+    "fields": {
+        "question": 1,
+        "text": "qwe",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 4,
+    "fields": {
+        "question": 1,
+        "text": "qwe",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 5,
+    "fields": {
+        "question": 2,
+        "text": "qwe",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 6,
+    "fields": {
+        "question": 2,
+        "text": "qwe",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 7,
+    "fields": {
+        "question": 2,
+        "text": "qwe",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 8,
+    "fields": {
+        "question": 2,
+        "text": "qweqwe",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 9,
+    "fields": {
+        "question": 3,
+        "text": "eqwe",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 10,
+    "fields": {
+        "question": 3,
+        "text": "qwe",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 11,
+    "fields": {
+        "question": 3,
+        "text": "qwe",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 12,
+    "fields": {
+        "question": 3,
+        "text": "qweqwe",
+        "correct": false
+    }
+},
+{
+    "model": "Test.testpaper",
+    "pk": 1,
+    "fields": {
+        "name": "qwe",
+        "desc": "qweqwe",
+        "disease": 1,
+        "questions": [
+            1,
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "Test.testpaper",
+    "pk": 2,
+    "fields": {
+        "name": "12312312123",
+        "desc": "123123",
+        "disease": 1,
+        "questions": [
+            1,
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "Test.test",
+    "pk": 4,
+    "fields": {
+        "name": "123123",
+        "duration": 300,
+        "close_time": "2018-12-12T01:03:00",
+        "test_paper": 1
+    }
+},
+{
+    "model": "Test.test",
+    "pk": 5,
+    "fields": {
+        "name": "poi233",
+        "duration": 300,
+        "close_time": "2018-03-29T01:01:00",
+        "test_paper": 1
+    }
+},
+{
+    "model": "Test.test",
+    "pk": 6,
+    "fields": {
+        "name": "1111",
+        "duration": 60,
+        "close_time": "2018-03-27T11:59:00",
+        "test_paper": 1
+    }
+},
+{
+    "model": "Test.test",
+    "pk": 7,
+    "fields": {
+        "name": "poi",
+        "duration": 111,
+        "close_time": "2222-01-01T01:01:00",
+        "test_paper": 2
+    }
+},
+{
+    "model": "Test.test",
+    "pk": 8,
+    "fields": {
+        "name": "test",
+        "duration": 100,
+        "close_time": "2018-03-27T14:15:00",
+        "test_paper": 1
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 1,
+    "fields": {
+        "name": "\u4f20\u67d3\u75c5"
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 2,
+    "fields": {
+        "name": "\u5bc4\u751f\u866b\u75c5"
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 3,
+    "fields": {
+        "name": "\u5185\u79d1"
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 4,
+    "fields": {
+        "name": "\u5916\u4ea7\u79d1\u75be\u75c5"
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 5,
+    "fields": {
+        "name": "\u5e38\u7528\u624b\u672f"
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 6,
+    "fields": {
+        "name": "\u514d\u75ab"
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 1,
+    "fields": {
+        "name": "\u72ac\u761f\u70ed",
+        "desc": "\u72ac\u761f\u70ed\u662f\u7531\u72ac\u761f\u70ed\u75c5\u6bd2\u5f15\u8d77\u7684\u4e00\u79cd\u9ad8\u5ea6\u63a5\u89e6\u6027\u4f20\u67d3\u75c5\uff0c\u4f20\u67d3\u6027\u6781\u5f3a\uff0c\u6b7b\u4ea1\u7387\u53ef\u9ad8\u8fbe80%\u4ee5\u4e0a\u3002",
+        "pic_url": "static/images/sub_diseases/distemper.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 2,
+    "fields": {
+        "name": "\u72ac\u7ec6\u5c0f\u75c5\u6bd2",
+        "desc": "\u72ac\u7ec6\u5c0f\u75c5\u6bd2\u75c5\u662f\u72ac\u7684\u4e00\u79cd\u5177\u6709\u9ad8\u5ea6\u63a5\u89e6\u6027\u4f20\u67d3\u7684\u70c8\u6027\u4f20\u67d3\u75c5\uff0c\u8be5\u75c5\u75c7\u4e8e1977\u5e74\u7531Eugster\u53d1\u73b0\uff0c\u4e34\u5e8a\u4e0a\u4ee5\u6025\u6027\u51fa\u8840\u6027\u80a0\u708e\u548c\u5fc3\u808c\u708e\u4e3a\u7279\u5f81\u3002",
+        "pic_url": "static/images/sub_diseases/parvovirus.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 3,
+    "fields": {
+        "name": "\u72ac\u4f20\u67d3\u6027\u809d\u708e",
+        "desc": "\u72ac\u4f20\u67d3\u6027\u809d\u708e\u4e3b\u8981\u53d1\u751f\u57281\u5c81\u4ee5\u5185\u7684\u5e7c\u72ac\uff0c\u6210\u5e74\u72ac\u5f88\u5c11\u53d1\u751f\u4e14\u591a\u4e3a\u9690\u6027\u611f\u67d3\uff0c\u5373\u4f7f\u53d1\u75c5\u4e5f\u591a\u80fd\u8010\u8fc7\u3002",
+        "pic_url": "static/images/sub_diseases/HCC.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 4,
+    "fields": {
+        "name": "\u72ac\u51a0\u72b6\u75c5\u6bd2",
+        "desc": "\u72ac\u51a0\u72b6\u75c5\u6bd2\u4e00\u5e74\u56db\u5b63\u5747\u53ef\u53d1\u751f\uff0c\u4ee5\u51ac\u5b63\u591a\u53d1\uff0c\u75c5\u72ac\u662f\u4e3b\u8981\u7684\u4f20\u67d3\u539f\uff0c\u72ac\u53ef\u901a\u8fc7\u547c\u5438\u9053\u3001\u6d88\u5316\u9053\u3001\u7caa\u4fbf\u53ca\u6c61\u67d3\u7269\u4f20\u67d3\u3002\u8be5\u75c5\u4e00\u4f46\u53d1\u751f\uff0c\u540c\u7a9d\u72ac\u540c\u5ba4\u72ac\u5f88\u96be\u63a7\u5236\u5747\u53ef\u9020\u6210\u611f\u67d3\u3002",
+        "pic_url": "static/images/sub_diseases/CVV.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 5,
+    "fields": {
+        "name": "\u732b\u6cdb\u767d\u7ec6\u80de\u51cf\u5c11\u75c7",
+        "desc": "\u732b\u6cdb\u767d\u7ec6\u80de\u51cf\u5c11\u75c7\uff0c\u53c8\u79f0\u732b\u761f\u70ed\uff0c\u732b\u4f20\u67d3\u6027\u80a0\u708e\uff0c\u662f\u732b\u7684\u4e00\u79cd\u6025\u6027\u9ad8\u5ea6\u63a5\u89e6\u6027\u4f20\u67d3\u75c5\u3002",
+        "pic_url": "istatic/images/sub_diseases/panleukopenia.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 6,
+    "fields": {
+        "name": "\u732b\u75c5\u6bd2\u6027\u75c5\u6c14\u7ba1\u708e",
+        "desc": "\u732b\u75c5\u6bd2\u6027\u75c5\u6c14\u7ba1\u708e\u662f\u732b\u7684\u4e0a\u90e8\u547c\u5438\u9053\u611f\u67d3\u6027\u975e\u5e38\u5f3a\u7684\u4e00\u79cd\u6025\u6027\u4f20\u67d3\u75c5,\u53c8\u79f0\u4e3a\u4f20\u67d3\u6027\u9f3b\u6c14\u7ba1\u708e\u3002",
+        "pic_url": "static/images/sub_diseases/tracheitis.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 7,
+    "fields": {
+        "name": "\u76ae\u80a4\u771f\u83cc\u611f\u67d3",
+        "desc": "\u76ae\u80a4\u771f\u83cc\u75c5\u7684\u4f20\u64ad\u4e3b\u8981\u662f\u901a\u8fc7\u52a8\u7269\u95f4\u7684\u4e92\u76f8\u63a5\u89e6\uff0c\u6216\u901a\u8fc7\u6c61\u67d3\u7684\u7269\u4f53\u800c\u4f20\u64ad\u3002\u5728\u5ba0\u7269\u6570\u91cf\u8f83\u591a\u4e14\u8f83\u5bc6\u96c6\u7684\u60c5\u51b5\u4e0b\uff0c\u4e5f\u53ef\u901a\u8fc7\u7a7a\u6c14\u4f20\u64ad\u3002",
+        "pic_url": "static/images/sub_diseases/fungal.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 8,
+    "fields": {
+        "name": "\u86d4\u866b\u75c5",
+        "desc": "\u86d4\u866b\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 9,
+    "fields": {
+        "name": "\u94a9\u866b\u75c5",
+        "desc": "\u94a9\u866b\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 10,
+    "fields": {
+        "name": "\u7ee6\u866b\u75c5",
+        "desc": "\u7ee6\u866b\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 11,
+    "fields": {
+        "name": "\u7403\u866b\u75c5",
+        "desc": "\u7403\u866b\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 12,
+    "fields": {
+        "name": "\u75a5\u87a8\u866b\u75c5",
+        "desc": "\u75a5\u87a8\u866b\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 13,
+    "fields": {
+        "name": "\u86a4\u75c5",
+        "desc": "\u86a4\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 14,
+    "fields": {
+        "name": "\u53e3\u708e",
+        "desc": "\u53e3\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 15,
+    "fields": {
+        "name": "\u80a0\u708e",
+        "desc": "\u80a0\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 16,
+    "fields": {
+        "name": "\u80a0\u4fbf\u79d8",
+        "desc": "\u80a0\u4fbf\u79d8",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 17,
+    "fields": {
+        "name": "\u80f0\u817a\u708e",
+        "desc": "\u80f0\u817a\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 18,
+    "fields": {
+        "name": "\u809d\u708e",
+        "desc": "\u809d\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 19,
+    "fields": {
+        "name": "\u8179\u819c\u708e",
+        "desc": "\u8179\u819c\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 20,
+    "fields": {
+        "name": "\u809b\u95e8\u817a\u708e",
+        "desc": "\u809b\u95e8\u817a\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 21,
+    "fields": {
+        "name": "\u611f\u5192",
+        "desc": "\u611f\u5192",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 22,
+    "fields": {
+        "name": "\u9f3b\u708e",
+        "desc": "\u9f3b\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 23,
+    "fields": {
+        "name": "\u6c14\u7ba1\u652f\u6c14\u7ba1\u708e",
+        "desc": "\u6c14\u7ba1\u652f\u6c14\u7ba1\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 24,
+    "fields": {
+        "name": "\u80ba\u708e",
+        "desc": "\u80ba\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 25,
+    "fields": {
+        "name": "\u5fc3\u529b\u8870\u7aed",
+        "desc": "\u5fc3\u529b\u8870\u7aed",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 26,
+    "fields": {
+        "name": "\u5c3f\u9053\u611f\u67d3",
+        "desc": "\u5c3f\u9053\u611f\u67d3",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 27,
+    "fields": {
+        "name": "\u5c3f\u7ed3\u77f3",
+        "desc": "\u5c3f\u7ed3\u77f3",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 28,
+    "fields": {
+        "name": "\u8180\u80f1\u708e",
+        "desc": "\u8180\u80f1\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 29,
+    "fields": {
+        "name": "\u80be\u708e",
+        "desc": "\u80be\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 30,
+    "fields": {
+        "name": "\u4f5d\u507b\u75c5",
+        "desc": "\u4f5d\u507b\u75c5",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 31,
+    "fields": {
+        "name": "\u6709\u673a\u78f7\u4e2d\u6bd2",
+        "desc": "\u6709\u673a\u78f7\u4e2d\u6bd2",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 32,
+    "fields": {
+        "name": "\u7cd6\u5c3f\u75c5",
+        "desc": "\u7cd6\u5c3f\u75c5",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 33,
+    "fields": {
+        "name": "\u8033\u8840\u80bf",
+        "desc": "\u8033\u8840\u80bf",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 34,
+    "fields": {
+        "name": "\u4e2d\u8033\u708e",
+        "desc": "\u4e2d\u8033\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 35,
+    "fields": {
+        "name": "\u773c\u7751\u5185\u7ffb",
+        "desc": "\u773c\u7751\u5185\u7ffb",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 36,
+    "fields": {
+        "name": "\u7ed3\u819c\u708e",
+        "desc": "\u7ed3\u819c\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 37,
+    "fields": {
+        "name": "\u89d2\u819c\u708e",
+        "desc": "\u89d2\u819c\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 38,
+    "fields": {
+        "name": "\u5916\u4f24",
+        "desc": "\u5916\u4f24",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 39,
+    "fields": {
+        "name": "\u5916\u79d1\u611f\u67d3",
+        "desc": "\u5916\u79d1\u611f\u67d3",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 40,
+    "fields": {
+        "name": "\u9aa8\u6298",
+        "desc": "\u9aa8\u6298",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 41,
+    "fields": {
+        "name": "\u5173\u8282\u8131\u4f4d",
+        "desc": "\u5173\u8282\u8131\u4f4d",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 42,
+    "fields": {
+        "name": "\u6e7f\u75b9",
+        "desc": "\u6e7f\u75b9",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 43,
+    "fields": {
+        "name": "\u76ae\u708e",
+        "desc": "\u76ae\u708e",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 44,
+    "fields": {
+        "name": "\u8113\u76ae\u75c5",
+        "desc": "\u8113\u76ae\u75c5",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 45,
+    "fields": {
+        "name": "\u8131\u6bdb\u75c7",
+        "desc": "\u8131\u6bdb\u75c7",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 46,
+    "fields": {
+        "name": "\u8dbe\u95f4\u56ca\u80bf",
+        "desc": "\u8dbe\u95f4\u56ca\u80bf",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 47,
+    "fields": {
+        "name": "\u759d",
+        "desc": "\u759d",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 48,
+    "fields": {
+        "name": "\u9634\u9053\u708e",
+        "desc": "\u9634\u9053\u708e",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 49,
+    "fields": {
+        "name": "\u9634\u9053\u8131\u51fa",
+        "desc": "\u9634\u9053\u8131\u51fa",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 50,
+    "fields": {
+        "name": "\u5b50\u5bab\u84c4\u8113",
+        "desc": "\u5b50\u5bab\u84c4\u8113",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 51,
+    "fields": {
+        "name": "\u96be\u4ea7",
+        "desc": "\u96be\u4ea7",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 52,
+    "fields": {
+        "name": "\u4e73\u623f\u708e",
+        "desc": "\u4e73\u623f\u708e",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 53,
+    "fields": {
+        "name": "\u7edd\u80b2",
+        "desc": "\u7edd\u80b2",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 54,
+    "fields": {
+        "name": "\u5256\u8179\u4ea7",
+        "desc": "\u5256\u8179\u4ea7",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 55,
+    "fields": {
+        "name": "\u77ac\u819c\u817a\u589e\u751f\u7269\u5207\u9664",
+        "desc": "\u77ac\u819c\u817a\u589e\u751f\u7269\u5207\u9664",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 56,
+    "fields": {
+        "name": "\u773c\u7403\u6458\u9664",
+        "desc": "\u773c\u7403\u6458\u9664",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 57,
+    "fields": {
+        "name": "\u7acb\u8033\u672f",
+        "desc": "\u7acb\u8033\u672f",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 58,
+    "fields": {
+        "name": "\u65ad\u5c3e\u672f",
+        "desc": "\u65ad\u5c3e\u672f",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 59,
+    "fields": {
+        "name": "\u72ac\u514d\u75ab\u7a0b\u5e8f",
+        "desc": "\u72ac\u514d\u75ab\u7a0b\u5e8f",
+        "pic_url": "",
+        "disease": 6
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 60,
+    "fields": {
+        "name": "\u732b\u514d\u75ab\u7a0b\u5e8f",
+        "desc": "\u732b\u514d\u75ab\u7a0b\u5e8f",
+        "pic_url": "",
+        "disease": 6
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$100000$iWwa17hPVTv6$+DvQx9DS9t4weqp4MUgTOEo6eO8Z4LyI+pDWfbCEvo0=",
+        "last_login": "2018-03-27T11:59:18.918",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2018-03-27T11:59:16.914",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "sz2v965kbsw5ip7v2uecz05zt6u6qegw",
+    "fields": {
+        "session_data": "ZDU0ZTAyNGYwMDMzMzE1ZmE5ZTQ1ZDVkNzk0M2U3YzE0MjQ4NDAxOTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkMjYxNGQxNzE5NTlkNWNhZGE0MjJkZWYzYmUyZGY2NDI4Yzg0NmI0In0=",
+        "expire_date": "2018-04-10T11:59:18.920"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2018-03-27T11:59:31.641",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "Test",
+            "test"
+        ],
+        "object_id": "6",
+        "object_repr": "1111",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+}
+]
