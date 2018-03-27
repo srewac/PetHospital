@@ -44,7 +44,7 @@
                             $('#dataTables-example').DataTable().ajax.reload();
                             $('#test_create').modal('hide');
                         } else if (result == 0) {
-                            $("#error_test_duration").html("考试时长不能为负");
+                            $("#error_test_duration").html("考试时长不能为负或大于300分钟");
                             $("#error_test_duration").show()
                         } else if (result == 1) {
                             $("#error_test_close_time").html("考试截止时间信息不全");
@@ -65,8 +65,89 @@
         }
 
         function test_modify(test_id) {
+            {% for testpaper_id, testpaper_name in testpapers.items %}
+                $("#test_modify_testpaper").append($("<option>").val({{ testpaper_id }}).text("{{ testpaper_name }}"));
+            {% endfor %}
+            $('#test_modify_id').val(test_id);
+            $.ajax({
+                type: "POST",
+                url: "/Manage/test/test_modify_dict/" + test_id,
+                success: function (result) {
+                    result = JSON.parse(result);
+                    $('#test_modify_name').val(result.name);
+                    $('#test_modify_testpaper').val(result.testpaper);
+                    $('#test_modify_duration').val(result.duration);
+                    $('#test_modify_close_time').val(result.close_time);
+                    if (result.overtime==true){
+                        $('#test_modify_name').attr('disabled', 'disabled');
+                        $('#test_modify_duration').attr('disabled', 'disabled');
+                        $('#test_modify_close_time').attr('disabled', 'disabled');
+                    }
+                },
+                error: function (result) {
+                    alert('test modify error')
+                }
+
+            });
+            $('#test_modify').modal('show');
+        }
+
+        function modify_validation() {
+            if ($("#test_modify_name").val() == '') {
+                $('#error_modify_test_name').html("考场名称不能为空");
+                $('#error_modify_test_name').show();
+            } else {
+                $('#error_modify_test_name').html("");
+                $('#error_modify_test_name').hide();
+            }
+            if ($("#test_modify_create_duration").val() == '') {
+                $("#error_modify_test_duration").html("考试时长不能为空");
+                $("#error_modify_test_duration").show()
+            } else {
+                $("#error_modify_test_duration").html("");
+                $("#error_modify_test_duration").hide()
+            }
+        }
+
+        function modify() {
+            modify_validation();
+            if ($("#error_modify_test_name").is(":hidden")
+                && $("#error_modify_test_duration").is(":hidden")) {
+                var form = new FormData(document.getElementById('test_modify_form'));
+                var test_id = $("#test_modify_id").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Manage/test/test_modify/" + test_id,
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == 4) {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            $('#test_modify').modal('hide');
+                        } else if (result == 0) {
+                            $("#error_modify_test_duration").html("考试时长不能为负或大于300分钟");
+                            $("#error_modify_test_duration").show()
+                        } else if (result == 1) {
+                            $("#error_modify_test_close_time").html("考试截止时间信息不全");
+                            $("#error_modify_test_close_time").show();
+                        } else if (result == 2) {
+                            $("#error_modify_test_close_time").html("考试截止日期不能早于当前时间");
+                            $("#error_modify_test_close_time").show();
+                        } else if (result == 3) {
+                            $("#error_modify_test_close_time").html("考试年份过大");
+                            $("#error_modify_test_close_time").show();
+                        }
+                    },
+                    error: function (result) {
+                        alert("test create error")
+                    }
+                });
+            }
 
         }
+
+
         function test_show(test_id) {
 
         }
@@ -119,7 +200,7 @@
                             <tr>
                                 <th>考场名</th>
                                 <th>考卷名</th>
-                                <th>考试持续时间</th>
+                                <th>考试持续时间(分钟)</th>
                                 <th>考试结束时间</th>
                                 <th>考试状态</th>
                                 <th>操作</th>
@@ -138,6 +219,7 @@
         </div>
         <!-- /.row -->
     </div>
+
     <!-- 模态框（Modal）create -->
     <div class="modal fade" id="test_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
@@ -164,7 +246,9 @@
                         </div>
                         <div class="form-group">
                             <label for="duration">考试持续时间(分钟)：</label>
-                            <input class="form-control" type="number" name="duration" id="test_create_duration"/>
+                            <input class="form-control" type="number"
+                                   onkeypress="return (/[\d]/.test(String.fromCharCode(event.keyCode)))" name="duration"
+                                   id="test_create_duration"/>
                             <p class="error-message" hidden="hidden" style="color: red" id="error_test_duration"></p>
                         </div>
                         <div class="form-group">
@@ -179,6 +263,62 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="">关闭
                     </button>
                     <button type="button" class="btn btn-primary" onclick="create()">创建</button>
+                </div>
+
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+    <!-- 模态框（Modal）modify -->
+    <div class="modal fade" id="test_modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick=""
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改考场</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" role="form" id="test_modify_form" style="margin:10px 30px">
+                        <input id="test_modify_id" hidden="hidden"/>
+                        <div class="form-group">
+                            <label for="name">考场名：</label>
+                            <input class="form-control" type="text" name="name" id="test_modify_name"/>
+                            <p class="error-message" hidden="hidden" style="color: red" id="error_modify_test_name"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="testpaper">考卷：</label>
+                            <select class="form-control" name="testpaper" id="test_modify_testpaper"
+                                    disabled="disabled">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">考试持续时间(分钟)：</label>
+                            <input class="form-control" type="number"
+                                   onkeypress="return (/[\d]/.test(String.fromCharCode(event.keyCode)))" name="duration"
+                                   id="test_modify_duration"/>
+                            <p class="error-message" hidden="hidden" style="color: red"
+                               id="error_modify_test_duration"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="close_time">考试结束时间：</label>
+                            <input class="form-control" type="datetime-local" name="close_time"
+                                   id="test_modify_close_time"/>
+                            <p class="error-message" hidden="hidden" style="color: red"
+                               id="error_modify_test_close_time"></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="modify()">修改</button>
                 </div>
 
 
@@ -229,19 +369,14 @@
                     "data": null,
                     "defaultContent": "<button type='button' class='btn btn-warning' name='modify' style='margin-right:5px'>修改</button><button type='button' class='btn btn-success' name='show' style='margin-right:5px'>查看</button><button type='delete' class='btn btn-danger' name='delete''>删除</button>"
                 }],
-                "initComplete": function (settings, json) {
-                    $('#dataTables-example tbody tr').each(function () {
-                        var data = table.row($(this)).data();
-                        if (data[5].split(';')[0] == 1) {
-                            $(this).find("button[name='modify']").hide();
-                            $(this).find("button[name='show']").show();
-                        } else {
-                            $(this).find("button[name='modify']").show();
-                            $(this).find("button[name='show']").hide();
-
-                        }
-                    });
-                }
+                {#                "initComplete": function (settings, json) {#}
+                {#                    $('#dataTables-example tbody tr').each(function () {#}
+                {#                        var data = table.row($(this)).data();#}
+                {#                        if (data[5].split(';')[0] == '1') {#}
+                {#                            $(this).find("button[name='modify']").attr('disabled', 'disabled');#}
+                {#                        }#}
+                {#                    });#}
+                {#                }#}
             });
             $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
                 var data = table.row($(this).parents('tr')).data();
@@ -257,5 +392,31 @@
             });
 
         });
+
+        $(function () {
+            $("#test_create").on("hidden.bs.modal", function () {
+                $('#error_test_name').html("");
+                $('#error_test_name').hide();
+                $("#error_test_duration").html("");
+                $("#error_test_duration").hide();
+                $("#error_test_close_time").html("");
+                $("#error_test_close_time").hide();
+                $('#test_create_name').val("");
+                $('#test_create_duration').val("");
+                $('#test_create_close_time').val("");
+            });
+            $("#test_modify").on("hidden.bs.modal", function () {
+                $('#error_modify_test_name').html("");
+                $('#error_modify_test_name').hide();
+                $("#error_modify_test_duration").html("");
+                $("#error_modify_test_duration").hide();
+                $("#error_modify_test_close_time").html("");
+                $("#error_modify_test_close_time").hide();
+                $('#test_modify_name').removeAttr('disabled');
+                $('#test_modify_duration').removeAttr('disabled');
+                $('#test_modify_close_time').removeAttr('disabled');
+            });
+        });
+
     </script>
 {% endblock %}

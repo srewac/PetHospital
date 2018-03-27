@@ -274,7 +274,7 @@ def test_dict(request):
     for test in tests:
         exceed = 1 if test.has_exceeded_close_time() else 0
         close_date = str(test.close_time.date())
-        close_time = str(test.close_time.hour) + ':' + str(test.close_time.minute)
+        close_time = str(test.close_time.time()).split(':')[0] + ':' + str(test.close_time.time()).split(':')[1]
         test_d['data'].append([test.name,
                                test.test_paper.name,
                                test.duration,
@@ -287,7 +287,7 @@ def test_dict(request):
 # 创建考场（返回0表示考试时长未负，返回1表示结束时间输入不全，返回2表示结束日期早于当前时间，返回3表示一起正常）
 def test_create(request):
     # 如果考试时间为负，返回0
-    if int(request.POST['duration']) < 0:
+    if int(request.POST['duration']) < 0 or int(request.POST['duration']) > 300:
         return JsonResponse(0, safe=False)
     # 如果结束时间不全，返回1
     close_time = str(request.POST['close_time'])
@@ -309,6 +309,45 @@ def test_create(request):
     test.save()
     for user in User.objects.filter(authority=0).all():
         test.user_set.add(user)
+    return JsonResponse(4, safe=False)
+
+
+# 修改考场前获取初始信息
+def test_modify_dict(request, test_id):
+    test = get_object_or_404(Test, pk=test_id)
+    test_d = {
+        'name': test.name,
+        'duration': test.duration,
+        'testpaper': test.test_paper_id,
+        'close_time': str(test.close_time).replace(' ', 'T'),
+        'overtime': test.has_exceeded_close_time(),
+    }
+    return JsonResponse(json.dumps(test_d), safe=False)
+
+
+# 修改考场
+def test_modify(request, test_id):
+    test = get_object_or_404(Test, pk=test_id)
+    # 如果考试时间为负，返回0
+    if int(request.POST['duration']) < 0 or int(request.POST['duration']) > 300:
+        return JsonResponse(0, safe=False)
+    # 如果结束时间不全，返回1
+    close_time = str(request.POST['close_time'])
+    if close_time == '':
+        return JsonResponse(1, safe=False)
+    # 如果结束时间年份过大，返回3
+    year = [int(v) for v in close_time.replace('T', '-').replace(':', '-').split('-')][0]
+    if year > 3000:
+        return JsonResponse(3, safe=False)
+    # 如果结束时间小于当前时间，返回2
+    processed_date = datetime.datetime(*[int(v) for v in close_time.replace('T', '-').replace(':', '-').split('-')])
+    if processed_date <= timezone.now():
+        return JsonResponse(2, safe=False)
+    # 如果一切正常进行添加操作，返回4
+    test.name = request.POST['name']
+    test.duration = request.POST['duration']
+    test.close_time = processed_date
+    test.save()
     return JsonResponse(4, safe=False)
 
 
