@@ -9,7 +9,7 @@ class User(models.Model):
     name = models.CharField(max_length=30)
     # authority: 0->Intern 1->administrator
     authority = models.IntegerField(default=0)
-    user_with_test = models.ManyToManyField(Test)
+    tests = models.ManyToManyField(Test)
 
     def __str__(self):
         return self.email

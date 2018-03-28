@@ -1,0 +1,529 @@
+{% extends 'backend/base_page.html' %}
+{% block title %}
+    住院管理
+{% endblock %}
+{% block main_content %}
+    <script>
+        function getSubDiseaseOptions(disease_id, type) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Manage/test/sub_disease_dict/" + disease_id,
+                    success: function (result) {
+                        result = JSON.parse(result);
+                        if (type == 'create') {
+                            $("#inhospital_create").find("#subdisease").empty();
+                            $.each(result, function (id, name) {
+                                $("#subdisease").append($("<option>").val(id).text(name))
+                            });
+                        } else if (type == 'modify') {
+                            $("#inhospital_modify").find("#subdisease").empty();
+                            $.each(result, function (id, name) {
+                                $("#inhospital_modify").find("#subdisease").append($("<option>").val(id).text(name))
+                            });
+                        }
+                    }
+                    ,
+                    error: function (result) {
+                        alert('error');
+                    }
+                });
+        }
+
+        function delete_confirm(patient_id) {
+            $('#delete_id').val(patient_id);
+            $('#delete').modal('show');
+        }
+
+        function delete_ok() {
+            var id = $("#delete_id").val();
+            $.ajax({
+                type: "post",
+                url: "inhospital_delete/" + id,
+                success: function (result) {
+                    $('#dataTables-example').DataTable().ajax.reload();
+                    $('#delete').modal('hide');
+                },
+                error: function (result) {
+                    alert('delete error');
+                }
+            });
+        }
+
+        function modify_inhospital_show(id) {
+            $.ajax({
+                type: "POST",
+                url: "inhospital_modify_dict/" + id,
+                success: function (result) {
+                    result = JSON.parse(result);
+                    $('#inhospital_modify').find('#id').val(result.id);
+                    $('#inhospital_modify').find('#patient').val(result.patient);
+                    $('#inhospital_modify').find('#price').val(result.price);
+                    $('#inhospital_modify').find('#in_time').val(result.in_time);
+                    $('#inhospital_modify').find('#out_time').val(result.out_time);
+                    $('#inhospital_modify').find('#people_name').empty();
+                    $('#inhospital_modify').find('#room_name').empty();
+                    $('#inhospital_modify').find('#disease').empty();
+                    $('#inhospital_modify').find('#subdisease').empty();
+                    $.each(result.people_all, function (id, name) {
+                        $('#inhospital_modify').find('#people_name').append($("<option>").val(id).text(name));
+                    });
+                    $.each(result.room_all, function (id, name) {
+                        $('#inhospital_modify').find('#room_name').append($("<option>").val(id).text(name));
+                    });
+                    $.each(result.disease_all, function (id, name) {
+                        $('#inhospital_modify').find('#disease').append($("<option>").val(id).text(name));
+                    });
+                    $.each(result.sub_disease_all, function (id, name) {
+                        $('#inhospital_modify').find('#subdisease').append($("<option>").val(id).text(name))
+                    });
+                    $('#inhospital_modify').find('#people_name').val(result.people);
+                    $('#inhospital_modify').find('#room_name').val(result.room);
+                    $('#inhospital_modify').find('#disease').val(result.disease);
+                    $('#inhospital_modify').find('#subdisease').val(result.sub_disease);
+                    $("#update").modal('show');
+                },
+                error: function (result) {
+                    alert('question modify error');
+                }
+            })
+        }
+
+        function modify_validation() {
+            if ($('#inhospital_modify').find('#patient').val() == '') {
+                $('#inhospital_modify').find('#error-patient').html('病患名称不能为空');
+                $('#inhospital_modify').find('#error-patient').show();
+            } else {
+                $('#inhospital_modify').find('#error-patient').html('');
+                $('#inhospital_modify').find('#error-patient').hide();
+            }
+            if ($('#inhospital_modify').find('#price').val() == '') {
+                $('#inhospital_modify').find('#error-price').html('住院费用不能为空');
+                $('#inhospital_modify').find('#error-price').show();
+            } else {
+                $('#inhospital_modify').find('#error-price').html('');
+                $('#inhospital_modify').find('#error-price').hide();
+            }
+            if (isNaN($('#inhospital_modify').find('#price').val())) {
+                $('#inhospital_modify').find('#error-price').html('住院费用必须为数字');
+                $('#inhospital_modify').find('#error-price').show();
+            } else {
+                $('#inhospital_modify').find('#error-price').html('');
+                $('#inhospital_modify').find('#error-price').hide();
+            }
+            if ($('#inhospital_modify').find('#in_time').val() >= $('#inhospital_modify').find('#out_time').val()) {
+                $('#inhospital_modify').find('#error-in-time').html('入院时间必须小于出院时间');
+                $('#inhospital_modify').find('#error-in-time').show();
+            } else {
+                $('#inhospital_modify').find('#error-in-time').html('');
+                $('#inhospital_modify').find('#error-in-time').hide();
+            }
+        }
+
+        function modify() {
+            modify_validation();
+            if ($('#inhospital_modify').find('#error-patient').is(':hidden') &&
+                $('#inhospital_modify').find('#error-price').is(':hidden') &&
+                $('#inhospital_modify').find('#error-in-time').is(':hidden')) {
+                var form = new FormData(document.getElementById('inhospital_modify'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:inhospital_modify' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        $('#dataTables-example').DataTable().ajax.reload();
+                        clean_modify();
+                    },
+                    error: function (result) {
+                        alert('question modify error');
+                    }
+                });
+            }
+        }
+
+        function clean_modify() {
+            $('#inhospital_modify').find('#id').val('');
+            $('#inhospital_modify').find('#patient').val('');
+            $('#inhospital_modify').find('#error-patient').html('');
+            $('#inhospital_modify').find('#error-patient').hide();
+            $('#inhospital_modify').find('#price').val('');
+            $('#inhospital_modify').find('#error-price').html('');
+            $('#inhospital_modify').find('#error-price').hide();
+            $('#inhospital_modify').find('#in_time').val('');
+            $('#inhospital_modify').find('#error-in-time').html('');
+            $('#inhospital_modify').find('#error-in-time').hide();
+            $('#inhospital_modify').find('#out_time').val('');
+            $('#inhospital_modify').find('#people_name').empty();
+            $('#inhospital_modify').find('#room_name').empty();
+            $('#inhospital_modify').find('#disease').empty();
+            $('#inhospital_modify').find('#subdisease').empty();
+            $("#update").modal('hide');
+        }
+
+        function create_inhospital_show() {
+            $.ajax({
+                type: "POST",
+                url: "{% url "Manage:inhospital_create_dict" %}",
+                success: function (result) {
+                    result = JSON.parse(result);
+                    $.each(result.people_all, function (id, name) {
+                        $('#inhospital_create').find('#people_name').append($("<option>").val(id).text(name));
+                    });
+                    $.each(result.room_all, function (id, name) {
+                        $('#inhospital_create').find('#room_name').append($("<option>").val(id).text(name));
+                    });
+                    $.each(result.disease_all, function (id, name) {
+                        $("#inhospital_create").find('#disease').append($("<option>").val(id).text(name));
+                    });
+                    $.each(result.sub_disease_all, function (id, name) {
+                        $("#inhospital_create").find('#subdisease').append($("<option>").val(id).text(name));
+                    });
+                    $("#create").modal('show');
+                },
+                error: function (result) {
+                    alert('question modify error');
+                }
+            });
+        }
+
+        function create_validation() {
+            if ($('#inhospital_create').find('#patient').val() == '') {
+                $('#inhospital_create').find('#error-patient').html('病患名称不能为空');
+                $('#inhospital_create').find('#error-patient').show();
+            } else {
+                $('#inhospital_create').find('#error-patient').html('');
+                $('#inhospital_create').find('#error-patient').hide();
+            }
+            if (isNaN($('#inhospital_create').find('#price').val())) {
+                $('#inhospital_create').find('#error-price').html('住院费用必须为数字');
+                $('#inhospital_create').find('#error-price').show();
+            } else {
+                if ($('#inhospital_create').find('#price').val() == '') {
+                    $('#inhospital_create').find('#error-price').html('住院费用不能为空');
+                    $('#inhospital_create').find('#error-price').show();
+                } else {
+                    $('#inhospital_create').find('#error-price').html('');
+                    $('#inhospital_create').find('#error-price').hide();
+                }
+            }
+            if ($('#inhospital_create').find('#in_time').val() >= $('#inhospital_create').find('#out_time').val()) {
+                $('#inhospital_create').find('#error-in-time').html('入院时间必须小于出院时间');
+                $('#inhospital_create').find('#error-in-time').show();
+            } else {
+                $('#inhospital_create').find('#error-in-time').html('');
+                $('#inhospital_create').find('#error-in-time').hide();
+            }
+        }
+
+        function create_inhospital() {
+            create_validation();
+            if ($('#inhospital_create').find('#error-patient').is(':hidden') &&
+                $('#inhospital_create').find('#error-price').is(':hidden') &&
+                $('#inhospital_create').find('#error-in-time').is(':hidden')) {
+                var form = new FormData(document.getElementById('inhospital_create'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:inhospital_create' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == true) {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            clean_create();
+                        } else {
+
+                        }
+                    },
+                    error: function (result) {
+                        alert('update error');
+                    }
+                });
+            }
+        }
+
+        function clean_create() {
+            $('#inhospital_create').find('#id').val('');
+            $('#inhospital_create').find('#patient').val('');
+            $('#inhospital_create').find('#error-patient').html('');
+            $('#inhospital_create').find('#error-patient').hide();
+            $('#inhospital_create').find('#price').val('');
+            $('#inhospital_create').find('#error-price').html('');
+            $('#inhospital_create').find('#error-price').hide();
+            $('#inhospital_create').find('#in_time').val('');
+            $('#inhospital_create').find('#error-in-time').html('');
+            $('#inhospital_create').find('#error-in-time').hide();
+            $('#inhospital_create').find('#out_time').val('');
+            $('#inhospital_create').find('#people_name').empty();
+            $('#inhospital_create').find('#room_name').empty();
+            $('#inhospital_create').find('#disease').empty();
+            $('#inhospital_create').find('#subdisease').empty();
+            $("#create").modal('hide');
+        }
+    </script>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">住院管理
+                    <button type="button" class="btn btn-success"
+                            style="float: right;margin: 10px" onclick="create_inhospital_show()">新建
+                    </button>
+                </h1>
+
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            所有住院信息
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <table width="100%" class="table table-striped table-bordered table-hover"
+                                   id="dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th>病患名称</th>
+                                    <th>住院费用</th>
+                                    <th>入院时间</th>
+                                    <th>出院时间</th>
+                                    <th>负责医师</th>
+                                    <th>所属科室</th>
+                                    <th>所属病大类</th>
+                                    <th>所属病小类</th>
+                                    <th>Operation</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th>病患名称</th>
+                                    <th>住院费用</th>
+                                    <th>入院时间</th>
+                                    <th>出院时间</th>
+                                    <th>负责医师</th>
+                                    <th>所属科室</th>
+                                    <th>所属病大类</th>
+                                    <th>所属病小类</th>
+                                    <th>Operation</th>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+    </div>
+
+    <!-- 模态框（Modal）edit -->
+    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="clean_modify()"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" role="form" id="inhospital_modify" style="margin:10px 30px">
+                        <input type="text" name="id" id="id" hidden="hidden"/>
+                        <div class="form-group">
+                            <label>病患名称：</label>
+                            <input class="form-control" type="text" name="patient" id="patient"/>
+                            <p class="error-message" id="error-patient" hidden="hidden" style="color: red">Example
+                                block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>住院费用：</label>
+                            <input class="form-control" type="text" name="price" id="price"/>
+                            <p class="error-message" id="error-price" hidden="hidden" style="color: red">Example
+                                block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>入院时间：</label>
+                            <input class="form-control" type="date" name="in_time" id="in_time"/>
+                            <p class="error-message" id="error-in-time" hidden="hidden" style="color: red">Example
+                                block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>出院时间：</label>
+                            <input class="form-control" type="date" name="out_time" id="out_time"/>
+                            <p class="error-message" id="error-out-time" hidden="hidden" style="color: red">Example
+                                block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>主治医师：</label>
+                            <select class="form-control" name="people_name" id="people_name">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>所属科室：</label>
+                            <select class="form-control" name="room_name" id="room_name">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>所属病大类：</label>
+                            <select class="form-control" name="disease" id="disease"
+                                    onchange="getSubDiseaseOptions(this.value, 'modify')">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>所属病小类：</label>
+                            <select class="form-control" name="subdisease" id="subdisease">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_modify()">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-delete" onclick="modify()">修改</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）create -->
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="clean_create()"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" role="form" id="inhospital_create" style="margin:10px 30px">
+                        <div class="form-group">
+                            <label>病患名称：</label>
+                            <input class="form-control" type="text" name="patient" id="patient"/>
+                            <p class="error-message" id="error-patient" hidden="hidden" style="color: red">Example
+                                block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>住院费用：</label>
+                            <input class="form-control" type="text" name="price" id="price"/>
+                            <p class="error-message" id="error-price" hidden="hidden" style="color: red">Example
+                                block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>入院时间：</label>
+                            <input class="form-control" type="date" name="in_time" id="in_time"/>
+                            <p class="error-message" id="error-in-time" hidden="hidden" style="color: red">Example
+                                block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>出院时间：</label>
+                            <input class="form-control" type="date" name="out_time" id="out_time"/>
+                            <p class="error-message" id="error-out-time" hidden="hidden" style="color: red">Example
+                                block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>主治医师：</label>
+                            <select class="form-control" name="people_name" id="people_name">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>所属科室：</label>
+                            <select class="form-control" name="room_name" id="room_name">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>所属病大类：</label>
+                            <select class="form-control" name="disease" id="disease"
+                                    onchange="getSubDiseaseOptions(this.value, 'create')">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>所属病小类：</label>
+                            <select class="form-control" name="subdisease" id="subdisease">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_create()">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-delete" onclick="create_inhospital()">修改
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）delete -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            onclick="">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">删除住院信息</h4>
+                </div>
+
+                <div class="modal-body">
+                    <h5>是否确定删除？</h5>
+                    <input hidden="hidden" id="delete_id"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-delete" onclick="delete_ok()">删除</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+{% endblock %}
+{% block datatable_script %}
+    <script>
+        $(document).ready(function () {
+            var table = $('#dataTables-example').DataTable({
+                "ajax": "{% url 'Manage:inhospital_dict' %}",
+                "columnDefs": [{
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify' style='margin-right:5px'>修改<button type='button' class='btn btn-danger' name='delete'>删除</button>"
+                }]
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                modify_inhospital_show(data[8]);
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                delete_confirm(data[8]);
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,5 +1,7 @@
 from django.db import models
 from Disease.models import Disease, SubDisease
+import datetime
+from django.utils import timezone
 
 
 class Question(models.Model):
@@ -42,13 +44,8 @@ class Test(models.Model):
     close_time = models.DateTimeField('close date')
     test_paper = models.ForeignKey(TestPaper, on_delete=models.CASCADE)
 
+    def has_exceeded_close_time(self):
+        return timezone.now() > self.close_time
+
     def __str__(self):
         return self.name
-
-
-# class TestPaper_Question(models.Model):
-#     testpaper = models.ForeignKey(TestPaper, on_delete=models.CASCADE)
-#     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return "testpaper{}_question{}".format(self.testpaper, self.question)

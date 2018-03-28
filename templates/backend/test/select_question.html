@@ -48,7 +48,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">考题选择
+                <h1 class="page-header"><a href="{% url 'Manage:testpaper_show' %}">考卷管理</a>/考题选择
                     <button type="button" class="btn btn-success"
                             style="float: right;margin: 10px 5px"
                             onclick="window.location.href='{% url 'Manage:testpaper_show' %}' ">返回所有考卷
@@ -144,18 +144,6 @@
 
             });
         });
-        {#            $('#dataTables-example').onloadend(function(){#}
-        {#                alert($(this).html());#}
-        {#            });#}
-        {#            $('#dataTables-example tbody tr').each(function(){#}
-        {#                alert($(this).html());#}
-        {#                var data =  table.row($(this)).data();#}
-        {#                alert(data[0]);#}
-        {#                if (data[6].split(';')[1] === '1'){#}
-        {#                    $(this).children("button[name='add']").click();#}
-        {#                }#}
-        {#        })#}
-        {#        })#}
 
     </script>
 {% endblock %}
