@@ -63,7 +63,7 @@ def paper(request):
                     c_score = Question.objects.get(id=question.id).score
                     user_testscore_id = user_testscore.id
                     question_id = question.id
-                    if (c_answer.correct == True):
+                    if c_answer.correct == True:
                         question_testscore = Usertest_question(usertest_id=user_testscore_id, question_id=question_id, score=c_score)
                         question_testscore.save()
                         score += c_score
