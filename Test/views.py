@@ -47,14 +47,13 @@ def paper(request):
     if request.session.get('username', None):
         if request.session.get('test_id', None):
             test_id = request.session['test_id']
-            user_name = request.session['username']
+            user_id = request.session['user_id']
             selectedtest = Test.objects.get(id=test_id)
             questiones = Question.objects.filter(testpaper__test=test_id)
             choice = Choice.objects.filter(question__testpaper__test=test_id)
             if request.method == "GET":
                 return render_to_response('Test/paper.html', locals())
             else:
-                user_id = User.objects.get(name=user_name).id
                 score = 0
                 user_testscore = Usertest(user_id=user_id, test_id=test_id, score=score)
                 user_testscore.save()
