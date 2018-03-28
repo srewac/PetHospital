@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib import auth
 from django.http import HttpResponse, HttpResponseRedirect
-from User import models
+from User.models import *
 from User import sendEmail
 from django.http import JsonResponse
 
@@ -29,8 +29,8 @@ def sign_up(request):
             'password2': password2,
         }
 
-        user1 = models.User.objects.filter(email=email)
-        user2 = models.User.objects.filter(name=username)
+        user1 = User.objects.filter(email=email)
+        user2 = User.objects.filter(name=username)
 
         if user1:
             Reg_Dict['register_err'] = "邮箱已经用于注册"
@@ -47,7 +47,7 @@ def sign_up(request):
             return render(request, 'User/sign_up.html', Reg_Dict)
 
         else:
-            models.User.objects.create(email=email, password=password1, name=username)
+            User.objects.create(email=email, password=password1, name=username)
             return render(request, 'User/sign_in.html')
 
 
@@ -74,8 +74,8 @@ def sign_in(request):
     else:
         email = request.POST.get('inputEmail')
         password = request.POST.get('inputPassword')
-        user = models.User.objects.filter(email=email, password=password).first()
-        # user = models.User.objects.get(email=email, password=password)
+        user = User.objects.filter(email=email, password=password).first()
+        # user = User.objects.get(email=email, password=password)
 
         if user:
             request.session['user_id'] = user.id

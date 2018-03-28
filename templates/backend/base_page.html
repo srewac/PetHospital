@@ -285,17 +285,7 @@
                         <a href="{% url 'Manage:index' %}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> 用户管理<span
-                                class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{% url 'Manage:user_show' %}">账户管理</a>
-                            </li>
-                            <li>
-                                <a href="#">成绩管理</a>
-                            </li>
-                        </ul>
-
+                        <a href="{% url 'Manage:user_show' %}"><i class="fa fa-sitemap fa-fw"></i> 账户管理</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> 病例管理<span
@@ -317,19 +307,10 @@
                                 <a href="{% url 'Manage:test_show' %}">考场管理</a>
                             </li>
                             <li>
-                                <a href="#">考卷管理<span
-                                        class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="{% url 'Manage:testpaper_show' %}">所有考卷</a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url 'Manage:question_show' %}">所有考题</a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url 'Manage:testpaper_create_show' %}">生成考卷</a>
-                                    </li>
-                                </ul>
+                                <a href="{% url 'Manage:testpaper_show' %}">考卷管理</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'Manage:question_show' %}">考题管理</a>
                             </li>
                         </ul>
 
@@ -338,7 +319,7 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> 基本功能管理<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{% url 'Manage:room' %}">科室管理</a>
+                                <a href="{% url 'Manage:room_show' %}">科室管理</a>
                             </li>
                             <li>
                                 <a href="{% url 'Manage:people_show' %}">人员管理</a>
@@ -353,13 +334,13 @@
                                 <a href="{% url 'Manage:charge_show' %}">收费管理</a>
                             </li>
                             <li>
-                                <a href="grid.html">化验管理</a>
+                                <a href="{% url 'Manage:analysis_show' %}">化验管理</a>
                             </li>
                             <li>
-                                <a href="grid.html">疫苗管理</a>
+                                <a href="{% url 'Manage:vaccine_show' %}">疫苗管理</a>
                             </li>
                             <li>
-                                <a href="grid.html">住院管理</a>
+                                <a href="{% url 'Manage:inhospital_show' %}">住院管理</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

@@ -44,8 +44,8 @@ def people_update(request):
     else:
         people.sex = 1
     people.job = request.POST['job']
-    people.response_room=response_room
-    people.desc=request.POST['desc']
+    people.response_room = response_room
+    people.desc = request.POST['desc']
     people.save()
 
     return JsonResponse(True, safe=False)
