@@ -59,18 +59,24 @@ def paper(request):
                 user_testscore.save()
                 for question in questiones:
                     answer = request.POST.get(str(question.id))
-                    c_answer = Choice.objects.get(id=answer)
                     c_score = Question.objects.get(id=question.id).score
                     user_testscore_id = user_testscore.id
                     question_id = question.id
-                    if c_answer.correct == True:
-                        question_testscore = Usertest_question(usertest_id=user_testscore_id, question_id=question_id, score=c_score)
+                    if answer == None:
+                        question_testscore = Usertest_question(usertest_id=user_testscore_id, question_id=question_id,
+                                                               score=0)
                         question_testscore.save()
-                        score += c_score
                     else:
-                        c_score = 0
-                        question_testscore = Usertest_question(usertest_id=user_testscore_id, question_id=question_id, score=c_score)
-                        question_testscore.save()
+                        c_answer = Choice.objects.get(id=answer)
+                        if c_answer.correct == False:
+                            question_testscore = Usertest_question(usertest_id=user_testscore_id, question_id=question_id,
+                                                                   score=0)
+                            question_testscore.save()
+                        elif c_answer.correct == True:
+                            question_testscore = Usertest_question(usertest_id=user_testscore_id, question_id=question_id,
+                                                                   score=c_score)
+                            question_testscore.save()
+                            score += c_score
                 user_testscore.score = score
                 user_testscore.save()
                 del request.session['test_id']
