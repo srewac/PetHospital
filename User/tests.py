@@ -7,7 +7,6 @@ import time
 
 # Create your tests here.
 class UserTest(TestCase):
-
     def setUp(self):
         self.client = Client()
         self.factory = RequestFactory()

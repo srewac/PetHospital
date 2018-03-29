@@ -20,10 +20,9 @@ class DiseaseManageTest(TestCase):
         print("This Case is:查看病例信息")
         response = self.client.get(reverse('Manage:disease_example_dict'))
         self.assertEqual(response.status_code, 200)
-        self.assertEquals(len(Disease.objects.all()),3)
+        self.assertEquals(len(Disease.objects.all()), 3)
 
     def test_detail_disease_create(self):
         print("This Case is:成功进入病例创建页面")
         response = self.client.get(reverse('Manage:disease_example_create'))
         self.assertEqual(response.status_code, 200)
-

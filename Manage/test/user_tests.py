@@ -36,13 +36,15 @@ class UserManageTest(TestCase):
         actualUser = User.objects.all()
         self.assertEquals(len(actualUser), 3)
 
-    #嘤不会写写不出
     def test_detail_update_user(self):
         print("This Case is:修改用户成功")
-        id = self.user1.id
-        url = '/Manage:user_update/'
-        post = {'email': 'updateuser@example.com', 'name': 'newname', 'password': 'newpassword', 'authority': 1}
-        response = self.client.post(url ,post)
+        user_id = self.user1.id
+        url = reverse('Manage:user_update')
+        post = {'id': user_id, 'email': 'updateuser@example.com', 'name': 'newname', 'password': 'newpassword',
+                'authority': 1}
+        response = self.client.post(url, post)
+        new_user = User.objects.get(id=user_id)
+        self.assertEqual(new_user.email, 'updateuser@example.com')
 
     def test_detail_create_user(self):
         print("This Case is:创建用户成功")

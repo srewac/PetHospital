@@ -419,7 +419,6 @@ def test_modify(request, test_id):
 
 # 删除考场
 def test_delete(request, test_id):
-    print('in')
     test = get_object_or_404(Test, pk=test_id)
     for test_taker in test.user_set.all():
         for usertest in test_taker.usertest_set.all():
@@ -427,3 +426,7 @@ def test_delete(request, test_id):
         test.user_set.remove(test_taker)
     test.delete()
     return JsonResponse(True, safe=False)
+
+# 显示考场所有考生
+def test_detail_show(request, test_id):
+    pass

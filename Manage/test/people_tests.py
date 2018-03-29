@@ -1,4 +1,4 @@
-from Manage.models import People,Room
+from Manage.models import People, Room
 from django.test import TestCase, RequestFactory
 from django.test import Client
 from django.urls import reverse
@@ -27,10 +27,9 @@ class PeopleManageTest(TestCase):
         actualPeople = People.objects.all()
         self.assertEquals(len(actualPeople), 4)
 
-
     def test_detail_people_delete(self):
         print("This Case is:删除人员成功")
-        people_id=self.people1.id
+        people_id = self.people1.id
         url = '/Manage/people/delete/' + str(people_id)
         actualPeople = People.objects.all()
         self.assertEquals(len(actualPeople), 3)
