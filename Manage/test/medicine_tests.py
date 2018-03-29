@@ -27,3 +27,12 @@ class UserManageTest(TestCase):
         url = '/Manage/medicine/delete/' + str(medicine_id)
         actualMedicine = Medicine.objects.all()
         self.assertEquals(len(actualMedicine), 3)
+
+    def test_detail_medicine_update(self):
+        print("This Case is:修改药品信息成功")
+        merdicine_id = self.medicine2.id
+        url = reverse('Manage:medicine_update')
+        post = {'id': merdicine_id, 'name': 'updateName', 'desc': 'newDesc', 'price': 40}
+        response = self.client.post(url, post)
+        new_medicine = Medicine.objects.get(id=merdicine_id)
+        self.assertEqual(new_medicine.name, 'updateName')
