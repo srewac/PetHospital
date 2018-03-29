@@ -5,6 +5,7 @@
 {% block main_content %}
     <script>
         function test_create() {
+            $('#test_create_testpaper').empty();
             {% for testpaper_id, testpaper_name in testpapers.items %}
                 $("#test_create_testpaper").append($("<option>").val({{ testpaper_id }}).text("{{ testpaper_name }}"));
             {% endfor %}
@@ -26,6 +27,11 @@
                 $("#error_test_duration").html("");
                 $("#error_test_duration").hide()
             }
+            $("#error_test_start_time").html("");
+            $("#error_test_start_time").hide();
+            $("#error_test_close_time").html("");
+            $("#error_test_close_time").hide();
+
         }
 
         function create() {
@@ -40,21 +46,45 @@
                     processData: false,
                     contentType: false,
                     success: function (result) {
-                        if (result == 4) {
-                            $('#dataTables-example').DataTable().ajax.reload();
-                            $('#test_create').modal('hide');
-                        } else if (result == 0) {
-                            $("#error_test_duration").html("考试时长不能为负或大于300分钟");
-                            $("#error_test_duration").show()
-                        } else if (result == 1) {
-                            $("#error_test_close_time").html("考试截止时间信息不全");
-                            $("#error_test_close_time").show();
-                        } else if (result == 2) {
-                            $("#error_test_close_time").html("考试截止日期不能早于当前时间");
-                            $("#error_test_close_time").show();
-                        } else if (result == 3) {
-                            $("#error_test_close_time").html("考试年份过大");
-                            $("#error_test_close_time").show();
+                        switch (result) {
+                            case 0:
+                                $("#error_test_duration").html("考试时长不能为负或大于300分钟");
+                                $("#error_test_duration").show();
+                                break;
+                            case 1:
+                                $("#error_test_start_time").html("考试开始时间信息不全");
+                                $("#error_test_start_time").show();
+                                break;
+                            case 2:
+                                $("#error_test_close_time").html("考试截止时间信息不全");
+                                $("#error_test_close_time").show();
+                                break;
+                            case 3:
+                                $("#error_test_start_time").html("考试年份过大");
+                                $("#error_test_start_time").show();
+                                break;
+                            case 4:
+                                $("#error_test_close_time").html("考试年份过大");
+                                $("#error_test_close_time").show();
+                                break;
+                            case 5:
+                                $("#error_test_start_time").html("考试开始时间不能早于当前时间");
+                                $("#error_test_start_time").show();
+                                break;
+                            case 6:
+                                $("#error_test_close_time").html("考试截止日期不能早于当前时间");
+                                $("#error_test_close_time").show();
+                                break;
+                            case 7:
+                                $("#error_test_close_time").html("考试截止日期不能早于开始时间");
+                                $("#error_test_close_time").show();
+                                break;
+                            case 8:
+                                $('#dataTables-example').DataTable().ajax.reload();
+                                $('#test_create').modal('hide');
+                                break;
+                            default:
+                                alert("validation code not found")
                         }
                     },
                     error: function (result) {
@@ -65,6 +95,7 @@
         }
 
         function test_modify(test_id) {
+            $('#test_modify_testpaper').empty();
             {% for testpaper_id, testpaper_name in testpapers.items %}
                 $("#test_modify_testpaper").append($("<option>").val({{ testpaper_id }}).text("{{ testpaper_name }}"));
             {% endfor %}
@@ -77,10 +108,16 @@
                     $('#test_modify_name').val(result.name);
                     $('#test_modify_testpaper').val(result.testpaper);
                     $('#test_modify_duration').val(result.duration);
+                    $('#test_modify_start_time').val(result.start_time);
                     $('#test_modify_close_time').val(result.close_time);
-                    if (result.overtime==true){
+                    if (result.status == 1) {
+                        $('#test_modify_testpaper').attr('disabled', 'disabled');
+                        $('#test_modify_start_time').attr('disabled', 'disabled');
+                    } else if (result.status == 2) {
                         $('#test_modify_name').attr('disabled', 'disabled');
                         $('#test_modify_duration').attr('disabled', 'disabled');
+                        $('#test_modify_testpaper').attr('disabled', 'disabled');
+                        $('#test_modify_start_time').attr('disabled', 'disabled');
                         $('#test_modify_close_time').attr('disabled', 'disabled');
                     }
                 },
@@ -107,6 +144,11 @@
                 $("#error_modify_test_duration").html("");
                 $("#error_modify_test_duration").hide()
             }
+            $("#error_modify_test_start_time").html("");
+            $("#error_modify_test_start_time").hide();
+            $("#error_modify_test_close_time").html("");
+            $("#error_modify_test_close_time").hide();
+
         }
 
         function modify() {
@@ -122,22 +164,50 @@
                     processData: false,
                     contentType: false,
                     success: function (result) {
-                        if (result == 4) {
-                            $('#dataTables-example').DataTable().ajax.reload();
-                            $('#test_modify').modal('hide');
-                        } else if (result == 0) {
-                            $("#error_modify_test_duration").html("考试时长不能为负或大于300分钟");
-                            $("#error_modify_test_duration").show()
-                        } else if (result == 1) {
-                            $("#error_modify_test_close_time").html("考试截止时间信息不全");
-                            $("#error_modify_test_close_time").show();
-                        } else if (result == 2) {
-                            $("#error_modify_test_close_time").html("考试截止日期不能早于当前时间");
-                            $("#error_modify_test_close_time").show();
-                        } else if (result == 3) {
-                            $("#error_modify_test_close_time").html("考试年份过大");
-                            $("#error_modify_test_close_time").show();
+                        switch (result) {
+                            case 0:
+                                $("#error_modify_test_duration").html("考试时长不能为负或大于300分钟");
+                                $("#error_modify_test_duration").show();
+                                break;
+                            case 1:
+                                $("#error_modify_test_start_time").html("考试开始时间信息不全");
+                                $("#error_modify_test_start_time").show();
+                                break;
+                            case 2:
+                                $("#error_modify_test_close_time").html("考试截止时间信息不全");
+                                $("#error_modify_test_close_time").show();
+                                break;
+                            case 3:
+                                $("#error_modify_test_start_time").html("考试年份过大");
+                                $("#error_modify_test_start_time").show();
+                                break;
+                            case 4:
+                                $("#error_modify_test_close_time").html("考试年份过大");
+                                $("#error_modify_test_close_time").show();
+                                break;
+                            case 5:
+                                $("#error_modify_test_start_time").html("考试开始时间不能早于当前时间");
+                                $("#error_modify_test_start_time").show();
+                                break;
+                            case 6:
+                                $("#error_modify_test_close_time").html("考试截止日期不能早于当前时间");
+                                $("#error_modify_test_close_time").show();
+                                break;
+                            case 7:
+                                $("#error_modify_test_close_time").html("考试截止日期不能早于开始时间");
+                                $("#error_modify_test_close_time").show();
+                                break;
+                            case 8:
+                                $('#dataTables-example').DataTable().ajax.reload();
+                                $('#test_modify').modal('hide');
+                                break;
+                            case 8:
+                                alert('结束状态无法进行修改');
+                                break;
+                            default:
+                                alert("validation code not found")
                         }
+
                     },
                     error: function (result) {
                         alert("test create error")
@@ -201,9 +271,10 @@
                                 <th>考场名</th>
                                 <th>考卷名</th>
                                 <th>考试持续时间(分钟)</th>
+                                <th>考试开始时间</th>
                                 <th>考试结束时间</th>
                                 <th>考试状态</th>
-                                <th>操作</th>
+                                <th width="18%">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -252,6 +323,12 @@
                             <p class="error-message" hidden="hidden" style="color: red" id="error_test_duration"></p>
                         </div>
                         <div class="form-group">
+                            <label for="start_time">考试开始时间：</label>
+                            <input class="form-control" type="datetime-local" name="start_time"
+                                   id="test_create_start_time"/>
+                            <p class="error-message" hidden="hidden" style="color: red" id="error_test_start_time"></p>
+                        </div>
+                        <div class="form-group">
                             <label for="close_time">考试结束时间：</label>
                             <input class="form-control" type="datetime-local" name="close_time"
                                    id="test_create_close_time"/>
@@ -294,8 +371,7 @@
                         </div>
                         <div class="form-group">
                             <label for="testpaper">考卷：</label>
-                            <select class="form-control" name="testpaper" id="test_modify_testpaper"
-                                    disabled="disabled">
+                            <select class="form-control" name="testpaper" id="test_modify_testpaper">
                             </select>
                         </div>
                         <div class="form-group">
@@ -306,6 +382,14 @@
                             <p class="error-message" hidden="hidden" style="color: red"
                                id="error_modify_test_duration"></p>
                         </div>
+                        <div class="form-group">
+                            <label for="start_time">考试开始时间：</label>
+                            <input class="form-control" type="datetime-local" name="start_time"
+                                   id="test_modify_start_time"/>
+                            <p class="error-message" hidden="hidden" style="color: red"
+                               id="error_modify_test_start_time"></p>
+                        </div>
+
                         <div class="form-group">
                             <label for="close_time">考试结束时间：</label>
                             <input class="form-control" type="datetime-local" name="close_time"
@@ -368,27 +452,19 @@
                     "targets": -1,
                     "data": null,
                     "defaultContent": "<button type='button' class='btn btn-warning' name='modify' style='margin-right:5px'>修改</button><button type='button' class='btn btn-success' name='show' style='margin-right:5px'>查看</button><button type='delete' class='btn btn-danger' name='delete''>删除</button>"
-                }],
-                {#                "initComplete": function (settings, json) {#}
-                {#                    $('#dataTables-example tbody tr').each(function () {#}
-                {#                        var data = table.row($(this)).data();#}
-                {#                        if (data[5].split(';')[0] == '1') {#}
-                {#                            $(this).find("button[name='modify']").attr('disabled', 'disabled');#}
-                {#                        }#}
-                {#                    });#}
-                {#                }#}
+                }]
             });
             $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                test_modify(data[5].split(';')[1]);
+                test_modify(data[6]);
             });
             $('#dataTables-example tbody').on("click", 'button[name="show"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                test_show(data[5].split(';')[1]);
+                test_show(data[6]);
             });
             $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                test_delete(data[5].split(';')[1]);
+                test_delete(data[6]);
             });
 
         });
@@ -399,21 +475,28 @@
                 $('#error_test_name').hide();
                 $("#error_test_duration").html("");
                 $("#error_test_duration").hide();
+                $("#error_test_start_time").html("");
+                $("#error_test_start_time").hide();
                 $("#error_test_close_time").html("");
                 $("#error_test_close_time").hide();
                 $('#test_create_name').val("");
                 $('#test_create_duration').val("");
                 $('#test_create_close_time').val("");
+                $('#test_create_start_time').val("");
             });
             $("#test_modify").on("hidden.bs.modal", function () {
                 $('#error_modify_test_name').html("");
                 $('#error_modify_test_name').hide();
                 $("#error_modify_test_duration").html("");
                 $("#error_modify_test_duration").hide();
+                $("#error_modify_test_start_time").html("");
+                $("#error_modify_test_start_time").hide();
                 $("#error_modify_test_close_time").html("");
                 $("#error_modify_test_close_time").hide();
                 $('#test_modify_name').removeAttr('disabled');
                 $('#test_modify_duration').removeAttr('disabled');
+                $('#test_modify_testpaper').removeAttr('disabled');
+                $('#test_modify_start_time').removeAttr('disabled');
                 $('#test_modify_close_time').removeAttr('disabled');
             });
         });
