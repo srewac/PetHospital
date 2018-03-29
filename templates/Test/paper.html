@@ -50,6 +50,11 @@
     </div>
 </div>
 <script type="text/javascript">
+    if(!localStorage.getItem('start'))
+    {
+        localStorage.setItem('start', new Date().getTime());
+    }
+
     force_submit = false;
     function submitcheck() {
         if(force_submit==true||confirm("确认提交")==true)
@@ -60,6 +65,9 @@
     $(document).ready(function () {
         //这里获取倒计时的起始时间
         SysSecond = {{ selectedtest.duration }}*60;
+        currentTime = new Date();
+        dif = currentTime.getTime()-localStorage.getItem('start');
+        SysSecond -= dif/1000;
         if (SysSecond != "" && !isNaN(SysSecond)) {
             InterValObj = window.setInterval(SetRemainTime, 1000); //间隔函数，1秒执行
         }
@@ -71,6 +79,7 @@
             return padLeft("0" + str, length);
     }
     function SetRemainTime() {
+
         if (SysSecond > 0) {
             SysSecond = SysSecond - 1;
             var second = padLeft(Math.floor(SysSecond % 60),1);             // 计算秒
