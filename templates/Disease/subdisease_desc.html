@@ -62,24 +62,14 @@
                 </ul>
             </div>
         </div>
-        <h3 class="agileits-title two" style="margin-top: 60px">选择疾病种类</h3>
+        <h3 class="agileits-title two" style="margin-top: 60px">{{ subdisease.name }}</h3>
         <div class="container">
-            <div class="markets-grids">
-                {% for idx in subdisease %}
-                    <div class="col-md-4">
-                        <a href="{% url 'Disease:subdisease_desc' idx.id %}">
-                            <div class="subdisease-grid">
+            <div class="">
 
-                                <h3 class="subdisease-grid-h">{{ idx.name }}</h3>
-
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
-
+                <h4 class="subdisease-desc">{{ subdisease.desc }}</h4>
                 <div class="clearfix"></div>
                 <div align="center">
-                    <a href="{% url 'Disease:select_disease' %}" class="button button-isi"
+                    <a href="/Disease/{{ subdisease.disease.name }}/select_subdisease" class="button button-isi"
                        style="margin-bottom: 45px;margin-top: 70px;">
                         <i class="icon glyphicon glyphicon-arrow-left"></i>
                         <span>返回</span>

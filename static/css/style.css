@@ -953,6 +953,14 @@ h3.agileits-title span {
 	overflow: hidden;
 	text-align: center;
 }
+.subdisease-desc{
+	color:white;
+	margin-top:20px;
+	margin-left:10% ;
+	margin-right: 10%;
+	text-indent: 2ch;
+	font-size: 24px;
+}
 
 
 .icon-left {
