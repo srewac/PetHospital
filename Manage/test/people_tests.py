@@ -33,3 +33,18 @@ class PeopleManageTest(TestCase):
         url = '/Manage/people/delete/' + str(people_id)
         actualPeople = People.objects.all()
         self.assertEquals(len(actualPeople), 3)
+
+    def test_detail_people_update(self):
+        print("This Case is:修改人员信息成功")
+        people_id = self.people2.id
+        url = reverse('Manage:people_update')
+        post = {'id': people_id,
+                'name': 'updateName',
+                'age': 19,
+                'sex': 0,
+                'job': 'jjj',
+                'room': self.room.name,
+                'desc': 'fs'}
+        response = self.client.post(url, post)
+        new_people = People.objects.get(id=people_id)
+        self.assertEqual(new_people.name, 'updateName')
