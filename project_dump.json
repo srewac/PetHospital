@@ -222,10 +222,8 @@
         "name": "intern1",
         "authority": 0,
         "tests": [
-            4,
-            5,
-            7,
-            8
+            9,
+            10
         ]
     }
 },
@@ -238,10 +236,8 @@
         "name": "intern2",
         "authority": 0,
         "tests": [
-            4,
-            5,
-            7,
-            8
+            9,
+            10
         ]
     }
 },
@@ -410,52 +406,24 @@
 },
 {
     "model": "Test.test",
-    "pk": 4,
+    "pk": 9,
     "fields": {
-        "name": "123123",
+        "name": "12323",
         "duration": 300,
-        "close_time": "2018-12-12T01:03:00",
+        "close_time": "2018-12-12T00:34:00",
+        "start_time": "2018-03-29T09:40:00",
         "test_paper": 1
     }
 },
 {
     "model": "Test.test",
-    "pk": 5,
+    "pk": 10,
     "fields": {
         "name": "poi233",
-        "duration": 300,
-        "close_time": "2018-03-29T01:01:00",
-        "test_paper": 1
-    }
-},
-{
-    "model": "Test.test",
-    "pk": 6,
-    "fields": {
-        "name": "1111",
-        "duration": 60,
-        "close_time": "2018-03-27T11:59:00",
-        "test_paper": 1
-    }
-},
-{
-    "model": "Test.test",
-    "pk": 7,
-    "fields": {
-        "name": "poi",
-        "duration": 111,
-        "close_time": "2222-01-01T01:01:00",
+        "duration": 200,
+        "close_time": "2018-03-29T10:07:00",
+        "start_time": "2018-03-29T10:06:00",
         "test_paper": 2
-    }
-},
-{
-    "model": "Test.test",
-    "pk": 8,
-    "fields": {
-        "name": "test",
-        "duration": 100,
-        "close_time": "2018-03-27T14:15:00",
-        "test_paper": 1
     }
 },
 {
@@ -1101,10 +1069,18 @@
     }
 },
 {
+    "model": "Disease.diseaseexample",
+    "pk": 1,
+    "fields": {
+        "name": "1231231",
+        "sub_disease": 2
+    }
+},
+{
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$100000$iWwa17hPVTv6$+DvQx9DS9t4weqp4MUgTOEo6eO8Z4LyI+pDWfbCEvo0=",
-        "last_login": "2018-03-27T11:59:18.918",
+        "last_login": "2018-03-29T10:16:08.573",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -1119,10 +1095,10 @@
 },
 {
     "model": "sessions.session",
-    "pk": "sz2v965kbsw5ip7v2uecz05zt6u6qegw",
+    "pk": "s4q60mal5fvb99mllfqdgf4f57n7nvnq",
     "fields": {
         "session_data": "ZDU0ZTAyNGYwMDMzMzE1ZmE5ZTQ1ZDVkNzk0M2U3YzE0MjQ4NDAxOTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkMjYxNGQxNzE5NTlkNWNhZGE0MjJkZWYzYmUyZGY2NDI4Yzg0NmI0In0=",
-        "expire_date": "2018-04-10T11:59:18.920"
+        "expire_date": "2018-04-12T10:16:08.575"
     }
 },
 {
@@ -1139,6 +1115,24 @@
         ],
         "object_id": "6",
         "object_repr": "1111",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2018-03-29T10:16:57.353",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "Disease",
+            "diseaseexample"
+        ],
+        "object_id": "1",
+        "object_repr": "1231231",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
