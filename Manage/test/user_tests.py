@@ -40,10 +40,9 @@ class UserManageTest(TestCase):
     def test_detail_update_user(self):
         print("This Case is:修改用户成功")
         id = self.user1.id
-        url = reverse('Manage:user_update')
-        post = {'user_id': id}
-        response = self.client.post(url + str(id))
-        actualUser = User.objects.all()
+        url = '/Manage:user_update/'
+        post = {'email': 'updateuser@example.com', 'name': 'newname', 'password': 'newpassword', 'authority': 1}
+        response = self.client.post(url ,post)
 
     def test_detail_create_user(self):
         print("This Case is:创建用户成功")

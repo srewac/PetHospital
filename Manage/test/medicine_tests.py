@@ -21,3 +21,10 @@ class UserManageTest(TestCase):
         response = self.client.post(url, post)
         actualRoom = Medicine.objects.all()
         self.assertEquals(len(actualRoom), 4)
+
+    def test_detail_medicine_delete(self):
+        print("This Case is:删除药品成功")
+        medicine_id = self.medicine1.id
+        url = '/Manage/medicine/delete/' + str(medicine_id)
+        actualMedicine = Medicine.objects.all()
+        self.assertEquals(len(actualMedicine), 3)

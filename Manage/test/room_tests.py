@@ -22,9 +22,10 @@ class UserManageTest(TestCase):
         self.assertEquals(len(actualRoom), 4)
 
     def test_detail_room_delete(self):
-        print("This Case is:创建科室成功")
-        url = reverse('Manage:room_create')
-        post = {'name': 'newName', 'desc': 'newDesc','pic': 'newPic', 'video': 'newVideo'}
-        response = self.client.post(url, post)
+        print("This Case is:删除科室成功")
+        room_id=self.room1.id
+        url = '/Manage/room/delete/' + str(room_id)
         actualRoom = Room.objects.all()
-        self.assertEquals(len(actualRoom), 4)
+        self.assertEquals(len(actualRoom), 3)
+
+
