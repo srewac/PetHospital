@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pet Hospital: Test</title>
+    <title>Result Detail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Pets Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -61,50 +61,60 @@
                 </ul>
             </div>
         </div>
-        <h3 class="agileits-title two" style="margin-top: 60px">What Do You Want to Do</h3>
+        <h3 class="agileits-title two" style="margin-top: 60px">Test Result Detail</h3>
         <div class="container">
             <div class="markets-grids" align="center">
-                <div class="col-md-4 w3ls-markets-grid" style="margin-left: 20%">
-                    <a href="{% url 'Test:select_disease' %}">
-                        <div class="agileits-icon-grid">
-                            <div class="icon-left">
-                                <i class="fa fa-flask" aria-hidden="true"></i>
+                <!-- /.panel -->
+                <div id="page-wrapper">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        考试结果详情
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        {% for question in questions %}
+                                            <hr style="height: 1px;border:none;border-top:1px dashed; margin-top: 20px;">
+                                            <li>{{ forloop.counter }}. {{ question.text }}<br/>
+                                                {% for choice in choices %}
+                                                    {% if choice.question_id == question.id %}
+                                                        <input type="radio" style="margin-right: 10px;"
+                                                               value=""
+                                                               name=""/>
+                                                        <label>{{ choice.text }}</label><br/>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </li>
+                                        {% endfor %}
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
                             </div>
-                            <div class="icon-right">
-                                <h5>选择考卷</h5>
-                                <p>Select Paper</p>
-                            </div>
-                            <div class="clearfix"></div>
+                            <!-- /.col-lg-12 -->
                         </div>
-                    </a>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.col-lg-8 -->
                 </div>
-                <div class="col-md-4 w3ls-markets-grid">
-                    <a href="{% url 'Test:result' %}">
-                        <div class="agileits-icon-grid">
-                            <div class="icon-left">
-                                <i class="fa fa-line-chart" aria-hidden="true"></i>
-                            </div>
-                            <div class="icon-right">
-                                <h5>查询成绩</h5>
-                                <p>Results</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="clearfix"></div>
-                <div align="center">
-                    <a href="/index" class="button button-isi"
-                       style="margin-bottom: 45px;margin-top: 70px;">
-                        <i class="icon glyphicon glyphicon-arrow-left"></i>
-                        <span>返回</span>
-                    </a>
-                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.panel -->
+            <div class="clearfix"></div>
+            <div align="center">
+                <a href="{% url 'Test:result' %}" class="button button-isi"
+                   style="margin-bottom: 45px;margin-top: 70px;">
+                    <i class="icon glyphicon glyphicon-arrow-left"></i>
+                    <span>返回</span>
+                </a>
             </div>
         </div>
-        <div class="banner-w3text w3layouts">
-        </div>
     </div>
+    <div class="banner-w3text w3layouts">
+    </div>
+</div>
 </div>
 <div class="copy-w3right">
     <div class="container">
@@ -114,6 +124,5 @@
     </div>
 </div>
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/static/js/bootstrap.js"></script>
 </body>
 </html>

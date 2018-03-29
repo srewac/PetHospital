@@ -21,7 +21,7 @@
           rel='stylesheet' type='text/css'>
 </head>
 <body>
-<div class="container" >
+<div class="container">
     <div style="width: 60%;margin: 0 auto;">
         <h1 style="text-align: center;margin-top: 20px;">考试</h1>
         <br>
@@ -32,73 +32,78 @@
     </div>
     <div style="width: 60%;margin: 0 auto;">
         <form action="{% url 'Test:paper' %}" method="POST" onsubmit="return submitcheck()" name="answer">
-        {% csrf_token %}
+            {% csrf_token %}
             {% for question in questiones %}
-            <hr style="height: 1px;border:none;border-top:1px dashed; margin-top: 20px;">
-            <li>{{ forloop.counter }}.  {{ question.text }}<br />
-                {% for choice in choice %}
-                    {% if choice.question == question %}
-                     <input type="radio" style="margin-right: 10px;" value="{{ choice.id }}" name="{{ question.id }}"/><label> {{ choice.text }}</label><br />
-                    {% endif %}
-                {% endfor %}
-            </li>
+                <hr style="height: 1px;border:none;border-top:1px dashed; margin-top: 20px;">
+                <li>{{ forloop.counter }}. {{ question.text }}<br/>
+                    {% for choice in choice %}
+                        {% if choice.question == question %}
+                            <input type="radio" style="margin-right: 10px;" value="{{ choice.id }}"
+                                   name="{{ question.id }}"/><label> {{ choice.text }}</label><br/>
+                        {% endif %}
+                    {% endfor %}
+                </li>
             {% endfor %}
-        <div style="text-align: center;margin-top: 30px;margin-bottom: 70px;">
-            <input id="submit_button" type="submit">
-        </div>
+            <div style="text-align: center;margin-top: 30px;margin-bottom: 70px;">
+                <input id="submit_button" type="submit">
+            </div>
         </form>
     </div>
 </div>
 <script type="text/javascript">
-    if(!localStorage.getItem('start'))
-    {
+    if (!localStorage.getItem('start')) {
         localStorage.setItem('start', new Date().getTime());
     }
 
     force_submit = false;
+
     function submitcheck() {
-        if(force_submit==true||confirm("确认提交")==true)
+        if (force_submit == true || confirm("确认提交") == true)
             return true;
         else
             return false;
     }
+
     $(document).ready(function () {
         //这里获取倒计时的起始时间
-        SysSecond = {{ selectedtest.duration }}*60;
+        SysSecond =
+        {{ selectedtest.duration }}*
+        60;
         currentTime = new Date();
-        dif = currentTime.getTime()-localStorage.getItem('start');
-        SysSecond -= dif/1000;
+        dif = currentTime.getTime() - localStorage.getItem('start');
+        SysSecond -= dif / 1000;
         if (SysSecond != "" && !isNaN(SysSecond)) {
             InterValObj = window.setInterval(SetRemainTime, 1000); //间隔函数，1秒执行
         }
     });
+
     function padLeft(str, length) {
         if (str.length >= length)
             return str;
         else
             return padLeft("0" + str, length);
     }
+
     function SetRemainTime() {
 
         if (SysSecond > 0) {
             SysSecond = SysSecond - 1;
-            var second = padLeft(Math.floor(SysSecond % 60),1);             // 计算秒
-            var minute = padLeft(Math.floor((SysSecond / 60) % 60),1);      //计算分
+            var second = padLeft(Math.floor(SysSecond % 60), 1);             // 计算秒
+            var minute = padLeft(Math.floor((SysSecond / 60) % 60), 1);      //计算分
             var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时
             //var day = Math.floor((SysSecond / 3600) / 24);        //计算天
 
-            $("#remainTime").html("考试时间："+hour+":"+minute + ":" + second);
+            $("#remainTime").html("考试时间：" + hour + ":" + minute + ":" + second);
         } else {
             //剩余时间小于或等于0的时候，就停止间隔函数
             alert("Time is up.");
             window.clearInterval(InterValObj);
             //这里可以添加倒计时时间为0后需要执行的事件
-            force_submit=true;
+            force_submit = true;
             document.getElementById("submit_button").click();
 
         }
     }
-
 
 
 </script>
