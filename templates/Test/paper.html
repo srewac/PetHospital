@@ -33,12 +33,12 @@
     <div style="width: 60%;margin: 0 auto;">
         <form action="{% url 'Test:paper' %}" method="POST" onsubmit="return submitcheck()" name="answer">
         {% csrf_token %}
-            {% for question_idx in question %}
+            {% for question in questiones %}
             <hr style="height: 1px;border:none;border-top:1px dashed; margin-top: 20px;">
-            <li>{{ forloop.counter }}.  {{ question_idx.text }}<br />
+            <li>{{ forloop.counter }}.  {{ question.text }}<br />
                 {% for choice in choice %}
-                    {% if choice.question == question_idx %}
-                     <input type="radio" style="margin-right: 10px;" value="{{ choice.id }}" name="{{ question_idx.id }}"/><label> {{ choice.text }}</label><br />
+                    {% if choice.question == question %}
+                     <input type="radio" style="margin-right: 10px;" value="{{ choice.id }}" name="{{ question.id }}"/><label> {{ choice.text }}</label><br />
                     {% endif %}
                 {% endfor %}
             </li>
