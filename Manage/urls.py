@@ -43,6 +43,7 @@ urlpatterns = [
     path('test/test_modify_dict/<int:test_id>', test.test_modify_dict, name='test_modify_dict'),
     path('test/test_modify/<int:test_id>', test.test_modify, name='test_modify'),
     path('test/test_delete/<int:test_id>', test.test_delete, name='test_delete'),
+    path('test/test_detail_show/<int:test_id>', test.test_detail_show, name='test_detail_show'),
     # room urls
     path('basic/room', room.room, name='room'),
     path('basic/room_dict', room.room_dict, name='room_dict'),
