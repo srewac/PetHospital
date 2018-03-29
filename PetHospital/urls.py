@@ -26,6 +26,7 @@ urlpatterns = [
     path('Test/', include('Test.urls')),
     path('Manage/', include('Manage.urls')),
     path('Disease/', include('Disease.urls')),
+    path('Navigation/', include('Navigation.urls')),
     # path('sign_up/', userviews.sign_up, name='sign_up'),
     # path('sign_in/', userviews.sign_in, name='sign_in'),
     # path('test/', testviews.test, name='test'),
