@@ -42,10 +42,17 @@ class Test(models.Model):
     name = models.CharField(max_length=500)
     duration = models.IntegerField(default=60)  # 考试时间
     close_time = models.DateTimeField('close date')
+    start_time = models.DateTimeField('start date', default=timezone.now())
     test_paper = models.ForeignKey(TestPaper, on_delete=models.CASCADE)
 
-    def has_exceeded_close_time(self):
-        return timezone.now() > self.close_time
+    # 考试状态 0->考试未开始，1->考试进行中，2->考试已结束
+    def test_status(self):
+        if timezone.now() < self.start_time:
+            return 0
+        elif timezone.now() > self.close_time:
+            return 2
+        else:
+            return 1
 
     def __str__(self):
         return self.name
