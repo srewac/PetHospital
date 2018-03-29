@@ -133,9 +133,7 @@ STATICFILES_DIRS = (
     ('dist', os.path.join(STATIC_ROOT, 'dist').replace('\\', '/')),
     ('vendor', os.path.join(STATIC_ROOT, 'vendor').replace('\\', '/')),
     ('less', os.path.join(STATIC_ROOT, 'less').replace('\\', '/')),
-    ('hall', os.path.join(STATIC_ROOT, 'hall').replace('\\', '/')),
-    ('ward', os.path.join(STATIC_ROOT, 'ward').replace('\\', '/')),
-    ('ward2', os.path.join(STATIC_ROOT, 'ward2').replace('\\', '/')),
+    ('3dnavigation', os.path.join(STATIC_ROOT, '3dnavigation').replace('\\', '/')),
 )
 # upload folder
 MEDIA_URL = '/media/'
