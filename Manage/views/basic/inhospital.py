@@ -38,8 +38,8 @@ def inhospital_dict(request):
 
 
 # 返回修改时要显示的原数据
-def inhospital_modify_dict(request, patient_id):
-    patient = get_object_or_404(Inhospital, pk=patient_id)
+def inhospital_modify_dict(request, id):
+    patient = get_object_or_404(Inhospital, pk=id)
     PEOPLES = {}
     ROOMS = {}
     DISEASES = {}
