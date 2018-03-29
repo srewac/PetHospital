@@ -8,7 +8,7 @@ class SubDiseaseInline(admin.TabularInline):
 
 
 class DiseaseAdmin(admin.ModelAdmin):
-    list_display = ( 'id','name');
+    list_display = ('id', 'name')
     inlines = [SubDiseaseInline]
 
 
@@ -18,8 +18,8 @@ class GeneralProcessInline(admin.TabularInline):
 
 
 class SubDiseaseAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'desc','disease');
-    list_filter = ('disease',);
+    list_display = ('id', 'name', 'desc', 'disease')
+    list_filter = ('disease',)
     inlines = [GeneralProcessInline]
 
 
@@ -38,4 +38,3 @@ admin.site.register(Disease, DiseaseAdmin)
 # admin.site.register(GeneralProcess)
 admin.site.register(DiseaseExample, DiseaseExampleAdmin)
 # admin.site.register(Process)
-
