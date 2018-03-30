@@ -219,12 +219,30 @@
 
 
         function test_show(test_id) {
-            window.location.href = '#'
+            window.location.href = '/Manage/test/test_detail_show/' + test_id
         }
 
         function test_delete(test_id) {
-            $('#delete_id').val(test_id);
-            $('#test_delete').modal('show');
+            $.ajax({
+                type: "POST",
+                url: "/Manage/test/test_modify_dict/" + test_id,
+                success: function (result) {
+                    result = JSON.parse(result);
+                    if (result.status == 0) {
+                        $('#test_delete .modal-body h5').html("是否确认删除？");
+                        $('#btn-delete').removeAttr('disabled');
+                        $('#test_delete').modal('show');
+                        $('#delete_id').val(test_id);
+                    } else {
+                        $('#test_delete .modal-body h5').html("此状态无法进行删除操作");
+                        $('#btn-delete').attr('disabled', 'disabled');
+                        $('#test_delete').modal('show');
+                    }
+                },
+                error: function (result) {
+                    alert('delete get data error')
+                }
+            });
         }
 
         function delete_ok() {

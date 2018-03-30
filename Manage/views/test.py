@@ -4,7 +4,7 @@ from django.utils import timezone
 
 from Test.models import Question, TestPaper, Test, Choice
 from Disease.models import Disease, SubDisease
-from User.models import User
+from User.models import User, Usertest, Usertest_question
 
 import json, datetime
 
@@ -427,6 +427,70 @@ def test_delete(request, test_id):
     test.delete()
     return JsonResponse(True, safe=False)
 
+
 # 显示考场所有考生
 def test_detail_show(request, test_id):
-    pass
+    test = get_object_or_404(Test, pk=test_id)
+    status = ''
+    if test.test_status() == 0:
+        status = "未开始"
+    elif test.test_status() == 1:
+        status = "进行中"
+    else:
+        status = "已结束"
+    test_d = {'test_id': test.id, 'test_name': test.name, 'test_status': status}
+    return render(request, 'backend/test/test_detail_show.html', test_d)
+
+
+# 考场详情显示所有考生获取的数据
+def test_detail_dict(request, test_id):
+    test_origin = get_object_or_404(Test, pk=test_id)
+    all_interns = User.objects.filter(authority=0).all()
+    users = test_origin.user_set.all()
+    all_interns_d = {'data': []}
+    # 最后一个数据返回 0->未加入考试，1->加入考试;用户的user_id
+    for all_intern in all_interns:
+        if all_intern in users:
+            usertest = Usertest.objects.filter(user=all_intern, test=test_origin).all()
+            if len(usertest) == 1:
+                all_interns_d['data'].append(
+                    [all_intern.email, all_intern.name, usertest.first().score, '1;' + str(all_intern.id)])
+            else:
+                all_interns_d['data'].append([all_intern.email, all_intern.name, '无成绩', '1;' + str(all_intern.id)])
+        else:
+            all_interns_d['data'].append([all_intern.email, all_intern.name, '无成绩', '0;' + str(all_intern.id)])
+    return JsonResponse(all_interns_d, safe=False)
+
+
+# 考场添加考生
+def test_detail_add_user(request, test_id, user_id):
+    get_object_or_404(User, id=user_id).tests.add(get_object_or_404(Test, id=test_id))
+    return JsonResponse(True, safe=False)
+
+
+# 考场删除考生
+def test_detail_delete_user(request, test_id, user_id):
+    get_object_or_404(User, id=user_id).tests.remove(get_object_or_404(Test, id=test_id))
+    return JsonResponse(True, safe=False)
+
+
+# 考场添加所有实习生
+def test_detail_add_all_user(request, test_id):
+    # 初始化清空
+    test = get_object_or_404(Test, pk=test_id)
+    for user in test.user_set.all():
+        test.user_set.remove(user)
+    # 全部加入
+    interns = User.objects.filter(authority=0).all()
+    for intern in interns:
+        intern.tests.add(test)
+    return JsonResponse(True, safe=False)
+
+
+# 考场删除所有实习生
+def test_detail_delete_all_user(request, test_id):
+    test = get_object_or_404(Test, pk=test_id)
+    for user in test.user_set.all():
+        test.user_set.remove(user)
+    return JsonResponse(True, safe=False)
+

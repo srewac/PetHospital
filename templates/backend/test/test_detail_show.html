@@ -4,10 +4,10 @@
 {% endblock %}
 {% block main_content %}
     <script>
-        function question_add(question_id) {
+        function user_add(user_id) {
             $.ajax({
                 type: "post",
-                url: "/Manage/test/testpaper_question_add/" + {{ testpaper_id }} +'/' + question_id,
+                url: "/Manage/test/test_detail_add_user/" + {{ test_id }} +'/' + user_id,
                 success: function (result) {
                     if (result == false)
                         alert(result)
@@ -18,10 +18,10 @@
             });
         }
 
-        function question_delete(question_id) {
+        function user_delete(user_id) {
             $.ajax({
                 type: "post",
-                url: "/Manage/test/testpaper_question_delete/" + {{ testpaper_id }} +'/' + question_id,
+                url: "/Manage/test/test_detail_delete_user/" + {{ test_id }} +'/' + user_id,
                 success: function (result) {
                     if (result == false)
                         alert(result)
@@ -32,10 +32,10 @@
             });
         }
 
-        function question_delete_all() {
+        function user_delete_all() {
             $.ajax({
                 type: 'post',
-                url: '{% url 'Manage:testpaper_question_delete_all' testpaper_id %}',
+                url: '{% url 'Manage:test_detail_delete_all_user' test_id %}',
                 success: function (result) {
                     location.reload();
                 },
@@ -44,19 +44,39 @@
                 }
             });
         }
+
+        function user_add_all() {
+            $.ajax({
+                type: 'post',
+                url: '{% url 'Manage:test_detail_add_all_user' test_id %}',
+                success: function (result) {
+                    location.reload();
+                },
+                error: function () {
+                    alert("add all error")
+                }
+            });
+        }
     </script>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><a href="{% url 'Manage:testpaper_show' %}">考卷管理</a>/考题选择
+                <h1 class="page-header"><a href="{% url 'Manage:test_show' %}">考场管理</a>/考场考生
                     <button type="button" class="btn btn-success"
                             style="float: right;margin: 10px 5px"
-                            onclick="window.location.href='{% url 'Manage:testpaper_show' %}' ">返回所有考卷
+                            onclick="window.location.href='{% url 'Manage:test_show' %}' ">返回考场管理
                     </button>
-                    <button type="button" class="btn btn-warning"
-                            style="float: right;margin: 10px 5px"
-                            onclick="question_delete_all()">清空选择
-                    </button>
+                    {% if test_status == "未开始" %}
+                        <button type="button" class="btn btn-warning"
+                                style="float: right;margin: 10px 5px"
+                                onclick="user_delete_all()">清空选择
+                        </button>
+                        <button type="button" class="btn btn-success"
+                                style="float: right;margin: 10px 5px"
+                                onclick="user_add_all()">添加全部
+                        </button>
+                    {% endif %}
+
                 </h1>
 
             </div>
@@ -67,7 +87,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <p>试卷名称:<b>{{ testpaper_name }}</b> 试卷类别:<b>{{ disease }}</b> 已选考题总分:<b id="score_all">{{ score_all }}</b></p>
+                        <p>考场名称:<b>{{ test_name }}</b> 考场状态:<b>{{ test_status }}</b></p>
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -75,25 +95,13 @@
                                id="dataTables-example">
                             <thead>
                             <tr>
-                                <th width="30%">题目</th>
-                                <th width="20%">选项</th>
-                                <th width="10%">正确答案</th>
-                                <th>分值</th>
-                                <th>病大类</th>
-                                <th>病小类</th>
-                                <th width="5    %">操作</th>
+                                <th>用户邮箱</th>
+                                <th>用户名</th>
+                                <th>成绩</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>题目</td>
-                                <td>选项</td>
-                                <td>正确答案</td>
-                                <td>分值</td>
-                                <td>病大类</td>
-                                <td>病小类</td>
-                                <td>操作</td>
-                            </tr>
                             </tbody>
                         </table>
                         <!-- /.table-responsive -->
@@ -112,16 +120,16 @@
     <script>
         $(document).ready(function () {
             var table = $('#dataTables-example').DataTable({
-                "ajax": "{% url 'Manage:select_question_dict' testpaper_id %}",
+                "ajax": "{% url 'Manage:test_detail_dict' test_id %}",
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,
-                    "defaultContent": "<button type='button' class='btn btn-success' name='add' style='margin-right:5px'>添加</button><button type='delete' class='btn btn-danger' name='delete' style='display:none;'>删除</button>"
+                    "defaultContent": "{% if test_status == "未开始" %}<button type='button' class='btn btn-success' name='add' style='margin-right:5px'>添加</button><button type='delete' class='btn btn-danger' name='delete' style='display:none;'>删除</button>{% else %}<p>此状态无法进行操作</p>{% endif %}"
                 }],
                 "initComplete": function (settings, json) {
                     $('#dataTables-example tbody tr').each(function () {
                         var data = table.row($(this)).data();
-                        if (data[6].split(';')[1] == '1') {
+                        if (data[3].split(';')[0] == '1') {
                             $(this).find("button[name='add']").hide();
                             $(this).find("button[name='delete']").show();
                         }
@@ -130,15 +138,13 @@
             });
             $('#dataTables-example tbody').on("click", 'button[name="add"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                question_add(data[6].split(';')[0]);
-                $('#score_all').html(parseInt($('#score_all').html())+data[3]);
+                user_add(data[3].split(';')[1]);
                 $(this).next().show();
                 $(this).hide();
             });
             $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                question_delete(data[6].split(';')[0]);
-                $('#score_all').html(parseInt($('#score_all').html())-data[3]);
+                user_delete(data[3].split(';')[1]);
                 $(this).prev().show();
                 $(this).hide();
 

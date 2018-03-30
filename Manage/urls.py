@@ -15,7 +15,7 @@ urlpatterns = [
     path('disease_example', disease.disease_example, name='disease_example_show'),
     path('disease_example_dict', disease.disease_example_dict, name='disease_example_dict'),
     path('disease_example_create', disease.disease_example_create, name='disease_example_create'),
-    # test urls
+    # question urls
     path('test/sub_disease_dict/<int:disease_id>', test.sub_disease_dict, name='sub_disease_dict'),
     path('test/question', test.question_index, name='question_show'),
     path('test/question_dict', test.question_dict, name='question_dict'),
@@ -24,6 +24,7 @@ urlpatterns = [
     path('test/question_modify', test.question_modify, name='question_modify'),
     path('test/question_modify_dict/<int:question_id>', test.question_modify_dict, name='question_modify_dict'),
     path('test/question_delete/<int:question_id>', test.question_delete, name='question_delete'),
+    # testpaper urls
     path('test/testpaper', test.testpaper_index, name='testpaper_show'),
     path('test/testpaper_dict', test.testpaper_dict, name='testpaper_dict'),
     path('test/testpaper_delete/<int:testpaper_id>', test.testpaper_delete, name='testpaper_delete'),
@@ -33,10 +34,13 @@ urlpatterns = [
     path('test/testpaper_modify', test.testpaper_modify, name='testpaper_modify'),
     path('test/select_question/<int:testpaper_id>', test.select_question, name='select_question'),
     path('test/select_question_dict/<int:testpaper_id>', test.select_question_dict, name='select_question_dict'),
-    path('test/testpaper_question_add/<int:testpaper_id>/<int:question_id>', test.testpaper_question_add, name='testpaper_question_add'),
+    path('test/testpaper_question_add/<int:testpaper_id>/<int:question_id>', test.testpaper_question_add,
+         name='testpaper_question_add'),
     path('test/testpaper_question_delete/<int:testpaper_id>/<int:question_id>', test.testpaper_question_delete,
          name='testpaper_question_delete'),
-    path('test/testpaper_question_delete_all/<int:testpaper_id>', test.testpaper_question_delete_all, name='testpaper_question_delete_all'),
+    path('test/testpaper_question_delete_all/<int:testpaper_id>', test.testpaper_question_delete_all,
+         name='testpaper_question_delete_all'),
+    # test urls
     path('test/test', test.test_index, name='test_show'),
     path('test/test_dict', test.test_dict, name='test_dict'),
     path('test/test_create', test.test_create, name='test_create'),
@@ -44,6 +48,15 @@ urlpatterns = [
     path('test/test_modify/<int:test_id>', test.test_modify, name='test_modify'),
     path('test/test_delete/<int:test_id>', test.test_delete, name='test_delete'),
     path('test/test_detail_show/<int:test_id>', test.test_detail_show, name='test_detail_show'),
+    path('test/test_detail_dict/<int:test_id>', test.test_detail_dict, name='test_detail_dict'),
+    path('test/test_detail_add_user/<int:test_id>/<int:user_id>', test.test_detail_add_user,
+         name='test_detail_add_user'),
+    path('test/test_detail_delete_user/<int:test_id>/<int:user_id>', test.test_detail_delete_user,
+         name='test_detail_delete_user'),
+    path('test/test_detail_add_all_user/<int:test_id>', test.test_detail_add_all_user,
+         name='test_detail_add_all_user'),
+    path('test/test_detail_delete_all_user/<int:test_id>', test.test_detail_delete_all_user,
+         name='test_detail_delete_all_user'),
     # room urls
     path('basic/room', room.room, name='room'),
     path('basic/room_dict', room.room_dict, name='room_dict'),
