@@ -42,7 +42,7 @@ class Test(models.Model):
     name = models.CharField(max_length=500)
     duration = models.IntegerField(default=60)  # 考试时间
     close_time = models.DateTimeField('close date')
-    start_time = models.DateTimeField('start date', default=timezone.now())
+    start_time = models.DateTimeField('start date')
     test_paper = models.ForeignKey(TestPaper, on_delete=models.CASCADE)
 
     # 考试状态 0->考试未开始，1->考试进行中，2->考试已结束
