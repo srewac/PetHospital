@@ -44,7 +44,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body>
@@ -66,7 +65,7 @@
 
         <ul class="nav navbar-top-links navbar-right">
             <!-- /.dropdown -->
-            {% if request.session.user_id %}
+            {% if request.session.user_id and request.session.authority == 1%}
             <li class="dropdown">
                 <a class="dropdown-toggle" href="#">
                     <i class="fa fa-user fa-fw"></i>{{ request.session.username }}
@@ -74,22 +73,15 @@
                 <!-- /.dropdown-user -->
             </li>
             <li class="dropdown">
-                <a class="dropdown-toggle" href="{% url 'sign_out' %}">
+                <a class="dropdown-toggle" href="{% url 'User:sign_out' %}">
                     <i class="fa fa-sign-out fa-fw"></i>Logout
                 </a>
                 <!-- /.dropdown-user -->
             </li>
             {% else %}
-            <li class="dropdown">
-                <a class="dropdown-toggle" href="{% url 'sign_in' %}">
-                    <i class="fa fa-sign-in fa-fw"></i>Sign In
-                </a>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" href="{% url 'sign_up' %}">
-                    <i class="fa fa-upload fa-fw"></i>Sign Up
-                </a>
-            </li>
+                <script>
+                    window.location.href = '/index'
+                </script>
             {% endif %}
             <!-- /.dropdown -->
         </ul>

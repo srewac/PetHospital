@@ -25,11 +25,11 @@
 <body>
 <h1 class="w3ls">登录</h1>
 <div class="content-agileits">
-    <form action="{% url 'sign_in' %}" method="post" data-toggle="validator" role="form">
+    <form action="{% url 'User:sign_in' %}" method="post" data-toggle="validator" role="form">
         {% csrf_token %}
         <div>
             <label for="inputEmail" class="error-label">{{ login_err }}</label>
-            <a class="glyphicon glyphicon-refresh sign-refresh" href="{% url 'sign_in' %}"></a>
+            <a class="glyphicon glyphicon-refresh sign-refresh" href="{% url 'User:sign_in' %}"></a>
         </div>
 
         <div class="form-group w3l agileinfo wthree w3-agileits">
@@ -52,7 +52,7 @@
         </div>
     </form>
 </div>
-<p class="copyright-w3ls">还没有账户？点击<a href="{% url 'sign_up' %}">注册</a></p>
+<p class="copyright-w3ls">还没有账户？点击<a href="{% url 'User:sign_up' %}">注册</a></p>
 <!-- js files -->
 <script src="/static/js/jquery-1.10.2.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>

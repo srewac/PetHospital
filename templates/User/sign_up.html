@@ -26,11 +26,11 @@
 <h1 class="w3ls">注册</h1>
 <div class="content-agileits">
 
-    <form action="{% url 'sign_up' %}" method="post" data-toggle="validator" role="form" id="sign_up">
+    <form action="{% url 'User:sign_up' %}" method="post" data-toggle="validator" role="form" id="sign_up">
         {% csrf_token %}
         <div>
             <label for="inputEmail" class="error-label" id="error-label">{{ register_err }}</label>
-            <a class="glyphicon glyphicon-refresh sign-refresh" href="{% url 'sign_up' %}"></a>
+            <a class="glyphicon glyphicon-refresh sign-refresh" href="{% url 'User:sign_up' %}"></a>
         </div>
         <div class="form-group 小贝壳网站模板 w3 w3l">
             <label for="firstname" class="control-label">用户名</label>
@@ -76,7 +76,7 @@
         </div>
     </form>
 </div>
-<p class="copyright-w3ls">已有账户？ 点击<a href="{% url 'sign_in' %}">登录</a></p>
+<p class="copyright-w3ls">已有账户？ 点击<a href="{% url 'User:sign_in' %}">登录</a></p>
 <!-- js files -->
 <script src="/static/js/jquery-1.10.2.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
@@ -133,7 +133,7 @@
         //获取模态框数据
         $.ajax({
             type: "post",
-            url: "{% url 'email_verify' %}",
+            url: "{% url 'User:email_verify' %}",
             data: form,
             processData: false,
             contentType: false,
