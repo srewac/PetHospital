@@ -27,6 +27,8 @@ def user_delete(request, user_id):
 
 # 用户修改
 def user_update(request):
+    if int(request.POST['id']) == int(request.session['user_id']):
+        request.session.clear()
     user = get_object_or_404(User, pk=request.POST['id'])
     check_users = User.objects.filter(email=request.POST['email'])
     if len(check_users) > 0:
