@@ -64,18 +64,22 @@ def paper(request):
                     user_testscore_id = user_testscore.id
                     question_id = question.id
                     if answer == None:
-                        question_testscore = Usertest_question(usertest_id=user_testscore_id, question_id=question_id,
-                                                               score=0)
+                        t_answer = question.choice_set.get(correct=1).id
+                        question_testscore = Usertest_question(usertest_id=user_testscore_id,
+                                                               question_id=question_id,
+                                                               score=0, userchoice_id=t_answer)
                         question_testscore.save()
                     else:
                         c_answer = Choice.objects.get(id=answer)
                         if c_answer.correct == False:
-                            question_testscore = Usertest_question(usertest_id=user_testscore_id, question_id=question_id,
-                                                                   score=0)
+                            question_testscore = Usertest_question(usertest_id=user_testscore_id,
+                                                                   question_id=question_id,
+                                                                   score=0, userchoice_id=answer)
                             question_testscore.save()
                         elif c_answer.correct == True:
-                            question_testscore = Usertest_question(usertest_id=user_testscore_id, question_id=question_id,
-                                                                   score=c_score)
+                            question_testscore = Usertest_question(usertest_id=user_testscore_id,
+                                                                   question_id=question_id,
+                                                                   score=c_score, userchoice_id=answer)
                             question_testscore.save()
                             score += c_score
                 user_testscore.score = score
@@ -96,13 +100,16 @@ def result(request):
     else:
         return HttpResponseRedirect('/User/sign_in')
 
+
 def result_detail(request):
     if request.session.get('username', None):
-        if request.session. get('test_id', None):
+        if request.session.get('test_id', None):
             test_id = request.session['test_id']
             # user_id = request.session['user_id']
             questions = Question.objects.filter(testpaper__test=test_id)
             choices = Choice.objects.filter(question__testpaper__test=test_id)
             return render_to_response('Test/result_detail.html', locals())
+        else:
+            return HttpResponseRedirect('/Test/test/')
     else:
         return HttpResponseRedirect('/User/sign_in')
