@@ -3,24 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <title>Paper</title>
-    <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-    <link href="/static/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css'/>
-    <!-- easy-responsive-tabs -->
-
-    <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="all">
-    <link href="/static/css/font-awesome.css" rel="stylesheet">
-    <!-- font-awesome icons -->
-    <!-- //Custom Theme files -->
-    <!-- js -->
     <script src="/static/js/jquery-2.2.3.min.js"></script>
-    <!-- //js -->
-    <!-- web-fonts -->
-    <link href="//fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Junge" rel="stylesheet">
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
-          rel='stylesheet' type='text/css'>
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/test.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/font-awesome.css" rel="stylesheet">
+    <style>
+        .hasBeenAnswer {
+            background: #5d9cec;
+            color: #fff;
+        }
+
+    </style>
 </head>
 <body>
+
+<div class="main">
+    <!--nr start-->
+    <div class="test_main">
+        <div class="nr_left">
+            <div class="test">
+                <form action="{% url 'Test:paper' %}" method="POST" onsubmit="return submitcheck()" name="answer">
+                    {% csrf_token %}
+                    <div class="test_title">
+                        <p class="test_time">
+                            <b id="remainTime"></b>
+                        </p>
+                        <font><input type="submit"  value="交卷" id="submit_button"></font>
+                    </div>
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>单选题</h2>
+                            <p>
+                                <span>共</span><i class="content_lit" style="margin-left:5px;margin-right:5px; ">{{ questiones.count }}</i><span>题</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="test_content_nr">
+                        <ul>
+                            {% for question in questiones %}
+                            <li id="question_{{ question.id }}">
+                                <div class="test_content_nr_tt">
+                                    <i>{{ forloop.counter }}</i><span>({{ question.score }}分)</span>{{ question.text }}
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                    {% for choice in choice %}
+                                        {% if choice.question == question %}
+                                            <li class="option" onchange="choose_answer({{ question.id }})">
+                                                <input type="radio" value="{{ choice.id }}" name="{{ question.id }}"/>
+                                                <label style="margin-left: 10px;">{{ choice.text }}</label>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="nr_right">
+            <div class="nr_rt_main">
+                <div class="rt_nr1">
+                    <div class="rt_nr1_title">
+                        <h1>
+                            <i class="fa fa-calendar-o"></i>答题卡
+                        </h1>
+                        <p class="test_time">
+                            <i class="fa fa-clock-o"></i><b id="remainTime_sub"></b>
+                        </p>
+                    </div>
+
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>考试科目：</h2>
+                            <p><span>{{ selectedtest.test_paper.disease }}</span></p>
+                        </div>
+                        <div class="rt_content_tt">
+                            <h2>考试时间：</h2>
+                            <p><span>{{ selectedtest.duration }}</span></p>
+                        </div>
+                        <div class="rt_content_tt">
+                            <h2>说明：</h2>
+                            <p><span>{{ selectedtest.test_paper.desc }}</span></p>
+                        </div>
+                    </div>
+
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>单选题</h2>
+                            <p>
+                                <span>共</span><i class="content_lit" style="margin-left:5px;margin-right:5px; ">{{ questiones.count }}</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet">
+                            <ul>
+                                {% for question in questiones %}
+                                    <li><a href="#{{ question.id }}"
+                                           id="show_{{ question.id }}">{{ forloop.counter }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--nr end-->
+    <div class="foot"></div>
+</div>
+
+
+<!--
 <div class="container">
     <div style="width: 60%;margin: 0 auto;">
         <h1 style="text-align: center;margin-top: 20px;">考试</h1>
@@ -49,7 +146,7 @@
             </div>
         </form>
     </div>
-</div>
+</div>-->
 <script type="text/javascript">
     if (!localStorage.getItem('start')) {
         localStorage.setItem('start', new Date().getTime());
@@ -66,9 +163,7 @@
 
     $(document).ready(function () {
         //这里获取倒计时的起始时间
-        SysSecond =
-        {{ selectedtest.duration }}*
-        60;
+        SysSecond = {{ selectedtest.duration }}*60;
         currentTime = new Date();
         dif = currentTime.getTime() - localStorage.getItem('start');
         SysSecond -= dif / 1000;
@@ -93,19 +188,29 @@
             var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时
             //var day = Math.floor((SysSecond / 3600) / 24);        //计算天
 
-            $("#remainTime").html("考试时间：" + hour + ":" + minute + ":" + second);
+            $("#remainTime").html("剩余时间：" + hour + ":" + minute + ":" + second);
+            $("#remainTime_sub").html(hour + ":" + minute + ":" + second);
         } else {
             //剩余时间小于或等于0的时候，就停止间隔函数
             alert("Time is up.");
             window.clearInterval(InterValObj);
             //这里可以添加倒计时时间为0后需要执行的事件
             force_submit = true;
+            localStorage.clear()
             document.getElementById("submit_button").click();
-
         }
     }
-
-
 </script>
+<script>
+    function choose_answer(x) {
+        var cardLi = $("#show_" + x);
+        if (!cardLi.hasClass('hasBeenAnswer')) {
+            cardLi.addClass('hasBeenAnswer');
+        }
+    }
+</script>
+<script src="/static/js/jquery.easy-pie-chart.js"></script>
+<!--时间js-->
+<script src="/static/js/jquery.countdown.js"></script>
 </body>
 </html>
