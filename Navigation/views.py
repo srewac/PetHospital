@@ -1,11 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response,HttpResponseRedirect
 
 # Create your views here.
 def hall(request):
-    return render(request, 'Navigation/hall.html')
+    if request.session.get('username', None):
+        return render(request, 'Navigation/hall.html')
+    else:
+        return HttpResponseRedirect('/User/sign_in/')
+
 
 def ward(request):
-    return render(request, 'Navigation/ward.html')
+    if request.session.get('username', None):
+        return render(request, 'Navigation/ward.html')
+
+    else:
+        return HttpResponseRedirect('/User/sign_in/')
 
 def ward2(request):
-    return render(request, 'Navigation/ward2.html')
+    if request.session.get('username', None):
+        return render(request, 'Navigation/ward2.html')
+    else:
+        return HttpResponseRedirect('/User/sign_in/')
