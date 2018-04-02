@@ -9,5 +9,5 @@ urlpatterns = [
     path('selected_paper/', views.selected_paper, name='selected_paper'),
     path('paper/', views.paper, name='paper'),
     path('result/', views.result, name='result'),
-    path('result_detail/', views.result_detail, name='result_detail'),
+    path('result_detail/<int:test_id>/', views.result_detail, name='result_detail'),
 ]

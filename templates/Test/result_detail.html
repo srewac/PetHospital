@@ -81,9 +81,9 @@
                                                 {% for choice in choices %}
                                                     {% if choice.question_id == question.id %}
                                                         <input type="radio" style="margin-right: 10px;"
-                                                               value=""
-                                                               name=""/>
-                                                        <label>{{ choice.text }}</label><br/>
+                                                               value="{{ choice.correct }}"
+                                                               name="{{ question.id }}"/>
+                                                        <label id="{{ choice.id }}">{{ choice.text }}</label><br/>
                                                     {% endif %}
                                                 {% endfor %}
                                             </li>
@@ -124,5 +124,26 @@
     </div>
 </div>
 <!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/js/bootstrap.js"></script>
+<script type="text/javascript">
+    $().ready(function result_detail() {
+        var user_choices = {{ user_choices }};
+        console.log(user_choices)
+        $("input[type='radio']").each(function () {
+            var lable = $(this).next();
+            console.log($(lable).attr('id'));
+            console.log(user_choices.indexOf($(lable).attr('id')));
+            if (user_choices.indexOf($(lable).attr('id'))>0) {
+                this.setAttribute("checked", "checked");
+                lable.attr("style", "color:red");
+            }
+            if (this.value == "True") {
+                lable.attr("style", "color:green");
+            }
+            this.setAttribute("disabled", true);
+        });
+    });
+
+</script>
 </body>
 </html>

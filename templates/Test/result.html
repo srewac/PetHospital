@@ -99,7 +99,7 @@
                                                     {% else %}
                                                         <td>不及格</td>
                                                     {% endif %}
-                                                    <td><a onclick="result_detail({{ rec.test_id }})">详情</a></td>
+                                                    <td><a href="/Test/result_detail/{{ rec.test_id }}/">详情</a></td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
@@ -139,18 +139,6 @@
     </div>
 </div>
 <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript">
-    function result_detail(test_id) {
-        $.ajax({
-            type: "POST",
-            url: "{% url 'Test:result' %}",
-            data: {test_id: test_id},
-            success: function () {
-                window.location.href = "{% url 'Test:result_detail' %}"
-            }
-        })
-
-    }
-</script>
+<script src="/static/js/bootstrap.js"></script>
 </body>
 </html>
