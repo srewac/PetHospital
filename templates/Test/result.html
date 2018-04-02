@@ -52,9 +52,9 @@
                             <a class="sign" href="#">{{ request.session.username }}</a>
                             <a class="sign" href="{% url 'User:sign_out' %}">注销</a>
                         {% else %}
-                            <a class="sign" href="{% url 'sign_in' %}">
+                            <a class="sign" href="{% url 'User:sign_in' %}">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
-                            <a class="sign" href="{% url 'sign_up' %}">
+                            <a class="sign" href="{% url 'User:sign_up' %}">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
                         {% endif %}
                     </li>
@@ -128,8 +128,6 @@
                 </a>
             </div>
         </div>
-    </div>
-    <div class="banner-w3text w3layouts">
     </div>
 </div>
 </div>
