@@ -14,9 +14,3 @@ def ward(request):
 
     else:
         return HttpResponseRedirect('/User/sign_in/')
-
-def ward2(request):
-    if request.session.get('username', None):
-        return render(request, 'Navigation/ward2.html')
-    else:
-        return HttpResponseRedirect('/User/sign_in/')
