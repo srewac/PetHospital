@@ -18,7 +18,7 @@ class UserTest(TestCase):
         password = 'admin1'
         name = 'admin1'
         post = {'email': email, 'password': password}
-        url = reverse('sign_in')
+        url = reverse('User:sign_in')
         self.user = User.objects.create(email=email, password=password, name=name)
         response = self.client.post(url, post)
         self.assertEqual(response.status_code, 200)
@@ -35,7 +35,7 @@ class UserTest(TestCase):
         password = 'admin1'
         name = 'admin1'
         post = {'email': email, 'password': password}
-        url = reverse('sign_in')
+        url = reverse('User:sign_in')
         self.user = User.objects.create(email=email, password='123', name=name)
         response = self.client.post(url, post)
         self.assertContains(response, "用户名或密码错误")
@@ -57,7 +57,7 @@ class UserTest(TestCase):
         post = {'username': name, 'inputEmail': email, 'inputPassword': password, 'inputPasswordConfirm': password,
                 'emailVerify': '1234'}
 
-        url = reverse('sign_up')
+        url = reverse('User:sign_up')
         response = self.client.post(url, post)
 
         self.assertContains(response, "邮箱验证码不正确")
@@ -79,7 +79,7 @@ class UserTest(TestCase):
         session.save()
         post = {'username': name, 'inputEmail': email, 'inputPassword': password, 'inputPasswordConfirm': password,
                 'emailVerify': verifyCode}
-        url = reverse('sign_up')
+        url = reverse('User:sign_up')
         time.sleep(2)
 
         response = self.client.post(url, post)
@@ -104,7 +104,7 @@ class UserTest(TestCase):
         session.save()
         post = {'username': name, 'inputEmail': email, 'inputPassword': password, 'inputPasswordConfirm': password,
                 'emailVerify': verifyCode}
-        url = reverse('sign_up')
+        url = reverse('User:sign_up')
 
         self.user = User.objects.create(email=email, password=password)
         response = self.client.post(url, post)
@@ -129,7 +129,7 @@ class UserTest(TestCase):
         session.save()
         post = {'username': name, 'inputEmail': email, 'inputPassword': password, 'inputPasswordConfirm': password,
                 'emailVerify': verifyCode}
-        url = reverse('sign_up')
+        url = reverse('User:sign_up')
 
         self.user = User.objects.create(password=password, name=name)
         response = self.client.post(url, post)

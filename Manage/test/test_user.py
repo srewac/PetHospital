@@ -14,6 +14,9 @@ class UserManageTest(TestCase):
         self.user2 = User.objects.create(email='admin2@example.com', password='admin2', name='admin2', authority=1)
         self.user3 = User.objects.create(email='user1@example.com', password='user1', name='user1', authority=0)
         self.user4 = User.objects.create(email='user2@example.com', password='user2', name='user2', authority=0)
+        self.session = self.client.session
+        self.session['user_id'] = self.user2.id
+        self.session.save()
 
     def test_detail_user_index(self):
         print("This Case is:成功进入用户管理页面")
