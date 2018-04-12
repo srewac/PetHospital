@@ -34,6 +34,15 @@
     <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
           rel='stylesheet' type='text/css'>
     <!-- //web-fonts -->
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/test.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .hasBeenAnswer {
+            background: #5d9cec;
+            color: #fff;
+        }
+
+    </style>
 </head>
 <body>
 <div class="agileits-banner">
@@ -62,8 +71,8 @@
             </div>
         </div>
         <h3 class="agileits-title two" style="margin-top: 60px">Test Result Detail</h3>
-        <div class="container">
-            <div class="markets-grids" align="center">
+        <div class="container" align="center">
+            <div class="markets-grids" align="left" style="width:60%;">
                 <!-- /.panel -->
                 <div id="page-wrapper">
                     <div class="row">
@@ -77,7 +86,8 @@
                                     <div class="panel-body">
                                         {% for question in questions %}
                                             <hr style="height: 1px;border:none;border-top:1px dashed; margin-top: 20px;">
-                                            <li>{{ forloop.counter }}. {{ question.text }}<br/>
+                                            <li>
+                                                <h1>{{ forloop.counter }}. {{ question.text }}</h1>
                                                 {% for choice in choices %}
                                                     {% if choice.question_id == question.id %}
                                                         <input type="radio" style="margin-right: 10px;"
@@ -156,5 +166,14 @@
     };
 
 </script>
+<script>
+    function choose_answer(x) {
+        var cardLi = $("#show_" + x);
+        if (!cardLi.hasClass('hasBeenAnswer')) {
+            cardLi.addClass('hasBeenAnswer');
+        }
+    }
+</script>
+<script src="/static/js/jquery.easy-pie-chart.js"></script>
 </body>
 </html>
