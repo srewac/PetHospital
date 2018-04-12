@@ -1,0 +1,98 @@
+{% extends 'backend/base_page.html' %}
+{% block title %}
+    病例详情
+{% endblock %}
+{% block main_content %}
+    <script>
+    </script>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-11">
+                <h1 class="page-header"><a href="{% url 'Manage:disease_example_show' %}">病例管理</a>/病例详情
+                    <button type="button" class="btn btn-danger"
+                            style="float: right;margin: 10px" onclick="">退出
+                    </button>
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-l2">
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            病例详情
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" id="process">
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content" id="process_content">
+                                {#                                <div class="tab-pane fade" id="profile">#}
+                                {#                                    <h4>Profile Tab</h4>#}
+                                {#                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>#}
+                                {#                                </div>#}
+                                {#                                <div class="tab-pane fade" id="messages">#}
+                                {#                                    <h4>Messages Tab</h4>#}
+                                {#                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>#}
+                                {#                                </div>#}
+                                {#                                <div class="tab-pane fade" id="settings">#}
+                                {#                                    <h4>Settings Tab</h4>#}
+                                {#                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>#}
+                                {#                                </div>#}
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block datatable_script %}
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Manage/disease_example_detail_dict/" + {{ disease_example_id }},
+                success: function (result) {
+                    result = JSON.parse(result);
+                    var html_title_active = "<li class=\"active\" id=\"" + result.disease_example_name + "_title\">" + "<a href=\"" + "#"
+                        + result.disease_example_name + "\" data-toggle=\"tab\">" + "病例详情" + "</a></li>";
+                    var html_content_active = "<div class=\"tab-pane fade in active\" id=\"" + result.disease_example_name + "\">"
+                        + "<h4>病例名称：</h4>" + "<p>" + result.disease_example_name + "</p>"
+                        + "<h4>所属病大类：</h4>" + "<p>" + result.disease_example_disease + "</p>"
+                        + "<h4>所属病小类：</h4>" + "<p>" + result.disease_example_sub_disease + "</p>"
+                        + "<h4>所属病小类描述：</h4>" + "<p>" + result.disease_example_sub_disease_desc + "</p>"
+                        + "</div>";
+                    $('#process').append(html_title_active);
+                    $('#process_content').append(html_content_active);
+                    $.each(result.disease_example_processes, function (id) {
+                        var process_name = result.disease_example_processes[id].process_name;
+                        var process_desc = result.disease_example_processes[id].process_desc;
+                        var html_title = "<li id=\"" + id + "_title\">" + "<a href=\"" + "#" + id
+                            + "\" data-toggle=\"tab\">" + process_name + "</a></li>";
+                        var html_content = "<div class=\"tab-pane fade\" id=\"" + id + "\">"
+                            + "<h4>" + process_name + "描述：</h4>" + "<p>" + process_desc + "</p>";
+
+                        var html_pics = "<ul id=\"pics\">";
+                        $.each(result.disease_example_processes[id].process_pics, function (p_id, p_url) {
+                            html_pics = html_pics + "<li style=\" display: inline; list-style-type: none; padding: 5px 5px;\"><img src=\"" + {{ STATIC_URL }} + p_url + "\" height=\"150\" width=\"150\" alt=\"" + p_id + "\"></li>";
+                        });
+                        html_pics = html_pics + "</ul>";
+                        html_content = html_content +"<h4>" + process_name + "图片：</h4>" + html_pics
+                            + "<h4>" + process_name + "视频：</h4>" + "<p>" + result.disease_example_processes[id].process_videos + "</p>"
+                            + "</div>";
+                        $('#process').append(html_title);
+                        $('#process_content').append(html_content);
+                    });
+                },
+                error: function (result) {
+                    alert('error');
+                }
+            });
+        });
+    </script>
+{% endblock %}
