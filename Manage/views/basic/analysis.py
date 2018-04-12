@@ -24,6 +24,9 @@ def analysis_dict(request):
 
 # 新建化验
 def analysis_create(request):
+    check_analysis = Analysis.objects.filter(name=request.POST['analysis_name'])
+    if len(check_analysis) > 0:
+        return JsonResponse(False, safe=False)
     people = People.objects.get(name=request.POST['people_name'])
     analysis = Analysis(name=request.POST['analysis_name'],
                         result=request.POST['analysis_result'],
