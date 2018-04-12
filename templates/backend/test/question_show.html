@@ -120,7 +120,6 @@
                     contentType: false,
                     success: function (result) {
                         $('#dataTables-example').DataTable().ajax.reload();
-                        clean_create();
                         if (type == 0)
                             $("#question_create").modal('hide');
                     },
@@ -218,7 +217,6 @@
                     contentType: false,
                     success: function (result) {
                         $('#dataTables-example').DataTable().ajax.reload();
-                        clean_modify();
                         $("#question_modify").modal('hide');
                     },
                     error: function (result) {
@@ -290,8 +288,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                onclick="clean_create()">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             ×
                         </button>
                         <h4 class="modal-title" id="myModalLabel">新建题目</h4>
@@ -380,7 +377,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onclick="create(1)">创建并继续</button>
                         <button type="button" class="btn btn-primary" onclick="create(0)">创建并离开</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_create()">关闭
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                         </button>
 
                     </div>
