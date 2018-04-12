@@ -205,6 +205,16 @@
                     $('#inhospital_create').find('#error-price').hide();
                 }
             }
+            if($('#inhospital_create').find('#in_time_create').val().substring(0,4)>3000)
+            {
+                $('#inhospital_create').find('#error-in-time').html('入院时间过大');
+                $('#inhospital_create').find('#error-in-time').show();
+            }
+            else
+            {
+                 $('#inhospital_create').find('#error-in-time').html('');
+                $('#inhospital_create').find('#error-in-time').hide();
+            }
             if ($('#inhospital_create').find('#in_time_create').val() >= $('#inhospital_create').find('#out_time_create').val()) {
                 $('#inhospital_create').find('#error-in-time').html('入院时间必须小于出院时间');
                 $('#inhospital_create').find('#error-in-time').show();
