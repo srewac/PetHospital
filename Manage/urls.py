@@ -109,4 +109,5 @@ urlpatterns = [
     path('basic/inhospital_create_dict', inhospital.inhospital_create_dict, name='inhospital_create_dict'),
     path('basic/inhospital_create', inhospital.inhospital_create, name='inhospital_create'),
     path('basic/inhospital_delete/<int:patient_id>', inhospital.inhospital_delete, name='inhospital_delete'),
+
 ]
