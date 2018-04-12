@@ -38,7 +38,7 @@
             var id = $("#delete_id").val();
             $.ajax({
                 type: "post",
-                url: "question_delete/" + id,
+                url: "/Manage/test/question_delete/" + id,
                 success: function (result) {
                     $('#dataTables-example').DataTable().ajax.reload();
                     $('#delete').modal('hide');
