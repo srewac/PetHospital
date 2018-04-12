@@ -16,14 +16,16 @@ def test(request):
 def select_paper(request, disease_name):
     if request.session.get('username', None):
         if request.method == "GET":
-            user_name = request.session['username']
-            user = User.objects.get(name=user_name)
-            disease = Disease.objects.get(name=disease_name)
-            now = datetime.datetime.now()
-            test = user.tests.filter(test_paper__disease_id=disease.id).all()
-            test = test.exclude(usertest__user_id=user.id)
-            test = test.exclude(close_time__lt=now)
-            return render_to_response('Test/select_paper.html', locals())
+            if request.session.get('test_id', None):
+                user_name = request.session['username']
+                user = User.objects.get(name=user_name)
+                disease = Disease.objects.get(name=disease_name)
+                now = datetime.datetime.now()
+                test = user.tests.filter(test_paper__disease_id=disease.id).all()
+                test = test.exclude(usertest__user_id=user.id)
+                test = test.exclude(close_time__lt=now)
+                test = test.exclude(start_time__gt=now)
+                return render_to_response('Test/select_paper.html', locals())
     else:
         return HttpResponseRedirect('/User/sign_in/')
 
