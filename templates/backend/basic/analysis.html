@@ -27,35 +27,37 @@
         function create_room_show() {
             $('#create').modal('show');
         }
+
         function create_validation() {
-            if ($("#analysis_create div:eq(0) #analysis_name").val() == '') {
-                $("#analysis_create div:eq(0) p").html('请输入化验名称！');
-                $("#analysis_create div:eq(0) p").show();
+            if ($("#analysis_create").find('#analysis_name').val() == '') {
+                $("#analysis_create").find('#error_analysis_name').html('请输入化验名称！');
+                $("#analysis_create").find('#error_analysis_name').show();
             } else {
-                $("#analysis_create div:eq(0) p").html('');
-                $("#analysis_create div:eq(0) p").hide();
+                $("#analysis_create").find('#error_analysis_name').html('');
+                $("#analysis_create").find('#error_analysis_name').hide();
             }
 
-            if ($("#analysis_create div:eq(1) #analysis_result").val() == '') {
-                $("#analysis_create div:eq(1) p").html('请输入化验结果！');
-                $("#analysis_create div:eq(1) p").show();
+            if ($("#analysis_create").find('#analysis_result').val() == '') {
+                $("#analysis_create").find('#error_analysis_result').html('请输入化验结果！');
+                $("#analysis_create").find('#error_analysis_result').show();
             } else {
-                $("#analysis_create div:eq(1) p").html('');
-                $("#analysis_create div:eq(1) p").hide();
+                $("#analysis_create").find('#error_analysis_result').html('');
+                $("#analysis_create").find('#error_analysis_result').hide();
             }
 
-            if ($("#analysis_create div:eq(2) #people_name").val() == '') {
-                $("#analysis_create div:eq(2) p").html('请选择化验人！');
-                $("#analysis_create div:eq(2) p").show();
+            if ($("#analysis_create").find('#people_name').val() == '') {
+                $("#analysis_create").find('#error_people_name').html('请选择化验人！');
+                $("#analysis_create").find('#error_people_name').show();
             } else {
-                $("#analysis_create div:eq(2) p").html('');
-                $("#analysis_create div:eq(2) p").hide();
+                $("#analysis_create").find('#error_people_name').html('');
+                $("#analysis_create").find('#error_people_name').hide();
             }
         }
+
         function create() {
             create_validation();
-            if ($("#analysis_create div:eq(0) p").is(":hidden") && $("#analysis_create div:eq(1) p").is(":hidden") &&
-                $("#analysis_create div:eq(2) p").is(":hidden")) {
+            if ($("#analysis_create").find('#error_analysis_name').is(":hidden") &&  $("#analysis_create").find('#error_analysis_result').is(":hidden") &&
+                $("#analysis_create").find('#error_people_name').is(":hidden")) {
                 var form = new FormData(document.getElementById('analysis_create'));
                 $.ajax({
                     type: "post",
@@ -68,7 +70,8 @@
                             $('#dataTables-example').DataTable().ajax.reload();
                             clean_create();
                         } else {
-
+                        $("#analysis_create").find('#error_analysis_name').html('化验已存在，请重新输入！');
+                        $("#analysis_create").find('#error_analysis_name').show();
                         }
                     },
                     error: function (result) {
@@ -76,6 +79,19 @@
                     }
                 });
             }
+        }
+
+        function clean_create() {
+            $("#analysis_create").find('#analysis_name').val('');
+            $("#analysis_create").find('#error_analysis_name').val('');
+            $("#analysis_create").find('#error_analysis_name').hide();
+            $("#analysis_create").find('#analysis_result').val('');
+            $("#analysis_create").find('#error_analysis_result').val('');
+            $("#analysis_create").find('#error_analysis_result').hide();
+            $("#analysis_create").find('#people_name').val('');
+            $("#analysis_create").find('#error_people_name').val('');
+            $("#analysis_create").find('#error_people_name').hide();
+            $("#create").modal('hide');
         }
 
     </script>
@@ -146,13 +162,13 @@
                         <div class="form-group">
                             <label>化验名称：</label>
                             <input class="form-control" type="text" name="analysis_name" id="analysis_name"/>
-                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                            <p class="error-message" hidden="hidden" style="color: red" id="error_analysis_name"></p>
                         </div>
                         <div class="form-group">
                             <label>化验结果：</label>
                             <textarea class="form-control" name="analysis_result" id="analysis_result"
                                       rows="3"></textarea>
-                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                            <p class="error-message-" hidden="hidden" style="color: red" id="error_analysis_result"></p>
                         </div>
                         <div class="form-group">
                             <label>化验人：</label>
@@ -160,7 +176,7 @@
                                 {% for people in peoples %}
                                     <option>{{ people.name }}</option>
                                 {% endfor %}</select>
-                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                            <p class="error-message" hidden="hidden" style="color: red" id="error_people_name"></p>
                         </div>
                     </form>
                 </div>
