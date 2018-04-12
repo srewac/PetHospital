@@ -1,6 +1,5 @@
 import json
-
-
+import shutil
 from django.shortcuts import render, get_object_or_404
 from Disease.models import DiseaseExample, Disease, Process, Picture, Video
 from django.http import JsonResponse
@@ -114,8 +113,7 @@ def process_create(request):
     for f in request.FILES.getlist('process_pics'):
         file_name = f.temporary_file_path().split('\\')[-1]
         images_url = 'images/uploads/disease_example/images/' + file_name
-        image = Image.open(f)
-        image.save('/PetHospital/static/' + images_url)
+        shutil.copy(f.temporary_file_path(), '/PetHospital/static/' + images_url)
         pic = Picture(pic_url=images_url,
                       process_id=process.id,
                       )
@@ -123,7 +121,7 @@ def process_create(request):
     for v in request.FILES.getlist('process_videos'):
         video_name = v.temporary_file_path().split('\\')[-1]
         video_url = 'images/uploads/disease_example/videos/' + video_name
-
+        shutil.copy(v.temporary_file_path(), '/PetHospital/static/' + video_url)
         video = Video(video_url=video_url,
                       process_id=process.id,
                       )
