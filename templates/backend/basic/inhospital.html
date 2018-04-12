@@ -5,28 +5,28 @@
 {% block main_content %}
     <script>
         function getSubDiseaseOptions(disease_id, type) {
-                $.ajax({
-                    type: "POST",
-                    url: "/Manage/test/sub_disease_dict/" + disease_id,
-                    success: function (result) {
-                        result = JSON.parse(result);
-                        if (type == 'create') {
-                            $("#inhospital_create").find("#subdisease").empty();
-                            $.each(result, function (id, name) {
-                                $("#subdisease").append($("<option>").val(id).text(name))
-                            });
-                        } else if (type == 'modify') {
-                            $("#inhospital_modify").find("#subdisease").empty();
-                            $.each(result, function (id, name) {
-                                $("#inhospital_modify").find("#subdisease").append($("<option>").val(id).text(name))
-                            });
-                        }
+            $.ajax({
+                type: "POST",
+                url: "/Manage/test/sub_disease_dict/" + disease_id,
+                success: function (result) {
+                    result = JSON.parse(result);
+                    if (type == 'create') {
+                        $("#inhospital_create").find("#subdisease_create").empty();
+                        $.each(result, function (id, name) {
+                            $("#subdisease_create").append($("<option>").val(id).text(name))
+                        });
+                    } else if (type == 'modify') {
+                        $("#inhospital_modify").find("#subdisease_modify").empty();
+                        $.each(result, function (id, name) {
+                            $("#inhospital_modify").find("#subdisease_modify").append($("<option>").val(id).text(name))
+                        });
                     }
-                    ,
-                    error: function (result) {
-                        alert('error');
-                    }
-                });
+                }
+                ,
+                error: function (result) {
+                    alert('error');
+                }
+            });
         }
 
         function delete_confirm(patient_id) {
@@ -56,30 +56,30 @@
                 success: function (result) {
                     result = JSON.parse(result);
                     $('#inhospital_modify').find('#id').val(result.id);
-                    $('#inhospital_modify').find('#patient').val(result.patient);
-                    $('#inhospital_modify').find('#price').val(result.price);
-                    $('#inhospital_modify').find('#in_time').val(result.in_time);
-                    $('#inhospital_modify').find('#out_time').val(result.out_time);
-                    $('#inhospital_modify').find('#people_name').empty();
-                    $('#inhospital_modify').find('#room_name').empty();
-                    $('#inhospital_modify').find('#disease').empty();
-                    $('#inhospital_modify').find('#subdisease').empty();
+                    $('#inhospital_modify').find('#patient_modify').val(result.patient);
+                    $('#inhospital_modify').find('#price_modify').val(result.price);
+                    $('#inhospital_modify').find('#in_time_modify').val(result.in_time);
+                    $('#inhospital_modify').find('#out_time_modify').val(result.out_time);
+                    $('#inhospital_modify').find('#people_name_modify').empty();
+                    $('#inhospital_modify').find('#room_name_modify').empty();
+                    $('#inhospital_modify').find('#disease_modify').empty();
+                    $('#inhospital_modify').find('#subdisease_modify').empty();
                     $.each(result.people_all, function (id, name) {
-                        $('#inhospital_modify').find('#people_name').append($("<option>").val(id).text(name));
+                        $('#inhospital_modify').find('#people_name_modify').append($("<option>").val(id).text(name));
                     });
                     $.each(result.room_all, function (id, name) {
-                        $('#inhospital_modify').find('#room_name').append($("<option>").val(id).text(name));
+                        $('#inhospital_modify').find('#room_name_modify').append($("<option>").val(id).text(name));
                     });
                     $.each(result.disease_all, function (id, name) {
-                        $('#inhospital_modify').find('#disease').append($("<option>").val(id).text(name));
+                        $('#inhospital_modify').find('#disease_modify').append($("<option>").val(id).text(name));
                     });
                     $.each(result.sub_disease_all, function (id, name) {
-                        $('#inhospital_modify').find('#subdisease').append($("<option>").val(id).text(name))
+                        $('#inhospital_modify').find('#subdisease_modify').append($("<option>").val(id).text(name))
                     });
-                    $('#inhospital_modify').find('#people_name').val(result.people);
-                    $('#inhospital_modify').find('#room_name').val(result.room);
-                    $('#inhospital_modify').find('#disease').val(result.disease);
-                    $('#inhospital_modify').find('#subdisease').val(result.sub_disease);
+                    $('#inhospital_modify').find('#people_name_modify').val(result.people);
+                    $('#inhospital_modify').find('#room_name_modify').val(result.room);
+                    $('#inhospital_modify').find('#disease_modify').val(result.disease);
+                    $('#inhospital_modify').find('#subdisease_modify').val(result.sub_disease);
                     $("#update").modal('show');
                 },
                 error: function (result) {
@@ -89,28 +89,26 @@
         }
 
         function modify_validation() {
-            if ($('#inhospital_modify').find('#patient').val() == '') {
+            if ($('#inhospital_modify').find('#patient_modify').val() == '') {
                 $('#inhospital_modify').find('#error-patient').html('病患名称不能为空');
                 $('#inhospital_modify').find('#error-patient').show();
             } else {
                 $('#inhospital_modify').find('#error-patient').html('');
                 $('#inhospital_modify').find('#error-patient').hide();
             }
-            if ($('#inhospital_modify').find('#price').val() == '') {
-                $('#inhospital_modify').find('#error-price').html('住院费用不能为空');
-                $('#inhospital_modify').find('#error-price').show();
-            } else {
-                $('#inhospital_modify').find('#error-price').html('');
-                $('#inhospital_modify').find('#error-price').hide();
-            }
-            if (isNaN($('#inhospital_modify').find('#price').val())) {
+            if (isNaN($('#inhospital_modify').find('#price_modify').val())) {
                 $('#inhospital_modify').find('#error-price').html('住院费用必须为数字');
                 $('#inhospital_modify').find('#error-price').show();
             } else {
-                $('#inhospital_modify').find('#error-price').html('');
-                $('#inhospital_modify').find('#error-price').hide();
+                if ($('#inhospital_modify').find('#price_modify').val() == '') {
+                    $('#inhospital_modify').find('#error-price').html('住院费用不能为空');
+                    $('#inhospital_modify').find('#error-price').show();
+                } else {
+                    $('#inhospital_modify').find('#error-price').html('');
+                    $('#inhospital_modify').find('#error-price').hide();
+                }
             }
-            if ($('#inhospital_modify').find('#in_time').val() >= $('#inhospital_modify').find('#out_time').val()) {
+            if ($('#inhospital_modify').find('#in_time_modify').val() >= $('#inhospital_modify').find('#out_time_modify').val()) {
                 $('#inhospital_modify').find('#error-in-time').html('入院时间必须小于出院时间');
                 $('#inhospital_modify').find('#error-in-time').show();
             } else {
@@ -143,21 +141,21 @@
         }
 
         function clean_modify() {
-            $('#inhospital_modify').find('#id').val('');
-            $('#inhospital_modify').find('#patient').val('');
+            $('#inhospital_modify').find('#id_modify').val('');
+            $('#inhospital_modify').find('#patient_modify').val('');
             $('#inhospital_modify').find('#error-patient').html('');
             $('#inhospital_modify').find('#error-patient').hide();
-            $('#inhospital_modify').find('#price').val('');
+            $('#inhospital_modify').find('#price_modify').val('');
             $('#inhospital_modify').find('#error-price').html('');
             $('#inhospital_modify').find('#error-price').hide();
-            $('#inhospital_modify').find('#in_time').val('');
+            $('#inhospital_modify').find('#in_time_modify').val('');
             $('#inhospital_modify').find('#error-in-time').html('');
             $('#inhospital_modify').find('#error-in-time').hide();
-            $('#inhospital_modify').find('#out_time').val('');
-            $('#inhospital_modify').find('#people_name').empty();
-            $('#inhospital_modify').find('#room_name').empty();
-            $('#inhospital_modify').find('#disease').empty();
-            $('#inhospital_modify').find('#subdisease').empty();
+            $('#inhospital_modify').find('#out_time_modify').val('');
+            $('#inhospital_modify').find('#people_name_modify').empty();
+            $('#inhospital_modify').find('#room_name_modify').empty();
+            $('#inhospital_modify').find('#disease_modify').empty();
+            $('#inhospital_modify').find('#subdisease_modify').empty();
             $("#update").modal('hide');
         }
 
@@ -168,16 +166,16 @@
                 success: function (result) {
                     result = JSON.parse(result);
                     $.each(result.people_all, function (id, name) {
-                        $('#inhospital_create').find('#people_name').append($("<option>").val(id).text(name));
+                        $('#inhospital_create').find('#people_name_create').append($("<option>").val(id).text(name));
                     });
                     $.each(result.room_all, function (id, name) {
-                        $('#inhospital_create').find('#room_name').append($("<option>").val(id).text(name));
+                        $('#inhospital_create').find('#room_name_create').append($("<option>").val(id).text(name));
                     });
                     $.each(result.disease_all, function (id, name) {
-                        $("#inhospital_create").find('#disease').append($("<option>").val(id).text(name));
+                        $("#inhospital_create").find('#disease_create').append($("<option>").val(id).text(name));
                     });
                     $.each(result.sub_disease_all, function (id, name) {
-                        $("#inhospital_create").find('#subdisease').append($("<option>").val(id).text(name));
+                        $("#inhospital_create").find('#subdisease_create').append($("<option>").val(id).text(name));
                     });
                     $("#create").modal('show');
                 },
@@ -188,18 +186,18 @@
         }
 
         function create_validation() {
-            if ($('#inhospital_create').find('#patient').val() == '') {
+            if ($('#inhospital_create').find('#patient_create').val() == '') {
                 $('#inhospital_create').find('#error-patient').html('病患名称不能为空');
                 $('#inhospital_create').find('#error-patient').show();
             } else {
                 $('#inhospital_create').find('#error-patient').html('');
                 $('#inhospital_create').find('#error-patient').hide();
             }
-            if (isNaN($('#inhospital_create').find('#price').val())) {
+            if (isNaN($('#inhospital_create').find('#price_create').val())) {
                 $('#inhospital_create').find('#error-price').html('住院费用必须为数字');
                 $('#inhospital_create').find('#error-price').show();
             } else {
-                if ($('#inhospital_create').find('#price').val() == '') {
+                if ($('#inhospital_create').find('#price_create').val() == '') {
                     $('#inhospital_create').find('#error-price').html('住院费用不能为空');
                     $('#inhospital_create').find('#error-price').show();
                 } else {
@@ -207,7 +205,7 @@
                     $('#inhospital_create').find('#error-price').hide();
                 }
             }
-            if ($('#inhospital_create').find('#in_time').val() >= $('#inhospital_create').find('#out_time').val()) {
+            if ($('#inhospital_create').find('#in_time_create').val() >= $('#inhospital_create').find('#out_time_create').val()) {
                 $('#inhospital_create').find('#error-in-time').html('入院时间必须小于出院时间');
                 $('#inhospital_create').find('#error-in-time').show();
             } else {
@@ -244,21 +242,21 @@
         }
 
         function clean_create() {
-            $('#inhospital_create').find('#id').val('');
-            $('#inhospital_create').find('#patient').val('');
+            $('#inhospital_create').find('#id_create').val('');
+            $('#inhospital_create').find('#patient_create').val('');
             $('#inhospital_create').find('#error-patient').html('');
             $('#inhospital_create').find('#error-patient').hide();
-            $('#inhospital_create').find('#price').val('');
+            $('#inhospital_create').find('#price_create').val('');
             $('#inhospital_create').find('#error-price').html('');
             $('#inhospital_create').find('#error-price').hide();
-            $('#inhospital_create').find('#in_time').val('');
+            $('#inhospital_create').find('#in_time_create').val('');
             $('#inhospital_create').find('#error-in-time').html('');
             $('#inhospital_create').find('#error-in-time').hide();
-            $('#inhospital_create').find('#out_time').val('');
-            $('#inhospital_create').find('#people_name').empty();
-            $('#inhospital_create').find('#room_name').empty();
-            $('#inhospital_create').find('#disease').empty();
-            $('#inhospital_create').find('#subdisease').empty();
+            $('#inhospital_create').find('#out_time_create').val('');
+            $('#inhospital_create').find('#people_name_create').empty();
+            $('#inhospital_create').find('#room_name_create').empty();
+            $('#inhospital_create').find('#disease_create').empty();
+            $('#inhospital_create').find('#subdisease_create').empty();
             $("#create").modal('hide');
         }
     </script>
@@ -338,51 +336,51 @@
                         <input type="text" name="id" id="id" hidden="hidden"/>
                         <div class="form-group">
                             <label>病患名称：</label>
-                            <input class="form-control" type="text" name="patient" id="patient"/>
+                            <input class="form-control" type="text" name="patient" id="patient_modify"/>
                             <p class="error-message" id="error-patient" hidden="hidden" style="color: red">Example
                                 block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>住院费用：</label>
-                            <input class="form-control" type="text" name="price" id="price"/>
+                            <input class="form-control" type="text" name="price" id="price_modify"/>
                             <p class="error-message" id="error-price" hidden="hidden" style="color: red">Example
                                 block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>入院时间：</label>
-                            <input class="form-control" type="date" name="in_time" id="in_time"/>
+                            <input class="form-control" type="date" name="in_time" id="in_time_modify"/>
                             <p class="error-message" id="error-in-time" hidden="hidden" style="color: red">Example
                                 block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>出院时间：</label>
-                            <input class="form-control" type="date" name="out_time" id="out_time"/>
+                            <input class="form-control" type="date" name="out_time" id="out_time_modify"/>
                             <p class="error-message" id="error-out-time" hidden="hidden" style="color: red">Example
                                 block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>主治医师：</label>
-                            <select class="form-control" name="people_name" id="people_name">
+                            <select class="form-control" name="people_name" id="people_name_modify">
                             </select>
                         </div>
                         <div class="form-group">
                             <label>所属科室：</label>
-                            <select class="form-control" name="room_name" id="room_name">
+                            <select class="form-control" name="room_name" id="room_name_modify">
                             </select>
                         </div>
                         <div class="form-group">
                             <label>所属病大类：</label>
-                            <select class="form-control" name="disease" id="disease"
+                            <select class="form-control" name="disease" id="disease_modify"
                                     onchange="getSubDiseaseOptions(this.value, 'modify')">
                             </select>
                         </div>
                         <div class="form-group">
                             <label>所属病小类：</label>
-                            <select class="form-control" name="subdisease" id="subdisease">
+                            <select class="form-control" name="subdisease" id="subdisease_modify">
                             </select>
                         </div>
                     </form>
@@ -414,51 +412,51 @@
                     <form method="post" role="form" id="inhospital_create" style="margin:10px 30px">
                         <div class="form-group">
                             <label>病患名称：</label>
-                            <input class="form-control" type="text" name="patient" id="patient"/>
+                            <input class="form-control" type="text" name="patient" id="patient_create"/>
                             <p class="error-message" id="error-patient" hidden="hidden" style="color: red">Example
                                 block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>住院费用：</label>
-                            <input class="form-control" type="text" name="price" id="price"/>
+                            <input class="form-control" type="text" name="price" id="price_create"/>
                             <p class="error-message" id="error-price" hidden="hidden" style="color: red">Example
                                 block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>入院时间：</label>
-                            <input class="form-control" type="date" name="in_time" id="in_time"/>
+                            <input class="form-control" type="date" name="in_time" id="in_time_create"/>
                             <p class="error-message" id="error-in-time" hidden="hidden" style="color: red">Example
                                 block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>出院时间：</label>
-                            <input class="form-control" type="date" name="out_time" id="out_time"/>
+                            <input class="form-control" type="date" name="out_time" id="out_time_create"/>
                             <p class="error-message" id="error-out-time" hidden="hidden" style="color: red">Example
                                 block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>主治医师：</label>
-                            <select class="form-control" name="people_name" id="people_name">
+                            <select class="form-control" name="people_name" id="people_name_create">
                             </select>
                         </div>
                         <div class="form-group">
                             <label>所属科室：</label>
-                            <select class="form-control" name="room_name" id="room_name">
+                            <select class="form-control" name="room_name" id="room_name_create">
                             </select>
                         </div>
                         <div class="form-group">
                             <label>所属病大类：</label>
-                            <select class="form-control" name="disease" id="disease"
+                            <select class="form-control" name="disease" id="disease_create"
                                     onchange="getSubDiseaseOptions(this.value, 'create')">
                             </select>
                         </div>
                         <div class="form-group">
                             <label>所属病小类：</label>
-                            <select class="form-control" name="subdisease" id="subdisease">
+                            <select class="form-control" name="subdisease" id="subdisease_create">
                             </select>
                         </div>
                     </form>
@@ -466,7 +464,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_create()">关闭
                     </button>
-                    <button type="button" class="btn btn-primary" id="btn-delete" onclick="create_inhospital()">修改
+                    <button type="button" class="btn btn-primary" id="btn-delete" onclick="create_inhospital()">新建
                     </button>
                 </div>
             </div>
@@ -523,6 +521,43 @@
             $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
                 var data = table.row($(this).parents('tr')).data();
                 delete_confirm(data[8]);
+            });
+
+            $("#create").on("hidden.bs.modal", function () {
+                $('#inhospital_create').find('#id_create').val('');
+                $('#inhospital_create').find('#patient_create').val('');
+                $('#inhospital_create').find('#error-patient').html('');
+                $('#inhospital_create').find('#error-patient').hide();
+                $('#inhospital_create').find('#price_create').val('');
+                $('#inhospital_create').find('#error-price').html('');
+                $('#inhospital_create').find('#error-price').hide();
+                $('#inhospital_create').find('#in_time_create').val('');
+                $('#inhospital_create').find('#error-in-time').html('');
+                $('#inhospital_create').find('#error-in-time').hide();
+                $('#inhospital_create').find('#out_time_create').val('');
+                $('#inhospital_create').find('#people_name_create').empty();
+                $('#inhospital_create').find('#room_name_create').empty();
+                $('#inhospital_create').find('#disease_create').empty();
+                $('#inhospital_create').find('#subdisease_create').empty();
+                $("#create").modal('hide');
+            });
+            $("#update").on("hidden.bs.modal", function () {
+                $('#inhospital_modify').find('#id_modify').val('');
+                $('#inhospital_modify').find('#patient_modify').val('');
+                $('#inhospital_modify').find('#error-patient').html('');
+                $('#inhospital_modify').find('#error-patient').hide();
+                $('#inhospital_modify').find('#price_modify').val('');
+                $('#inhospital_modify').find('#error-price').html('');
+                $('#inhospital_modify').find('#error-price').hide();
+                $('#inhospital_modify').find('#in_time_modify').val('');
+                $('#inhospital_modify').find('#error-in-time').html('');
+                $('#inhospital_modify').find('#error-in-time').hide();
+                $('#inhospital_modify').find('#out_time_modify').val('');
+                $('#inhospital_modify').find('#people_name_modify').empty();
+                $('#inhospital_modify').find('#room_name_modify').empty();
+                $('#inhospital_modify').find('#disease_modify').empty();
+                $('#inhospital_modify').find('#subdisease_modify').empty();
+                $("#update").modal('hide');
             });
         });
     </script>
