@@ -64,7 +64,17 @@
         </div>
         <h3 class="agileits-title two" style="margin-top: 20px">{{ disease_example.name }}</h3>
 
-        <div class="banner-top w3layouts" style="margin-top: 300px">
+        <div class="process_holder" style="margin-left: 20%;margin-right: 15%">
+            {% for process in processes %}
+                <div style="border: 1px solid white;padding: 30px 40px;margin-top: 20px ">
+                    <h3 class="page-header process-subheading">步骤：{{ process.name }}</h3>
+                    <p class="process_desc">文字：{{ process.desc }}</p>
+                    <p class="process_desc">图片：</p>
+                    <p class="process_desc">视频：</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="banner-top w3layouts" style="margin-top: 100px">
         </div>
     </div>
 </div>

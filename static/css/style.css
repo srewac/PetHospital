@@ -2000,6 +2000,18 @@ h3.icon-subheading {
 	margin: 30px 0 15px;
 }
 
+h3.process-subheading{
+	font-size: 28px;
+	color: white !important;
+	margin: 30px 0 15px;
+}
+
+p.process_desc{
+	font-size: 18px;
+    color: white !important;
+    margin: 30px 0 15px;
+}
+
 .agileits-icons-title {
 	text-align: center;
 	font-size: 36px;
