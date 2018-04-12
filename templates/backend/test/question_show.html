@@ -34,7 +34,7 @@
             $('#delete').modal('show');
         }
 
-        function delete_ok(){
+        function delete_ok() {
             var id = $("#delete_id").val();
             $.ajax({
                 type: "post",
@@ -132,24 +132,6 @@
 
         }
 
-        function clean_create() {
-            $("#question_create_textarea").val("");
-            $("#choice1_create").val("");
-            $("#choice2_create").val("");
-            $("#choice3_create").val("");
-            $("#choice4_create").val("");
-            $("#error_question_create").html("");
-            $("#error_question_create").hide();
-            $("#error_choice1_create").html("");
-            $("#error_choice1_create").hide();
-            $("#error_choice2_create").html("");
-            $("#error_choice2_create").hide();
-            $("#error_choice3_create").html("");
-            $("#error_choice3_create").hide();
-            $("#error_choice4_create").html("");
-            $("#error_choice4_create").hide();
-        }
-
         function modify_question_show(question_id) {
             $.ajax({
                 type: "POST",
@@ -245,25 +227,6 @@
                 });
             }
         }
-
-        function clean_modify() {
-            $("#question_modify_textarea").val("");
-            $("#choice1_modify").val("");
-            $("#choice2_modify").val("");
-            $("#choice3_modify").val("");
-            $("#choice4_modify").val("");
-            $("#error_question_modify").html("");
-            $("#error_question_modify").hide();
-            $("#error_choice1_modify").html("");
-            $("#error_choice1_modify").hide();
-            $("#error_choice2_modify").html("");
-            $("#error_choice2_modify").hide();
-            $("#error_choice3_modify").html("");
-            $("#error_choice3_modify").hide();
-            $("#error_choice4_modify").html("");
-            $("#error_choice4_modify").hide();
-        }
-
 
     </script>
     <div id="page-wrapper">
@@ -433,8 +396,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                onclick="quit_modify()">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             ×
                         </button>
                         <h4 class="modal-title" id="myModalLabel">修改题目</h4>
@@ -520,7 +482,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_modify()">关闭
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                         </button>
                         <button type="button" class="btn btn-primary" onclick="modify()">修改</button>
                     </div>
@@ -536,8 +498,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                onclick="quit_create()">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             ×
                         </button>
                         <h4 class="modal-title" id="myModalLabel">删除用户</h4>
@@ -579,6 +540,40 @@
             $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
                 var data = table.row($(this).parents('tr')).data();
                 delete_confirm(data[6]);
+            });
+            $("#question_create").on("hidden.bs.modal", function () {
+                $("#question_create_textarea").val("");
+                $("#choice1_create").val("");
+                $("#choice2_create").val("");
+                $("#choice3_create").val("");
+                $("#choice4_create").val("");
+                $("#error_question_create").html("");
+                $("#error_question_create").hide();
+                $("#error_choice1_create").html("");
+                $("#error_choice1_create").hide();
+                $("#error_choice2_create").html("");
+                $("#error_choice2_create").hide();
+                $("#error_choice3_create").html("");
+                $("#error_choice3_create").hide();
+                $("#error_choice4_create").html("");
+                $("#error_choice4_create").hide();
+            });
+            $("#question_modify").on("hidden.bs.modal", function () {
+                $("#question_modify_textarea").val("");
+                $("#choice1_modify").val("");
+                $("#choice2_modify").val("");
+                $("#choice3_modify").val("");
+                $("#choice4_modify").val("");
+                $("#error_question_modify").html("");
+                $("#error_question_modify").hide();
+                $("#error_choice1_modify").html("");
+                $("#error_choice1_modify").hide();
+                $("#error_choice2_modify").html("");
+                $("#error_choice2_modify").hide();
+                $("#error_choice3_modify").html("");
+                $("#error_choice3_modify").hide();
+                $("#error_choice4_modify").html("");
+                $("#error_choice4_modify").hide();
             });
         });
     </script>
