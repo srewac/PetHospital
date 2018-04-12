@@ -111,6 +111,7 @@ def result_detail(request, test_id):
         questions = Question.objects.filter(testpaper__test=test_id)
         choices = Choice.objects.filter(question__testpaper__test=test_id)
         usertest_question = Usertest_question.objects.filter(usertest__test=test_id)
+        usertest_question = usertest_question.filter(usertest__user=user_id)
         user_choices = [a.userchoice_id for a in usertest_question]
         return render_to_response('Test/result_detail.html', locals())
     else:
