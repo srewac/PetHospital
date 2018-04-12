@@ -23,6 +23,7 @@ def select_paper(request, disease_name):
             test = user.tests.filter(test_paper__disease_id=disease.id).all()
             test = test.exclude(usertest__user_id=user.id)
             test = test.exclude(close_time__lt=now)
+            notaviltest = test.filter(start_time__gt=now)
             test = test.exclude(start_time__gt=now)
             if request.session.get('test_id', None):
                 test = test.get(id=request.session.get('test_id', None))

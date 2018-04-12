@@ -74,6 +74,17 @@
                         </a>
                     </div>
                 {% else %}
+                    {% for idx in notaviltest %}
+                        <div class="col-md-4">
+                            <a>
+                                <div class="subdisease-grid">
+
+                                    <h3 class="subdisease-grid-h">{{ idx.name }}(未开始)</h3>
+
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
                     {% for idx in test %}
                         <div class="col-md-4">
                             <a onclick="selectpaper({{ idx.id }})">
