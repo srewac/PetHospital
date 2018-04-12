@@ -148,8 +148,8 @@
     </div>
 </div>-->
 <script type="text/javascript">
-    if (!localStorage.getItem('start') || localStorage.getItem('username')!={{ request.session.username }}) {
-        localStorage.setItem('username', {{ request.session.username }});
+    if (!localStorage.getItem('start') || localStorage.getItem('username')!= '{{ request.session.username }}'){
+        localStorage.setItem('username', '{{ request.session.username }}');
         localStorage.setItem('start', new Date().getTime());
     }
 
