@@ -251,6 +251,12 @@
                 error: function (result) {
                 }
             });
+            $("#testpaper_modify").on("hidden.bs.modal", function () {
+                $("#error_testpaper_name").html("");
+                $("#error_testpaper_name").hide();
+                $("#error_testpaper_desc").html("");
+                $("#error_testpaper_desc").hide();
+            });
         });
     </script>
 {% endblock %}

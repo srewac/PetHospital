@@ -222,8 +222,8 @@
         "name": "intern1",
         "authority": 0,
         "tests": [
-            9,
-            10
+            11,
+            12
         ]
     }
 },
@@ -236,194 +236,1016 @@
         "name": "intern2",
         "authority": 0,
         "tests": [
-            9,
-            10
+            11,
+            12
         ]
     }
 },
 {
     "model": "Test.question",
-    "pk": 1,
-    "fields": {
-        "text": "qweqwe",
-        "score": 2,
-        "sub_disease": 1
-    }
-},
-{
-    "model": "Test.question",
-    "pk": 2,
-    "fields": {
-        "text": "qweqw",
-        "score": 2,
-        "sub_disease": 1
-    }
-},
-{
-    "model": "Test.question",
-    "pk": 3,
-    "fields": {
-        "text": "qweqw",
-        "score": 2,
-        "sub_disease": 1
-    }
-},
-{
-    "model": "Test.choice",
-    "pk": 1,
-    "fields": {
-        "question": 1,
-        "text": "qwe",
-        "correct": true
-    }
-},
-{
-    "model": "Test.choice",
-    "pk": 2,
-    "fields": {
-        "question": 1,
-        "text": "qwe",
-        "correct": false
-    }
-},
-{
-    "model": "Test.choice",
-    "pk": 3,
-    "fields": {
-        "question": 1,
-        "text": "qwe",
-        "correct": false
-    }
-},
-{
-    "model": "Test.choice",
     "pk": 4,
     "fields": {
-        "question": 1,
-        "text": "qwe",
-        "correct": false
+        "text": "\u4e0b\u5217\u9009\u9879\u4e2d\u54ea\u9879\u4e0d\u5c5e\u4e8e\u5185\u5206\u6ccc\u5668\u5b98? ",
+        "score": 2,
+        "sub_disease": 14
     }
 },
 {
-    "model": "Test.choice",
+    "model": "Test.question",
     "pk": 5,
     "fields": {
-        "question": 2,
-        "text": "qwe",
-        "correct": true
+        "text": "\u4e0b\u5217\u9009\u9879\u4e2d\u4e0d\u662f\u7ec4\u6210\u5185\u810f\u7684\u7cfb\u7edf\u662f?",
+        "score": 2,
+        "sub_disease": 14
     }
 },
 {
-    "model": "Test.choice",
+    "model": "Test.question",
     "pk": 6,
     "fields": {
-        "question": 2,
-        "text": "qwe",
-        "correct": false
+        "text": "\u80f0\u4f4d\u4e8e\u5341\u4e8c\u6307\u80a0\u7684\u5f2f\u66f2\u4e2d,\u5176\u5185\u5206\u6ccc\u90e8\u53c8\u540d\u80f0\u5c9b,\u4e0b\u5217\u9009\u9879\u4e2d\u4e0d\u662f\u80f0\u5c9b\u5206\u6ccc\u7684\u662f?",
+        "score": 2,
+        "sub_disease": 14
     }
 },
 {
-    "model": "Test.choice",
+    "model": "Test.question",
     "pk": 7,
     "fields": {
-        "question": 2,
-        "text": "qwe",
-        "correct": false
+        "text": "\u4e3b\u8981\u4f5c\u7528\u662f\u8c03\u8282\u8840\u9499\u6d53\u5ea6,\u4fc3\u8fdb\u9aa8\u9499\u6eb6\u89e3,\u5347\u9ad8\u8840\u9499\u7684\u6fc0\u7d20\u662f?",
+        "score": 2,
+        "sub_disease": 14
     }
 },
 {
-    "model": "Test.choice",
+    "model": "Test.question",
     "pk": 8,
     "fields": {
-        "question": 2,
-        "text": "qweqwe",
-        "correct": false
+        "text": "\u88ab\u79f0\u4e3a\u201c\u751f\u547d\u4e2d\u67a2\u201d\u7684\u662f?",
+        "score": 2,
+        "sub_disease": 38
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 9,
+    "fields": {
+        "text": "\u5728\u5ba0\u7269\u751f\u4ea7\u4e0a,\u88ab\u5e7f\u6cdb\u7528\u4e8e\u50ac\u60c5\u548c\u8d85\u6570\u6392\u5375\u7684\u662f? ",
+        "score": 2,
+        "sub_disease": 38
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 10,
+    "fields": {
+        "text": "\u4e0b\u5217\u4e0d\u5c5e\u4e8e\u5185\u5206\u6ccc\u5668\u5b98\u4e2d\u5206\u6563\u5728\u5176\u4ed6\u5668\u5b98\u4e2d\u7684\u5185\u5206\u6ccc\u7ec4\u7ec7",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 11,
+    "fields": {
+        "text": "\u5173\u4e8e\u80be\u4e0a\u817a\u76ae\u8d28\u673a\u80fd\u4ea2\u8fdb\u7684\u63cf\u8ff0\u6b63\u786e\u7684\u662f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 12,
+    "fields": {
+        "text": "\u80be\u4e0a\u817a\u76ae\u8d28\u673a\u80fd\u4ea2\u8fdb\u5b9e\u9a8c\u5ba4\u68c0\u67e5\u4e2d\u4e0b\u5217\u8bf4\u6cd5\u6b63\u786e\u7684\u662f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 13,
+    "fields": {
+        "text": "\u6210\u5e74\u72ac\u732b\u547c\u5438\u65b9\u5f0f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 14,
+    "fields": {
+        "text": "\u4e00\u6c27\u5316\u78b3\u4e2d\u6bd2\u7684\u9ecf\u819c\u989c\u8272\u662f ",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 15,
+    "fields": {
+        "text": "\u4e0b\u5217\u54ea\u50cf\u5b58\u5728\u4e8e\u80ba\u95f4\u8d28",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 16,
+    "fields": {
+        "text": "\u7a7a\u6c14\u8fdb\u5165\u80f8\u819c\u8154\u4e0b\u5217\u54ea\u4e2a\u9014\u5f84\u4e0d\u662f ",
+        "score": 2,
+        "sub_disease": 53
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 17,
+    "fields": {
+        "text": "\u6c14\u7ba1\u7684\u7ec4\u6210\u4ee5\u4e0b\u54ea\u4e2a\u4e0d\u662f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 18,
+    "fields": {
+        "text": "\u62cd\u6444\u80f8\u7247\u65f6\u4e3a\u4e86\u8ba9\u80ba\u53f6\u66f4\u6e05\u6670,\u9009\u62e9\u4ec0\u4e48\u65f6\u4faf\u62cd\u7247",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 19,
+    "fields": {
+        "text": "\u72ac\u53d1\u751f\u6025\u6027\u652f\u6c14\u7ba1\u80ba\u708e\u65f6,\u8840\u6db2\u5b66\u68c0\u67e5\u53ef\u89c1 ",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 20,
+    "fields": {
+        "text": "\u76db\u590f,\u4e00\u62c9\u5e03\u62c9\u591a\u5728\u905b\u72d7\u8fc7\u7a0b\u4e2d\u7a81\u7136\u53d1\u75c5,\u547c\u5438\u65f6\u9f3b\u5b54\u5f00\u5f20,\u820c\u5347\u51fa\u53e3\u5916,\u56db\u80a2\u65e0\u529b\u5012\u5730,\u8840\u7ba1\u6012\u5f20,\u7ed3\u819c\u53d1\u7ec0,\u5fc3\u97f3\u5fae\u5f31,\u4f53\u6e2941,\u8be5\u75c5\u53ef\u80fd\u662f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 21,
+    "fields": {
+        "text": "\u7ec6\u83cc\u6027\u80ba\u708e,\u8840\u5e38\u89c4wbc\u548cgr\u660e\u663e\u5347\u9ad8,\u5176\u767d\u7ec6\u80de\u4f53\u79ef\u5206\u5e03\u4e8c\u5cf0\u56fe\u8868\u73b0\u4e3a",
+        "score": 2,
+        "sub_disease": 1
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 22,
+    "fields": {
+        "text": "\u5bb6\u732b,\u96cc\u6027,2\u5c81,\u524d\u5929\u7a81\u53d1\u547c\u5438\u6291\u5236,\u5f20\u53e3\u547c\u5438,\u4f53\u6e29\u6b63\u5e38\u3002x\u7ebf\u4fa7\u4f4d\u7247\u89c1\u5728\u80ba\u548c\u8188,\u80ba\u548c\u810a\u67f1,\u80ba\u548c\u80f8\u9aa8\u95f4\u6709\u900f\u660e\u7684\u95f4\u9699,\u663e\u793a\u4e3a\u9ed1\u8272,\u5fc3\u810f\u5411\u80cc\u4fa7\u63d0\u5347,\u4e3b\u52a8\u8109\u548c\u540e\u8154\u9759\u8109\u975e\u5e38\u6e05\u6670,\u4e2d\u592e\u80ba\u90e8\u5bc6\u5ea6\u5347\u9ad8,\u6700\u53ef\u80fd\u7684\u8bca\u65ad\u662f",
+        "score": 2,
+        "sub_disease": 53
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 23,
+    "fields": {
+        "text": "\u9f3b\u8154\u9ecf\u819c\u53d1\u708e\u5e38\u6ce2\u53ca\u7684\u8154\u7aa6\u662f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 24,
+    "fields": {
+        "text": "\u80ba\u8fdb\u884c\u6c14\u4f53\u4ea4\u6362\u7684\u4e3b\u8981\u573a\u6240\u662f ",
+        "score": 2,
+        "sub_disease": 14
     }
 },
 {
     "model": "Test.choice",
-    "pk": 9,
+    "pk": 13,
     "fields": {
-        "question": 3,
-        "text": "eqwe",
+        "question": 4,
+        "text": "\u809d",
         "correct": true
     }
 },
 {
     "model": "Test.choice",
-    "pk": 10,
+    "pk": 14,
     "fields": {
-        "question": 3,
-        "text": "qwe",
+        "question": 4,
+        "text": "\u7532\u72b6\u817a",
         "correct": false
     }
 },
 {
     "model": "Test.choice",
+    "pk": 15,
+    "fields": {
+        "question": 4,
+        "text": "\u677e\u679c\u4f53",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 16,
+    "fields": {
+        "question": 4,
+        "text": "\u80f0\u5c9b",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 17,
+    "fields": {
+        "question": 5,
+        "text": "\u6d88\u5316\u7cfb\u7edf",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 18,
+    "fields": {
+        "question": 5,
+        "text": "\u5185\u5206\u6ccc\u7cfb\u7edf",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 19,
+    "fields": {
+        "question": 5,
+        "text": "\u547c\u5438\u7cfb\u7edf",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 20,
+    "fields": {
+        "question": 5,
+        "text": "\u751f\u6b96\u7cfb\u7edf",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 21,
+    "fields": {
+        "question": 6,
+        "text": "\u80f0\u5c9b\u7d20",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 22,
+    "fields": {
+        "question": 6,
+        "text": "\u80f0\u6db2",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 23,
+    "fields": {
+        "question": 6,
+        "text": "\u80f0\u9ad8\u8840\u7cd6\u7d20",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 24,
+    "fields": {
+        "question": 6,
+        "text": "\u80c3\u6db2",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 25,
+    "fields": {
+        "question": 7,
+        "text": "\u7532\u72b6\u817a",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 26,
+    "fields": {
+        "question": 7,
+        "text": "\u80be\u4e0a\u817a",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 27,
+    "fields": {
+        "question": 7,
+        "text": "\u7532\u72b6\u65c1\u817a",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 28,
+    "fields": {
+        "question": 7,
+        "text": "\u80f0\u5c9b",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 29,
+    "fields": {
+        "question": 8,
+        "text": "\u810a\u9ad3",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 30,
+    "fields": {
+        "question": 8,
+        "text": "\u5ef6\u9ad3",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 31,
+    "fields": {
+        "question": 8,
+        "text": "\u8111\u6865",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 32,
+    "fields": {
+        "question": 8,
+        "text": "\u5c0f\u8111",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 33,
+    "fields": {
+        "question": 9,
+        "text": "\u96cc\u6fc0\u7d20",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 34,
+    "fields": {
+        "question": 9,
+        "text": "\u5b55\u916e",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 35,
+    "fields": {
+        "question": 9,
+        "text": "\u80ce\u76d8\u50ac\u4e73\u7d20",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 36,
+    "fields": {
+        "question": 9,
+        "text": "\u5b55\u9a6c\u8840\u6e05\u4fc3\u6027\u817a\u6fc0\u7d20",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 37,
+    "fields": {
+        "question": 10,
+        "text": "\u80f0\u5c9b",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 38,
+    "fields": {
+        "question": 10,
+        "text": "\u7532\u72b6\u65c1\u817a",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 39,
+    "fields": {
+        "question": 10,
+        "text": "\u5375\u6ce1",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 40,
+    "fields": {
+        "question": 10,
+        "text": "\u9ec4\u4f53",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 41,
+    "fields": {
+        "question": 11,
+        "text": "\u732b\u591a\u53d1\u4e8e\u72ac",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 42,
+    "fields": {
+        "question": 11,
+        "text": "\u96c4\u6027\u591a\u53d1\u4e8e\u96cc\u6027\u72ac",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 43,
+    "fields": {
+        "question": 11,
+        "text": "\u591a\u53d1\u4e8e\u9752\u5e74\u72ac",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 44,
+    "fields": {
+        "question": 11,
+        "text": "\u591a\u53d1\u4e8e\u8001\u5e74\u72ac",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 45,
+    "fields": {
+        "question": 12,
+        "text": "ALKP\u5347\u9ad8GLU\u964d\u4f4e",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 46,
+    "fields": {
+        "question": 12,
+        "text": "\u4f4e\u8840\u94be \u5c3f\u6bd4\u91cd\u504f\u9ad8",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 47,
+    "fields": {
+        "question": 12,
+        "text": "\u4f4e\u8840\u94a0 \u9ad8\u8840\u94be",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 48,
+    "fields": {
+        "question": 12,
+        "text": "ALKP\u5347\u9ad8 GLU\u5347\u9ad8",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 49,
+    "fields": {
+        "question": 13,
+        "text": "\u80f8\u5f0f\u547c\u5438",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 50,
+    "fields": {
+        "question": 13,
+        "text": "\u80f8\u8179\u5f0f\u547c\u5438",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 51,
+    "fields": {
+        "question": 13,
+        "text": "\u8179\u5f0f\u547c\u5438",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 52,
+    "fields": {
+        "question": 13,
+        "text": "\u6f6e\u5f0f\u547c\u5438",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 53,
+    "fields": {
+        "question": 14,
+        "text": "\u6a31\u6843\u7ea2\u8272",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 54,
+    "fields": {
+        "question": 14,
+        "text": "\u9752\u7d2b\u8272",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 55,
+    "fields": {
+        "question": 14,
+        "text": "\u6df1\u7ea2\u8272",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 56,
+    "fields": {
+        "question": 14,
+        "text": "\u6cdb\u767d\u8272",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 57,
+    "fields": {
+        "question": 15,
+        "text": "\u6dcb\u5df4\u7ba1",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 58,
+    "fields": {
+        "question": 15,
+        "text": "\u80ba\u6ce1",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 59,
+    "fields": {
+        "question": 15,
+        "text": "\u652f\u6c14\u7ba1",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 60,
+    "fields": {
+        "question": 15,
+        "text": "\u4e3b\u52a8\u8109",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 61,
+    "fields": {
+        "question": 16,
+        "text": "\u80f8\u58c1\u7a7f\u5b54",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 62,
+    "fields": {
+        "question": 16,
+        "text": "\u80ba\u810f\u7834\u88c2",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 63,
+    "fields": {
+        "question": 16,
+        "text": "\u8188\u808c\u7834\u88c2",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 64,
+    "fields": {
+        "question": 16,
+        "text": "\u98df\u9053\u7834\u88c2",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 65,
+    "fields": {
+        "question": 17,
+        "text": "\u73af\u72b6\u8f6f\u9aa8",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 66,
+    "fields": {
+        "question": 17,
+        "text": "\u5e73\u6ed1\u808c",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 67,
+    "fields": {
+        "question": 17,
+        "text": "\u5f39\u6027\u7ea4\u7ef4",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 68,
+    "fields": {
+        "question": 17,
+        "text": "\u808c\u68ad",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 69,
+    "fields": {
+        "question": 18,
+        "text": "\u5438\u6c14\u672b",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 70,
+    "fields": {
+        "question": 18,
+        "text": "\u547c\u6c14\u672b",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 71,
+    "fields": {
+        "question": 18,
+        "text": "\u547c\u6c14\u65f6",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 72,
+    "fields": {
+        "question": 18,
+        "text": "\u5438\u6c14\u65f6",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 73,
+    "fields": {
+        "question": 19,
+        "text": "\u767d\u7ec6\u80de\u603b\u6570\u4e0b\u964d",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 74,
+    "fields": {
+        "question": 19,
+        "text": "\u767d\u7ec6\u80de\u603b\u6570\u5347\u9ad8",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 75,
+    "fields": {
+        "question": 19,
+        "text": "\u55dc\u9178\u6027\u7c92\u7ec6\u80de\u5347\u9ad8",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 76,
+    "fields": {
+        "question": 19,
+        "text": "\u4e2d\u6027\u7c92\u7ec6\u80de\u5347\u9ad8",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 77,
+    "fields": {
+        "question": 20,
+        "text": "\u72ac\u761f\u70ed",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 78,
+    "fields": {
+        "question": 20,
+        "text": "\u5927\u53f6\u6027\u80ba\u708e",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 79,
+    "fields": {
+        "question": 20,
+        "text": "\u6c14\u7ba1\u708e",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 80,
+    "fields": {
+        "question": 20,
+        "text": "\u4e2d\u6691",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 81,
+    "fields": {
+        "question": 21,
+        "text": "\u5de6\u4fa7\u5cf0\u660e\u663e\u504f\u9ad8",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 82,
+    "fields": {
+        "question": 21,
+        "text": "\u5de6\u4fa7\u5cf0\u5e95\u660e\u663e\u589e\u5bbd",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 83,
+    "fields": {
+        "question": 21,
+        "text": "\u53f3\u4fa7\u5cf0\u5e95\u660e\u663e\u53d8\u7a84",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 84,
+    "fields": {
+        "question": 21,
+        "text": "\u5de6\u53f3\u4e24\u5cf0\u95f4\u8ddd\u589e\u5bbd",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 85,
+    "fields": {
+        "question": 22,
+        "text": "\u6c14\u80f8",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 86,
+    "fields": {
+        "question": 22,
+        "text": "\u80ba\u6c14\u80bf",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 87,
+    "fields": {
+        "question": 22,
+        "text": "\u80ba\u6c34\u80bf",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 88,
+    "fields": {
+        "question": 22,
+        "text": "\u80ba\u708e",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 89,
+    "fields": {
+        "question": 23,
+        "text": "\u8840\u7aa6",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 90,
+    "fields": {
+        "question": 23,
+        "text": "\u6dcb\u5df4\u7aa6",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 91,
+    "fields": {
+        "question": 23,
+        "text": "\u4e0a\u989d\u7aa6",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 92,
+    "fields": {
+        "question": 23,
+        "text": "\u51a0\u72b6\u7aa6",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 93,
+    "fields": {
+        "question": 24,
+        "text": "\u80ba\u6ce1",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 94,
+    "fields": {
+        "question": 24,
+        "text": "\u80ba\u6ce1\u56ca",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 95,
+    "fields": {
+        "question": 24,
+        "text": "\u80ba\u6ce1\u7ba1",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 96,
+    "fields": {
+        "question": 24,
+        "text": "\u7ec6\u652f\u6c14\u7ba1",
+        "correct": false
+    }
+},
+{
+    "model": "Test.testpaper",
+    "pk": 3,
+    "fields": {
+        "name": "\u5185\u79d1\u8bca\u65ad1",
+        "desc": "\u9898\u76ee\u8303\u56f4\u4e3a\u5185\u79d1\u8bca\u65ad\uff0c\u9898\u578b\u4e3a\u9009\u62e9\u9898\uff0c\u517110\u9898",
+        "disease": 3,
+        "questions": [
+            4,
+            5,
+            7,
+            10,
+            11,
+            13,
+            14,
+            15,
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "Test.testpaper",
+    "pk": 4,
+    "fields": {
+        "name": "\u5185\u79d1\u8bca\u65ad2",
+        "desc": "\u9898\u76ee\u8303\u56f4\u4e3a\u5185\u79d1\u8bca\u65ad\uff0c\u9898\u578b\u4e3a\u9009\u62e9\u9898\uff0c\u517110\u9898",
+        "disease": 3,
+        "questions": [
+            6,
+            12,
+            13,
+            17,
+            18,
+            19,
+            20,
+            24
+        ]
+    }
+},
+{
+    "model": "Test.test",
     "pk": 11,
     "fields": {
-        "question": 3,
-        "text": "qwe",
-        "correct": false
+        "name": "\u5185\u79d1\u8003\u573a1",
+        "duration": 30,
+        "close_time": "2018-05-01T09:00:00",
+        "start_time": "2018-04-05T09:00:00",
+        "test_paper": 3
     }
 },
 {
-    "model": "Test.choice",
+    "model": "Test.test",
     "pk": 12,
     "fields": {
-        "question": 3,
-        "text": "qweqwe",
-        "correct": false
-    }
-},
-{
-    "model": "Test.testpaper",
-    "pk": 1,
-    "fields": {
-        "name": "qwe",
-        "desc": "qweqwe",
-        "disease": 1,
-        "questions": [
-            1,
-            2,
-            3
-        ]
-    }
-},
-{
-    "model": "Test.testpaper",
-    "pk": 2,
-    "fields": {
-        "name": "12312312123",
-        "desc": "123123",
-        "disease": 1,
-        "questions": [
-            1,
-            2,
-            3
-        ]
-    }
-},
-{
-    "model": "Test.test",
-    "pk": 9,
-    "fields": {
-        "name": "12323",
-        "duration": 300,
-        "close_time": "2018-12-12T00:34:00",
-        "start_time": "2018-03-29T09:40:00",
-        "test_paper": 1
-    }
-},
-{
-    "model": "Test.test",
-    "pk": 10,
-    "fields": {
-        "name": "poi233",
-        "duration": 200,
-        "close_time": "2018-03-29T10:07:00",
-        "start_time": "2018-03-29T10:06:00",
-        "test_paper": 2
+        "name": "\u5185\u79d1\u8003\u573a2",
+        "duration": 30,
+        "close_time": "2018-05-01T09:00:00",
+        "start_time": "2018-04-05T09:00:00",
+        "test_paper": 4
     }
 },
 {
@@ -1095,10 +1917,26 @@
 },
 {
     "model": "sessions.session",
+    "pk": "3nc7vqva9inb4ck6hzf7xhpei1v6u8a7",
+    "fields": {
+        "session_data": "ODNmOTU2YzNmZjRlZTQzNDM2YzcyMzE2ZDE5NzYyYmEyZDFiNzA1Mjp7InVzZXJfaWQiOjEsInVzZXJuYW1lIjoiYWRtaW4xIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJhdXRob3JpdHkiOjEsIl9zZXNzaW9uX2V4cGlyeSI6MTAwMDAwMH0=",
+        "expire_date": "2018-04-14T01:06:13.231"
+    }
+},
+{
+    "model": "sessions.session",
     "pk": "s4q60mal5fvb99mllfqdgf4f57n7nvnq",
     "fields": {
         "session_data": "ZDU0ZTAyNGYwMDMzMzE1ZmE5ZTQ1ZDVkNzk0M2U3YzE0MjQ4NDAxOTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkMjYxNGQxNzE5NTlkNWNhZGE0MjJkZWYzYmUyZGY2NDI4Yzg0NmI0In0=",
         "expire_date": "2018-04-12T10:16:08.575"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "yhfxjlzt1sr2irx8zzls4166lgsossoa",
+    "fields": {
+        "session_data": "ODNmOTU2YzNmZjRlZTQzNDM2YzcyMzE2ZDE5NzYyYmEyZDFiNzA1Mjp7InVzZXJfaWQiOjEsInVzZXJuYW1lIjoiYWRtaW4xIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJhdXRob3JpdHkiOjEsIl9zZXNzaW9uX2V4cGlyeSI6MTAwMDAwMH0=",
+        "expire_date": "2018-04-14T00:32:08.063"
     }
 },
 {
