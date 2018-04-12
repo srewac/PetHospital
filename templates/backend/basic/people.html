@@ -106,19 +106,6 @@
             }
         }
 
-        function clean_modify() {
-            $("#people_modify div:eq(0) input").val("");
-            $("#people_modify div:eq(0) p").html('');
-            $("#people_modify div:eq(1) input").val('');
-            $("#people_modify div:eq(1) p").html('');
-            $("#people_modify div:eq(3) input").val('');
-            $("#people_modify div:eq(3) p").html('');
-            $("#people_modify div:eq(5) textarea").val('');
-            $("#people_modify div:eq(5) p").html('');
-
-            $('#update').modal('hide');
-        }
-
         function create_user_show() {
             $('#create').modal('show');
         }
@@ -193,19 +180,6 @@
             }
         }
 
-        function create_clean() {
-            $("#people_create div:eq(0) input").val("");
-            $("#people_create div:eq(0) p").html('');
-            $("#people_create div:eq(1) input").val('');
-            $("#people_create div:eq(1) p").html('');
-            $("#people_create div:eq(2) select option:first").prop("selected", 'selected');
-            $("#people_create div:eq(3) input").val('');
-            $("#people_create div:eq(3) p").html('');
-            $("#people_create div:eq(4) select option:first").prop("selected", 'selected');
-            $("#people_create div:eq(5) textarea").val('');
-            $("#people_create div:eq(5) p").html('');
-        }
-
     </script>
     <div id="page-wrapper">
         <div class="row">
@@ -269,8 +243,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" onclick="clean_modify()"
-                            aria-hidden="true">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         ×
                     </button>
                     <h4 class="modal-title" id="myModalLabel">修改信息</h4>
@@ -316,7 +289,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_modify()">关闭
+                    <button type="button" class="btn btn-default" data-dismiss="modal" >关闭
                     </button>
                     <button type="button" class="btn btn-primary" onclick="modify()">提交更改</button>
                 </div>
@@ -334,8 +307,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                            onclick="create_clean()">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >
                         ×
                     </button>
                     <h4 class="modal-title" id="myModalLabel">创建人员</h4>
@@ -381,7 +353,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="create_clean()">关闭
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
                     <button type="button" class="btn btn-primary" onclick="create()">创建</button>
                 </div>
@@ -444,7 +416,29 @@
                 var data = table.row($(this).parents('tr')).data();
                 delete_confirm(data[6]);
             });
-
+            $("#create").on("hidden.bs.modal", function () {
+                $("#people_create div:eq(0) input").val("");
+                $("#people_create div:eq(0) p").html('');
+                $("#people_create div:eq(1) input").val('');
+                $("#people_create div:eq(1) p").html('');
+                $("#people_create div:eq(2) select option:first").prop("selected", 'selected');
+                $("#people_create div:eq(3) input").val('');
+                $("#people_create div:eq(3) p").html('');
+                $("#people_create div:eq(4) select option:first").prop("selected", 'selected');
+                $("#people_create div:eq(5) textarea").val('');
+                $("#people_create div:eq(5) p").html('');
+            });
+            $("#update").on("hidden.bs.modal", function () {
+                $("#people_modify div:eq(0) input").val("");
+                $("#people_modify div:eq(0) p").html('');
+                $("#people_modify div:eq(1) input").val('');
+                $("#people_modify div:eq(1) p").html('');
+                $("#people_modify div:eq(3) input").val('');
+                $("#people_modify div:eq(3) p").html('');
+                $("#people_modify div:eq(5) textarea").val('');
+                $("#people_modify div:eq(5) p").html('');
+                $('#update').modal('hide');
+            });
         });
     </script>
 {% endblock %}

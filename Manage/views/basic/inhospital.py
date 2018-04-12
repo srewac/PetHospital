@@ -77,11 +77,6 @@ def inhospital_modify_dict(request, id):
 # 修改住院信息
 def inhospital_modify(request):
     patients = get_object_or_404(Inhospital, pk=request.POST['id'])
-    check_patients = Inhospital.objects.filter(patient=request.POST['patient'])
-    if len(check_patients) > 0:
-        for check_patient in check_patients:
-            if check_patient.patient != patients.patient:
-                return JsonResponse(False, safe=False)
     patients.patient = request.POST['patient']
     patients.price = request.POST['price']
     patients.in_time = datetime.strptime(request.POST['in_time'], "%Y-%m-%d")

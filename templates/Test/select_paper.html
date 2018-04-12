@@ -65,18 +65,27 @@
         <h3 class="agileits-title two" style="margin-top: 60px" id="selectedpaperid">选择试卷</h3>
         <div class="container">
             <div class="markets-grids">
-                {% for idx in test %}
+                {% if request.session.test_id %}
                     <div class="col-md-4">
-                        <a onclick="selectpaper({{ idx.id }})">
+                        <a onclick="selectpaper({{ test.id }})">
                             <div class="subdisease-grid">
-
-                                <h3 class="subdisease-grid-h">{{ idx.name }}</h3>
-
+                                <h3 class="subdisease-grid-h">{{ test.name }} (考试中)</h3>
                             </div>
                         </a>
                     </div>
-                {% endfor %}
+                {% else %}
+                    {% for idx in test %}
+                        <div class="col-md-4">
+                            <a onclick="selectpaper({{ idx.id }})">
+                                <div class="subdisease-grid">
 
+                                    <h3 class="subdisease-grid-h">{{ idx.name }}</h3>
+
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <div class="clearfix"></div>
                 <div align="center">
                     <a href="{% url 'Test:select_disease' %}" class="button button-isi"
