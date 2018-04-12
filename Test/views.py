@@ -24,7 +24,6 @@ def select_paper(request, disease_name):
             test = test.exclude(usertest__user_id=user.id)
             test = test.exclude(close_time__lt=now)
             test = test.exclude(start_time__gt=now)
-            print(request.session.get('test_id', None))
             if request.session.get('test_id', None):
                 test = test.get(id=request.session.get('test_id', None))
             return render_to_response('Test/select_paper.html', locals())

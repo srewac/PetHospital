@@ -128,12 +128,13 @@
 <script type="text/javascript">
     $().ready(function result_detail() {
         var user_choices = {{ user_choices }};
-        console.log(user_choices)
+        {#console.log(user_choices)#}
         $("input[type='radio']").each(function () {
             var lable = $(this).next();
-            console.log($(lable).attr('id'));
-            console.log(user_choices.indexOf($(lable).attr('id')));
-            if (user_choices.indexOf($(lable).attr('id'))>0) {
+            var lable_id = $(lable).attr('id');
+            {#console.log(lable_id);#}
+            {#console.log(ArrayIndexOf(user_choices, lable_id));#}
+            if (ArrayIndexOf(user_choices, lable_id) >= 0) {
                 this.setAttribute("checked", "checked");
                 lable.attr("style", "color:red");
             }
@@ -143,6 +144,16 @@
             this.setAttribute("disabled", true);
         });
     });
+
+    function ArrayIndexOf(arr, value) {
+        // 检测value在arr中出现的位置
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return i;
+            }
+        }
+        return -1;
+    };
 
 </script>
 </body>
