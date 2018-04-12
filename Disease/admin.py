@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Disease, SubDisease, GeneralProcess, DiseaseExample, Process
+from .models import Disease, SubDisease, GeneralProcess, DiseaseExample, Process, Picture, Video
 
 
 class SubDiseaseInline(admin.TabularInline):
@@ -28,6 +28,20 @@ class ProcessInlined(admin.TabularInline):
     extra = 5
 
 
+class PictureInline(admin.TabularInline):
+    model = Picture
+    extra = 1
+
+
+class VideoInline(admin.TabularInline):
+    model = Video
+    extra = 1
+
+
+class ProcessAdmin(admin.ModelAdmin):
+    inlines = [PictureInline, VideoInline]
+
+
 class DiseaseExampleAdmin(admin.ModelAdmin):
     inlines = [ProcessInlined]
 
@@ -37,4 +51,5 @@ admin.site.register(SubDisease, SubDiseaseAdmin)
 admin.site.register(Disease, DiseaseAdmin)
 # admin.site.register(GeneralProcess)
 admin.site.register(DiseaseExample, DiseaseExampleAdmin)
-# admin.site.register(Process)
+admin.site.register(Process, ProcessAdmin)
+

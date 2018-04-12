@@ -3,12 +3,195 @@
     病例管理
 {% endblock %}
 {% block main_content %}
+    <script>
+        function disease_example_detail_show(disease_example_id) {
+            window.location.href = 'disease_example_detail/' + disease_example_id;
+        }
+
+        function getSubDiseaseOptions(disease_id, type) {
+            $.ajax({
+                type: "POST",
+                url: "/Manage/test/sub_disease_dict/" + disease_id,
+                success: function (result) {
+                    result = JSON.parse(result);
+                    if (type == 'create') {
+                        $("#disease_example_create").find("#subdisease_create").empty();
+                        $.each(result, function (id, name) {
+                            $("#subdisease_create").append($("<option>").val(id).text(name))
+                        });
+                    }
+                }
+                ,
+                error: function (result) {
+                    alert('error');
+                }
+            });
+        }
+
+        function create_disease_example_show() {
+            $.ajax({
+                type: "POST",
+                url: "{% url "Manage:disease_example_create_dict" %}",
+                success: function (result) {
+                    result = JSON.parse(result);
+                    $.each(result.disease_all, function (id, name) {
+                        $("#disease_example_create").find('#disease_create').append($("<option>").val(id).text(name));
+                    });
+                    $.each(result.sub_disease_all, function (id, name) {
+                        $("#disease_example_create").find('#subdisease_create').append($("<option>").val(id).text(name));
+                    });
+                    $("#create").modal('show');
+                },
+                error: function (result) {
+                    alert('create error');
+                }
+            });
+        }
+
+        function create_validation() {
+            if ($("#disease_example_create").find('#disease_example_name_create').val() == '') {
+                $("#disease_example_create").find('#error_disease_example_name').html('病例名称不能为空');
+                $("#disease_example_create").find('#error_disease_example_name').show();
+            }
+            else {
+                $("#disease_example_create").find('#error_disease_example_name').html('');
+                $("#disease_example_create").find('#error_disease_example_name').hide();
+            }
+        }
+
+        function create_disease_example() {
+            create_validation();
+            if ($("#disease_example_create").find('#error_disease_example_name').is(':hidden')) {
+                var form = new FormData(document.getElementById('disease_example_create'));
+
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:disease_example_create' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == false) {
+                            $("#disease_example_create").find('#error_disease_example_name').html('病例名称重复');
+                            $("#disease_example_create").find('#error_disease_example_name').show();
+                        } else {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            clean_create();
+                        }
+                    },
+                    error: function (result) {
+                        alert('create error');
+                    }
+                });
+            }
+        }
+
+        function create_disease_example_and_add_process() {
+            create_validation();
+            if ($("#disease_example_create").find('#error_disease_example_name').is(':hidden')) {
+                var form = new FormData(document.getElementById('disease_example_create'));
+
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:disease_example_create' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == false) {
+                            $("#disease_example_create").find('#error_disease_example_name').html('病例名称重复');
+                            $("#disease_example_create").find('#error_disease_example_name').show();
+                        } else {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            clean_create();
+                            add_process_show(result);
+                        }
+                    },
+                    error: function (result) {
+                        alert('create error');
+                    }
+                });
+            }
+        }
+
+         function clean_create() {
+            $("#disease_example_create").find('#disease_example_name_create').val('');
+            $("#disease_example_create").find('#error_disease_example_name').html('');
+            $("#disease_example_create").find('#error_disease_example_name').hide();
+            $("#disease_example_create").find("#disease_create").empty();
+            $("#disease_example_create").find("#subdisease_create").empty();
+            $("#create").modal('hide');
+        }
+
+        function add_process_show(disease_example_id) {
+            $("#process_create").find("#process_disease_example_id").val(disease_example_id);
+            $("#process_create").modal('show');
+        }
+
+        function create_process_validation() {
+            if ($("#process_create").find('#process_name').val() == '') {
+                $("#process_create").find('#error_process_name').html("过程名称不能为空");
+                $("#process_create").find('#error_process_name').show();
+            }
+            else {
+                $("#process_create").find('#error_process_name').html("");
+                $("#process_create").find('#error_process_name').hide();
+            }
+             if ($("#process_create").find('#process_desc').val() == '') {
+                $("#process_create").find('#error_process_desc').html("过程描述不能为空");
+                $("#process_create").find('#error_process_desc').show();
+            }
+            else {
+                $("#process_create").find('#error_process_desc').html("");
+                $("#process_create").find('#error_process_desc').hide();
+            }
+        }
+
+        function create_process() {
+                create_process_validation();
+                if($("#process_create").find('#error_process_name').is(':hidden')&&
+                $("#process_create").find('#error_process_desc').is(':hidden')){
+                      var form = new FormData(document.getElementById('process_create_form'));
+
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:process_create' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == false) {
+                            $("#process_create").find('#process_name').html('过程名称重复');
+                            $("#process_create").find('#process_name').show();
+                        } else {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            clean_process_create();
+                        }
+                    },
+                    error: function (result) {
+                        alert('create error');
+                    }
+                });
+                }
+        }
+        function clean_process_create() {
+             $("#process_create").modal('hide');
+        }
+        function checkImage(image) {
+            if(image=="jpg"||image=="png"||image=="jpeg"||image=="gif"||image=="bmp"){}
+            else{
+
+            }
+            
+        }
+    </script>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">病例管理
                     <button type="button" class="btn btn-success"
-                            style="float: right;margin: 10px" onclick="window.location.href='{% url 'Manage:disease_example_create' %}' ">新建病例
+                            style="float: right;margin: 10px"
+                            onclick="create_disease_example_show()">新建病例
                     </button>
                 </h1>
 
@@ -53,6 +236,111 @@
         </div>
         <!-- /.row -->
     </div>
+
+    <!-- 模态框（Modal）create -->
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="clean_create()"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">新建病例</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" role="form" id="disease_example_create" style="margin:10px 30px">
+                        <div class="form-group">
+                            <label>病例名称：</label>
+                            <input class="form-control" type="text" name="disease_example_name"
+                                   id="disease_example_name_create"/>
+                            <p class="error-message" id="error_disease_example_name" hidden="hidden" style="color: red">
+                                Example
+                                block-level help text
+                                here.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>所属病大类：</label>
+                            <select class="form-control" name="disease" id="disease_create"
+                                    onchange="getSubDiseaseOptions(this.value, 'create')">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>所属病小类：</label>
+                            <select class="form-control" name="subdisease" id="subdisease_create">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="create_disease_example()">新建
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="create_disease_example_and_add_process()">
+                        保存并添加过程
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clean_create()">关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）create process -->
+    <div class="modal fade" id="process_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick=""
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">新建过程</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" role="form" id="process_create_form" style="margin:10px 30px">
+                        <input type="text" id="process_disease_example_id" name="process_disease_example_id" placeholder="Disabled input" hidden="hidden"/>
+                        <div class="form-group">
+                            <label>过程名称：</label>
+                            <input class="form-control" type="text" name="process_name" id="process_name"/>
+                            <p class="error-message" id="error_process_name" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>过程描述：</label>
+                            <textarea class="form-control" name="process_desc" id="process_desc" rows="3"></textarea>
+                            <p class="error-message"  id="error_process_desc" hidden="hidden" style="color: red">
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label>上传过程图片：</label>
+                            <input type="file" name="process_pics" id="process_pics" multiple="multiple" accept="image/*"/>
+                            <p class="error-message" id="error_process_pics" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>上传过程视频：</label>
+                            <input type="file" name="process_videos" id="process_videos"  multiple="multiple" accept="video/*"/>
+                            <p class="error-message" id="error_process_videos" hidden="hidden" style="color: red"></p>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="create_process()">创建并关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="">继续添加过程
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="">关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
 {% endblock %}
 
 {% block datatable_script %}
@@ -63,17 +351,17 @@
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,
-                    "defaultContent": "<button type='button' class='btn btn-success' name='modify' style='margin-right:5px'>详情</button><button type='button' class='btn btn-warning' name='modify' style='margin-right:5px'>修改</button><button type='button' class='btn btn-danger' name='delete'>删除</button>"
+                    "defaultContent": "<button type='button' class='btn btn-success' name='detail' style='margin-right:5px'>详情</button><button type='button' class='btn btn-warning' name='modify' style='margin-right:5px'>修改</button><button type='button' class='btn btn-danger' name='delete'>删除</button>"
                 }]
             });
-{#            $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {#}
-{#                var data = table.row($(this).parents('tr')).data();#}
-{#                editInfo(data[0], data[1], data[2], data[3], data[4]);#}
-{#            });#}
-{#            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {#}
-{#                var data = table.row($(this).parents('tr')).data();#}
-{#                delete_confirm(data[4]);#}
-{#            });#}
+            $('#dataTables-example tbody').on("click", 'button[name="detail"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                disease_example_detail_show(data[3]);
+            });
+            {#            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {#}
+            {#                var data = table.row($(this).parents('tr')).data();#}
+            {#                delete_confirm(data[4]);#}
+            {#            });#}
         });
     </script>
 {% endblock %}
