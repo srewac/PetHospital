@@ -23,6 +23,7 @@ def select_paper(request, disease_name):
             test = user.tests.filter(test_paper__disease_id=disease.id).all()
             test = test.exclude(usertest__user_id=user.id)
             test = test.exclude(close_time__lt=now)
+            notaviltest = test.filter(start_time__gt=now)
             test = test.exclude(start_time__gt=now)
             if request.session.get('test_id', None):
                 test = test.get(id=request.session.get('test_id', None))
@@ -111,6 +112,7 @@ def result_detail(request, test_id):
         questions = Question.objects.filter(testpaper__test=test_id)
         choices = Choice.objects.filter(question__testpaper__test=test_id)
         usertest_question = Usertest_question.objects.filter(usertest__test=test_id)
+        usertest_question = usertest_question.filter(usertest__user=user_id)
         user_choices = [a.userchoice_id for a in usertest_question]
         return render_to_response('Test/result_detail.html', locals())
     else:

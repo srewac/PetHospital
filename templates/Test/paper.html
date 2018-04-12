@@ -86,7 +86,7 @@
                             <h2>考试时间：</h2>
                             <p><span>{{ selectedtest.duration }}</span></p>
                         </div>
-                        <div class="rt_content_tt">
+                        <div class="rt_content_tt" style="height:auto;">
                             <h2>说明：</h2>
                             <p><span>{{ selectedtest.test_paper.desc }}</span></p>
                         </div>
@@ -148,8 +148,7 @@
     </div>
 </div>-->
 <script type="text/javascript">
-    if (!localStorage.getItem('start') || localStorage.getItem('username')!= '{{ request.session.username }}'){
-        localStorage.setItem('username', '{{ request.session.username }}');
+    if (!localStorage.getItem('start')){
         localStorage.setItem('start', new Date().getTime());
     }
 
