@@ -40,6 +40,12 @@
                             $("#subdisease_create").append($("<option>").val(id).text(name))
                         });
                     }
+                    else if(type=='modify'){
+                        $("#disease_example_modify").find("#subdisease_modify").empty();
+                        $.each(result, function (id, name) {
+                            $("#subdisease_modify").append($("<option>").val(id).text(name));
+                        });
+                    }
                 }
                 ,
                 error: function (result) {
@@ -196,7 +202,78 @@
         }
 
         function clean_process_create() {
+            $("#process_create").find("#process_name").val('');
+            $("#process_create").find("#process_desc").val('');
+            $("#process_create").find("#process_pics").val('');
+            $("#process_create").find("#process_videos").val('');
             $("#process_create").modal('hide');
+        }
+        function disease_example_modify_show(id) {
+            $.ajax({
+                type:'POST',
+                url:"disease_example_modify_dict/" + id,
+                success:function (result) {
+                    result = JSON.parse(result);
+                    $("#disease_example_id_modify").val(result.id);
+                    $("#disease_example_name_modify").val(result.name);
+                    $.each(result.diseases, function (id, name) {
+                        $('#disease_modify').append($("<option>").val(id).text(name));
+                    });
+                    $.each(result.sub_diseases, function (id, name) {
+                        $('#subdisease_modify').append($("<option>").val(id).text(name))
+                    });
+                    $('#disease_modify').val(result.disease);
+                    $('#subdisease_modify').val(result.sub_disease);
+                    $('#modify').modal('show');
+                },
+                error:function (result) {
+                    alert('modify error');
+                }
+            });
+        }
+        function modify_validation() {
+                 if($('#disease_example_name_modify').val() == '') {
+                $('#error_disease_example_name_modify').html('病例名称不能为空');
+                $('#error_disease_example_name_modify').show();
+            }
+            else {
+                $('#error_disease_example_name_modify').html('');
+                $('#error_disease_example_name_modify').hide();
+            }
+
+        }
+        function disease_example_modify() {
+            modify_validation();
+            if($('#error_disease_example_name_modify').is(':hidden'))
+            {
+                var form = new FormData(document.getElementById('disease_example_modify'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:disease_example_modify' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == false) {
+                            $('#error_disease_example_name_modify').html('病例名称重复');
+                            $('#error_disease_example_name_modify').show();
+                        } else {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            clean_modify();
+                        }
+                    },
+                    error: function (result) {
+                        alert('modify error');
+                    }
+                });
+            }
+        }
+        function clean_modify() {
+            $('#disease_example_id_modify').val('');
+            $('#disease_example_name_modify').val('');
+            $('#disease_modify').empty();
+            $('#subdisease_modify').empty();
+            $('#modify').modal('hide');
         }
     </script>
     <div id="page-wrapper">
@@ -317,7 +394,7 @@
                 <div class="modal-body">
                     <form method="post" role="form" id="process_create_form" style="margin:10px 30px">
                         <input type="text" id="process_disease_example_id" name="process_disease_example_id"
-                               placeholder="Disabled input" hidden="hidden"/>
+                                hidden="hidden"/>
                         <div class="form-group">
                             <label>过程名称：</label>
                             <input class="form-control" type="text" name="process_name" id="process_name"/>
@@ -387,6 +464,54 @@
     </div>
     <!-- 模态框（Modal）end -->
 
+    <!-- 模态框（Modal）edit -->
+    <div class="modal fade" id="modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick=""
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改病例</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" role="form" id="disease_example_modify" style="margin:10px 30px">
+                        <input id="disease_example_id_modify" name="disease_example_id_modify" hidden="hidden" />
+                        <div class="form-group">
+                            <label>病例名称：</label>
+                            <input class="form-control" type="text" name="disease_example_name_modify"
+                                   id="disease_example_name_modify"/>
+                            <p class="error-message" id="error_disease_example_name_modify" hidden="hidden"
+                               style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>所属病大类：</label>
+                            <select class="form-control" name="disease_modify" id="disease_modify"
+                                    onchange="getSubDiseaseOptions(this.value, 'modify')">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>所属病小类：</label>
+                            <select class="form-control" name="subdisease_modify" id="subdisease_modify">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="disease_example_modify()">
+                        保存
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="">关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
 {% endblock %}
 
 {% block datatable_script %}
@@ -403,6 +528,10 @@
             $('#dataTables-example tbody').on("click", 'button[name="detail"]', function () {
                 var data = table.row($(this).parents('tr')).data();
                 disease_example_detail_show(data[3]);
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                disease_example_modify_show(data[3]);
             });
             $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
                 var data = table.row($(this).parents('tr')).data();

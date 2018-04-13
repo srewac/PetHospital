@@ -3,7 +3,7 @@ import shutil
 
 import os
 from django.shortcuts import render, get_object_or_404
-from Disease.models import DiseaseExample, Disease, Process, Picture, Video
+from Disease.models import DiseaseExample, Disease, Process, Picture, Video, SubDisease
 from django.http import JsonResponse
 from PIL import Image
 
@@ -151,3 +151,40 @@ def disease_example_delete(request, disease_example_id):
         process_delete(request, process.id)
     disease_example.delete()
     return JsonResponse(True, safe=False)
+
+
+# 修改病例基本信息显示
+def disease_example_modify_dict(request, disease_example_id):
+    disease_example = get_object_or_404(DiseaseExample, pk=disease_example_id)
+    DISEASES = {}
+    SUBDISEASES = {}
+    for disease in Disease.objects.all():
+        DISEASES[str(disease.id)] = disease.name
+    sub_diseases = SubDisease.objects.filter(disease=disease_example.sub_disease.disease)
+    for sub_disease in sub_diseases:
+        SUBDISEASES[str(sub_disease.id)] = sub_disease.name
+    de_d = {
+        'id': disease_example.id,
+        'name': disease_example.name,
+        'diseases': DISEASES,
+        'sub_diseases': SUBDISEASES,
+        'disease': disease_example.sub_disease.disease_id,
+        'sub_disease': disease_example.sub_disease_id,
+    }
+    return JsonResponse(json.dumps(de_d), safe=False)
+
+
+# 修改病例基本信息
+def disease_example_modify(request):
+    print(request.POST)
+    check_disease_examples = DiseaseExample.objects.filter(name=request.POST['disease_example_name_modify'])
+    if len(check_disease_examples) > 0:
+        for check in check_disease_examples:
+            if check.id != int(request.POST['disease_example_id_modify']):
+                return JsonResponse(False, safe=False)
+    de = get_object_or_404(DiseaseExample, pk=request.POST['disease_example_id_modify'])
+    de.name = request.POST['disease_example_name_modify']
+    de.sub_disease_id = request.POST['subdisease_modify']
+    de.save()
+    return JsonResponse(True, safe=False)
+

@@ -22,7 +22,11 @@ urlpatterns = [
     path('disease_example_detail_dict/<int:disease_example_id>', disease.disease_example_detail_dict,
          name='disease_example_detail_dict'),
     path('process_delete/<int:process_id>', disease.process_delete, name='process_delete'),
-    path('disease_example_delete/<int:disease_example_id>', disease.disease_example_delete, name='disease_example_delete'),
+    path('disease_example_delete/<int:disease_example_id>', disease.disease_example_delete,
+         name='disease_example_delete'),
+    path('disease_example_modify_dict/<int:disease_example_id>', disease.disease_example_modify_dict,
+         name='disease_example_modify_dict'),
+    path('disease_example_modify',disease.disease_example_modify,name='disease_example_modify'),
     # test urls
     path('test/sub_disease_dict/<int:disease_id>', test.sub_disease_dict, name='sub_disease_dict'),
     path('test/question', test.question_index, name='question_show'),
