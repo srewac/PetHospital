@@ -1,5 +1,7 @@
 import json
 import shutil
+
+import os
 from django.shortcuts import render, get_object_or_404
 from Disease.models import DiseaseExample, Disease, Process, Picture, Video
 from django.http import JsonResponse
@@ -127,3 +129,25 @@ def process_create(request):
                       )
         video.save()
     return JsonResponse(de_id, safe=False)
+
+
+# 删除过程
+def process_delete(request, process_id):
+    process = get_object_or_404(Process, pk=process_id)
+    for pic in process.picture_set.all():
+        os.remove('/PetHospital/static/' + pic.pic_url)
+        pic.delete()
+    for vid in process.video_set.all():
+        os.remove('/PetHospital/static/' + vid.video_url)
+        vid.delete()
+    process.delete()
+    return JsonResponse(True, safe=False)
+
+
+# 删除病例
+def disease_example_delete(request, disease_example_id):
+    disease_example = get_object_or_404(DiseaseExample, pk=disease_example_id)
+    for process in disease_example.process_set.all():
+        process_delete(request, process.id)
+    disease_example.delete()
+    return JsonResponse(True, safe=False)

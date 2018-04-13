@@ -4,6 +4,26 @@
 {% endblock %}
 {% block main_content %}
     <script>
+        function delete_confirm(disease_example_id) {
+            $('#delete_id').val(disease_example_id);
+            $('#delete').modal('show');
+        }
+
+        function delete_ok() {
+            var id = $("#delete_id").val();
+            $.ajax({
+                type: "post",
+                url: "disease_example_delete/" + id,
+                success: function (result) {
+                    $('#dataTables-example').DataTable().ajax.reload();
+                    $('#delete').modal('hide');
+                },
+                error: function (result) {
+                    alert('delete error');
+                }
+            });
+        }
+
         function disease_example_detail_show(disease_example_id) {
             window.location.href = 'disease_example_detail/' + disease_example_id;
         }
@@ -114,7 +134,7 @@
             }
         }
 
-         function clean_create() {
+        function clean_create() {
             $("#disease_example_create").find('#disease_example_name_create').val('');
             $("#disease_example_create").find('#error_disease_example_name').html('');
             $("#disease_example_create").find('#error_disease_example_name').hide();
@@ -137,7 +157,7 @@
                 $("#process_create").find('#error_process_name').html("");
                 $("#process_create").find('#error_process_name').hide();
             }
-             if ($("#process_create").find('#process_desc').val() == '') {
+            if ($("#process_create").find('#process_desc').val() == '') {
                 $("#process_create").find('#error_process_desc').html("过程描述不能为空");
                 $("#process_create").find('#error_process_desc').show();
             }
@@ -148,10 +168,10 @@
         }
 
         function create_process() {
-                create_process_validation();
-                if($("#process_create").find('#error_process_name').is(':hidden')&&
-                $("#process_create").find('#error_process_desc').is(':hidden')){
-                      var form = new FormData(document.getElementById('process_create_form'));
+            create_process_validation();
+            if ($("#process_create").find('#error_process_name').is(':hidden') &&
+                $("#process_create").find('#error_process_desc').is(':hidden')) {
+                var form = new FormData(document.getElementById('process_create_form'));
 
                 $.ajax({
                     type: "post",
@@ -172,17 +192,11 @@
                         alert('create error');
                     }
                 });
-                }
-        }
-        function clean_process_create() {
-             $("#process_create").modal('hide');
-        }
-        function checkImage(image) {
-            if(image=="jpg"||image=="png"||image=="jpeg"||image=="gif"||image=="bmp"){}
-            else{
-
             }
-            
+        }
+
+        function clean_process_create() {
+            $("#process_create").modal('hide');
         }
     </script>
     <div id="page-wrapper">
@@ -289,7 +303,8 @@
     <!-- 模态框（Modal）end -->
 
     <!-- 模态框（Modal）create process -->
-    <div class="modal fade" id="process_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="process_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -301,7 +316,8 @@
                 </div>
                 <div class="modal-body">
                     <form method="post" role="form" id="process_create_form" style="margin:10px 30px">
-                        <input type="text" id="process_disease_example_id" name="process_disease_example_id" placeholder="Disabled input" hidden="hidden"/>
+                        <input type="text" id="process_disease_example_id" name="process_disease_example_id"
+                               placeholder="Disabled input" hidden="hidden"/>
                         <div class="form-group">
                             <label>过程名称：</label>
                             <input class="form-control" type="text" name="process_name" id="process_name"/>
@@ -310,17 +326,19 @@
                         <div class="form-group">
                             <label>过程描述：</label>
                             <textarea class="form-control" name="process_desc" id="process_desc" rows="3"></textarea>
-                            <p class="error-message"  id="error_process_desc" hidden="hidden" style="color: red">
+                            <p class="error-message" id="error_process_desc" hidden="hidden" style="color: red">
                             </p>
                         </div>
                         <div class="form-group">
                             <label>上传过程图片：</label>
-                            <input type="file" name="process_pics" id="process_pics" multiple="multiple" accept="image/*"/>
+                            <input type="file" name="process_pics" id="process_pics" multiple="multiple"
+                                   accept="image/*"/>
                             <p class="error-message" id="error_process_pics" hidden="hidden" style="color: red"></p>
                         </div>
                         <div class="form-group">
                             <label>上传过程视频：</label>
-                            <input type="file" name="process_videos" id="process_videos"  multiple="multiple" accept="video/*"/>
+                            <input type="file" name="process_videos" id="process_videos" multiple="multiple"
+                                   accept="video/*"/>
                             <p class="error-message" id="error_process_videos" hidden="hidden" style="color: red"></p>
                         </div>
 
@@ -333,6 +351,34 @@
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="">关闭
                     </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）delete -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            onclick="">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">删除病例</h4>
+                </div>
+
+                <div class="modal-body">
+                    <h5>是否确定删除？</h5>
+                    <input hidden="hidden" id="delete_id"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-delete" onclick="delete_ok()">删除</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -357,6 +403,10 @@
             $('#dataTables-example tbody').on("click", 'button[name="detail"]', function () {
                 var data = table.row($(this).parents('tr')).data();
                 disease_example_detail_show(data[3]);
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                delete_confirm(data[3]);
             });
             {#            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {#}
             {#                var data = table.row($(this).parents('tr')).data();#}
