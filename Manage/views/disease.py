@@ -5,7 +5,6 @@ import os
 from django.shortcuts import render, get_object_or_404
 from Disease.models import DiseaseExample, Disease, Process, Picture, Video, SubDisease
 from django.http import JsonResponse
-from PIL import Image
 
 
 # 进入病例管理界面
@@ -114,6 +113,9 @@ def process_create(request):
     process.save()
     for f in request.FILES.getlist('process_pics'):
         file_name = f.temporary_file_path().split('\\')[-1]
+        pics_path = '/PetHospital/static/images/uploads/disease_example/images/'
+        if not os.path.exists(pics_path):
+            os.makedirs(pics_path)
         images_url = 'images/uploads/disease_example/images/' + file_name
         shutil.copy(f.temporary_file_path(), '/PetHospital/static/' + images_url)
         pic = Picture(pic_url=images_url,
@@ -122,6 +124,9 @@ def process_create(request):
         pic.save()
     for v in request.FILES.getlist('process_videos'):
         video_name = v.temporary_file_path().split('\\')[-1]
+        video_path = '/PetHospital/static/images/uploads/disease_example/videos/'
+        if not os.path.exists(video_path):
+            os.makedirs(video_path)
         video_url = 'images/uploads/disease_example/videos/' + video_name
         shutil.copy(v.temporary_file_path(), '/PetHospital/static/' + video_url)
         video = Video(video_url=video_url,
@@ -176,7 +181,6 @@ def disease_example_modify_dict(request, disease_example_id):
 
 # 修改病例基本信息
 def disease_example_modify(request):
-    print(request.POST)
     check_disease_examples = DiseaseExample.objects.filter(name=request.POST['disease_example_name_modify'])
     if len(check_disease_examples) > 0:
         for check in check_disease_examples:
