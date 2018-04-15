@@ -112,7 +112,7 @@ def process_create(request):
                       )
     process.save()
     for f in request.FILES.getlist('process_pics'):
-        file_name = f.temporary_file_path().split('\\')[-1]
+        file_name = f.temporary_file_path().replace('\\', '/').split('/')[-1]
         pics_path = '/PetHospital/static/images/uploads/disease_example/images/'
         if not os.path.exists(pics_path):
             os.makedirs(pics_path)
@@ -123,7 +123,7 @@ def process_create(request):
                       )
         pic.save()
     for v in request.FILES.getlist('process_videos'):
-        video_name = v.temporary_file_path().split('\\')[-1]
+        video_name = v.temporary_file_path().replace('\\', '/').split('/')[-1]
         video_path = '/PetHospital/static/images/uploads/disease_example/videos/'
         if not os.path.exists(video_path):
             os.makedirs(video_path)
