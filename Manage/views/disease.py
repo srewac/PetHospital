@@ -5,6 +5,7 @@ import os
 from django.shortcuts import render, get_object_or_404
 from Disease.models import DiseaseExample, Disease, Process, Picture, Video, SubDisease
 from django.http import JsonResponse
+from PetHospital.settings import STATIC_ROOT
 
 
 # 进入病例管理界面
@@ -32,7 +33,11 @@ def disease_example_dict(request):
     for disease_ex in disease_examples:
         sub_disease = disease_ex.sub_disease
         disease = sub_disease.disease
-        disease_example_d['data'].append([disease_ex.name, disease.name, sub_disease.name, disease_ex.id])
+        process_str = ''
+        for process in disease_ex.process_set.all():
+            process_str += process.name + ';'
+        disease_example_d['data'].append(
+            [disease_ex.name, disease.name, sub_disease.name, str(process_str), disease_ex.id])
     return JsonResponse(disease_example_d, safe=False)
 
 
@@ -113,22 +118,22 @@ def process_create(request):
     process.save()
     for f in request.FILES.getlist('process_pics'):
         file_name = f.temporary_file_path().replace('\\', '/').split('/')[-1]
-        pics_path = '/PetHospital/static/images/uploads/disease_example/images/'
+        pics_path = STATIC_ROOT + 'images/uploads/disease_example/images/'
         if not os.path.exists(pics_path):
             os.makedirs(pics_path)
         images_url = 'images/uploads/disease_example/images/' + file_name
-        shutil.copy(f.temporary_file_path(), '/PetHospital/static/' + images_url)
+        shutil.copy(f.temporary_file_path(), STATIC_ROOT + images_url)
         pic = Picture(pic_url=images_url,
                       process_id=process.id,
                       )
         pic.save()
     for v in request.FILES.getlist('process_videos'):
         video_name = v.temporary_file_path().replace('\\', '/').split('/')[-1]
-        video_path = '/PetHospital/static/images/uploads/disease_example/videos/'
+        video_path = STATIC_ROOT + 'images/uploads/disease_example/videos/'
         if not os.path.exists(video_path):
             os.makedirs(video_path)
         video_url = 'images/uploads/disease_example/videos/' + video_name
-        shutil.copy(v.temporary_file_path(), '/PetHospital/static/' + video_url)
+        shutil.copy(v.temporary_file_path(), STATIC_ROOT + video_url)
         video = Video(video_url=video_url,
                       process_id=process.id,
                       )
@@ -140,10 +145,10 @@ def process_create(request):
 def process_delete(request, process_id):
     process = get_object_or_404(Process, pk=process_id)
     for pic in process.picture_set.all():
-        os.remove('/PetHospital/static/' + pic.pic_url)
+        os.remove(STATIC_ROOT + pic.pic_url)
         pic.delete()
     for vid in process.video_set.all():
-        os.remove('/PetHospital/static/' + vid.video_url)
+        os.remove(STATIC_ROOT + vid.video_url)
         vid.delete()
     process.delete()
     return JsonResponse(True, safe=False)
@@ -191,4 +196,3 @@ def disease_example_modify(request):
     de.sub_disease_id = request.POST['subdisease_modify']
     de.save()
     return JsonResponse(True, safe=False)
-
