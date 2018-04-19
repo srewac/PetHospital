@@ -23,7 +23,8 @@ def disease_example_detail(request, disease_example_id):
     The_Dict = {
         'disease_example_id': disease_example_id
     }
-    return render(request, 'backend/disease/disease_example_detail_show.html', The_Dict)
+    disease_example_d = get_disease_example_data(disease_example_id)
+    return render(request, 'backend/disease/disease_example_detail_show.html', locals())
 
 
 # 返回所有病例的简要信息
@@ -43,6 +44,12 @@ def disease_example_dict(request):
 
 # 返回所选病例的详细信息
 def disease_example_detail_dict(request, disease_example_id):
+    disease_example_detail_d = get_disease_example_data(disease_example_id)
+    return JsonResponse(json.dumps(disease_example_detail_d), safe=False)
+
+
+# 获取病例所有信息
+def get_disease_example_data(disease_example_id):
     disease_example = get_object_or_404(DiseaseExample, pk=disease_example_id)
     sub_disease = disease_example.sub_disease
     disease = sub_disease.disease
@@ -69,7 +76,7 @@ def disease_example_detail_dict(request, disease_example_id):
         'disease_example_sub_disease_desc': sub_disease.desc,
         'disease_example_processes': PROCESSES,
     }
-    return JsonResponse(json.dumps(disease_example_detail_d), safe=False)
+    return disease_example_detail_d
 
 
 # # 进入病例创建界面
