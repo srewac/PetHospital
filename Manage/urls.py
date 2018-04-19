@@ -99,6 +99,7 @@ urlpatterns = [
     # room urls
     path('basic/room', room.room, name='room_show'),
     path('basic/room_dict', room.room_dict, name='room_dict'),
+    path('basic/room_modify_dict/<int:room_id>', room.room_modify_dict,name='room_modify_dict'),
     path('basic/room_modify', room.room_modify, name='room_modify'),
     path('basic/room_create', room.room_create, name='room_create'),
     path('basic/room_delete/<int:room_id>', room.room_delete, name='room_delete'),
