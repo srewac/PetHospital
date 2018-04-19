@@ -64,24 +64,24 @@
 
         <ul class="nav navbar-top-links navbar-right">
             <!-- /.dropdown -->
-            {% if request.session.user_id and request.session.authority == 1%}
-            <li class="dropdown">
-                <a class="dropdown-toggle" href="#">
-                    <i class="fa fa-user fa-fw"></i>{{ request.session.username }}
-                </a>
-                <!-- /.dropdown-user -->
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" href="{% url 'User:sign_out' %}">
-                    <i class="fa fa-sign-out fa-fw"></i>Logout
-                </a>
-                <!-- /.dropdown-user -->
-            </li>
-            {% else %}
-                <script>
-                    window.location.href = '/index'
-                </script>
-            {% endif %}
+{#            {% if request.session.user_id and request.session.authority == 1%}#}
+{#            <li class="dropdown">#}
+{#                <a class="dropdown-toggle" href="#">#}
+{#                    <i class="fa fa-user fa-fw"></i>{{ request.session.username }}#}
+{#                </a>#}
+{#                <!-- /.dropdown-user -->#}
+{#            </li>#}
+{#            <li class="dropdown">#}
+{#                <a class="dropdown-toggle" href="{% url 'User:sign_out' %}">#}
+{#                    <i class="fa fa-sign-out fa-fw"></i>Logout#}
+{#                </a>#}
+{#                <!-- /.dropdown-user -->#}
+{#            </li>#}
+{#            {% else %}#}
+{#                <script>#}
+{#                    window.location.href = '/index'#}
+{#                </script>#}
+{#            {% endif %}#}
             <!-- /.dropdown -->
         </ul>
         <!-- /.navbar-top-links -->
