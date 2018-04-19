@@ -14,8 +14,20 @@ urlpatterns = [
     # disease urls
     path('disease_example', disease.disease_example, name='disease_example_show'),
     path('disease_example_dict', disease.disease_example_dict, name='disease_example_dict'),
+    path('disease_example_create_dict', disease.disease_example_create_dict, name='disease_example_create_dict'),
     path('disease_example_create', disease.disease_example_create, name='disease_example_create'),
-    # question urls
+    path('process_create', disease.process_create, name='process_create'),
+    path('disease_example_detail/<int:disease_example_id>', disease.disease_example_detail,
+         name='disease_example_detail'),
+    path('disease_example_detail_dict/<int:disease_example_id>', disease.disease_example_detail_dict,
+         name='disease_example_detail_dict'),
+    path('process_delete/<int:process_id>', disease.process_delete, name='process_delete'),
+    path('disease_example_delete/<int:disease_example_id>', disease.disease_example_delete,
+         name='disease_example_delete'),
+    path('disease_example_modify_dict/<int:disease_example_id>', disease.disease_example_modify_dict,
+         name='disease_example_modify_dict'),
+    path('disease_example_modify',disease.disease_example_modify,name='disease_example_modify'),
+    # test urls
     path('test/sub_disease_dict/<int:disease_id>', test.sub_disease_dict, name='sub_disease_dict'),
     path('test/question', test.question_index, name='question_show'),
     path('test/question_dict', test.question_dict, name='question_dict'),

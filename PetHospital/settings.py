@@ -64,6 +64,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -145,3 +146,7 @@ EMAIL_HOST_USER = "pethospital_verify@163.com"  # 账号
 EMAIL_HOST_PASSWORD = "poi233"  # 密码
 EMAIL_USE_TLS = False  # 一般都为False
 EMAIL_FROM = "pethospital_verify@163.com"  # 邮箱来自
+
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
