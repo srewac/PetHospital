@@ -42,7 +42,6 @@ def disease_example_desc(request,disease_example_id):
         if request.method == "GET":
             disease_example = DiseaseExample.objects.get(id=disease_example_id)
             processes=Process.objects.filter(disease_example=disease_example)
-            print(processes)
             return render_to_response('Disease/disease_example_desc.html', locals())
     else:
         return HttpResponseRedirect('/User/sign_in/')
