@@ -9,11 +9,5 @@ from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
-    if request.session.get('username', None):
-        if request.session.get('authority', None) == 0:
-            return render(request, 'index.html')
-        else:
-            return redirect(reverse('Manage:index', args=[]))
-    else:
-        return render(request, 'User/sign_in.html')
+    return redirect(reverse('Manage:index', args=[]))
 
