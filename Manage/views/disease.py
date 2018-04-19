@@ -20,10 +20,7 @@ def disease_example_create_show(request):
 
 # 进入病例详情界面
 def disease_example_detail(request, disease_example_id):
-    The_Dict = {
-        'disease_example_id': disease_example_id
-    }
-    disease_example_d = get_disease_example_data(disease_example_id)
+    disease_example = get_object_or_404(DiseaseExample, pk=disease_example_id)
     return render(request, 'backend/disease/disease_example_detail_show.html', locals())
 
 
@@ -63,6 +60,7 @@ def get_disease_example_data(disease_example_id):
         for video in process.video_set.all():
             VIDEOS[str(video.id)] = video.video_url
         process_d = {
+            'process_id': process.id,
             'process_name': process.name,
             'process_desc': process.desc,
             'process_pics': PICTURES,
@@ -70,6 +68,7 @@ def get_disease_example_data(disease_example_id):
         }
         PROCESSES[str(process.id)] = process_d
     disease_example_detail_d = {
+        'disease_example_id': disease_example_id,
         'disease_example_name': disease_example.name,
         'disease_example_disease': disease.name,
         'disease_example_sub_disease': sub_disease.name,
