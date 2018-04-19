@@ -9,5 +9,5 @@ from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
-    return redirect(reverse('Manage:index', args=[]))
+    return render(request, 'index.html')
 
