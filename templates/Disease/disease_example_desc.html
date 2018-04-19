@@ -23,10 +23,12 @@
 
     <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="all">
     <link href="/static/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/css/video-js.css" rel="stylesheet" type="text/css">
     <!-- font-awesome icons -->
     <!-- //Custom Theme files -->
     <!-- js -->
     <script src="/static/js/jquery-2.2.3.min.js"></script>
+    <script src="/static/js/video.js"></script>
     <!-- //js -->
     <!-- web-fonts -->
     <link href="//fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
@@ -64,15 +66,84 @@
         </div>
         <h3 class="agileits-title two" style="margin-top: 20px">{{ disease_example.name }}</h3>
 
+
         <div class="process_holder" style="margin-left: 20%;margin-right: 15%">
-            {% for process in processes %}
-                <div style="border: 1px solid white;padding: 30px 40px;margin-top: 20px ">
-                    <h3 class="page-header process-subheading">步骤：{{ process.name }}</h3>
-                    <p class="process_desc">文字：{{ process.desc }}</p>
-                    <p class="process_desc">图片：</p>
-                    <p class="process_desc">视频：</p>
-                </div>
-            {% endfor %}
+
+            <ul id="myTab" class="nav nav-tabs">
+                {% for process in processes %}
+                    {% if process == processes.first %}
+                        <li class="active">
+                            <a href="#process_{{ process.id }}" data-toggle="tab">
+                                {{ process.name }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="#process_{{ process.id }}" data-toggle="tab">
+                                {{ process.name }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <div id="myTabContent" class="tab-content">
+                {% for process in processes %}
+                    {% if process == processes.first %}
+                        <div class="tab-pane fade in active" id="process_{{ process.id }}">
+                            <div style="border: 1px solid white;padding: 30px 40px;margin-top: 20px ">
+                                <h3 class="page-header process-subheading">步骤：{{ process.name }}</h3>
+                                <p class="process_desc">文字：{{ process.desc }}</p>
+                                <p class="process_desc">图片：{{ process.picture_set.first }}</p>
+                                <img src="/static/{{ process.picture_set.first }}" alt=""/>
+                                <p class="process_desc">视频：{{ process.video_set.first }}</p>
+                                <video id="my-player" class="video-js vjs-big-play-centered" controls preload="none"
+                                       poster="" data-setup='{}'
+                                       width="640" height="400">
+                                    <source src="/static/{{ process.video_set.first }}" type="video/mp4"></source>
+                                    <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
+                                    <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source>
+                                    <p class="vjs-no-js">
+                                        To view this video please enable JavaScript, and consider upgrading to a web
+                                        browser that
+                                        <span style="white-space:pre;"> </span><a
+                                            href="http://videojs.com/html5-video-support/" target="_blank">
+                                        supports HTML5 video
+                                    </a>
+                                    </p>
+                                </video>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="tab-pane fade" id="process_{{ process.id }}">
+                            <div style="border: 1px solid white;padding: 30px 40px;margin-top: 20px ">
+                                <h3 class="page-header process-subheading">步骤：{{ process.name }}</h3>
+                                <p class="process_desc">文字：{{ process.desc }}</p>
+                                <p class="process_desc">图片：{{ process.picture_set.first }}</p>
+                                <img src="/static/{{ process.picture_set.first }}" alt=""/>
+                                <p class="process_desc">视频：{{ process.video_set.first }}</p>
+                                <video id="my-player" class="video-js vjs-big-play-centered" controls preload="none"
+                                       poster="" data-setup='{}'
+                                       width="640" height="400">
+                                    <source src="/static/{{ process.video_set.first }}" type="video/mp4"></source>
+                                    <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
+                                    <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source>
+                                    <p class="vjs-no-js">
+                                        To view this video please enable JavaScript, and consider upgrading to a web
+                                        browser that
+                                        <span style="white-space:pre;"> </span><a
+                                            href="http://videojs.com/html5-video-support/" target="_blank">
+                                        supports HTML5 video
+                                    </a>
+                                    </p>
+                                </video>
+
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
         </div>
         <div class="banner-top w3layouts" style="margin-top: 100px">
         </div>
