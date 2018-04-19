@@ -1846,6 +1846,22 @@ h2.typoh2 {
 	margin-bottom: 1em;
 }
 
+.mynav > li > a {
+	text-decoration: none;
+	letter-spacing: 2px;
+    font-size: 1.1em;
+    color: #fff;
+    position: relative;
+    font-weight: 400;
+    padding: .5em 1.1em;
+    display: inline-block;
+    border-radius: 2px;
+}
+
+.mynav > li > a.active {
+    background: #FF5722;
+}
+
 h1.t-button,
 h2.t-button,
 h3.t-button,
