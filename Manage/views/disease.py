@@ -202,3 +202,78 @@ def disease_example_modify(request):
     de.sub_disease_id = request.POST['subdisease_modify']
     de.save()
     return JsonResponse(True, safe=False)
+
+
+# 删除图片
+def delete_pic(request, pic_id):
+    pic = get_object_or_404(Picture, pk=pic_id)
+    os.remove(STATIC_ROOT + pic.pic_url)
+    pic.delete()
+    return JsonResponse(True, safe=False)
+
+
+# 删除过程所有图片
+def delete_all_pic(request, process_id):
+    process = get_object_or_404(Process, pk=process_id)
+    for pic in process.picture_set.all():
+        os.remove(STATIC_ROOT + pic.pic_url)
+        pic.delete()
+    process.picture_set.all().delete()
+    return JsonResponse(True, safe=False)
+
+
+# 删除视频
+def delete_video(request, video_id):
+    video = get_object_or_404(Video, pk=video_id)
+    os.remove(STATIC_ROOT + video.video_url)
+    video.delete()
+    return JsonResponse(True, safe=False)
+
+
+# 删除过程所有视频
+def delete_all_video(request, process_id):
+    process = get_object_or_404(Process, pk=process_id)
+    process.video_set.all().delete()
+    for video in process.video_set.all():
+        # TODO: 批量删除视频文件删除失败,原因未找到
+        os.remove(STATIC_ROOT + video.video_url)
+        video.delete()
+    return JsonResponse(True, safe=False)
+
+
+# 为过程添加图片
+def add_pic(request):
+    pic_list = []
+    process = get_object_or_404(Process, pk=request.POST['process_id'])
+    for f in request.FILES.getlist('file'):
+        file_name = f.temporary_file_path().replace('\\', '/').split('/')[-1]
+        pics_path = STATIC_ROOT + 'images/uploads/disease_example/images/'
+        if not os.path.exists(pics_path):
+            os.makedirs(pics_path)
+        images_url = 'images/uploads/disease_example/images/' + file_name
+        shutil.copy(f.temporary_file_path(), STATIC_ROOT + images_url)
+        pic = Picture(pic_url=images_url,
+                      process_id=process.id,
+                      )
+        pic.save()
+        pic_list.append(str(pic.id) + "," + images_url)
+    return JsonResponse(pic_list, safe=False)
+
+
+# 为过程添加视频
+def add_video(request):
+    video_list = []
+    process = get_object_or_404(Process, pk=request.POST['process_id'])
+    for v in request.FILES.getlist('file'):
+        video_name = v.temporary_file_path().replace('\\', '/').split('/')[-1]
+        video_path = STATIC_ROOT + 'images/uploads/disease_example/videos/'
+        if not os.path.exists(video_path):
+            os.makedirs(video_path)
+        video_url = 'images/uploads/disease_example/videos/' + video_name
+        shutil.copy(v.temporary_file_path(), STATIC_ROOT + video_url)
+        video = Video(video_url=video_url,
+                      process_id=process.id,
+                      )
+        video.save()
+        video_list.append(str(video.id) + "," + video_url)
+    return JsonResponse(video_list, safe=False)

@@ -30,136 +30,620 @@
             display: block;
         }
 
-        .box:hover button {
+        .hover_button {
             width: 120px;
             height: 40px;
             display: block;
             margin: 50px auto;
         }
 
+        .hover_delete_all_button {
+            width: 120px;
+            height: 40px;
+            display: block;
+            margin: 30px auto 10px auto;
+        }
+
+        .hover_add_button {
+            width: 120px;
+            height: 40px;
+            display: block;
+            margin: 0 auto 0 auto;
+
+        }
+
 
     </style>
     <script>
+        function add_process_show(disease_example_id) {
+            $("#process_create").find("#process_disease_example_id").val(disease_example_id);
+            $("#process_create").modal('show');
+        }
+
+        function create_process_validation() {
+            if ($("#process_create").find('#process_name').val() == '') {
+                $("#process_create").find('#error_process_name').html("过程名称不能为空");
+                $("#process_create").find('#error_process_name').show();
+            }
+            else {
+                $("#process_create").find('#error_process_name').html("");
+                $("#process_create").find('#error_process_name').hide();
+            }
+            if ($("#process_create").find('#process_desc').val() == '') {
+                $("#process_create").find('#error_process_desc').html("过程描述不能为空");
+                $("#process_create").find('#error_process_desc').show();
+            }
+            else {
+                $("#process_create").find('#error_process_desc').html("");
+                $("#process_create").find('#error_process_desc').hide();
+            }
+        }
+
+        function create_process() {
+            create_process_validation();
+            if ($('#error_process_name').is(':hidden') &&
+                $('#error_process_desc').is(':hidden')) {
+                var form = new FormData(document.getElementById('process_create_form'));
+
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:process_create' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == false) {
+                            $('#error_process_name').html('过程名称重复');
+                            $('#error_process_name').show();
+                        } else {
+                            location.reload();
+                        }
+                    },
+                    error: function (result) {
+                        alert('create error');
+                    }
+                });
+            }
+        }
+
+        function modify_process(process_id) {
+
+        }
+
+        function delete_process(process_id) {
+            $("#delete_id").val(process_id);
+            $("#delete_type").val("process");
+            $("#delete").modal("show");
+        }
+
+        function delete_pic(pic_id) {
+            $("#delete_id").val(pic_id);
+            $("#delete_type").val("pic");
+            $("#delete").modal("show");
+        }
+
+        function delete_all_pic(process_id) {
+            $("#delete_id").val(process_id);
+            $("#delete_type").val("pic_all");
+            $("#delete").modal("show");
+        }
+
+        function add_pic(process_id) {
+            $("#file_add_file").attr('accept', 'image/*');
+            $("#file_add_process_id").val(process_id);
+            $("#file_add_type").val('pic');
+            $("#file_add").modal("show");
+        }
+
+        function delete_video(video_id) {
+            $("#delete_id").val(video_id);
+            $("#delete_type").val("video");
+            $("#delete").modal("show");
+        }
+
+        function delete_all_video(process_id) {
+            $("#delete_id").val(process_id);
+            $("#delete_type").val("video_all");
+            $("#delete").modal("show");
+        }
+
+        function add_video(process_id) {
+            $("#file_add_file").attr('accept', 'video/*');
+            $("#file_add_process_id").val(process_id);
+            $("#file_add_type").val('video');
+            $("#file_add").modal("show");
+        }
+
+        function delete_ok() {
+            var type = $("#delete_type").val();
+            var id = $('#delete_id').val();
+            switch (type) {
+                case "pic":
+                    $.ajax({
+                        type: "POST",
+                        url: "/Manage/disease_delete_pic/" + id,
+                        success: function () {
+                            $('#pic_div_' + id).remove();
+                            $('#delete').modal('hide')
+                        },
+                        error: function () {
+                            alert('pic delete error')
+                        }
+                    });
+                    break;
+                case "pic_all":
+                    $.ajax({
+                        type: "POST",
+                        url: "/Manage/disease_delete_all_pic/" + id,
+                        success: function () {
+                            $("#" + id + " .pic .pic_content").remove();
+                            $('#delete').modal('hide')
+                        },
+                        error: function () {
+                            alert('pic all delete error')
+                        }
+                    });
+                    break;
+                case "video":
+                    $.ajax({
+                        type: "POST",
+                        url: "/Manage/disease_delete_video/" + id,
+                        success: function () {
+                            $('#video_div_' + id).remove();
+                            $('#delete').modal('hide')
+                        },
+                        error: function () {
+                            alert('video delete error')
+                        }
+                    });
+
+                    break;
+                case "video_all":
+                    $.ajax({
+                        type: "POST",
+                        url: "/Manage/disease_delete_all_video/" + id,
+                        success: function () {
+                            $("#" + id + " .video .video_content").remove();
+                            $('#delete').modal('hide')
+                        },
+                        error: function () {
+                            alert('video all delete error')
+                        }
+                    });
+
+                    break;
+                case "process":
+                    $.ajax({
+                        type: "POST",
+                        url: "/Manage/process_delete/" + id,
+                        success: function () {
+                            location.reload();
+                        },
+                        error: function () {
+                            alert('video all delete error')
+                        }
+                    });
+                    break;
+                default:
+                    alert("no delete")
+            }
+        }
+
+        function add_ok() {
+            var type = $("#file_add_type").val();
+            var form = new FormData(document.getElementById('file_add_form'));
+            var process_id = $("#file_add_process_id").val();
+            if (type == 'pic') {
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:disease_add_pic' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        $.each(result, function (n, data) {
+                            var id = data.split(',')[0];
+                            var url = {{ STATIC_URL }} +data.split(',')[1];
+                            var html = '<div class="box pic_content" id="pic_div_' + id + '">' +
+                                '<div class="image">' +
+                                '<img id="pic_' + id + '"' + 'src="' + url + '"' +
+                                'height="150px" width="150px" alt="' + id + '"/>' +
+                                '</div>' +
+                                '<div class="mask" style="width: 150px;height: 150px;">' +
+                                '<button class="btn btn-danger hover_button"' +
+                                'onclick="delete_pic(' + id + ')">删除图片 </button>' +
+                                '</div>' +
+                                '</div>';
+                            $("#" + process_id + " .pic .pic_operation").before(html);
+                        });
+                        $("#file_add_file").val("");
+                        $("#file_add").modal('hide');
+                    },
+                    error: function (result) {
+                        alert('create error');
+                    }
+                });
+            } else if (type == 'video') {
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:disease_add_video' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        $.each(result, function (n, data) {
+                            var id = data.split(',')[0];
+                            var url = {{ STATIC_URL }} +data.split(',')[1];
+                            var html = '<div class="box video_content" id="video_div_' + id + '">' +
+                                '<div class="image">' +
+                                '<video width="150px" height="150px"' +
+                                'src="' + url + '"' +
+                                'controls="controls"' +
+                                'id="video_' + id + '"></video>' +
+                                '</div>' +
+                                '<div class="mask" style="width: 150px;height: 100px;background: rgba(52, 52, 52, 0)">' +
+                                '<button class="btn btn-danger hover_button"' +
+                                'onclick="delete_video(' + id + ')">删除视频 </button>' +
+                                '</div>' +
+                                '</div>';
+                            $("#" + process_id + " .video .video_operation").before(html);
+                        });
+                        $("#file_add_file").val("");
+                        $("#file_add").modal('hide');
+                    },
+                    error: function () {
+                        alert('create error');
+                    }
+                });
+            } else {
+                alert("add error");
+            }
+        }
     </script>
     <div id="page-wrapper">
     <div class="row">
-        <div class="col-lg-11">
+        <div class="col-lg-12">
             <h1 class="page-header"><a href="{% url 'Manage:disease_example_show' %}">病例管理</a>/病例详情
+                <button type="button" class="btn btn-success"
+                        style="float: right;margin: 10px"
+                        onclick="add_process_show({{ disease_example.id }})">新建过程
+                </button>
+
             </h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-l2">
-            <div class="panel-body">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        病例详情
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs">
-                            <li class="active" id="{{ disease_example.name }}">
-                                <a href="#{{ disease_example.name }}" data-toggle="tab">病例详情</a>
+    <div class="col-lg-l2">
+        <div class="panel-body">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    病例详情
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active" id="nav_{{ disease_example.name }}">
+                            <a href="#{{ disease_example.name }}" data-toggle="tab">病例详情</a>
+                        </li>
+                        {% for process in disease_example.process_set.all %}
+                            <li id="nav_{{ process.id }}">
+                                <a href="#{{ process.id }}" data-toggle="tab">{{ process.name }}</a>
                             </li>
-                            {% for process in disease_example.process_set.all %}
-                                <li>
-                                    <a href="#{{ process.id }}" data-toggle="tab">{{ process.name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div class="tab-pane fade in active" id="{{ disease_example.name }}">
-                                <h4>病例名称：</h4>
-                                <p>{{ disease_example.name }}</p>
-                                <h4>所属病大类：</h4>
-                                <p>{{ disease_example.sub_disease.disease }}</p>
-                                <h4>所属病小类：</h4
-                                >
-                                <p>{{ disease_example.sub_disease }}</p>
-                                <h4>所属病小类描述：</h4>
-                                <p>{{ disease_example.sub_disease.desc }}</p>
-                            </div>
+                        {% endfor %}
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="{{ disease_example.name }}">
+                            <h4>病例名称：</h4>
+                            <p>{{ disease_example.name }}</p>
+                            <h4>所属病大类：</h4>
+                            <p>{{ disease_example.sub_disease.disease }}</p>
+                            <h4>所属病小类：</h4
+                            >
+                            <p>{{ disease_example.sub_disease }}</p>
+                            <h4>所属病小类描述：</h4>
+                            <p>{{ disease_example.sub_disease.desc }}</p>
+                        </div>
 
-                            {% for process in disease_example.process_set.all %}
-                                <div class="tab-pane fade" id="{{ process.id }}" style="margin-top:5px;">
-                                    <div style="display: inline;">
-                                        <span style="font-size: 20px;"><b>描述</b></span>
-                                        <button class="btn btn-warning" style="margin-left: 10px;margin-bottom: 5px;">
-                                            修改
+                        {% for process in disease_example.process_set.all %}
+                            <div class="tab-pane fade" id="{{ process.id }}" style="margin-top:5px;">
+                                <div style="display: inline-block;">
+                                    <span style="font-size: 20px;"><b>描述</b></span>
+                                    <div style="display: inline-block;">
+                                        <button type="button" class="btn btn-warning btn-circle"
+                                                onclick="modify_process({{ process.id }})"><i
+                                                class="fa fa-wrench"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-circle"
+                                                onclick="delete_process({{ process.id }})"><i
+                                                class="fa fa-times"></i>
                                         </button>
                                     </div>
-                                    <p>{{ process.desc }}</p>
-                                    <div style="display: inline;">
-                                        <span style="font-size: 20px;"><b>图片</b></span>
-                                    </div>
-                                    <div style="overflow: auto;">
-                                        {% for pic in process.picture_set.all %}
-                                            <div class="box">
-                                                <div class="image">
-                                                    <img id="pic_{{ pic.id }}"
-                                                         src="{{ STATIC_URL }}{{ pic.pic_url }}"
-                                                         height="150px"
-                                                         width="150px" alt="{{ pic.id }}"/>
-                                                </div>
-                                                <div class="mask" style="width: 150px;height: 150px;">
-                                                    <button class="btn btn-danger">
-                                                        删除图片
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                        <div class="box">
+
+                                </div>
+                                <p>{{ process.desc }}</p>
+                                <div style="display: inline;">
+                                    <span style="font-size: 20px;"><b>图片</b></span>
+                                </div>
+                                <div class='pic' style="overflow: auto;">
+                                    {% for pic in process.picture_set.all %}
+                                        <div class="box pic_content" id="pic_div_{{ pic.id }}">
                                             <div class="image">
-                                                <img id="video_add"
-                                                     src="{{ STATIC_URL }}images/upload.png" height="150px"
-                                                     width="150px" alt="上传"/>
+                                                <img id="pic_{{ pic.id }}"
+                                                     src="{{ STATIC_URL }}{{ pic.pic_url }}"
+                                                     height="150px"
+                                                     width="150px" alt="{{ pic.id }}"/>
                                             </div>
+                                            <div class="mask" style="width: 150px;height: 150px;">
+                                                <button class="btn btn-danger hover_button"
+                                                        onclick="delete_pic({{ pic.id }})">
+                                                    删除图片
+                                                </button>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <div class="box pic_operation">
+                                        <div class="image">
+                                            <img id="video_add"
+                                                 src="{{ STATIC_URL }}images/upload.png" height="150px"
+                                                 width="150px" alt="上传"/>
+                                        </div>
+                                        <div class="mask" style="width: 150px;height: 150px;">
+                                            <button class="btn btn-danger hover_delete_all_button"
+                                                    onclick="delete_all_pic({{ process.id }})">
+                                                全部删除
+                                            </button>
+                                            <button class="btn btn-success hover_add_button"
+                                                    onclick="add_pic({{ process.id }})">
+                                                添加图片
+                                            </button>
+
                                         </div>
 
                                     </div>
-                                    <div style="display: inline;">
-                                        <span style="font-size: 20px;"><b>视频</b></span>
-                                    </div>
-                                    {% if not process.video_set.all %}
-                                        <p>无视频</p>
-                                    {% endif %}
-                                    <div style="overflow: auto">
-                                        {% for video in process.video_set.all %}
-                                            <div class="box" style="margin-top:0">
-                                                <div class="image">
-                                                    <video width="150px" height="150px"
-                                                           src="{{ STATIC_URL }}{{ video.video_url }}"
-                                                           controls="controls"
-                                                           id="video_{{ video.id }}"></video>
-                                                </div>
-                                                <div class="mask"
-                                                     style="width: 150px;height: 100px;background: rgba(52, 52, 52, 0)">
-                                                    <button class="btn btn-danger">
-                                                        删除视频
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                        <div class="box" style="margin-top:0">
+
+                                </div>
+                                <div style="display: inline;">
+                                    <span style="font-size: 20px;"><b>视频</b></span>
+                                </div>
+                                <div class='video' style="overflow: auto">
+                                    {% for video in process.video_set.all %}
+                                        <div class="box video_content" style="margin-top:0"
+                                             id="video_div_{{ video.id }}">
                                             <div class="image">
-                                                <img id="video_add"
-                                                     src="{{ STATIC_URL }}images/upload.png" height="100px"
-                                                     width="100px" alt="上传" style="margin-top:25px"/>
+                                                <video width="150px" height="150px"
+                                                       src="{{ STATIC_URL }}{{ video.video_url }}"
+                                                       controls="controls"
+                                                       id="video_{{ video.id }}"></video>
+                                            </div>
+                                            <div class="mask"
+                                                 style="width: 150px;height: 100px;background: rgba(52, 52, 52, 0)">
+                                                <button class="btn btn-danger hover_button"
+                                                        onclick="delete_video({{ video.id }})">
+                                                    删除视频
+                                                </button>
                                             </div>
                                         </div>
+                                    {% endfor %}
+                                    <div class="box video_operation" style="margin-top:0">
+                                        <div class="image">
+                                            <img id="video_add"
+                                                 src="{{ STATIC_URL }}images/upload.png" height="150px"
+                                                 width="150px" alt="上传"/>
+                                        </div>
+                                        <div class="mask" style="width: 150px;height: 150px;">
+                                            <button class="btn btn-danger hover_delete_all_button"
+                                                    onclick="delete_all_video({{ process.id }})">
+                                                全部删除
+                                            </button>
+                                            <button class="btn btn-success hover_add_button"
+                                                    onclick="add_video({{ process.id }})">
+                                                添加视频
+                                            </button>
+                                        </div>
+
                                     </div>
                                 </div>
-                            {% endfor %}
-                        </div>
+                            </div>
+                        {% endfor %}
                         <!-- /.panel-body -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- 模态框（Modal）delete -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            onclick="">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">删除</h4>
+                </div>
+
+                <div class="modal-body">
+                    <h5>是否确定删除？</h5>
+                    <input hidden="hidden" id="delete_id"/>
+                    <input hidden="hidden" id="delete_type"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-delete" onclick="delete_ok()">删除</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）modify -->
+    {#    <div class="modal fade" id="process_modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"#}
+    {#         aria-hidden="true">#}
+    {#        <div class="modal-dialog">#}
+    {#            <div class="modal-content">#}
+    {#                <div class="modal-header">#}
+    {#                    <button type="button" class="close" data-dismiss="modal" onclick=""#}
+    {#                            aria-hidden="true">#}
+    {#                        ×#}
+    {#                    </button>#}
+    {#                    <h4 class="modal-title" id="myModalLabel">新建过程</h4>#}
+    {#                </div>#}
+    {#                <div class="modal-body">#}
+    {#                    <form method="post" role="form" id="process_create_form" style="margin:10px 30px">#}
+    {#                        <input type="text" id="process_disease_example_id" name="process_disease_example_id"#}
+    {#                               hidden="hidden"/>#}
+    {#                        <div class="form-group">#}
+    {#                            <label>过程名称：</label>#}
+    {#                            <input class="form-control" type="text" name="process_name" id="process_name"/>#}
+    {#                            <p class="error-message" id="error_process_name" hidden="hidden" style="color: red"></p>#}
+    {#                        </div>#}
+    {#                        <div class="form-group">#}
+    {#                            <label>过程描述：</label>#}
+    {#                            <textarea class="form-control" name="process_desc" id="process_desc" rows="3"></textarea>#}
+    {#                            <p class="error-message" id="error_process_desc" hidden="hidden" style="color: red">#}
+    {#                            </p>#}
+    {#                        </div>#}
+    {#                        <div class="form-group">#}
+    {#                            <label>上传过程图片：</label>#}
+    {#                            <input type="file" name="process_pics" id="process_pics" multiple="multiple"#}
+    {#                                   accept="image/*"/>#}
+    {#                            <p class="error-message" id="error_process_pics" hidden="hidden" style="color: red"></p>#}
+    {#                        </div>#}
+    {#                        <div class="form-group">#}
+    {#                            <label>上传过程视频：</label>#}
+    {#                            <input type="file" name="process_videos" id="process_videos" multiple="multiple"#}
+    {#                                   accept="video/*"/>#}
+    {#                            <p class="error-message" id="error_process_videos" hidden="hidden" style="color: red"></p>#}
+    {#                        </div>#}
+    {##}
+    {#                    </form>#}
+    {#                </div>#}
+    {#                <div class="modal-footer">#}
+    {#                    <button type="button" class="btn btn-primary" onclick="create_process(0)">创建并关闭#}
+    {#                    </button>#}
+    {#                    <button type="button" class="btn btn-primary" onclick="create_process(1)">继续添加过程#}
+    {#                    </button>#}
+    {#                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭#}
+    {#                    </button>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <!-- /.modal-content -->#}
+    {#        </div>#}
+    {#        <!-- /.modal -->#}
+    {#    </div>#}
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）file add -->
+    <div class="modal fade" id="file_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick=""
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">添加文件</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="file_add_type" hidden="hidden"/>
+                    <form method="post" role="form" id="file_add_form" style="margin:10px 30px">
+                        <div class="form-group">
+                            <input type="text" id="file_add_process_id" name="process_id" hidden="hidden"/>
+                            <label>上传文件：</label>
+                            <input type="file" name="file" id="file_add_file" multiple="multiple"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="add_ok()">确认添加
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）create process -->
+    <div class="modal fade" id="process_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick=""
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">新建过程</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" role="form" id="process_create_form" style="margin:10px 30px">
+                        <input type="text" id="process_disease_example_id" name="process_disease_example_id"
+                               hidden="hidden"/>
+                        <div class="form-group">
+                            <label>过程名称：</label>
+                            <input class="form-control" type="text" name="process_name" id="process_name"/>
+                            <p class="error-message" id="error_process_name" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>过程描述：</label>
+                            <textarea class="form-control" name="process_desc" id="process_desc" rows="3"></textarea>
+                            <p class="error-message" id="error_process_desc" hidden="hidden" style="color: red">
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label>上传过程图片：</label>
+                            <input type="file" name="process_pics" id="process_pics" multiple="multiple"
+                                   accept="image/*"/>
+                            <p class="error-message" id="error_process_pics" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>上传过程视频：</label>
+                            <input type="file" name="process_videos" id="process_videos" multiple="multiple"
+                                   accept="video/*"/>
+                            <p class="error-message" id="error_process_videos" hidden="hidden" style="color: red"></p>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="create_process()">创建
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+
+
 {% endblock %}
 {% block datatable_script %}
-    <script></script>
+    <script>
+        $(document).ready(function () {
+            $("#process_create").on("hidden.bs.modal", function () {
+                $("#process_name").val('');
+                $("#process_desc").val('');
+                $("#process_pics").val('');
+                $("#process_videos").val('');
+            });
+            $("#file_add").on("hidden.bs.modal", function () {
+                $("#file_add_file").val('');
+            });
+        })
+    </script>
 {% endblock %}
