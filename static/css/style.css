@@ -1848,6 +1848,7 @@ h2.typoh2 {
 
 .mynav > li > a {
 	text-decoration: none;
+	margin: 5px;
 	letter-spacing: 2px;
     font-size: 1.1em;
     color: #fff;
@@ -2568,9 +2569,10 @@ h2.typoh2 {
 
 .agile_cat_grid_tags ul li a {
 	padding: 5px 10px;
-	border: 1px solid #ccc;
+	border: 1px solid #FF5722;;
 	text-decoration: none;
-	color: #555;
+	color: white;
+	background: black;
 	display: block;
 }
 
