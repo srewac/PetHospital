@@ -39,10 +39,12 @@ class VideoInline(admin.TabularInline):
 
 
 class ProcessAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'desc', 'disease_example')
     inlines = [PictureInline, VideoInline]
 
 
 class DiseaseExampleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'sub_disease')
     inlines = [ProcessInlined]
 
 
@@ -51,5 +53,5 @@ admin.site.register(SubDisease, SubDiseaseAdmin)
 admin.site.register(Disease, DiseaseAdmin)
 # admin.site.register(GeneralProcess)
 admin.site.register(DiseaseExample, DiseaseExampleAdmin)
+# admin.site.register(Process)
 admin.site.register(Process, ProcessAdmin)
-

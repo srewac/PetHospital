@@ -40,7 +40,7 @@
                             $("#subdisease_create").append($("<option>").val(id).text(name))
                         });
                     }
-                    else if(type=='modify'){
+                    else if (type == 'modify') {
                         $("#disease_example_modify").find("#subdisease_modify").empty();
                         $.each(result, function (id, name) {
                             $("#subdisease_modify").append($("<option>").val(id).text(name));
@@ -173,10 +173,10 @@
             }
         }
 
-        function create_process() {
+        function create_process(type) {
             create_process_validation();
-            if ($("#process_create").find('#error_process_name').is(':hidden') &&
-                $("#process_create").find('#error_process_desc').is(':hidden')) {
+            if ($('#error_process_name').is(':hidden') &&
+                $('#error_process_desc').is(':hidden')) {
                 var form = new FormData(document.getElementById('process_create_form'));
 
                 $.ajax({
@@ -187,11 +187,14 @@
                     contentType: false,
                     success: function (result) {
                         if (result == false) {
-                            $("#process_create").find('#process_name').html('过程名称重复');
-                            $("#process_create").find('#process_name').show();
+                            $('#error_process_name').html('过程名称重复');
+                            $('#error_process_name').show();
                         } else {
                             $('#dataTables-example').DataTable().ajax.reload();
                             clean_process_create();
+                            if (type == 0)
+                                $("#process_create").modal('hide');
+
                         }
                     },
                     error: function (result) {
@@ -206,13 +209,13 @@
             $("#process_create").find("#process_desc").val('');
             $("#process_create").find("#process_pics").val('');
             $("#process_create").find("#process_videos").val('');
-            $("#process_create").modal('hide');
         }
+
         function disease_example_modify_show(id) {
             $.ajax({
-                type:'POST',
-                url:"disease_example_modify_dict/" + id,
-                success:function (result) {
+                type: 'POST',
+                url: "disease_example_modify_dict/" + id,
+                success: function (result) {
                     result = JSON.parse(result);
                     $("#disease_example_id_modify").val(result.id);
                     $("#disease_example_name_modify").val(result.name);
@@ -226,13 +229,13 @@
                     $('#subdisease_modify').val(result.sub_disease);
                     $('#modify').modal('show');
                 },
-                error:function (result) {
+                error: function (result) {
                     alert('modify error');
                 }
             });
         }
         function modify_validation() {
-                 if($('#disease_example_name_modify').val() == '') {
+            if ($('#disease_example_name_modify').val() == '') {
                 $('#error_disease_example_name_modify').html('病例名称不能为空');
                 $('#error_disease_example_name_modify').show();
             }
@@ -244,8 +247,7 @@
         }
         function disease_example_modify() {
             modify_validation();
-            if($('#error_disease_example_name_modify').is(':hidden'))
-            {
+            if ($('#error_disease_example_name_modify').is(':hidden')) {
                 var form = new FormData(document.getElementById('disease_example_modify'));
                 $.ajax({
                     type: "post",
@@ -305,17 +307,10 @@
                                 <th>名称</th>
                                 <th>病大类</th>
                                 <th>病小类</th>
+                                <th>已有过程</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>名称</td>
-                                <td>病大类</td>
-                                <td>病小类</td>
-                                <td>操作</td>
-                            </tr>
-                            </tbody>
                         </table>
                         <!-- /.table-responsive -->
                     </div>
@@ -394,7 +389,7 @@
                 <div class="modal-body">
                     <form method="post" role="form" id="process_create_form" style="margin:10px 30px">
                         <input type="text" id="process_disease_example_id" name="process_disease_example_id"
-                                hidden="hidden"/>
+                               hidden="hidden"/>
                         <div class="form-group">
                             <label>过程名称：</label>
                             <input class="form-control" type="text" name="process_name" id="process_name"/>
@@ -422,9 +417,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="create_process()">创建并关闭
+                    <button type="button" class="btn btn-primary" onclick="create_process(0)">创建并关闭
                     </button>
-                    <button type="button" class="btn btn-primary" onclick="">继续添加过程
+                    <button type="button" class="btn btn-primary" onclick="create_process(1)">继续添加过程
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="">关闭
                     </button>
@@ -477,7 +472,7 @@
                 </div>
                 <div class="modal-body">
                     <form method="post" role="form" id="disease_example_modify" style="margin:10px 30px">
-                        <input id="disease_example_id_modify" name="disease_example_id_modify" hidden="hidden" />
+                        <input id="disease_example_id_modify" name="disease_example_id_modify" hidden="hidden"/>
                         <div class="form-group">
                             <label>病例名称：</label>
                             <input class="form-control" type="text" name="disease_example_name_modify"
@@ -522,25 +517,39 @@
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,
-                    "defaultContent": "<button type='button' class='btn btn-success' name='detail' style='margin-right:5px'>详情</button><button type='button' class='btn btn-warning' name='modify' style='margin-right:5px'>修改</button><button type='button' class='btn btn-danger' name='delete'>删除</button>"
+                    "defaultContent": "<button type='button' class='btn btn-success' name='detail' style='margin-right:5px'>详情查看</button><button type='button' class='btn btn-success' name='add_process' style='margin-right:5px'>添加过程</button><button type='button' class='btn btn-warning' name='modify' style='margin-right:5px'>修改病例</button><button type='button' class='btn btn-danger' name='delete'>删除病例</button>"
                 }]
             });
             $('#dataTables-example tbody').on("click", 'button[name="detail"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                disease_example_detail_show(data[3]);
+                disease_example_detail_show(data[4]);
             });
+            $('#dataTables-example tbody').on("click", 'button[name="add_process"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                add_process_show(data[4]);
+            });
+
             $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                disease_example_modify_show(data[3]);
+                disease_example_modify_show(data[4]);
             });
             $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                delete_confirm(data[3]);
+                delete_confirm(data[4]);
             });
-            {#            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {#}
-            {#                var data = table.row($(this).parents('tr')).data();#}
-            {#                delete_confirm(data[4]);#}
-            {#            });#}
+            $("#modify").on("hidden.bs.modal", function () {
+                $('#disease_example_id_modify').val('');
+                $('#disease_example_name_modify').val('');
+                $('#disease_modify').empty();
+                $('#subdisease_modify').empty();
+            });
+            $("#process_create").on("hidden.bs.modal", function () {
+                $("#process_create").find("#process_name").val('');
+                $("#process_create").find("#process_desc").val('');
+                $("#process_create").find("#process_pics").val('');
+                $("#process_create").find("#process_videos").val('');
+            });
+
         });
     </script>
 {% endblock %}

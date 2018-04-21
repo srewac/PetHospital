@@ -5,6 +5,7 @@ import os
 from django.shortcuts import render, get_object_or_404
 from Disease.models import DiseaseExample, Disease, Process, Picture, Video, SubDisease
 from django.http import JsonResponse
+from PetHospital.settings import STATIC_ROOT
 
 
 # 进入病例管理界面
@@ -19,10 +20,8 @@ def disease_example_create_show(request):
 
 # 进入病例详情界面
 def disease_example_detail(request, disease_example_id):
-    The_Dict = {
-        'disease_example_id': disease_example_id
-    }
-    return render(request, 'backend/disease/disease_example_detail_show.html', The_Dict)
+    disease_example = get_object_or_404(DiseaseExample, pk=disease_example_id)
+    return render(request, 'backend/disease/disease_example_detail_show.html', locals())
 
 
 # 返回所有病例的简要信息
@@ -32,12 +31,22 @@ def disease_example_dict(request):
     for disease_ex in disease_examples:
         sub_disease = disease_ex.sub_disease
         disease = sub_disease.disease
-        disease_example_d['data'].append([disease_ex.name, disease.name, sub_disease.name, disease_ex.id])
+        process_str = ''
+        for process in disease_ex.process_set.all():
+            process_str += process.name + ';'
+        disease_example_d['data'].append(
+            [disease_ex.name, disease.name, sub_disease.name, str(process_str), disease_ex.id])
     return JsonResponse(disease_example_d, safe=False)
 
 
 # 返回所选病例的详细信息
 def disease_example_detail_dict(request, disease_example_id):
+    disease_example_detail_d = get_disease_example_data(disease_example_id)
+    return JsonResponse(json.dumps(disease_example_detail_d), safe=False)
+
+
+# 获取病例所有信息
+def get_disease_example_data(disease_example_id):
     disease_example = get_object_or_404(DiseaseExample, pk=disease_example_id)
     sub_disease = disease_example.sub_disease
     disease = sub_disease.disease
@@ -51,6 +60,7 @@ def disease_example_detail_dict(request, disease_example_id):
         for video in process.video_set.all():
             VIDEOS[str(video.id)] = video.video_url
         process_d = {
+            'process_id': process.id,
             'process_name': process.name,
             'process_desc': process.desc,
             'process_pics': PICTURES,
@@ -58,13 +68,14 @@ def disease_example_detail_dict(request, disease_example_id):
         }
         PROCESSES[str(process.id)] = process_d
     disease_example_detail_d = {
+        'disease_example_id': disease_example_id,
         'disease_example_name': disease_example.name,
         'disease_example_disease': disease.name,
         'disease_example_sub_disease': sub_disease.name,
         'disease_example_sub_disease_desc': sub_disease.desc,
         'disease_example_processes': PROCESSES,
     }
-    return JsonResponse(json.dumps(disease_example_detail_d), safe=False)
+    return disease_example_detail_d
 
 
 # # 进入病例创建界面
@@ -113,22 +124,22 @@ def process_create(request):
     process.save()
     for f in request.FILES.getlist('process_pics'):
         file_name = f.temporary_file_path().replace('\\', '/').split('/')[-1]
-        pics_path = '/PetHospital/static/images/uploads/disease_example/images/'
+        pics_path = STATIC_ROOT + 'images/uploads/disease_example/images/'
         if not os.path.exists(pics_path):
             os.makedirs(pics_path)
         images_url = 'images/uploads/disease_example/images/' + file_name
-        shutil.copy(f.temporary_file_path(), '/PetHospital/static/' + images_url)
+        shutil.copy(f.temporary_file_path(), STATIC_ROOT + images_url)
         pic = Picture(pic_url=images_url,
                       process_id=process.id,
                       )
         pic.save()
     for v in request.FILES.getlist('process_videos'):
         video_name = v.temporary_file_path().replace('\\', '/').split('/')[-1]
-        video_path = '/PetHospital/static/images/uploads/disease_example/videos/'
+        video_path = STATIC_ROOT + 'images/uploads/disease_example/videos/'
         if not os.path.exists(video_path):
             os.makedirs(video_path)
         video_url = 'images/uploads/disease_example/videos/' + video_name
-        shutil.copy(v.temporary_file_path(), '/PetHospital/static/' + video_url)
+        shutil.copy(v.temporary_file_path(), STATIC_ROOT + video_url)
         video = Video(video_url=video_url,
                       process_id=process.id,
                       )
@@ -140,13 +151,31 @@ def process_create(request):
 def process_delete(request, process_id):
     process = get_object_or_404(Process, pk=process_id)
     for pic in process.picture_set.all():
-        os.remove('/PetHospital/static/' + pic.pic_url)
+        os.remove(STATIC_ROOT + pic.pic_url)
         pic.delete()
     for vid in process.video_set.all():
-        os.remove('/PetHospital/static/' + vid.video_url)
+        os.remove(STATIC_ROOT + vid.video_url)
         vid.delete()
     process.delete()
     return JsonResponse(True, safe=False)
+
+
+# 修改过程
+def process_modify(request):
+    process = get_object_or_404(Process, pk=request.POST['process_id'])
+    if request.POST['process_name'] == process.name:
+        process.desc = request.POST['process_desc']
+    else:
+        process_check = Process.objects.filter(name=request.POST['process_name']).all()
+        for item in process_check:
+            if item.id != process.id:
+                return JsonResponse(False, safe=False)
+        process.name = request.POST['process_name']
+        process.desc = request.POST['process_desc']
+    process_d = {'process_id': process.id,
+                 'process_name': process.name,
+                 'process_desc': process.desc}
+    return JsonResponse(json.dumps(process_d), safe=False)
 
 
 # 删除病例
@@ -192,3 +221,77 @@ def disease_example_modify(request):
     de.save()
     return JsonResponse(True, safe=False)
 
+
+# 删除图片
+def delete_pic(request, pic_id):
+    pic = get_object_or_404(Picture, pk=pic_id)
+    os.remove(STATIC_ROOT + pic.pic_url)
+    pic.delete()
+    return JsonResponse(True, safe=False)
+
+
+# 删除过程所有图片
+def delete_all_pic(request, process_id):
+    process = get_object_or_404(Process, pk=process_id)
+    for pic in process.picture_set.all():
+        os.remove(STATIC_ROOT + pic.pic_url)
+        pic.delete()
+    process.picture_set.all().delete()
+    return JsonResponse(True, safe=False)
+
+
+# 删除视频
+def delete_video(request, video_id):
+    video = get_object_or_404(Video, pk=video_id)
+    os.remove(STATIC_ROOT + video.video_url)
+    video.delete()
+    return JsonResponse(True, safe=False)
+
+
+# 删除过程所有视频
+def delete_all_video(request, process_id):
+    process = get_object_or_404(Process, pk=process_id)
+    process.video_set.all().delete()
+    for video in process.video_set.all():
+        # TODO: 批量删除视频文件删除失败,原因未找到
+        os.remove(STATIC_ROOT + video.video_url)
+        video.delete()
+    return JsonResponse(True, safe=False)
+
+
+# 为过程添加图片
+def add_pic(request):
+    pic_list = []
+    process = get_object_or_404(Process, pk=request.POST['process_id'])
+    for f in request.FILES.getlist('file'):
+        file_name = f.temporary_file_path().replace('\\', '/').split('/')[-1]
+        pics_path = STATIC_ROOT + 'images/uploads/disease_example/images/'
+        if not os.path.exists(pics_path):
+            os.makedirs(pics_path)
+        images_url = 'images/uploads/disease_example/images/' + file_name
+        shutil.copy(f.temporary_file_path(), STATIC_ROOT + images_url)
+        pic = Picture(pic_url=images_url,
+                      process_id=process.id,
+                      )
+        pic.save()
+        pic_list.append(str(pic.id) + "," + images_url)
+    return JsonResponse(pic_list, safe=False)
+
+
+# 为过程添加视频
+def add_video(request):
+    video_list = []
+    process = get_object_or_404(Process, pk=request.POST['process_id'])
+    for v in request.FILES.getlist('file'):
+        video_name = v.temporary_file_path().replace('\\', '/').split('/')[-1]
+        video_path = STATIC_ROOT + 'images/uploads/disease_example/videos/'
+        if not os.path.exists(video_path):
+            os.makedirs(video_path)
+        video_url = 'images/uploads/disease_example/videos/' + video_name
+        shutil.copy(v.temporary_file_path(), STATIC_ROOT + video_url)
+        video = Video(video_url=video_url,
+                      process_id=process.id,
+                      )
+        video.save()
+        video_list.append(str(video.id) + "," + video_url)
+    return JsonResponse(video_list, safe=False)
