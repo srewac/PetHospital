@@ -56,7 +56,7 @@
     </style>
     <script>
         function add_process_show(disease_example_id) {
-            $("#process_create").find("#process_disease_example_id").val(disease_example_id);
+            $("#process_disease_example_id").val(disease_example_id);
             $("#process_create").modal('show');
         }
 
@@ -106,7 +106,59 @@
             }
         }
 
-        function modify_process(process_id) {
+        function modify_process_show(process_id) {
+            $("#modify_process_id").val(process_id);
+            $("#modify_process_name").val($('#nav_' + process_id + ' a').html());
+            $("#modify_process_desc").val($('#' + process_id + ' p').html());
+            $("#process_modify").modal('show');
+        }
+
+        function modify_process_validation() {
+            if ($('#modify_process_name').val() == '') {
+                $('#error_modify_process_name').html("过程名称不能为空");
+                $('#error_modify_process_name').show();
+            }
+            else {
+                $('#error_modify_process_name').html("");
+                $('#error_modify_process_name').hide();
+            }
+            if ($('#modify_process_desc').val() == '') {
+                $('#error_modify_process_desc').html("过程描述不能为空");
+                $('#error_modify_process_desc').show();
+            }
+            else {
+                $('#error_modify_process_desc').html("");
+                $('#error_modify_process_desc').hide();
+            }
+        }
+
+        function modify_process() {
+            modify_process_validation();
+            if ($('#error_modify_process_desc').is(':hidden')
+                && $('#error_modify_process_desc').is(':hidden')) {
+                var form = new FormData(document.getElementById('process_modify_form'));
+                $.ajax({
+                    type: 'post',
+                    url: "{% url 'Manage:process_modify' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if(result==false){
+                            $('#error_modify_process_desc').html("过程已存在");
+                            $('#error_modify_process_desc').show();
+                        } else {
+                            result = JSON.parse(result);
+                            $("#nav_"+result.process_id+" a").html(result.process_name);
+                            $("#"+result.process_id+' p').html(result.process_desc);
+                            $("#process_modify").modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('process modify error')
+                    }
+                });
+            }
 
         }
 
@@ -352,7 +404,7 @@
                                     <span style="font-size: 20px;"><b>描述</b></span>
                                     <div style="display: inline-block;">
                                         <button type="button" class="btn btn-warning btn-circle"
-                                                onclick="modify_process({{ process.id }})"><i
+                                                onclick="modify_process_show({{ process.id }})"><i
                                                 class="fa fa-wrench"></i>
                                         </button>
                                         <button type="button" class="btn btn-danger btn-circle"
@@ -483,60 +535,47 @@
     <!-- 模态框（Modal）end -->
 
     <!-- 模态框（Modal）modify -->
-    {#    <div class="modal fade" id="process_modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"#}
-    {#         aria-hidden="true">#}
-    {#        <div class="modal-dialog">#}
-    {#            <div class="modal-content">#}
-    {#                <div class="modal-header">#}
-    {#                    <button type="button" class="close" data-dismiss="modal" onclick=""#}
-    {#                            aria-hidden="true">#}
-    {#                        ×#}
-    {#                    </button>#}
-    {#                    <h4 class="modal-title" id="myModalLabel">新建过程</h4>#}
-    {#                </div>#}
-    {#                <div class="modal-body">#}
-    {#                    <form method="post" role="form" id="process_create_form" style="margin:10px 30px">#}
-    {#                        <input type="text" id="process_disease_example_id" name="process_disease_example_id"#}
-    {#                               hidden="hidden"/>#}
-    {#                        <div class="form-group">#}
-    {#                            <label>过程名称：</label>#}
-    {#                            <input class="form-control" type="text" name="process_name" id="process_name"/>#}
-    {#                            <p class="error-message" id="error_process_name" hidden="hidden" style="color: red"></p>#}
-    {#                        </div>#}
-    {#                        <div class="form-group">#}
-    {#                            <label>过程描述：</label>#}
-    {#                            <textarea class="form-control" name="process_desc" id="process_desc" rows="3"></textarea>#}
-    {#                            <p class="error-message" id="error_process_desc" hidden="hidden" style="color: red">#}
-    {#                            </p>#}
-    {#                        </div>#}
-    {#                        <div class="form-group">#}
-    {#                            <label>上传过程图片：</label>#}
-    {#                            <input type="file" name="process_pics" id="process_pics" multiple="multiple"#}
-    {#                                   accept="image/*"/>#}
-    {#                            <p class="error-message" id="error_process_pics" hidden="hidden" style="color: red"></p>#}
-    {#                        </div>#}
-    {#                        <div class="form-group">#}
-    {#                            <label>上传过程视频：</label>#}
-    {#                            <input type="file" name="process_videos" id="process_videos" multiple="multiple"#}
-    {#                                   accept="video/*"/>#}
-    {#                            <p class="error-message" id="error_process_videos" hidden="hidden" style="color: red"></p>#}
-    {#                        </div>#}
-    {##}
-    {#                    </form>#}
-    {#                </div>#}
-    {#                <div class="modal-footer">#}
-    {#                    <button type="button" class="btn btn-primary" onclick="create_process(0)">创建并关闭#}
-    {#                    </button>#}
-    {#                    <button type="button" class="btn btn-primary" onclick="create_process(1)">继续添加过程#}
-    {#                    </button>#}
-    {#                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭#}
-    {#                    </button>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#            <!-- /.modal-content -->#}
-    {#        </div>#}
-    {#        <!-- /.modal -->#}
-    {#    </div>#}
+    <div class="modal fade" id="process_modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick=""
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改过程</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" role="form" id="process_modify_form" style="margin:10px 30px">
+                        <input type="text" id="modify_process_id" name="process_id"
+                               hidden="hidden"/>
+                        <div class="form-group">
+                            <label>过程名称：</label>
+                            <input class="form-control" type="text" name="process_name" id="modify_process_name"/>
+                            <p class="error-message" id="error_modify_process_name" hidden="hidden"
+                               style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>过程描述：</label>
+                            <textarea class="form-control" name="process_desc" id="modify_process_desc"
+                                      rows="3"></textarea>
+                            <p class="error-message" id="error_modify_process_desc" hidden="hidden" style="color: red">
+                            </p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="modify_process()">修改
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
     <!-- 模态框（Modal）end -->
 
     <!-- 模态框（Modal）file add -->
@@ -640,6 +679,12 @@
                 $("#process_desc").val('');
                 $("#process_pics").val('');
                 $("#process_videos").val('');
+            });
+            $("#process_modify").on("hidden.bs.modal", function () {
+                $("#modify_process_name").val('');
+                $("#modify_process_desc").val('');
+                $("#error_modify_process_name").html('');
+                $("#error_modify_process_desc").html('');
             });
             $("#file_add").on("hidden.bs.modal", function () {
                 $("#file_add_file").val('');

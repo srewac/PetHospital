@@ -160,6 +160,24 @@ def process_delete(request, process_id):
     return JsonResponse(True, safe=False)
 
 
+# 修改过程
+def process_modify(request):
+    process = get_object_or_404(Process, pk=request.POST['process_id'])
+    if request.POST['process_name'] == process.name:
+        process.desc = request.POST['process_desc']
+    else:
+        process_check = Process.objects.filter(name=request.POST['process_name']).all()
+        for item in process_check:
+            if item.id != process.id:
+                return JsonResponse(False, safe=False)
+        process.name = request.POST['process_name']
+        process.desc = request.POST['process_desc']
+    process_d = {'process_id': process.id,
+                 'process_name': process.name,
+                 'process_desc': process.desc}
+    return JsonResponse(json.dumps(process_d), safe=False)
+
+
 # 删除病例
 def disease_example_delete(request, disease_example_id):
     disease_example = get_object_or_404(DiseaseExample, pk=disease_example_id)
