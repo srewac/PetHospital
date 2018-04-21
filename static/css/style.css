@@ -1846,6 +1846,23 @@ h2.typoh2 {
 	margin-bottom: 1em;
 }
 
+.mynav > li > a {
+	text-decoration: none;
+	margin: 5px;
+	letter-spacing: 2px;
+    font-size: 1.1em;
+    color: #fff;
+    position: relative;
+    font-weight: 400;
+    padding: .5em 1.1em;
+    display: inline-block;
+    border-radius: 2px;
+}
+
+.mynav > li > a.active {
+    background: #FF5722;
+}
+
 h1.t-button,
 h2.t-button,
 h3.t-button,
@@ -1998,6 +2015,18 @@ h3.icon-subheading {
 	font-size: 28px;
 	color: #000 !important;
 	margin: 30px 0 15px;
+}
+
+h3.process-subheading{
+	font-size: 28px;
+	color: white !important;
+	margin: 30px 0 15px;
+}
+
+p.process_desc{
+	font-size: 18px;
+    color: white !important;
+    margin: 30px 0 15px;
 }
 
 .agileits-icons-title {
@@ -2540,9 +2569,10 @@ h2.typoh2 {
 
 .agile_cat_grid_tags ul li a {
 	padding: 5px 10px;
-	border: 1px solid #ccc;
+	border: 1px solid #FF5722;;
 	text-decoration: none;
-	color: #555;
+	color: white;
+	background: black;
 	display: block;
 }
 

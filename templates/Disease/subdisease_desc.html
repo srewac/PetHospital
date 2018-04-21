@@ -62,12 +62,29 @@
                 </ul>
             </div>
         </div>
-        <h3 class="agileits-title two" style="margin-top: 60px">{{ subdisease.name }}</h3>
+        <h3 class="agileits-title two" style="margin-top: 20px">{{ subdisease.name }}</h3>
         <div class="container">
             <div class="">
-
                 <h4 class="subdisease-desc">{{ subdisease.desc }}</h4>
-                <div class="clearfix"></div>
+                <div class="container">
+                    <h3 class="agileits-title two" style="margin-top: 30px">相关病例</h3>
+                    <div class="gallery-agileinfo" style="margin-left: 10%;margin-right: 10%;">
+                        <ul>
+                        {% for disease_example in disease_examples %}
+                        <li style="display: inline;list-style-type: none;padding: 5px">
+                        <div class="col-sm-4 col-xs-6 w3gallery-grids">
+                            <a href="{% url 'Disease:disease_example_desc' disease_example.id %}" class="imghvr-hinge-right figure">
+                                <img src="/static/images/g{{ disease_example.id }}.jpg" alt="" title="Pets Care Image"/>
+                                <div class="agile-figcaption">
+                                    <h4>{{ disease_example.name }}</h4>
+                                </div>
+                            </a>
+                        </div>
+                        </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
                 <div align="center">
                     <a href="/Disease/{{ subdisease.disease.name }}/select_subdisease" class="button button-isi"
                        style="margin-bottom: 45px;margin-top: 70px;">
@@ -78,6 +95,7 @@
             </div>
 
         </div>
+
         <div class="banner-top w3layouts" style="margin-top: 140px">
         </div>
     </div>

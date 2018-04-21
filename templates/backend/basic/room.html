@@ -24,65 +24,103 @@
             });
         }
 
-        function modify_room_show(name, pic_url, video_url, desc, room_roles, id) {
+        function modify_room_show(roles, id) {
             //向模态框中传值
-            $('#name').val(name);
-            $('#desc').val(desc);
-            $('#pic').val(pic_url);
-            $('#video').val(video_url);
-            room_roles.split(' ').forEach(function (room_role) {
+            $.ajax({
+                type: "post",
+                url: "room_modify_dict/" + id,
+                success: function (result) {
+                    result = JSON.parse(result);
+{#                    TODO: 在修改模态框中预览图片和视频#}
+                    $('#name_modify').val(result.name);
+                    $('#desc_modify').val(result.desc);
+                },
+                error: function (result) {
+                    alert('error');
+                }
+            });
+            roles.split(' ').forEach(function (room_role) {
                 if (room_role == '前台') document.getElementById('proscenium').checked = true;
                 else if (room_role == '助理') document.getElementById('assistant').checked = true;
                 else if (room_role == '执业兽医师') document.getElementById('veterinary_practitioner').checked = true;
             });
-            $('#id').val(id);
+            $('#id_modify').val(id);
             $('#update').modal('show');
 
         }
 
-        {#TODO: 科室管理修改科室的判断未做#}
-
         function modify_validation() {
-
+            if ($('#name_modify').val() == '') {
+                $("#error_name_modify").html('科室名称不可以为空，请重新输入！');
+                $("#error_name_modify").show();
+            }
+            else {
+                $("#error_name_modify").html('');
+                $("#error_name_modify").hide();
+            }
+            if ($("#desc_modify").val() == '') {
+                $("#error_desc_modify").html('科室描述不可以为空，请重新输入！');
+                $("#error_desc_modify").show();
+            }
+            else {
+                $("#error_desc_modify").html('');
+                $("#error_desc_modify").hide();
+            }
+            if (document.getElementById('proscenium').checked == false &&
+                document.getElementById('assistant').checked == false &&
+                document.getElementById('veterinary_practitioner').checked == false) {
+                $("#error_roomroles_modify").html('前选择科室权限！');
+                $("#error_roomroles_modify").show();
+            }
+            else {
+                $("#error_roomroles_modify").html('');
+                $("#error_roomroles_modify").hide();
+            }
         }
 
         function modify() {
             modify_validation();
-            var form = new FormData(document.getElementById('room_modify'));
-            $.ajax({
-                type: "post",
-                url: "{% url 'Manage:room_modify' %}",
-                data: form,
-                processData: false,
-                contentType: false,
-                success: function (result) {
-                    if (result == false) {
-                        $("#room_modify div:eq(0) p").html('科室已存在，请重新输入！');
-                        $("#room_modify div:eq(0) p").show();
-                    } else {
-                        $('#dataTables-example').DataTable().ajax.reload();
-                        clean_modify();
+            if ($('#error_name_modify').is(':hidden') &&
+                $('#error_desc_modify').is(':hidden') &&
+                $("#error_roomroles_modify").is(':hidden')) {
+                var form = new FormData(document.getElementById('room_modify'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:room_modify' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == false) {
+                            $("#error_name_modify").html('科室已存在，请重新输入！');
+                            $("#error_name_modify").show();
+                        } else {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            clean_modify();
+                        }
+                    },
+                    error: function (result) {
+                        alert('update error');
                     }
-                },
-                error: function (result) {
-                    alert('update error');
-                }
-            });
-
+                });
+            }
         }
 
         function clean_modify() {
-            $("#room_modify div:eq(0) input").val('');
-            $("#room_modify div:eq(0) p").html('');
-            $("#room_modify div:eq(1) input").val('');
-            $("#room_modify div:eq(1) p").html('');
-            $("#room_modify div:eq(2) input").val('');
-            $("#room_modify div:eq(2) p").html('');
-            $("#room_modify div:eq(3) textarea").val('');
-            $("#room_modify div:eq(3) p").html('');
+            $("#id_modify").val('');
+            $("#name_modify").val('');
+            $("#error_name_modify").html('');
+            $("#room_pics_modify").val('');
+            $("#error_pic_modify").html('');
+            $("#room_videos_modify").val('');
+            $("#error_video_modify").html('');
+            $("#desc_modify").val('');
+            $("#error_desc_modify").html('');
             document.getElementById('proscenium').checked = false;
             document.getElementById('assistant').checked = false;
             document.getElementById('veterinary_practitioner').checked = false;
+            $("#error_roomroles_modify").html('');
+            $("#error_roomroles_modify").hide();
             $('#update').modal('hide');
         }
 
@@ -90,47 +128,98 @@
             $('#create').modal('show');
         }
 
-        {#TODO: 科室管理新增科室的判断未做#}
-
         function create_validation() {
+            if ($("#name_create").val() == '') {
+                $("#error_name_create").html('科室名称不可以为空，请重新输入！');
+                $("#error_name_create").show();
+            }
+            else {
+                $("#error_name_create").html('');
+                $("#error_name_create").hide();
+            }
+            if ($("#room_pics_create").val() == '') {
+                $("#error_pic_create").html('请上传科室图片！');
+                $("#error_pic_create").show();
+            }
+            else {
+                $("#error_pic_create").html('');
+                $("#error_pic_create").hide();
+            }
+            if ($("#room_videos_create").val() == '') {
+                $("#error_video_create").html('请上传科室视频！');
+                $("#error_video_create").show();
+            }
+            else {
+                $("#error_video_create").html('');
+                $("#error_video_create").hide();
+            }
+            if ($("#desc_create").val() == '') {
+                $("#error_desc_create").html('科室描述不可以为空，请重新输入！');
+                $("#error_desc_create").show();
+            }
+            else {
+                $("#error_desc_create").html('');
+                $("#error_desc_create").hide();
+            }
+            if (document.getElementById('proscenium').checked == false &&
+                document.getElementById('assistant').checked == false &&
+                document.getElementById('veterinary_practitioner').checked == false) {
+                $("#error_roomroles_create").html('前选择科室权限！');
+                $("#error_roomroles_create").show();
+            }
+            else {
+                $("#error_roomroles_create").html('');
+                $("#error_roomroles_create").hide();
+            }
+
+
         }
 
         function create() {
             create_validation();
-            var form = new FormData(document.getElementById('room_create'));
-            $.ajax({
-                type: "post",
-                url: "{% url 'Manage:room_create' %}",
-                data: form,
-                processData: false,
-                contentType: false,
-                success: function (result) {
-                    if (result == true) {
-                        $('#dataTables-example').DataTable().ajax.reload();
-                        clean_create();
-                    } else {
-                        $("#room_create div:eq(0) p").show();
-                        $("#room_create div:eq(0) p").html('科室已存在，请重新输入！');
+            if ($("#error_name_create").is(':hidden') && $("#error_pic_create").is(':hidden') && $("#error_video_create").is(':hidden')
+                && $("#error_desc_create").is(':hidden') && $("#error_roomroles_create_create").is(':hidden')) {
+                var form = new FormData(document.getElementById('room_create'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:room_create' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == true) {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            clean_create();
+                        } else {
+                            $("#room_create div:eq(0) p").show();
+                            $("#room_create div:eq(0) p").html('科室已存在，请重新输入！');
+                        }
+                    },
+                    error: function (result) {
+                        alert('update error');
                     }
-                },
-                error: function (result) {
-                    alert('update error');
-                }
-            });
+                });
+            }
         }
 
         function clean_create() {
-            $("#room_create div:eq(0) input").val('');
-            $("#room_create div:eq(0) p").html('');
-            $("#room_create div:eq(1) input").val('');
-            $("#room_create div:eq(1) p").html('');
-            $("#room_create div:eq(2) input").val('');
-            $("#room_create div:eq(2) p").html('');
-            $("#room_create div:eq(3) textarea").val('');
-            $("#room_create div:eq(3) p").html('');
+            $("#name_create").val('');
+            $("#error_name_create").html('');
+            $("#error_name_create").hide();
+            $("#room_pics_create").val('');
+            $("#error_pic_create").html('');
+            $("#error_pic_create").hide();
+            $("#room_videos_create").val('');
+            $("#error_video_create").html('');
+            $("#error_video_create").hide();
+            $("#desc_create").val('');
+            $("#error_desc_create").html('');
+            $("#error_desc_create").hide();
             document.getElementById('proscenium').checked = false;
             document.getElementById('assistant').checked = false;
             document.getElementById('veterinary_practitioner').checked = false;
+            $("#error_roomroles_create").html('');
+            $("#error_roomroles_create").hide();
             $('#create').modal('hide');
         }
     </script>
@@ -158,9 +247,7 @@
                                 <thead>
                                 <tr>
                                     <th>科室名称</th>
-                                    <th>科室图片</th>
-                                    <th>科室视频</th>
-                                    <th style="width:50%;">科室简介</th>
+                                    <th style="width:60%;">科室简介</th>
                                     <th>科室权限</th>
                                     <th>Operation</th>
                                 </tr>
@@ -168,9 +255,7 @@
                                 <tbody>
                                 <tr>
                                     <td>科室名称</td>
-                                    <td>科室图片</td>
-                                    <td>科室视频</td>
-                                    <td style="width:50%;">科室简介</td>
+                                    <td style="width:60%;">科室简介</td>
                                     <th>科室权限</th>
                                     <td>Operation</td>
                                 </tr>
@@ -201,29 +286,29 @@
                 </div>
                 <div class="modal-body">
                     <form method="post" role="form" id="room_modify" style="margin:10px 30px">
-                        <input type="text" name="id" id="id" hidden="hidden"/>
+                        <input type="text" name="id" id="id_modify" hidden="hidden"/>
                         <div class="form-group">
                             <label>科室名称：</label>
-                            <input class="form-control" type="text" name="name" id="name"/>
-                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
-                                here.</p>
+                            <input class="form-control" type="text" name="name" id="name_modify"/>
+                            <p class="error-message" id="error_name_modify" hidden="hidden" style="color: red"></p>
                         </div>
                         <div class="form-group">
                             <label>科室图片：</label>
-                            <input class="form-control" type="text" name="pic" id="pic"/>
-                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
-                                here.</p>
+                            <input type="file" name="room_pics" id="room_pics_modify" accept="image/*"/>
+                            <p class="error-message" hidden="hidden" id="error_pic_modify" style="color: red"></p>
                         </div>
                         <div class="form-group">
                             <label>科室视频：</label>
-                            <input class="form-control" type="text" name="video" id="video"/>
-                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                            <input type="file" name="room_videos" id="room_videos_modify" accept="video/*"/>
+                            <p class="error-message" hidden="hidden" id="error_video_modify" style="color: red">Example
+                                block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>科室简介：</label>
-                            <textarea class="form-control" name="desc" id="desc" rows="3"></textarea>
-                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                            <textarea class="form-control" name="desc" id="desc_modify" rows="3"></textarea>
+                            <p class="error-message" hidden="hidden" id="error_desc_modify" style="color: red">Example
+                                block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
@@ -238,7 +323,8 @@
                                 <input type="checkbox" name="veterinary_practitioner" id="veterinary_practitioner"
                                        value="2">执业兽医师
                             </label>
-                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                            <p class="error-message" id="error_roomroles_modify" hidden="hidden" style="color: red">
+                                Example block-level help text
                                 here.</p>
                         </div>
                     </form>
@@ -272,26 +358,30 @@
                         <input type="text" name="id" id="id" hidden="hidden"/>
                         <div class="form-group">
                             <label>科室名称：</label>
-                            <input class="form-control" type="text" name="name" id="name"/>
-                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                            <input class="form-control" type="text" name="name" id="name_create"/>
+                            <p class="error-message" id="error_name_create" hidden="hidden" style="color: red">Example
+                                block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>科室图片：</label>
-                            <input class="form-control" type="text" name="pic" id="pic"/>
-                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                            <input type="file" name="room_pics" id="room_pics_create" accept="image/*"/>
+                            <p class="error-message" id="error_pic_create" hidden="hidden" style="color: red">Example
+                                block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>科室视频：</label>
-                            <input class="form-control" type="text" name="video" id="video"/>
-                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                            <input type="file" name="room_videos" id="room_videos_create" accept="video/*"/>
+                            <p class="error-message" id="error_video_create" hidden="hidden" style="color: red">Example
+                                block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
                             <label>科室简介：</label>
-                            <textarea class="form-control" name="desc" id="desc" rows="3"></textarea>
-                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                            <textarea class="form-control" name="desc" id="desc_create" rows="3"></textarea>
+                            <p class="error-message" id="error_desc_create" hidden="hidden" style="color: red">Example
+                                block-level help text
                                 here.</p>
                         </div>
                         <div class="form-group">
@@ -306,7 +396,8 @@
                                 <input type="checkbox" name="veterinary_practitioner" id="veterinary_practitioner"
                                        value="2">执业兽医师
                             </label>
-                            <p class="error-message" hidden="hidden" style="color: red">Example block-level help text
+                            <p class="error-message" id="error_roomroles_create" hidden="hidden" style="color: red">
+                                Example block-level help text
                                 here.</p>
                         </div>
                     </form>
@@ -339,7 +430,7 @@
 
                 <div class="modal-body">
                     <h5>是否确定删除？</h5>
-                    <input hidden="hidden" id="delete_id" />
+                    <input hidden="hidden" id="delete_id"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
@@ -367,11 +458,11 @@
             });
             $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                modify_room_show(data[0], data[1], data[2], data[3], data[4], data[5]);
+                modify_room_show(data[2], data[3]);
             });
             $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                delete_confirm(data[5]);
+                delete_confirm(data[3]);
             });
         });
     </script>

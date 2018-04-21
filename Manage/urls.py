@@ -14,8 +14,28 @@ urlpatterns = [
     # disease urls
     path('disease_example', disease.disease_example, name='disease_example_show'),
     path('disease_example_dict', disease.disease_example_dict, name='disease_example_dict'),
+    path('disease_example_create_dict', disease.disease_example_create_dict, name='disease_example_create_dict'),
     path('disease_example_create', disease.disease_example_create, name='disease_example_create'),
-    # question urls
+    path('process_create', disease.process_create, name='process_create'),
+    path('disease_example_detail/<int:disease_example_id>', disease.disease_example_detail,
+         name='disease_example_detail'),
+    path('disease_example_detail_dict/<int:disease_example_id>', disease.disease_example_detail_dict,
+         name='disease_example_detail_dict'),
+    path('process_delete/<int:process_id>', disease.process_delete, name='process_delete'),
+    path('process_modify', disease.process_modify, name='process_modify'),
+    path('disease_example_delete/<int:disease_example_id>', disease.disease_example_delete,
+         name='disease_example_delete'),
+    path('disease_example_modify_dict/<int:disease_example_id>', disease.disease_example_modify_dict,
+         name='disease_example_modify_dict'),
+    path('disease_example_modify', disease.disease_example_modify, name='disease_example_modify'),
+    path('disease_delete_pic/<int:pic_id>', disease.delete_pic, name='disease_delete_pic'),
+    path('disease_delete_all_pic/<int:process_id>', disease.delete_all_pic, name='disease_delete_all_pic'),
+    path('disease_delete_video/<int:video_id>', disease.delete_video, name='disease_delete_video'),
+    path('disease_delete_all_video/<int:process_id>', disease.delete_all_video, name='disease_delete_all_video'),
+    path('disease_add_pic', disease.add_pic, name='disease_add_pic'),
+    path('disease_add_video', disease.add_video, name='disease_add_video'),
+
+    # test urls
     path('test/sub_disease_dict/<int:disease_id>', test.sub_disease_dict, name='sub_disease_dict'),
     path('test/question', test.question_index, name='question_show'),
     path('test/question_dict', test.question_dict, name='question_dict'),
@@ -87,6 +107,7 @@ urlpatterns = [
     # room urls
     path('basic/room', room.room, name='room_show'),
     path('basic/room_dict', room.room_dict, name='room_dict'),
+    path('basic/room_modify_dict/<int:room_id>', room.room_modify_dict,name='room_modify_dict'),
     path('basic/room_modify', room.room_modify, name='room_modify'),
     path('basic/room_create', room.room_create, name='room_create'),
     path('basic/room_delete/<int:room_id>', room.room_delete, name='room_delete'),
