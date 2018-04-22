@@ -173,18 +173,22 @@
     });
 
     function padLeft(str, length) {
-        if (str.length >= length)
+        str = str.toString();
+        if (str.length >= length){
             return str;
-        else
-            return padLeft("0" + str, length);
+        }
+        else{
+            str = '0'+str;
+            return padLeft(str, length);
+        }
     }
 
     function SetRemainTime() {
 
         if (SysSecond > 0) {
             SysSecond = SysSecond - 1;
-            var second = padLeft(Math.floor(SysSecond % 60), 1);             // 计算秒
-            var minute = padLeft(Math.floor((SysSecond / 60) % 60), 1);      //计算分
+            var second = padLeft(Math.floor(SysSecond % 60), 2);             // 计算秒
+            var minute = padLeft(Math.floor((SysSecond / 60) % 60), 2);      //计算分
             var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时
             //var day = Math.floor((SysSecond / 3600) / 24);        //计算天
 
