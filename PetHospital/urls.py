@@ -17,6 +17,9 @@ from django.urls import include, path
 from django.contrib import admin
 from User import views as User_view
 from . import views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib import staticfiles
+
 
 urlpatterns = [
     path('', User_view.sign_in),
@@ -34,3 +37,5 @@ urlpatterns = [
     # path('select_paper/', testviews.select_paper, name='select_paper'),
     # path('test_management/', testviews.test_management, name='test_management'),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
