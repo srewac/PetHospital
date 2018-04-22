@@ -1,0 +1,112 @@
+{% extends 'backend/base_page.html' %}
+{% block title %}
+    试卷生成
+{% endblock %}
+{% block main_content %}
+    <script>
+        function create_validation() {
+            if ($("#name").val() == '') {
+                $("#error_name").html("试卷名不能为空");
+                $("#error_name").show();
+            } else {
+                $("#error_name").html("");
+                $("#error_name").hide();
+            }
+            if ($("#desc").val() == '') {
+                $("#error_desc").html("描述不能为空");
+                $("#error_desc").show();
+            } else {
+                $("#error_desc").html("");
+                $("#error_desc").hide();
+            }
+        }
+
+        function create() {
+            create_validation();
+            if ($("#error_name").is(":hidden") && $("#error_desc").is(":hidden")) {
+                var form = new FormData(document.getElementById('testpaper_create'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:testpaper_create' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        window.location.href = 'select_question/'+result
+                    },
+                    error: function (result) {
+                        alert('testpaper create error');
+                    }
+                });
+            }
+
+        }
+
+    </script>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header"><a href="{% url 'Manage:testpaper_show' %}">考卷管理</a>/创建试卷
+                    <button type="button" class="btn btn-success"
+                            style="float: right;margin: 10px" onclick="create()">选择考题
+                    </button>
+                </h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-5">
+                <h3>试卷详情</h3>
+                <form method="post" id="testpaper_create" style="margin-top:30px;">
+                    <div class="form-group">
+                        <label for="name">试卷名</label>
+                        <input class="form-control" name="name" type="text" id="name">
+                        <p class="error-message" hidden="hidden" style="color: red" id="error_name"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="desc">试卷描述</label>
+                        <input class="form-control" name="desc" type="text" id="desc">
+                        <p class="error-message" hidden="hidden" style="color: red" id="error_desc"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="disease">病大类</label>
+                        <select class="form-control" name="disease" id="disease"></select>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 ">
+                <h3>考卷生成规则</h3>
+                <div style="margin-top: 30px">
+                    <p>为规范考试，严肃考风考纪。对考试的出卷工作提出以下要求，望各教师遵照执行。</p>
+                    <p>1．根据命题要求，各命题教师应选择难度适中、题目多样性好的试卷，并给出标准答案；相同知识点题目不得超过20%。</p>
+                    <p>2．考试内容的范围，原则上是该病种的全部内容，包括基础知识、基本理论、基本技能的掌握和综合运用所学知识的能力。试题要尽量避免死记硬背的内容，重点考核学生理解、运用知识的能力。。</p>
+                    <p>3、试题结构要按照教学大纲的要求，全面测量学生应具备的知识与能力，试题的覆盖面要广，应有一定的难度和区分度。考试命题应做到：基本题、水平题、难度题的比例基本保持为7:2:1。</p>
+                    <p>4、试题的份量以考试时间30分钟为适量</p>
+                    <p>5、出卷老师出卷完毕认真检查，经校对无误后发布试卷。</p>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+{% endblock %}
+{% block datatable_script %}
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "{% url "Manage:disease_sub_disease_dict" %}",
+                success: function (result) {
+                    result = JSON.parse(result);
+                    $.each(result.disease_all, function (id, name) {
+                        $("#disease").append($("<option>").val(id).text(name));
+                    });
+                },
+                error: function (result) {
+                }
+            });
+        });
+
+    </script>
+{% endblock %}

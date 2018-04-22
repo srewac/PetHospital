@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
+    <title>Pet Hospital: Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Pets Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -36,41 +36,83 @@
     <!-- //web-fonts -->
 </head>
 <body>
-<div class="agile_secives " id="services">
-    <div class="container">
-        <h3 class="agileits-title two">What Do You Want to Do</h3>
-        <div class="markets-grids">
-            <div class="col-md-4 w3ls-markets-grid">
-                <a href="{% url 'select_paper' %}">
-                    <div class="agileits-icon-grid">
-                        <div class="icon-left">
-                            <i class="fa fa-flask" aria-hidden="true"></i>
-                        </div>
-                        <div class="icon-right">
-                            <h5>选择考卷</h5>
-                            <p>Select Paper</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
+<div class="agileits-banner">
+    <div class="bnr-agileinfo">
+        <div class="banner-top w3layouts">
+            <div class="container">
+                <ul class="agile_top_section">
+                    <li>
+                        <p> Pet Hospital</p>
+                    </li>
+                    <li>
+                        <p></p>
+                    </li>
+                    <li>
+                        {% if request.session.user_id %}
+                            <a class="sign" href="#">{{ request.session.username }}</a>
+                            <a class="sign" href="{% url 'User:sign_out' %}">注销</a>
+                        {% else %}
+                            <a class="sign" href="{% url 'User:sign_in' %}">
+                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
+                            <a class="sign" href="{% url 'User:sign_up' %}">
+                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
+                        {% endif %}
+                    </li>
+                </ul>
             </div>
-            <div class="col-md-4 w3ls-markets-grid">
-                <div class="agileits-icon-grid">
-                    <div class="icon-left">
-                        <i class="fa fa-line-chart" aria-hidden="true"></i>
-                    </div>
-                    <div class="icon-right">
-                        <h5>查询成绩</h5>
-                        <p>Results</p>
-                    </div>
-                    <div class="clearfix"></div>
+        </div>
+        <h3 class="agileits-title two" style="margin-top: 60px">What Do You Want to Do</h3>
+        <div class="container">
+            <div class="markets-grids" align="center">
+                <div class="col-md-4 w3ls-markets-grid" style="margin-left: 20%">
+                    <a href="{% url 'Test:select_disease' %}">
+                        <div class="agileits-icon-grid">
+                            <div class="icon-left">
+                                <i class="fa fa-flask" aria-hidden="true"></i>
+                            </div>
+                            <div class="icon-right">
+                                <h5>选择考卷</h5>
+                                <p>Select Paper</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 w3ls-markets-grid">
+                    <a href="{% url 'Test:result' %}">
+                        <div class="agileits-icon-grid">
+                            <div class="icon-left">
+                                <i class="fa fa-line-chart" aria-hidden="true"></i>
+                            </div>
+                            <div class="icon-right">
+                                <h5>查询成绩</h5>
+                                <p>Results</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+                <div align="center">
+                    <a href="/index" class="button button-isi"
+                       style="margin-bottom: 45px;margin-top: 70px;">
+                        <i class="icon glyphicon glyphicon-arrow-left"></i>
+                        <span>返回</span>
+                    </a>
                 </div>
             </div>
-            <div class="clearfix"></div>
+        </div>
+        <div class="banner-w3text w3layouts">
         </div>
     </div>
 </div>
-
+<div class="copy-w3right">
+    <div class="container">
+        <div class="top-nav bottom-w3lnav">
+            <p>© 2018 Pet Hospital. All Rights Reserved | Designed by our Team</p>
+        </div>
+    </div>
+</div>
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/static/js/bootstrap.js"></script>
 </body>

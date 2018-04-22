@@ -1,0 +1,577 @@
+{% extends 'backend/base_page.html' %}
+{% block title %}
+    所有考题
+{% endblock %}
+{% block main_content %}
+    <script>
+        function getSubDiseaseOptions(disease_id, type) {
+            $.ajax({
+                type: "POST",
+                url: "sub_disease_dict/" + disease_id,
+                success: function (result) {
+                    result = JSON.parse(result);
+                    if (type == 'create') {
+                        $("#question_create_sub_disease").empty();
+                        $.each(result, function (id, name) {
+                            $("#question_create_sub_disease").append($("<option>").val(id).text(name))
+                        });
+                    } else if (type == 'modify') {
+                        $("#question_modify_sub_disease").empty();
+                        $.each(result, function (id, name) {
+                            $("#question_modify_sub_disease").append($("<option>").val(id).text(name))
+                        });
+                    }
+                }
+                ,
+                error: function (result) {
+                    alert('error');
+                }
+            });
+        }
+
+        function delete_confirm(question_id) {
+            $('#delete_id').val(question_id);
+            $('#delete').modal('show');
+        }
+
+        function delete_ok() {
+            var id = $("#delete_id").val();
+            $.ajax({
+                type: "post",
+                url: "/Manage/test/question_delete/" + id,
+                success: function (result) {
+                    $('#dataTables-example').DataTable().ajax.reload();
+                    $('#delete').modal('hide');
+                },
+                error: function (result) {
+                    alert('delete error');
+                }
+            });
+        }
+
+        function create_question_show() {
+            $.ajax({
+                type: "POST",
+                url: "{% url "Manage:disease_sub_disease_dict" %}",
+                success: function (result) {
+                    result = JSON.parse(result);
+                    $.each(result.disease_all, function (id, name) {
+                        $("#question_create_disease").append($("<option>").val(id).text(name));
+                    });
+                    $.each(result.sub_disease_all, function (id, name) {
+                        $("#question_create_sub_disease").append($("<option>").val(id).text(name))
+                    });
+                    $("#question_create").modal('show');
+                },
+                error: function (result) {
+                    alert('question modify error');
+                }
+            });
+        }
+
+        function create_validation() {
+            if ($("#question_create_textarea").val() == '') {
+                $("#error_question_create").html("问题不能为空");
+                $("#error_question_create").show();
+            } else {
+                $("#error_question_create").html("");
+                $("#error_question_create").hide();
+            }
+            if ($("#choice1_create").val() == '') {
+                $("#error_choice1_create").html("选项不能为空");
+                $("#error_choice1_create").show();
+            } else {
+                $("#error_choice1_create").html("");
+                $("#error_choice1_create").hide();
+            }
+            if ($("#choice2_create").val() == '') {
+                $("#error_choice2_create").html("选项不能为空");
+                $("#error_choice2_create").show();
+            } else {
+                $("#error_choice2_create").html("");
+                $("#error_choice2_create").hide();
+            }
+            if ($("#choice3_create").val() == '') {
+                $("#error_choice3_create").html("选项不能为空");
+                $("#error_choice3_create").show();
+            } else {
+                $("#error_choice3_create").html("");
+                $("#error_choice3_create").hide();
+            }
+            if ($("#choice4_create").val() == '') {
+                $("#error_choice4_create").html("选项不能为空");
+                $("#error_choice4_create").show();
+            } else {
+                $("#error_choice4_create").html("");
+                $("#error_choice4_create").hide();
+            }
+        }
+
+        <!--0:save_and_quit 1:save_and_continue-->
+        function create(type) {
+            create_validation();
+            if ($("#error_question_create").is(":hidden") && $("#error_choice1_create").is(":hidden") && $("#error_choice2_create").is(":hidden") && $("#error_choice3_create").is(":hidden") && $("#error_choice4_create").is(":hidden")) {
+                var form = new FormData(document.getElementById('question_create_form'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:question_create' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        $('#dataTables-example').DataTable().ajax.reload();
+                        if (type == 0)
+                            $("#question_create").modal('hide');
+                    },
+                    error: function (result) {
+                        alert('question create error');
+                    }
+                });
+            }
+
+        }
+
+        function modify_question_show(question_id) {
+            $.ajax({
+                type: "POST",
+                url: "question_modify_dict/" + question_id,
+                success: function (result) {
+                    result = JSON.parse(result);
+                    $("#question_modify_id").val(result.id);
+                    $("#question_modify_textarea").val(result.text);
+                    $("#question_modify select[name='score']").val(result.score);
+                    $("#question_modify_disease").empty();
+                    $("#question_modify_sub_disease").empty();
+                    $.each(result.disease_all, function (id, name) {
+                        $("#question_modify_disease").append($("<option>").val(id).text(name));
+                    });
+                    $.each(result.sub_disease_all, function (id, name) {
+                        $("#question_modify_sub_disease").append($("<option>").val(id).text(name))
+                    });
+                    $("#question_modify_disease").val(result.disease);
+                    $("#question_modify_sub_disease").val(result.sub_disease);
+                    for (var i = 1; i < 5; i++) {
+                        $("#choice" + i + "_modify").val(result.choices[i - 1][0]);
+                        $("#choice" + i + "_modify").val();
+                        if (result.choices[i - 1][1] == true) {
+                            $("#question_modify input[name='correct_choice']").get(i - 1).checked = true;
+                        }
+                    }
+                    $("#question_modify").modal('show');
+                },
+                error: function (result) {
+                    alert('question modify error');
+                }
+
+
+            })
+        }
+
+        function modify_validation() {
+            if ($("#question_modify_textarea").val() == '') {
+                $("#error_question_modify").html("问题不能为空");
+                $("#error_question_modify").show();
+            } else {
+                $("#error_question_modify").html("");
+                $("#error_question_modify").hide();
+            }
+            if ($("#choice1_modify").val() == '') {
+                $("#error_choice1_modify").html("选项不能为空");
+                $("#error_choice1_modify").show();
+            } else {
+                $("#error_choice1_modify").html("");
+                $("#error_choice1_modify").hide();
+            }
+            if ($("#choice2_modify").val() == '') {
+                $("#error_choice2_modify").html("选项不能为空");
+                $("#error_choice2_modify").show();
+            } else {
+                $("#error_choice2_modify").html("");
+                $("#error_choice2_modify").hide();
+            }
+            if ($("#choice3_modify").val() == '') {
+                $("#error_choice3_modify").html("选项不能为空");
+                $("#error_choice3_modify").show();
+            } else {
+                $("#error_choice3_modify").html("");
+                $("#error_choice3_modify").hide();
+            }
+            if ($("#choice4_modify").val() == '') {
+                $("#error_choice4_modify").html("选项不能为空");
+                $("#error_choice4_modify").show();
+            } else {
+                $("#error_choice4_modify").html("");
+                $("#error_choice4_modify").hide();
+            }
+        }
+
+        function modify() {
+            modify_validation();
+            if ($("#error_question_modify").is(":hidden") && $("#error_choice1_modify").is(":hidden") && $("#error_choice2_modify").is(":hidden") && $("#error_choice3_modify").is(":hidden") && $("#error_choice4_modify").is(":hidden")) {
+                var form = new FormData(document.getElementById('question_modify_form'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:question_modify' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        $('#dataTables-example').DataTable().ajax.reload();
+                        $("#question_modify").modal('hide');
+                    },
+                    error: function (result) {
+                        alert('question modify error');
+                    }
+                });
+            }
+        }
+
+    </script>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">考题管理
+                    <button type="button" class="btn btn-success"
+                            style="float: right;margin: 10px" onclick="create_question_show()">新建考题
+                    </button>
+                </h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        所有考题信息
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <table width="100%" class="table table-striped table-bordered table-hover"
+                               id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th width="30%">题目</th>
+                                <th width="20%">选项</th>
+                                <th width="10%">正确答案</th>
+                                <th>分值</th>
+                                <th>病大类</th>
+                                <th>病小类</th>
+                                <th width="13%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>题目</td>
+                                <td>选项</td>
+                                <td>正确答案</td>
+                                <td>分值</td>
+                                <td>病大类</td>
+                                <td>病小类</td>
+                                <td>操作</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <!-- 模态框（Modal）create -->
+        <div class="modal fade" id="question_create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            ×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">新建题目</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id='question_create_form' method="post" style="margin:10px 30px">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="question_create_textarea">题目：</label>
+                                        <textarea class="form-control" rows="4" name="question"
+                                                  id="question_create_textarea"></textarea>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_question_create"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>病大类：</label>
+                                        <select class="form-control" name="disease_selector"
+                                                id="question_create_disease"
+                                                onchange="getSubDiseaseOptions(this.value, 'create')"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>病小类：</label>
+                                        <select class="form-control" name="sub_disease_selector"
+                                                id="question_create_sub_disease">
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>分值：</label>
+                                        <select class="form-control" name="score">
+                                            <option value="1">1</option>
+                                            <option value="2" selected="selected">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>选项1：</label>
+                                        <input type="text" class="form-control" name="choice1" id="choice1_create"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" checked="checked" value="choice1">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice1_create"></p>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项2：</label>
+                                        <input type="text" class="form-control" name="choice2" id="choice2_create"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice2">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice2_create"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项3：</label>
+                                        <input type="text" class="form-control" name="choice3" id="choice3_create"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice3">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice3_create"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项4：</label>
+                                        <input type="text" class="form-control" name="choice4" id="choice4_create"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice4">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice4_create"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="create(1)">创建并继续</button>
+                        <button type="button" class="btn btn-primary" onclick="create(0)">创建并离开</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+        <!-- 模态框（Modal）end -->
+        <!-- 模态框（Modal）modify -->
+        <div class="modal fade" id="question_modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            ×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">修改题目</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id='question_modify_form' method="post" style="margin:10px 30px">
+                            <div class="row">
+                                <input type="text" name="id" id="question_modify_id" hidden="hidden"/>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="question_modify_textarea">题目：</label>
+                                        <textarea class="form-control" rows="4" name="question"
+                                                  id="question_modify_textarea"></textarea>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_question_modify"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>病大类：</label>
+                                        <select class="form-control" name="disease_selector"
+                                                id="question_modify_disease"
+                                                onchange="getSubDiseaseOptions(this.value, 'modify')"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>病小类：</label>
+                                        <select class="form-control" name="sub_disease_selector"
+                                                id="question_modify_sub_disease"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>分值：</label>
+                                        <select class="form-control" name="score">
+                                            <option value="1">1</option>
+                                            <option value="2" selected="selected">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>选项1：</label>
+                                        <input type="text" class="form-control" name="choice1" id="choice1_modify"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" checked="checked" value="choice1">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice1_modify"></p>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项2：</label>
+                                        <input type="text" class="form-control" name="choice2" id="choice2_modify"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice2">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice2_modify"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项3：</label>
+                                        <input type="text" class="form-control" name="choice3" id="choice3_modify"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice3">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice3_modify"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>选项4：</label>
+                                        <input type="text" class="form-control" name="choice4" id="choice4_modify"/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="correct_choice" value="choice4">
+                                            正确选项
+                                        </label>
+                                        <p class="error-message" hidden="hidden" style="color: red"
+                                           id="error_choice4_modify"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="modify()">修改</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+        <!-- 模态框（Modal）end -->
+        <!-- 模态框（Modal）delete -->
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            ×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">删除用户</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5>是否确定删除？</h5>
+                        <input hidden="hidden" id="delete_id">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" id="btn-delete" onclick="delete_ok()">删除</button>
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+        <!-- 模态框（Modal）end -->
+    </div>
+{% endblock %}
+
+{% block datatable_script %}
+    <script>
+        $(document).ready(function () {
+            var table = $('#dataTables-example').DataTable({
+                "ajax": "{% url 'Manage:question_dict' %}",
+                "columnDefs": [{
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify' style='margin-right:5px;margin-bottom:5px'>修改</button><button type='button' class='btn btn-danger' name='delete' style='margin-right:5px;margin-bottom:5px'>删除</button>"
+                }]
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                modify_question_show(data[6]);
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                delete_confirm(data[6]);
+            });
+            $("#question_create").on("hidden.bs.modal", function () {
+                $("#question_create_textarea").val("");
+                $("#choice1_create").val("");
+                $("#choice2_create").val("");
+                $("#choice3_create").val("");
+                $("#choice4_create").val("");
+                $("#error_question_create").html("");
+                $("#error_question_create").hide();
+                $("#error_choice1_create").html("");
+                $("#error_choice1_create").hide();
+                $("#error_choice2_create").html("");
+                $("#error_choice2_create").hide();
+                $("#error_choice3_create").html("");
+                $("#error_choice3_create").hide();
+                $("#error_choice4_create").html("");
+                $("#error_choice4_create").hide();
+            });
+            $("#question_modify").on("hidden.bs.modal", function () {
+                $("#question_modify_textarea").val("");
+                $("#choice1_modify").val("");
+                $("#choice2_modify").val("");
+                $("#choice3_modify").val("");
+                $("#choice4_modify").val("");
+                $("#error_question_modify").html("");
+                $("#error_question_modify").hide();
+                $("#error_choice1_modify").html("");
+                $("#error_choice1_modify").hide();
+                $("#error_choice2_modify").html("");
+                $("#error_choice2_modify").hide();
+                $("#error_choice3_modify").html("");
+                $("#error_choice3_modify").hide();
+                $("#error_choice4_modify").html("");
+                $("#error_choice4_modify").hide();
+            });
+        });
+    </script>
+{% endblock %}

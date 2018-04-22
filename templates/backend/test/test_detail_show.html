@@ -1,0 +1,155 @@
+{% extends 'backend/base_page.html' %}
+{% block title %}
+    考题选择
+{% endblock %}
+{% block main_content %}
+    <script>
+        function user_add(user_id) {
+            $.ajax({
+                type: "post",
+                url: "/Manage/test/test_detail_add_user/" + {{ test_id }} +'/' + user_id,
+                success: function (result) {
+                    if (result == false)
+                        alert(result)
+                },
+                error: function (result) {
+                    alert('testpaper create error');
+                }
+            });
+        }
+
+        function user_delete(user_id) {
+            $.ajax({
+                type: "post",
+                url: "/Manage/test/test_detail_delete_user/" + {{ test_id }} +'/' + user_id,
+                success: function (result) {
+                    if (result == false)
+                        alert(result)
+                },
+                error: function (result) {
+                    alert('testpaper create error');
+                }
+            });
+        }
+
+        function user_delete_all() {
+            $.ajax({
+                type: 'post',
+                url: '{% url 'Manage:test_detail_delete_all_user' test_id %}',
+                success: function (result) {
+                    location.reload();
+                },
+                error: function () {
+                    alert("delete all error")
+                }
+            });
+        }
+
+        function user_add_all() {
+            $.ajax({
+                type: 'post',
+                url: '{% url 'Manage:test_detail_add_all_user' test_id %}',
+                success: function (result) {
+                    location.reload();
+                },
+                error: function () {
+                    alert("add all error")
+                }
+            });
+        }
+    </script>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header"><a href="{% url 'Manage:test_show' %}">考场管理</a>/考场考生
+                    <button type="button" class="btn btn-success"
+                            style="float: right;margin: 10px 5px"
+                            onclick="window.location.href='{% url 'Manage:test_show' %}' ">返回考场管理
+                    </button>
+                    {% if test_status == "未开始" %}
+                        <button type="button" class="btn btn-warning"
+                                style="float: right;margin: 10px 5px"
+                                onclick="user_delete_all()">清空选择
+                        </button>
+                        <button type="button" class="btn btn-success"
+                                style="float: right;margin: 10px 5px"
+                                onclick="user_add_all()">添加全部
+                        </button>
+                    {% endif %}
+
+                </h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <p>考场名称:<b>{{ test_name }}</b> 考场状态:<b>{{ test_status }}</b></p>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <table width="100%" class="table table-striped table-bordered table-hover"
+                               id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>用户邮箱</th>
+                                <th>用户名</th>
+                                <th>成绩</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+{% endblock %}
+
+{% block datatable_script %}
+    <script>
+        $(document).ready(function () {
+            var table = $('#dataTables-example').DataTable({
+                "ajax": "{% url 'Manage:test_detail_dict' test_id %}",
+                "columnDefs": [{
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "{% if test_status == "未开始" %}<button type='button' class='btn btn-success' name='add' style='margin-right:5px'>添加</button><button type='delete' class='btn btn-danger' name='delete' style='display:none;'>删除</button>{% else %}<p>此状态无法进行操作</p>{% endif %}"
+                }],
+                "initComplete": function (settings, json) {
+                    $('#dataTables-example tbody tr').each(function () {
+                        var data = table.row($(this)).data();
+                        if (data[3].split(';')[0] == '1') {
+                            $(this).find("button[name='add']").hide();
+                            $(this).find("button[name='delete']").show();
+                        }
+                    });
+                }
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="add"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                user_add(data[3].split(';')[1]);
+                $(this).next().show();
+                $(this).hide();
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                user_delete(data[3].split(';')[1]);
+                $(this).prev().show();
+                $(this).hide();
+
+            });
+        });
+
+    </script>
+{% endblock %}

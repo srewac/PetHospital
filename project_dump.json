@@ -1,0 +1,1978 @@
+[
+{
+    "model": "Navigation.role",
+    "pk": 1,
+    "fields": {
+        "name": "\u524d\u53f0"
+    }
+},
+{
+    "model": "Navigation.role",
+    "pk": 2,
+    "fields": {
+        "name": "\u52a9\u7406"
+    }
+},
+{
+    "model": "Navigation.role",
+    "pk": 3,
+    "fields": {
+        "name": "\u6267\u4e1a\u517d\u533b\u5e08"
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 1,
+    "fields": {
+        "name": "\u524d\u53f0",
+        "desc": "\u5305\u62ec\u63a5\u5f85\u6302\u53f7\u3001\u5bfc\u533b\u54a8\u8be2\u3001\u75c5\u5386\u6863\u6848\u53d1\u51fa\u4e0e\u56de\u6536\u3001\u6536\u8d39\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            1
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 2,
+    "fields": {
+        "name": "\u6863\u6848\u5ba4",
+        "desc": "\u5305\u62ec\u75c5\u4f8b\u6863\u6848\u7684\u5408\u7406\u4fdd\u5b58\u4e0e\u6570\u636e\u7edf\u8ba1\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            1
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 3,
+    "fields": {
+        "name": "\u514d\u75ab\u5ba4",
+        "desc": "\u5305\u62ec\u4e3a\u5065\u5eb7\u5ba0\u7269\u63a5\u79cd\u75ab\u82d7\u7684\u6d41\u7a0b\uff0c\u5bf9\u5e38\u89c1\u5e76\u53d1\u75c7\u7684\u5904\u7406\u6d41\u7a0b\uff0c\u5bf9\u5e38\u89c1\u514d\u75ab\u76f8\u5173\u95ee\u9898\u7684\u89e3\u7b54\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 4,
+    "fields": {
+        "name": "\u5316\u9a8c\u5ba4",
+        "desc": "\u5305\u62ec\u5bf9\u9001\u68c0\u6837\u672c\u7684\u9884\u5904\u7406\uff0c\u5bf9\u76f8\u5e94\u6837\u672c\u8fdb\u884c\u8840\u5e38\u89c4\u3001\u8840\u6db2\u751f\u5316\u3001\u7535\u89e3\u8d28\u3001\u8840\u6c14\u3001\u8840\u51dd\u6307\u6807\u3001\u6fc0\u7d20\u6307\u6807\u3001\u5c3f\u5e38\u89c4\u3001\u5fae\u751f\u7269\u5b66\u68c0\u67e5\u3001\u836f\u654f\u3001\u76ae\u80a4\u522e\u7247\u3001\u7caa\u4fbf\u68c0\u67e5\u3001\u4f20\u67d3\u75c5\u68c0\u67e5\u7b49\u68c0\u67e5\u64cd\u4f5c\u6d41\u7a0b\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 5,
+    "fields": {
+        "name": "\u5f71\u50cf\u5ba4",
+        "desc": "\u5305\u62ecX\u7ebf\u68c0\u67e5\u3001B\u8d85\u68c0\u67e5\u4ee5\u53caCT\u3001MRI\u68c0\u67e5\u3002\u5982X\u7ebf\u68c0\u67e5\uff1aX\u5149\u673a\u7684\u7ed3\u6784\u529f\u80fd\u4ecb\u7ecd\u3001\u5168\u8eab\u5404\u90e8\u4f4d\u7684\u6446\u4f4d\u3001\u62cd\u6444\u6761\u4ef6\u7684\u9009\u62e9\u3001\u62cd\u6444\u6d41\u7a0b\u3001\u6d17\u7247\u7684\u64cd\u4f5c\u6d41\u7a0b\u3002B\u8d85\u68c0\u67e5\uff1a\u626b\u67e5\u63a2\u5934\u7684\u9009\u62e9\u3001\u5168\u8eab\u5404\u4e2a\u90e8\u4f4d\u626b\u67e5\u7684\u6446\u4f4d\u3001\u8179\u90e8\u626b\u67e5\u6d41\u7a0b\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 6,
+    "fields": {
+        "name": "\u4e13\u79d1\u68c0\u67e5\u5ba4",
+        "desc": "\u5305\u62ec\u5bf9\u773c\u79d1\u3001\u9aa8\u79d1\u3001\u795e\u7ecf\u79d1\u3001\u5fc3\u810f\u79d1\u7b49\u4e13\u79d1\u75be\u75c5\u7684\u68c0\u67e5\uff0c\u5982\u773c\u79d1\uff08\u68c0\u773c\u955c\u68c0\u67e5\u3001\u773c\u538b\u68c0\u67e5\u3001\u88c2\u9699\u706f\u68c0\u67e5\u3001\u773c\u5e95\u68c0\u67e5\u3001\u6cea\u6db2\u5206\u6ccc\u91cf\u68c0\u67e5\u7b49\uff09\u3001\u5fc3\u810f\u79d1\u68c0\u67e5\uff08\u5fc3\u810f\u542c\u8bca\u3001\u5fc3\u7535\u56fe\u68c0\u67e5\u7b49\uff09\u3001\u795e\u7ecf\u5b66\u68c0\u67e5\uff08\u6b65\u6001\u68c0\u67e5\u3001\u5404\u79cd\u53cd\u5c04\u68c0\u67e5\u7b49\uff09\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            3
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 7,
+    "fields": {
+        "name": "\u5904\u7f6e\u5ba4",
+        "desc": "\u5305\u62ec\u53e3\u670d\u6295\u836f\u3001\u6362\u836f\u3001\u6e05\u6d17\u8033\u9053\u3001\u6324\u809b\u95e8\u817a\u3001\u4fee\u526a\u6307\u7532\u3001\u9f3b\u9972\u7ba1\u653e\u7f6e\u3001\u704c\u80a0\u3001\u5b89\u4e50\u6b7b\u7b49\u57fa\u672c\u5904\u7f6e\u64cd\u4f5c\u6d41\u7a0b\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 8,
+    "fields": {
+        "name": "\u836f\u623f",
+        "desc": "\u5305\u62ec\u5bf9\u5404\u79cd\u836f\u7269\u7684\u5b58\u653e\u8981\u6c42\u3001\u5904\u65b9\u7684\u5ba1\u6838\u6d41\u7a0b\u3001\u836f\u7269\u7684\u53d1\u653e\u6d41\u7a0b\u3001\u5e38\u89c1\u836f\u7269\u7684\u4f7f\u7528\u8bf4\u660e\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 9,
+    "fields": {
+        "name": "\u6ce8\u5c04\u5ba4",
+        "desc": "\u5305\u62ec\u9759\u8109\u6ce8\u5c04\u3001\u76ae\u4e0b\u6ce8\u5c04\u3001\u808c\u8089\u6ce8\u5c04\u3001\u5c40\u90e8\u5c01\u95ed\u6ce8\u5c04\u7684\u64cd\u4f5c\u6d41\u7a0b\uff0c\u5e38\u89c1\u95ee\u9898\u7684\u5904\u7406\u65b9\u6cd5\uff0c\u8f93\u6db2\u6cf5\u3001\u52a0\u70ed\u57ab\u7684\u4f7f\u7528\u65b9\u6cd5\uff0c\u6ce8\u5c04\u5ba4\u7684\u6d88\u6bd2\u6d41\u7a0b\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 10,
+    "fields": {
+        "name": "\u624b\u672f\u51c6\u5907\u5ba4",
+        "desc": "\u5305\u62ec\u672f\u524d\u5bf9\u5ba0\u7269\u8fdb\u884c\u9ebb\u524d\u7ed9\u836f\u3001\u6ce8\u5c04\u9ebb\u9189\u3001\u5438\u5165\u9ebb\u9189\u7684\u6d41\u7a0b\uff0c\u4fdd\u5b9a\u3001\u5243\u6bdb\u3001\u6d88\u6bd2\u7684\u6d41\u7a0b\uff0c\u5e38\u89c1\u624b\u672f\u5668\u68b0\u7684\u4ecb\u7ecd\uff0c\u624b\u672f\u5668\u68b0\u5305\u7684\u51c6\u5907\u3001\u706d\u83cc\u6d41\u7a0b\uff0c\u624b\u672f\u4eba\u5458\u7684\u6d88\u6bd2\u3001\u7a7f\u6234\u624b\u672f\u8863\u6d41\u7a0b\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 11,
+    "fields": {
+        "name": "\u624b\u672f\u5ba4",
+        "desc": "\u5305\u62ec\u624b\u672f\u5ba4\u7684\u5e03\u5c40\u4ecb\u7ecd\uff0c\u624b\u672f\u5ba4\u6d88\u6bd2\u6d41\u7a0b\uff0c\u624b\u672f\u65e0\u83cc\u8981\u6c42\uff0c\u5e38\u89c4\u624b\u672f\u3001\u7279\u6b8a\u624b\u7b49\u7684\u64cd\u4f5c\u89c4\u8303\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            3
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 12,
+    "fields": {
+        "name": "\u4f4f\u9662\u90e8",
+        "desc": "\u5305\u62ec\u5bf9\u9700\u8981\u4f4f\u9662\u7684\u75c5\u4f8b\u8fdb\u884c\u62a4\u7406\u5206\u7ea7\uff0c\u4e0d\u540c\u62a4\u7406\u7ea7\u522b\u7684\u8981\u6c42\uff0c\u4f4f\u9662\u90e8\u7684\u5de5\u4f5c\u6d41\u7a0b\uff0c\u4f4f\u9662\u90e8\u7684\u6d88\u6bd2\u6d41\u7a0b\u7b49\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "Navigation.room",
+    "pk": 13,
+    "fields": {
+        "name": "\u75c5\u7406\u5256\u68c0\u5ba4",
+        "desc": "\u5305\u62ec\u5bf9\u75c5\u6b7b\u52a8\u7269\u5256\u89e3\u7684\u6d41\u7a0b\uff0c\u75c5\u7406\u5256\u68c0\u5ba4\u7684\u6d88\u6bd2\u6d41\u7a0b\uff0c\u75c5\u5386\u5256\u68c0\u8fc7\u7a0b\u7684\u4eba\u5458\u8981\u6c42\uff0c\u75c5\u7406\u5256\u68c0\u8fc7\u7a0b\u4e2d\u7684\u4eba\u9053\u5173\u6000\u3002",
+        "pic_url": "",
+        "video_url": "",
+        "roles": []
+    }
+},
+{
+    "model": "User.user",
+    "pk": 1,
+    "fields": {
+        "email": "admin1@example.com",
+        "password": "admin1",
+        "name": "admin1",
+        "authority": 1,
+        "tests": []
+    }
+},
+{
+    "model": "User.user",
+    "pk": 2,
+    "fields": {
+        "email": "admin2@example.cpm",
+        "password": "admin2",
+        "name": "admin2",
+        "authority": 1,
+        "tests": []
+    }
+},
+{
+    "model": "User.user",
+    "pk": 3,
+    "fields": {
+        "email": "admin3@example.com",
+        "password": "admin3",
+        "name": "admin3",
+        "authority": 1,
+        "tests": []
+    }
+},
+{
+    "model": "User.user",
+    "pk": 4,
+    "fields": {
+        "email": "intern1@test.com",
+        "password": "intern1",
+        "name": "intern1",
+        "authority": 0,
+        "tests": [
+            11,
+            12
+        ]
+    }
+},
+{
+    "model": "User.user",
+    "pk": 5,
+    "fields": {
+        "email": "intern2@test.com",
+        "password": "intern2",
+        "name": "intern2",
+        "authority": 0,
+        "tests": [
+            11,
+            12
+        ]
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 4,
+    "fields": {
+        "text": "\u4e0b\u5217\u9009\u9879\u4e2d\u54ea\u9879\u4e0d\u5c5e\u4e8e\u5185\u5206\u6ccc\u5668\u5b98? ",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 5,
+    "fields": {
+        "text": "\u4e0b\u5217\u9009\u9879\u4e2d\u4e0d\u662f\u7ec4\u6210\u5185\u810f\u7684\u7cfb\u7edf\u662f?",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 6,
+    "fields": {
+        "text": "\u80f0\u4f4d\u4e8e\u5341\u4e8c\u6307\u80a0\u7684\u5f2f\u66f2\u4e2d,\u5176\u5185\u5206\u6ccc\u90e8\u53c8\u540d\u80f0\u5c9b,\u4e0b\u5217\u9009\u9879\u4e2d\u4e0d\u662f\u80f0\u5c9b\u5206\u6ccc\u7684\u662f?",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 7,
+    "fields": {
+        "text": "\u4e3b\u8981\u4f5c\u7528\u662f\u8c03\u8282\u8840\u9499\u6d53\u5ea6,\u4fc3\u8fdb\u9aa8\u9499\u6eb6\u89e3,\u5347\u9ad8\u8840\u9499\u7684\u6fc0\u7d20\u662f?",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 8,
+    "fields": {
+        "text": "\u88ab\u79f0\u4e3a\u201c\u751f\u547d\u4e2d\u67a2\u201d\u7684\u662f?",
+        "score": 2,
+        "sub_disease": 38
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 9,
+    "fields": {
+        "text": "\u5728\u5ba0\u7269\u751f\u4ea7\u4e0a,\u88ab\u5e7f\u6cdb\u7528\u4e8e\u50ac\u60c5\u548c\u8d85\u6570\u6392\u5375\u7684\u662f? ",
+        "score": 2,
+        "sub_disease": 38
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 10,
+    "fields": {
+        "text": "\u4e0b\u5217\u4e0d\u5c5e\u4e8e\u5185\u5206\u6ccc\u5668\u5b98\u4e2d\u5206\u6563\u5728\u5176\u4ed6\u5668\u5b98\u4e2d\u7684\u5185\u5206\u6ccc\u7ec4\u7ec7",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 11,
+    "fields": {
+        "text": "\u5173\u4e8e\u80be\u4e0a\u817a\u76ae\u8d28\u673a\u80fd\u4ea2\u8fdb\u7684\u63cf\u8ff0\u6b63\u786e\u7684\u662f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 12,
+    "fields": {
+        "text": "\u80be\u4e0a\u817a\u76ae\u8d28\u673a\u80fd\u4ea2\u8fdb\u5b9e\u9a8c\u5ba4\u68c0\u67e5\u4e2d\u4e0b\u5217\u8bf4\u6cd5\u6b63\u786e\u7684\u662f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 13,
+    "fields": {
+        "text": "\u6210\u5e74\u72ac\u732b\u547c\u5438\u65b9\u5f0f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 14,
+    "fields": {
+        "text": "\u4e00\u6c27\u5316\u78b3\u4e2d\u6bd2\u7684\u9ecf\u819c\u989c\u8272\u662f ",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 15,
+    "fields": {
+        "text": "\u4e0b\u5217\u54ea\u50cf\u5b58\u5728\u4e8e\u80ba\u95f4\u8d28",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 16,
+    "fields": {
+        "text": "\u7a7a\u6c14\u8fdb\u5165\u80f8\u819c\u8154\u4e0b\u5217\u54ea\u4e2a\u9014\u5f84\u4e0d\u662f ",
+        "score": 2,
+        "sub_disease": 53
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 17,
+    "fields": {
+        "text": "\u6c14\u7ba1\u7684\u7ec4\u6210\u4ee5\u4e0b\u54ea\u4e2a\u4e0d\u662f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 18,
+    "fields": {
+        "text": "\u62cd\u6444\u80f8\u7247\u65f6\u4e3a\u4e86\u8ba9\u80ba\u53f6\u66f4\u6e05\u6670,\u9009\u62e9\u4ec0\u4e48\u65f6\u4faf\u62cd\u7247",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 19,
+    "fields": {
+        "text": "\u72ac\u53d1\u751f\u6025\u6027\u652f\u6c14\u7ba1\u80ba\u708e\u65f6,\u8840\u6db2\u5b66\u68c0\u67e5\u53ef\u89c1 ",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 20,
+    "fields": {
+        "text": "\u76db\u590f,\u4e00\u62c9\u5e03\u62c9\u591a\u5728\u905b\u72d7\u8fc7\u7a0b\u4e2d\u7a81\u7136\u53d1\u75c5,\u547c\u5438\u65f6\u9f3b\u5b54\u5f00\u5f20,\u820c\u5347\u51fa\u53e3\u5916,\u56db\u80a2\u65e0\u529b\u5012\u5730,\u8840\u7ba1\u6012\u5f20,\u7ed3\u819c\u53d1\u7ec0,\u5fc3\u97f3\u5fae\u5f31,\u4f53\u6e2941,\u8be5\u75c5\u53ef\u80fd\u662f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 21,
+    "fields": {
+        "text": "\u7ec6\u83cc\u6027\u80ba\u708e,\u8840\u5e38\u89c4wbc\u548cgr\u660e\u663e\u5347\u9ad8,\u5176\u767d\u7ec6\u80de\u4f53\u79ef\u5206\u5e03\u4e8c\u5cf0\u56fe\u8868\u73b0\u4e3a",
+        "score": 2,
+        "sub_disease": 1
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 22,
+    "fields": {
+        "text": "\u5bb6\u732b,\u96cc\u6027,2\u5c81,\u524d\u5929\u7a81\u53d1\u547c\u5438\u6291\u5236,\u5f20\u53e3\u547c\u5438,\u4f53\u6e29\u6b63\u5e38\u3002x\u7ebf\u4fa7\u4f4d\u7247\u89c1\u5728\u80ba\u548c\u8188,\u80ba\u548c\u810a\u67f1,\u80ba\u548c\u80f8\u9aa8\u95f4\u6709\u900f\u660e\u7684\u95f4\u9699,\u663e\u793a\u4e3a\u9ed1\u8272,\u5fc3\u810f\u5411\u80cc\u4fa7\u63d0\u5347,\u4e3b\u52a8\u8109\u548c\u540e\u8154\u9759\u8109\u975e\u5e38\u6e05\u6670,\u4e2d\u592e\u80ba\u90e8\u5bc6\u5ea6\u5347\u9ad8,\u6700\u53ef\u80fd\u7684\u8bca\u65ad\u662f",
+        "score": 2,
+        "sub_disease": 53
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 23,
+    "fields": {
+        "text": "\u9f3b\u8154\u9ecf\u819c\u53d1\u708e\u5e38\u6ce2\u53ca\u7684\u8154\u7aa6\u662f",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.question",
+    "pk": 24,
+    "fields": {
+        "text": "\u80ba\u8fdb\u884c\u6c14\u4f53\u4ea4\u6362\u7684\u4e3b\u8981\u573a\u6240\u662f ",
+        "score": 2,
+        "sub_disease": 14
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 13,
+    "fields": {
+        "question": 4,
+        "text": "\u809d",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 14,
+    "fields": {
+        "question": 4,
+        "text": "\u7532\u72b6\u817a",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 15,
+    "fields": {
+        "question": 4,
+        "text": "\u677e\u679c\u4f53",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 16,
+    "fields": {
+        "question": 4,
+        "text": "\u80f0\u5c9b",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 17,
+    "fields": {
+        "question": 5,
+        "text": "\u6d88\u5316\u7cfb\u7edf",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 18,
+    "fields": {
+        "question": 5,
+        "text": "\u5185\u5206\u6ccc\u7cfb\u7edf",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 19,
+    "fields": {
+        "question": 5,
+        "text": "\u547c\u5438\u7cfb\u7edf",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 20,
+    "fields": {
+        "question": 5,
+        "text": "\u751f\u6b96\u7cfb\u7edf",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 21,
+    "fields": {
+        "question": 6,
+        "text": "\u80f0\u5c9b\u7d20",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 22,
+    "fields": {
+        "question": 6,
+        "text": "\u80f0\u6db2",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 23,
+    "fields": {
+        "question": 6,
+        "text": "\u80f0\u9ad8\u8840\u7cd6\u7d20",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 24,
+    "fields": {
+        "question": 6,
+        "text": "\u80c3\u6db2",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 25,
+    "fields": {
+        "question": 7,
+        "text": "\u7532\u72b6\u817a",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 26,
+    "fields": {
+        "question": 7,
+        "text": "\u80be\u4e0a\u817a",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 27,
+    "fields": {
+        "question": 7,
+        "text": "\u7532\u72b6\u65c1\u817a",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 28,
+    "fields": {
+        "question": 7,
+        "text": "\u80f0\u5c9b",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 29,
+    "fields": {
+        "question": 8,
+        "text": "\u810a\u9ad3",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 30,
+    "fields": {
+        "question": 8,
+        "text": "\u5ef6\u9ad3",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 31,
+    "fields": {
+        "question": 8,
+        "text": "\u8111\u6865",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 32,
+    "fields": {
+        "question": 8,
+        "text": "\u5c0f\u8111",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 33,
+    "fields": {
+        "question": 9,
+        "text": "\u96cc\u6fc0\u7d20",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 34,
+    "fields": {
+        "question": 9,
+        "text": "\u5b55\u916e",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 35,
+    "fields": {
+        "question": 9,
+        "text": "\u80ce\u76d8\u50ac\u4e73\u7d20",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 36,
+    "fields": {
+        "question": 9,
+        "text": "\u5b55\u9a6c\u8840\u6e05\u4fc3\u6027\u817a\u6fc0\u7d20",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 37,
+    "fields": {
+        "question": 10,
+        "text": "\u80f0\u5c9b",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 38,
+    "fields": {
+        "question": 10,
+        "text": "\u7532\u72b6\u65c1\u817a",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 39,
+    "fields": {
+        "question": 10,
+        "text": "\u5375\u6ce1",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 40,
+    "fields": {
+        "question": 10,
+        "text": "\u9ec4\u4f53",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 41,
+    "fields": {
+        "question": 11,
+        "text": "\u732b\u591a\u53d1\u4e8e\u72ac",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 42,
+    "fields": {
+        "question": 11,
+        "text": "\u96c4\u6027\u591a\u53d1\u4e8e\u96cc\u6027\u72ac",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 43,
+    "fields": {
+        "question": 11,
+        "text": "\u591a\u53d1\u4e8e\u9752\u5e74\u72ac",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 44,
+    "fields": {
+        "question": 11,
+        "text": "\u591a\u53d1\u4e8e\u8001\u5e74\u72ac",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 45,
+    "fields": {
+        "question": 12,
+        "text": "ALKP\u5347\u9ad8GLU\u964d\u4f4e",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 46,
+    "fields": {
+        "question": 12,
+        "text": "\u4f4e\u8840\u94be \u5c3f\u6bd4\u91cd\u504f\u9ad8",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 47,
+    "fields": {
+        "question": 12,
+        "text": "\u4f4e\u8840\u94a0 \u9ad8\u8840\u94be",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 48,
+    "fields": {
+        "question": 12,
+        "text": "ALKP\u5347\u9ad8 GLU\u5347\u9ad8",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 49,
+    "fields": {
+        "question": 13,
+        "text": "\u80f8\u5f0f\u547c\u5438",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 50,
+    "fields": {
+        "question": 13,
+        "text": "\u80f8\u8179\u5f0f\u547c\u5438",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 51,
+    "fields": {
+        "question": 13,
+        "text": "\u8179\u5f0f\u547c\u5438",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 52,
+    "fields": {
+        "question": 13,
+        "text": "\u6f6e\u5f0f\u547c\u5438",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 53,
+    "fields": {
+        "question": 14,
+        "text": "\u6a31\u6843\u7ea2\u8272",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 54,
+    "fields": {
+        "question": 14,
+        "text": "\u9752\u7d2b\u8272",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 55,
+    "fields": {
+        "question": 14,
+        "text": "\u6df1\u7ea2\u8272",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 56,
+    "fields": {
+        "question": 14,
+        "text": "\u6cdb\u767d\u8272",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 57,
+    "fields": {
+        "question": 15,
+        "text": "\u6dcb\u5df4\u7ba1",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 58,
+    "fields": {
+        "question": 15,
+        "text": "\u80ba\u6ce1",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 59,
+    "fields": {
+        "question": 15,
+        "text": "\u652f\u6c14\u7ba1",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 60,
+    "fields": {
+        "question": 15,
+        "text": "\u4e3b\u52a8\u8109",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 61,
+    "fields": {
+        "question": 16,
+        "text": "\u80f8\u58c1\u7a7f\u5b54",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 62,
+    "fields": {
+        "question": 16,
+        "text": "\u80ba\u810f\u7834\u88c2",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 63,
+    "fields": {
+        "question": 16,
+        "text": "\u8188\u808c\u7834\u88c2",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 64,
+    "fields": {
+        "question": 16,
+        "text": "\u98df\u9053\u7834\u88c2",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 65,
+    "fields": {
+        "question": 17,
+        "text": "\u73af\u72b6\u8f6f\u9aa8",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 66,
+    "fields": {
+        "question": 17,
+        "text": "\u5e73\u6ed1\u808c",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 67,
+    "fields": {
+        "question": 17,
+        "text": "\u5f39\u6027\u7ea4\u7ef4",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 68,
+    "fields": {
+        "question": 17,
+        "text": "\u808c\u68ad",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 69,
+    "fields": {
+        "question": 18,
+        "text": "\u5438\u6c14\u672b",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 70,
+    "fields": {
+        "question": 18,
+        "text": "\u547c\u6c14\u672b",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 71,
+    "fields": {
+        "question": 18,
+        "text": "\u547c\u6c14\u65f6",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 72,
+    "fields": {
+        "question": 18,
+        "text": "\u5438\u6c14\u65f6",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 73,
+    "fields": {
+        "question": 19,
+        "text": "\u767d\u7ec6\u80de\u603b\u6570\u4e0b\u964d",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 74,
+    "fields": {
+        "question": 19,
+        "text": "\u767d\u7ec6\u80de\u603b\u6570\u5347\u9ad8",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 75,
+    "fields": {
+        "question": 19,
+        "text": "\u55dc\u9178\u6027\u7c92\u7ec6\u80de\u5347\u9ad8",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 76,
+    "fields": {
+        "question": 19,
+        "text": "\u4e2d\u6027\u7c92\u7ec6\u80de\u5347\u9ad8",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 77,
+    "fields": {
+        "question": 20,
+        "text": "\u72ac\u761f\u70ed",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 78,
+    "fields": {
+        "question": 20,
+        "text": "\u5927\u53f6\u6027\u80ba\u708e",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 79,
+    "fields": {
+        "question": 20,
+        "text": "\u6c14\u7ba1\u708e",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 80,
+    "fields": {
+        "question": 20,
+        "text": "\u4e2d\u6691",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 81,
+    "fields": {
+        "question": 21,
+        "text": "\u5de6\u4fa7\u5cf0\u660e\u663e\u504f\u9ad8",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 82,
+    "fields": {
+        "question": 21,
+        "text": "\u5de6\u4fa7\u5cf0\u5e95\u660e\u663e\u589e\u5bbd",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 83,
+    "fields": {
+        "question": 21,
+        "text": "\u53f3\u4fa7\u5cf0\u5e95\u660e\u663e\u53d8\u7a84",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 84,
+    "fields": {
+        "question": 21,
+        "text": "\u5de6\u53f3\u4e24\u5cf0\u95f4\u8ddd\u589e\u5bbd",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 85,
+    "fields": {
+        "question": 22,
+        "text": "\u6c14\u80f8",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 86,
+    "fields": {
+        "question": 22,
+        "text": "\u80ba\u6c14\u80bf",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 87,
+    "fields": {
+        "question": 22,
+        "text": "\u80ba\u6c34\u80bf",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 88,
+    "fields": {
+        "question": 22,
+        "text": "\u80ba\u708e",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 89,
+    "fields": {
+        "question": 23,
+        "text": "\u8840\u7aa6",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 90,
+    "fields": {
+        "question": 23,
+        "text": "\u6dcb\u5df4\u7aa6",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 91,
+    "fields": {
+        "question": 23,
+        "text": "\u4e0a\u989d\u7aa6",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 92,
+    "fields": {
+        "question": 23,
+        "text": "\u51a0\u72b6\u7aa6",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 93,
+    "fields": {
+        "question": 24,
+        "text": "\u80ba\u6ce1",
+        "correct": true
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 94,
+    "fields": {
+        "question": 24,
+        "text": "\u80ba\u6ce1\u56ca",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 95,
+    "fields": {
+        "question": 24,
+        "text": "\u80ba\u6ce1\u7ba1",
+        "correct": false
+    }
+},
+{
+    "model": "Test.choice",
+    "pk": 96,
+    "fields": {
+        "question": 24,
+        "text": "\u7ec6\u652f\u6c14\u7ba1",
+        "correct": false
+    }
+},
+{
+    "model": "Test.testpaper",
+    "pk": 3,
+    "fields": {
+        "name": "\u5185\u79d1\u8bca\u65ad1",
+        "desc": "\u9898\u76ee\u8303\u56f4\u4e3a\u5185\u79d1\u8bca\u65ad\uff0c\u9898\u578b\u4e3a\u9009\u62e9\u9898\uff0c\u517110\u9898",
+        "disease": 3,
+        "questions": [
+            4,
+            5,
+            7,
+            10,
+            11,
+            13,
+            14,
+            15,
+            17,
+            18
+        ]
+    }
+},
+{
+    "model": "Test.testpaper",
+    "pk": 4,
+    "fields": {
+        "name": "\u5185\u79d1\u8bca\u65ad2",
+        "desc": "\u9898\u76ee\u8303\u56f4\u4e3a\u5185\u79d1\u8bca\u65ad\uff0c\u9898\u578b\u4e3a\u9009\u62e9\u9898\uff0c\u517110\u9898",
+        "disease": 3,
+        "questions": [
+            6,
+            12,
+            13,
+            17,
+            18,
+            19,
+            20,
+            24
+        ]
+    }
+},
+{
+    "model": "Test.test",
+    "pk": 11,
+    "fields": {
+        "name": "\u5185\u79d1\u8003\u573a1",
+        "duration": 30,
+        "close_time": "2018-05-01T09:00:00",
+        "start_time": "2018-04-05T09:00:00",
+        "test_paper": 3
+    }
+},
+{
+    "model": "Test.test",
+    "pk": 12,
+    "fields": {
+        "name": "\u5185\u79d1\u8003\u573a2",
+        "duration": 30,
+        "close_time": "2018-05-01T09:00:00",
+        "start_time": "2018-04-05T09:00:00",
+        "test_paper": 4
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 1,
+    "fields": {
+        "name": "\u4f20\u67d3\u75c5"
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 2,
+    "fields": {
+        "name": "\u5bc4\u751f\u866b\u75c5"
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 3,
+    "fields": {
+        "name": "\u5185\u79d1"
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 4,
+    "fields": {
+        "name": "\u5916\u4ea7\u79d1\u75be\u75c5"
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 5,
+    "fields": {
+        "name": "\u5e38\u7528\u624b\u672f"
+    }
+},
+{
+    "model": "Disease.disease",
+    "pk": 6,
+    "fields": {
+        "name": "\u514d\u75ab"
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 1,
+    "fields": {
+        "name": "\u72ac\u761f\u70ed",
+        "desc": "\u72ac\u761f\u70ed\u662f\u7531\u72ac\u761f\u70ed\u75c5\u6bd2\u5f15\u8d77\u7684\u4e00\u79cd\u9ad8\u5ea6\u63a5\u89e6\u6027\u4f20\u67d3\u75c5\uff0c\u4f20\u67d3\u6027\u6781\u5f3a\uff0c\u6b7b\u4ea1\u7387\u53ef\u9ad8\u8fbe80%\u4ee5\u4e0a\u3002",
+        "pic_url": "static/images/sub_diseases/distemper.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 2,
+    "fields": {
+        "name": "\u72ac\u7ec6\u5c0f\u75c5\u6bd2",
+        "desc": "\u72ac\u7ec6\u5c0f\u75c5\u6bd2\u75c5\u662f\u72ac\u7684\u4e00\u79cd\u5177\u6709\u9ad8\u5ea6\u63a5\u89e6\u6027\u4f20\u67d3\u7684\u70c8\u6027\u4f20\u67d3\u75c5\uff0c\u8be5\u75c5\u75c7\u4e8e1977\u5e74\u7531Eugster\u53d1\u73b0\uff0c\u4e34\u5e8a\u4e0a\u4ee5\u6025\u6027\u51fa\u8840\u6027\u80a0\u708e\u548c\u5fc3\u808c\u708e\u4e3a\u7279\u5f81\u3002",
+        "pic_url": "static/images/sub_diseases/parvovirus.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 3,
+    "fields": {
+        "name": "\u72ac\u4f20\u67d3\u6027\u809d\u708e",
+        "desc": "\u72ac\u4f20\u67d3\u6027\u809d\u708e\u4e3b\u8981\u53d1\u751f\u57281\u5c81\u4ee5\u5185\u7684\u5e7c\u72ac\uff0c\u6210\u5e74\u72ac\u5f88\u5c11\u53d1\u751f\u4e14\u591a\u4e3a\u9690\u6027\u611f\u67d3\uff0c\u5373\u4f7f\u53d1\u75c5\u4e5f\u591a\u80fd\u8010\u8fc7\u3002",
+        "pic_url": "static/images/sub_diseases/HCC.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 4,
+    "fields": {
+        "name": "\u72ac\u51a0\u72b6\u75c5\u6bd2",
+        "desc": "\u72ac\u51a0\u72b6\u75c5\u6bd2\u4e00\u5e74\u56db\u5b63\u5747\u53ef\u53d1\u751f\uff0c\u4ee5\u51ac\u5b63\u591a\u53d1\uff0c\u75c5\u72ac\u662f\u4e3b\u8981\u7684\u4f20\u67d3\u539f\uff0c\u72ac\u53ef\u901a\u8fc7\u547c\u5438\u9053\u3001\u6d88\u5316\u9053\u3001\u7caa\u4fbf\u53ca\u6c61\u67d3\u7269\u4f20\u67d3\u3002\u8be5\u75c5\u4e00\u4f46\u53d1\u751f\uff0c\u540c\u7a9d\u72ac\u540c\u5ba4\u72ac\u5f88\u96be\u63a7\u5236\u5747\u53ef\u9020\u6210\u611f\u67d3\u3002",
+        "pic_url": "static/images/sub_diseases/CVV.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 5,
+    "fields": {
+        "name": "\u732b\u6cdb\u767d\u7ec6\u80de\u51cf\u5c11\u75c7",
+        "desc": "\u732b\u6cdb\u767d\u7ec6\u80de\u51cf\u5c11\u75c7\uff0c\u53c8\u79f0\u732b\u761f\u70ed\uff0c\u732b\u4f20\u67d3\u6027\u80a0\u708e\uff0c\u662f\u732b\u7684\u4e00\u79cd\u6025\u6027\u9ad8\u5ea6\u63a5\u89e6\u6027\u4f20\u67d3\u75c5\u3002",
+        "pic_url": "istatic/images/sub_diseases/panleukopenia.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 6,
+    "fields": {
+        "name": "\u732b\u75c5\u6bd2\u6027\u75c5\u6c14\u7ba1\u708e",
+        "desc": "\u732b\u75c5\u6bd2\u6027\u75c5\u6c14\u7ba1\u708e\u662f\u732b\u7684\u4e0a\u90e8\u547c\u5438\u9053\u611f\u67d3\u6027\u975e\u5e38\u5f3a\u7684\u4e00\u79cd\u6025\u6027\u4f20\u67d3\u75c5,\u53c8\u79f0\u4e3a\u4f20\u67d3\u6027\u9f3b\u6c14\u7ba1\u708e\u3002",
+        "pic_url": "static/images/sub_diseases/tracheitis.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 7,
+    "fields": {
+        "name": "\u76ae\u80a4\u771f\u83cc\u611f\u67d3",
+        "desc": "\u76ae\u80a4\u771f\u83cc\u75c5\u7684\u4f20\u64ad\u4e3b\u8981\u662f\u901a\u8fc7\u52a8\u7269\u95f4\u7684\u4e92\u76f8\u63a5\u89e6\uff0c\u6216\u901a\u8fc7\u6c61\u67d3\u7684\u7269\u4f53\u800c\u4f20\u64ad\u3002\u5728\u5ba0\u7269\u6570\u91cf\u8f83\u591a\u4e14\u8f83\u5bc6\u96c6\u7684\u60c5\u51b5\u4e0b\uff0c\u4e5f\u53ef\u901a\u8fc7\u7a7a\u6c14\u4f20\u64ad\u3002",
+        "pic_url": "static/images/sub_diseases/fungal.jpg",
+        "disease": 1
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 8,
+    "fields": {
+        "name": "\u86d4\u866b\u75c5",
+        "desc": "\u86d4\u866b\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 9,
+    "fields": {
+        "name": "\u94a9\u866b\u75c5",
+        "desc": "\u94a9\u866b\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 10,
+    "fields": {
+        "name": "\u7ee6\u866b\u75c5",
+        "desc": "\u7ee6\u866b\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 11,
+    "fields": {
+        "name": "\u7403\u866b\u75c5",
+        "desc": "\u7403\u866b\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 12,
+    "fields": {
+        "name": "\u75a5\u87a8\u866b\u75c5",
+        "desc": "\u75a5\u87a8\u866b\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 13,
+    "fields": {
+        "name": "\u86a4\u75c5",
+        "desc": "\u86a4\u75c5",
+        "pic_url": "",
+        "disease": 2
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 14,
+    "fields": {
+        "name": "\u53e3\u708e",
+        "desc": "\u53e3\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 15,
+    "fields": {
+        "name": "\u80a0\u708e",
+        "desc": "\u80a0\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 16,
+    "fields": {
+        "name": "\u80a0\u4fbf\u79d8",
+        "desc": "\u80a0\u4fbf\u79d8",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 17,
+    "fields": {
+        "name": "\u80f0\u817a\u708e",
+        "desc": "\u80f0\u817a\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 18,
+    "fields": {
+        "name": "\u809d\u708e",
+        "desc": "\u809d\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 19,
+    "fields": {
+        "name": "\u8179\u819c\u708e",
+        "desc": "\u8179\u819c\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 20,
+    "fields": {
+        "name": "\u809b\u95e8\u817a\u708e",
+        "desc": "\u809b\u95e8\u817a\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 21,
+    "fields": {
+        "name": "\u611f\u5192",
+        "desc": "\u611f\u5192",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 22,
+    "fields": {
+        "name": "\u9f3b\u708e",
+        "desc": "\u9f3b\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 23,
+    "fields": {
+        "name": "\u6c14\u7ba1\u652f\u6c14\u7ba1\u708e",
+        "desc": "\u6c14\u7ba1\u652f\u6c14\u7ba1\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 24,
+    "fields": {
+        "name": "\u80ba\u708e",
+        "desc": "\u80ba\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 25,
+    "fields": {
+        "name": "\u5fc3\u529b\u8870\u7aed",
+        "desc": "\u5fc3\u529b\u8870\u7aed",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 26,
+    "fields": {
+        "name": "\u5c3f\u9053\u611f\u67d3",
+        "desc": "\u5c3f\u9053\u611f\u67d3",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 27,
+    "fields": {
+        "name": "\u5c3f\u7ed3\u77f3",
+        "desc": "\u5c3f\u7ed3\u77f3",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 28,
+    "fields": {
+        "name": "\u8180\u80f1\u708e",
+        "desc": "\u8180\u80f1\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 29,
+    "fields": {
+        "name": "\u80be\u708e",
+        "desc": "\u80be\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 30,
+    "fields": {
+        "name": "\u4f5d\u507b\u75c5",
+        "desc": "\u4f5d\u507b\u75c5",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 31,
+    "fields": {
+        "name": "\u6709\u673a\u78f7\u4e2d\u6bd2",
+        "desc": "\u6709\u673a\u78f7\u4e2d\u6bd2",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 32,
+    "fields": {
+        "name": "\u7cd6\u5c3f\u75c5",
+        "desc": "\u7cd6\u5c3f\u75c5",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 33,
+    "fields": {
+        "name": "\u8033\u8840\u80bf",
+        "desc": "\u8033\u8840\u80bf",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 34,
+    "fields": {
+        "name": "\u4e2d\u8033\u708e",
+        "desc": "\u4e2d\u8033\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 35,
+    "fields": {
+        "name": "\u773c\u7751\u5185\u7ffb",
+        "desc": "\u773c\u7751\u5185\u7ffb",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 36,
+    "fields": {
+        "name": "\u7ed3\u819c\u708e",
+        "desc": "\u7ed3\u819c\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 37,
+    "fields": {
+        "name": "\u89d2\u819c\u708e",
+        "desc": "\u89d2\u819c\u708e",
+        "pic_url": "",
+        "disease": 3
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 38,
+    "fields": {
+        "name": "\u5916\u4f24",
+        "desc": "\u5916\u4f24",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 39,
+    "fields": {
+        "name": "\u5916\u79d1\u611f\u67d3",
+        "desc": "\u5916\u79d1\u611f\u67d3",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 40,
+    "fields": {
+        "name": "\u9aa8\u6298",
+        "desc": "\u9aa8\u6298",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 41,
+    "fields": {
+        "name": "\u5173\u8282\u8131\u4f4d",
+        "desc": "\u5173\u8282\u8131\u4f4d",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 42,
+    "fields": {
+        "name": "\u6e7f\u75b9",
+        "desc": "\u6e7f\u75b9",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 43,
+    "fields": {
+        "name": "\u76ae\u708e",
+        "desc": "\u76ae\u708e",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 44,
+    "fields": {
+        "name": "\u8113\u76ae\u75c5",
+        "desc": "\u8113\u76ae\u75c5",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 45,
+    "fields": {
+        "name": "\u8131\u6bdb\u75c7",
+        "desc": "\u8131\u6bdb\u75c7",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 46,
+    "fields": {
+        "name": "\u8dbe\u95f4\u56ca\u80bf",
+        "desc": "\u8dbe\u95f4\u56ca\u80bf",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 47,
+    "fields": {
+        "name": "\u759d",
+        "desc": "\u759d",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 48,
+    "fields": {
+        "name": "\u9634\u9053\u708e",
+        "desc": "\u9634\u9053\u708e",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 49,
+    "fields": {
+        "name": "\u9634\u9053\u8131\u51fa",
+        "desc": "\u9634\u9053\u8131\u51fa",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 50,
+    "fields": {
+        "name": "\u5b50\u5bab\u84c4\u8113",
+        "desc": "\u5b50\u5bab\u84c4\u8113",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 51,
+    "fields": {
+        "name": "\u96be\u4ea7",
+        "desc": "\u96be\u4ea7",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 52,
+    "fields": {
+        "name": "\u4e73\u623f\u708e",
+        "desc": "\u4e73\u623f\u708e",
+        "pic_url": "",
+        "disease": 4
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 53,
+    "fields": {
+        "name": "\u7edd\u80b2",
+        "desc": "\u7edd\u80b2",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 54,
+    "fields": {
+        "name": "\u5256\u8179\u4ea7",
+        "desc": "\u5256\u8179\u4ea7",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 55,
+    "fields": {
+        "name": "\u77ac\u819c\u817a\u589e\u751f\u7269\u5207\u9664",
+        "desc": "\u77ac\u819c\u817a\u589e\u751f\u7269\u5207\u9664",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 56,
+    "fields": {
+        "name": "\u773c\u7403\u6458\u9664",
+        "desc": "\u773c\u7403\u6458\u9664",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 57,
+    "fields": {
+        "name": "\u7acb\u8033\u672f",
+        "desc": "\u7acb\u8033\u672f",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 58,
+    "fields": {
+        "name": "\u65ad\u5c3e\u672f",
+        "desc": "\u65ad\u5c3e\u672f",
+        "pic_url": "",
+        "disease": 5
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 59,
+    "fields": {
+        "name": "\u72ac\u514d\u75ab\u7a0b\u5e8f",
+        "desc": "\u72ac\u514d\u75ab\u7a0b\u5e8f",
+        "pic_url": "",
+        "disease": 6
+    }
+},
+{
+    "model": "Disease.subdisease",
+    "pk": 60,
+    "fields": {
+        "name": "\u732b\u514d\u75ab\u7a0b\u5e8f",
+        "desc": "\u732b\u514d\u75ab\u7a0b\u5e8f",
+        "pic_url": "",
+        "disease": 6
+    }
+},
+{
+    "model": "Disease.diseaseexample",
+    "pk": 1,
+    "fields": {
+        "name": "1231231",
+        "sub_disease": 2
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$100000$iWwa17hPVTv6$+DvQx9DS9t4weqp4MUgTOEo6eO8Z4LyI+pDWfbCEvo0=",
+        "last_login": "2018-03-29T10:16:08.573",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2018-03-27T11:59:16.914",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "3nc7vqva9inb4ck6hzf7xhpei1v6u8a7",
+    "fields": {
+        "session_data": "ODNmOTU2YzNmZjRlZTQzNDM2YzcyMzE2ZDE5NzYyYmEyZDFiNzA1Mjp7InVzZXJfaWQiOjEsInVzZXJuYW1lIjoiYWRtaW4xIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJhdXRob3JpdHkiOjEsIl9zZXNzaW9uX2V4cGlyeSI6MTAwMDAwMH0=",
+        "expire_date": "2018-04-14T01:06:13.231"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "s4q60mal5fvb99mllfqdgf4f57n7nvnq",
+    "fields": {
+        "session_data": "ZDU0ZTAyNGYwMDMzMzE1ZmE5ZTQ1ZDVkNzk0M2U3YzE0MjQ4NDAxOTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkMjYxNGQxNzE5NTlkNWNhZGE0MjJkZWYzYmUyZGY2NDI4Yzg0NmI0In0=",
+        "expire_date": "2018-04-12T10:16:08.575"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "yhfxjlzt1sr2irx8zzls4166lgsossoa",
+    "fields": {
+        "session_data": "ODNmOTU2YzNmZjRlZTQzNDM2YzcyMzE2ZDE5NzYyYmEyZDFiNzA1Mjp7InVzZXJfaWQiOjEsInVzZXJuYW1lIjoiYWRtaW4xIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJhdXRob3JpdHkiOjEsIl9zZXNzaW9uX2V4cGlyeSI6MTAwMDAwMH0=",
+        "expire_date": "2018-04-14T00:32:08.063"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2018-03-27T11:59:31.641",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "Test",
+            "test"
+        ],
+        "object_id": "6",
+        "object_repr": "1111",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2018-03-29T10:16:57.353",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "Disease",
+            "diseaseexample"
+        ],
+        "object_id": "1",
+        "object_repr": "1231231",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+}
+]

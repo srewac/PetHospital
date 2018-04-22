@@ -1,10 +1,181 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords"
+          content="Validation Signup Form Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Muli:300,400" rel="stylesheet">
+    <!-- /fonts -->
+    <!-- css -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type='text/css' media="all"/>
+    <link href="/static/css/sign_style.css" rel="stylesheet" type='text/css' media="all"/>
+    <link href="/static/css/verify.css" rel="stylesheet" type='text/css' media="all"/>
+    <!-- /css -->
 </head>
 <body>
+<h1 class="w3ls">注册</h1>
+<div class="content-agileits">
+
+    <form action="{% url 'User:sign_up' %}" method="post" data-toggle="validator" role="form" id="sign_up">
+        {% csrf_token %}
+        <div>
+            <label for="inputEmail" class="error-label" id="error-label">{{ register_err }}</label>
+            <a class="glyphicon glyphicon-refresh sign-refresh" href="{% url 'User:sign_up' %}"></a>
+        </div>
+        <div class="form-group 小贝壳网站模板 w3 w3l">
+            <label for="firstname" class="control-label">用户名</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username"
+                   value="{{ username }}"
+                   data-error="Enter Your First Name" required>
+        </div>
+        <div class="form-group w3l agileinfo wthree w3-agileits">
+            <label for="inputEmail" class="control-label">邮箱</label>
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" value="{{ email }}"
+                   data-error="This email address is invalid" required>
+        </div>
+        <div class="form-group agile agileits-小贝壳网站模板 w3-agile">
+            <label for="inputPassword" class="control-label">密码</label>
+            <div class="form-group agileits-小贝壳网站模板">
+                <input type="password" data-minlength="4" class="form-control" id="inputPassword" name="inputPassword"
+                       placeholder="Password" value="{{ password1 }}" required>
+                <div class="help-block" id="password-length">Minimum of 4 characters</div>
+            </div>
+        </div>
+        <div class="form-group agile agileits-小贝壳网站模板 w3-agile">
+            <label for="inputPassword" class="control-label">确认密码</label>
+            <div class="form-group w3-agile">
+                <input type="password" class="form-control" id="inputPasswordConfirm" name="inputPasswordConfirm"
+                       data-match="#inputPassword" data-match-error="Whoops, these don't match"
+                       placeholder="Confirm Password" value="{{ password2 }}" required>
+            </div>
+        </div>
+        <div class="form-group w3l agileinfo wthree w3-agileits">
+            <label for="emailVerify" class="control-label">邮箱验证</label>
+            <div>
+                <input type="text" class="form-control" id="emailVerify" name="emailVerify"
+                       data-match-error="Whoops, these don't match" required>
+                <input type="button" value="发送邮箱验证码" class="emailVerify-btn" id="emailVerify-btn" name="emailVerify-btn"
+                       onclick="email_veri()">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" style="margin-top: 30px" class="btn btn-lg" id="submit-btn" onclick="" name="signup">
+                注册
+            </button>
+        </div>
+    </form>
+</div>
+<p class="copyright-w3ls">已有账户？ 点击<a href="{% url 'User:sign_in' %}">登录</a></p>
+<!-- js files -->
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<!--script src="js/validator.min.js"></script>
+<!-- /js files -->
+
+<!-- password-script -->
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("inputPassword").onchange = validatePassword;
+        document.getElementById("inputPasswordConfirm").onchange = validatePassword;
+        {#document.getElementById("varify-input-code").onchange = $('#mpanel3').codeVerify#}
+    }
+
+    var P_Input1 = document.getElementById("inputPassword");
+    var P_Input2 = document.getElementById("inputPasswordConfirm");
+
+    if ('oninput' in P_Input1) {
+        P_Input1.addEventListener("input", validatePassword, false);
+    } else {
+        P_Input1.onpropertychange = validatePassword;
+    }
+
+    if ('oninput' in P_Input2) {
+        P_Input2.addEventListener("input", validatePassword, false);
+    } else {
+        P_Input2.onpropertychange = validatePassword;
+    }
+
+
+    function validatePassword() {
+
+        var pass1 = P_Input1.value;
+        var pass2 = P_Input2.value;
+
+        if (pass1 != pass2)
+            document.getElementById("inputPasswordConfirm").setCustomValidity("Passwords Don't Match")
+        else if (pass1.length < 4)
+            {#document.getElementById("password-lengthm").setAttribute("color",red);#}
+            document.getElementById("inputPasswordConfirm").setCustomValidity("Passwords are too short")
+        else
+            document.getElementById("inputPasswordConfirm").setCustomValidity("")
+        //empty string means no validation error
+    }
+
+    var InterValObj; //timer变量，控制时间
+    var count = 100; //间隔函数，1秒执行
+    var curCount;//当前剩余秒数
+
+    function email_veri() {
+        var form = new FormData(document.getElementById('sign_up'));
+        var obj = document.getElementById('emailVerify-btn');
+        obj.setAttribute("disabled", true);
+        //获取模态框数据
+        $.ajax({
+            type: "post",
+            url: "{% url 'User:email_verify' %}",
+            data: form,
+            processData: false,
+            contentType: false,
+            success:
+                function deal_with_email(result) {
+                    if (result == 0) {
+                        obj.removeAttribute("disabled")//启用按钮
+                        alert("请填写用户名");
+                    }
+                    else if (result == 1) {
+                        obj.removeAttribute("disabled")//启用按钮
+                         alert("请填写邮箱");
+                    }
+                    else {
+                        curCount = count;
+                        obj.value = "重新发送(" + curCount + ")";
+                        InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+                    }
+
+                },
+            error: function (result) {
+                alert('unexpected error');
+            }
+        });
+    }
+
+    //timer处理函数
+    function SetRemainTime() {
+        var obj = document.getElementById('emailVerify-btn');
+        if (curCount == 0) {
+            window.clearInterval(InterValObj);//停止计时器
+            obj.removeAttribute("disabled")//启用按钮
+            obj.value = "重新发送验证码";
+        }
+        else {
+            curCount--;
+            obj.value = "重新发送(" + curCount + ")";
+        }
+    }
+
+</script>
+<!-- //password-script -->
 
 </body>
 </html>

@@ -1,0 +1,444 @@
+{% extends 'backend/base_page.html' %}
+{% block title %}
+    人员管理
+{% endblock %}
+{% block main_content %}
+    <script>
+        function delete_confirm(id) {
+            $('#delete_id').val(id);
+            $('#delete').modal('show');
+        }
+
+        function delete_ok() {
+            var id = $('#delete_id').val();
+            $.ajax({
+                type: "post",
+                url: "people/delete/" + id,
+                success: function (result) {
+                    $('#dataTables-example').DataTable().ajax.reload();
+                    $('#delete').modal('hide');
+                },
+                error: function (result) {
+                    alert('delete error');
+                }
+            });
+        }
+
+        function modify_user_show(name, age, sex, job, room, desc, id) {
+            //向模态框中传值
+            $('#name').val(name);
+            $('#age').val(age);
+            $('#sex').val(sex);
+            $('#job').val(job);
+            $('#room').val(room);
+            $('#desc').val(desc);
+            $('#id').val(id);
+
+            $('#update').modal('show');
+        }
+
+        function modify_validation() {
+            if ($("#people_modify div:eq(0) #name").val() == '') {
+                $("#people_modify div:eq(0) p").html('请输入姓名！');
+                $("#people_modify div:eq(0) p").show();
+            }
+            else {
+                $("#people_modify div:eq(0) p").html('');
+                $("#people_modify div:eq(0) p").hide();
+            }
+            var age = /^([0-9.]+)$/;
+            if ($("#people_modify div:eq(1) #age").val() == '') {
+                $("#people_modify div:eq(1) p").html('请输入年龄！');
+                $("#people_modify div:eq(1) p").show();
+            }
+            else if(!age.test($("#people_modify div:eq(1) #age").val())){
+                $("#people_modify div:eq(1) p").html('年龄请输入数字！');
+                $("#people_modify div:eq(1) p").show();
+            }
+            else {
+                $("#people_modify div:eq(1) p").html('');
+                $("#people_modify div:eq(1) p").hide();
+            }
+
+            if ($("#people_modify div:eq(3) #job").val() == '') {
+                $("#people_modify div:eq(3) p").html('请输入职务！');
+                $("#people_modify div:eq(3) p").show();
+            }
+            else {
+                $("#people_modify div:eq(3) p").html('');
+                $("#people_modify div:eq(3) p").hide();
+            }
+
+            if ($("#people_modify div:eq(5) #desc").val() == '') {
+                $("#people_modify div:eq(5) p").html('请输入概述！');
+                $("#people_modify div:eq(5) p").show();
+            }
+            else {
+                $("#people_modify div:eq(5) p").html('');
+                $("#people_modify div:eq(5) p").hide();
+            }
+        }
+
+        function modify() {
+            modify_validation();
+            if ($("#people_modify div:eq(0) p").is(":hidden") && $("#people_modify div:eq(1) p").is(":hidden")
+                && $("#people_modify div:eq(3) p").is(":hidden") && $("#people_modify div:eq(5) p").is(":hidden")) {
+                var form = new FormData(document.getElementById('people_modify'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:people_update' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == false) {
+
+                        } else {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            clean_modify();
+                            $('#update').modal('hide');
+                        }
+                    },
+                    error: function (result) {
+                        alert('update error');
+                    }
+                });
+            }
+        }
+
+        function create_user_show() {
+            $('#create').modal('show');
+        }
+
+        function create_validation() {
+            if ($("#people_create div:eq(0) #name").val() == '') {
+                $("#people_create div:eq(0) p").html('请输入姓名！');
+                $("#people_create div:eq(0) p").show();
+            }
+            else {
+                $("#people_create div:eq(0) p").html('');
+                $("#people_create div:eq(0) p").hide();
+            }
+
+            var age = /^([0-9.]+)$/;
+            if ($("#people_create div:eq(1) #age").val() == '') {
+                $("#people_create div:eq(1) p").html('请输入年龄！');
+                $("#people_create div:eq(1) p").show();
+            }
+            else if(!age.test($("#people_create div:eq(1) #age").val())){
+                $("#people_create div:eq(1) p").html('年龄请输入数字！');
+                $("#people_create div:eq(1) p").show();
+            }
+            else {
+                $("#people_create div:eq(1) p").html('');
+                $("#people_create div:eq(1) p").hide();
+            }
+
+            if ($("#people_create div:eq(3) #job").val() == '') {
+                $("#people_create div:eq(3) p").html('请输入职务！');
+                $("#people_create div:eq(3) p").show();
+            }
+            else {
+                $("#people_create div:eq(3) p").html('');
+                $("#people_create div:eq(3) p").hide();
+            }
+
+            if ($("#people_create div:eq(5) #desc").val() == '') {
+                $("#people_create div:eq(5) p").html('请输入概述！');
+                $("#people_create div:eq(5) p").show();
+            }
+            else {
+                $("#people_create div:eq(5) p").html('');
+                $("#people_create div:eq(5) p").hide();
+            }
+        }
+
+        function create() {
+            create_validation();
+            if ($("#people_create div:eq(0) p").is(":hidden") && $("#people_create div:eq(1) p").is(":hidden") &&
+                $("#people_create div:eq(3) p").is(":hidden") && $("#people_create div:eq(5) p").is(":hidden")) {
+                var form = new FormData(document.getElementById('people_create'));
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Manage:people_create' %}",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result == true) {
+                            $('#dataTables-example').DataTable().ajax.reload();
+                            create_clean();
+                            $('#create').modal('hide');
+                        } else {
+
+                        }
+                    },
+                    error: function (result) {
+                        alert('create error');
+                    }
+                });
+            }
+        }
+
+    </script>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">人员管理
+                    <button type="button" class="btn btn-success"
+                            style="float: right;margin: 10px" onclick="create_user_show()">新建人员
+                    </button>
+                </h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        所有人员信息
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <table width="100%" class="table table-striped table-bordered table-hover"
+                               id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>年龄</th>
+                                <th>性别</th>
+                                <th>职务</th>
+                                <th>科室</th>
+                                <th>概述</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>姓名</th>
+                                <th>年龄</th>
+                                <th>性别</th>
+                                <th>职务</th>
+                                <th>科室</th>
+                                <th>概述</th>
+                                <th>操作</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+
+    <!-- 模态框（Modal）edit -->
+    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" role="form" id="people_modify" style="margin:10px 30px">
+                        <input type="text" name="id" id="id" hidden="hidden"/>
+                        <div class="form-group">
+                            <label>姓名：</label>
+                            <input class="form-control" type="text" name="name" id="name"/>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>年龄：</label>
+                            <input class="form-control" type="text" name="age" id="age"/>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>性别：</label>
+                            <select class="form-control" name="sex" id="sex">
+                                <option>男</option>
+                                <option>女</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>职务：</label>
+                            <input class="form-control" type="text" name="job" id="job"/>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>科室：</label>
+                            <select class="form-control" name="room" id="room">
+                                {% for room in rooms %}
+                                    <option>{{ room.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>概述：</label>
+                            <textarea class="form-control" rows="3" name="desc" id="desc"></textarea>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" >关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="modify()">提交更改</button>
+                </div>
+
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）create -->
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">创建人员</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form id='people_create' method="post" style="margin:10px 30px">
+                        <div class="form-group">
+                            <label>姓名：</label>
+                            <input class="form-control" type="text" name="name" id="name"/>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>年龄：</label>
+                            <input class="form-control" type="text" name="age" id="age"/>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>性别：</label>
+                            <select class="form-control" name="sex" id="sex">
+                                <option>男</option>
+                                <option>女</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>职务：</label>
+                            <input class="form-control" type="text" name="job" id="job"/>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>科室：</label>
+                            <select class="form-control" name="room" id="room">
+                                {% for room in rooms %}
+                                    <option>{{ room.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>概述：</label>
+                            <textarea class="form-control" rows="3" name="desc" id="desc"></textarea>
+                            <p class="error-message" hidden="hidden" style="color: red"></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="create()">创建</button>
+                </div>
+
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+    <!-- 模态框（Modal）delete -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            onclick="">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">删除人员</h4>
+                </div>
+
+                <div class="modal-body">
+                    <h5>是否确定删除？</h5>
+                    <input hidden="hidden" id="delete_id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-delete" onclick="delete_ok()">删除</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+
+
+
+{% endblock %}
+{% block datatable_script %}
+    <script>
+        $(document).ready(function () {
+            var table = $('#dataTables-example').DataTable({
+                "ajax": "{% url 'Manage:people_dict' %}",
+                "columnDefs": [{
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<button type='button' class='btn btn-warning' name='modify' style='margin-right:5px'>修改<button type='button' class='btn btn-danger' name='delete'>删除</button>"
+                }]
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="modify"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                modify_user_show(data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
+            });
+            $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                delete_confirm(data[6]);
+            });
+            $("#create").on("hidden.bs.modal", function () {
+                $("#people_create div:eq(0) input").val("");
+                $("#people_create div:eq(0) p").html('');
+                $("#people_create div:eq(1) input").val('');
+                $("#people_create div:eq(1) p").html('');
+                $("#people_create div:eq(2) select option:first").prop("selected", 'selected');
+                $("#people_create div:eq(3) input").val('');
+                $("#people_create div:eq(3) p").html('');
+                $("#people_create div:eq(4) select option:first").prop("selected", 'selected');
+                $("#people_create div:eq(5) textarea").val('');
+                $("#people_create div:eq(5) p").html('');
+            });
+            $("#update").on("hidden.bs.modal", function () {
+                $("#people_modify div:eq(0) input").val("");
+                $("#people_modify div:eq(0) p").html('');
+                $("#people_modify div:eq(1) input").val('');
+                $("#people_modify div:eq(1) p").html('');
+                $("#people_modify div:eq(3) input").val('');
+                $("#people_modify div:eq(3) p").html('');
+                $("#people_modify div:eq(5) textarea").val('');
+                $("#people_modify div:eq(5) p").html('');
+                $('#update').modal('hide');
+            });
+        });
+    </script>
+{% endblock %}

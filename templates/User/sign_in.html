@@ -1,102 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html>
 <head>
-	<title>Pet Hospital - Sign in</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sign In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords"
+          content="Validation Signup Form Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
 
-	<!-- Custom Theme files -->
-	<link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-
-	<!-- easy-responsive-tabs -->
-    <link rel="stylesheet" type="text/css" href="/static/css/verify.css">
-	<link href="/static/css/style.css" type="text/css" rel="stylesheet" media="all">
-	<link href="/static/css/font-awesome.css" rel="stylesheet">
-	<!-- font-awesome icons -->
-	<!-- //Custom Theme files -->
-	<!-- js -->
-	<script src="/static/js/jquery-2.2.3.min.js"></script>
-	<!-- //js -->
-	<!-- web-fonts -->
-	<link href="//fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
-	<link href="//fonts.googleapis.com/css?family=Junge" rel="stylesheet">
-	<link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
-	    rel='stylesheet' type='text/css'>
-	<!-- //web-fonts -->
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Muli:300,400" rel="stylesheet">
+    <!-- /fonts -->
+    <!-- css -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type='text/css' media="all"/>
+    <link href="/static/css/sign_style.css" rel="stylesheet" type='text/css' media="all"/>
+    <link href="/static/css/verify.css" rel="stylesheet" type='text/css' media="all"/>
+    <!-- /css -->
 </head>
-
 <body>
-	<div class="agileits-banner">
-            <div class="banner-top w3layouts"></div>
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="signin-form">
-                            <h3 >登录</h3>
-                            <h4 style="color: red;">{{ login_err }}</h4>
-                                <form action="/sign_in/" method="post">
-                                    <input type="email" name="email" placeholder="E-mail" required="">
-                                    <input type="password" name="password" placeholder="Password" required="">
-                                    <div id="myverify"></div>
-                                    <div>
-                                        <input type="submit" value="Sign In" id="verifykey" required="" onclick="veri()">
-                                    </div>
-                                </form>
-                            <p><a href="{% url 'sign_up' %}"> Don't have an account?</a></p>
-                        </div>
-                    </div>
-                </div>
-                </div>
-        <div class="banner-w3text w3layouts"></div>
+<h1 class="w3ls">登录</h1>
+<div class="content-agileits">
+    <form action="{% url 'User:sign_in' %}" method="post" data-toggle="validator" role="form">
+        {% csrf_token %}
+        <div>
+            <label for="inputEmail" class="error-label">{{ login_err }}</label>
+            <a class="glyphicon glyphicon-refresh sign-refresh" href="{% url 'User:sign_in' %}"></a>
         </div>
-    </div>
 
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="/static/js/bootstrap.js"></script>
-    <script type="text/javascript" src="/static/js/verify.js" ></script>
-    <script type="text/javascript">
-        function veri(){
-            if(flag == false)
-                document.getElementById("verifykey").setCustomValidity("请先进行验证");
-            else
-                document.getElementById("verifykey").setCustomValidity("");
+        <div class="form-group w3l agileinfo wthree w3-agileits">
+            <label for="inputEmail" class="control-label">邮箱</label>
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email"
+                   data-error="This email address is invalid" required>
+        </div>
+        <div class="form-group w3l agileinfo wthree w3-agileits">
+            <label for="inputPassword" class="control-label">密码</label>
+            <input type="password" data-minlength="4" class="form-control" id="inputPassword" name="inputPassword"
+                   placeholder="Password" required>
+            <!--div class="help-block">Minimum of 4 characters</div-->
+        </div>
+        <div class="form-group w3l agileinfo wthree w3-agileits">
+            <label for="Verify" class="control-label">验证码</label>
+            <div id="mpanel3"></div>
+        </div>
+        <div class="form-group">
+            <button type="submit"style="margin-top: 20px" class="btn btn-lg" id="sign_in-btn" onclick="veri()">登录</button>
+        </div>
+    </form>
+</div>
+<p class="copyright-w3ls">还没有账户？点击<a href="{% url 'User:sign_up' %}">注册</a></p>
+<!-- js files -->
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<!--script src="js/validator.min.js"></script>
+<!-- /js files -->
+<script type="text/javascript" src="/static/js/verify.js"></script>
+<script>
+    {#window.onload = function () {#}
+    {#    document.getElementById("varify-input-code").onchange = veri()#}
 
+    {% comment %}var Veri_Code_Input=document.getElementById("varify-input-code");
+
+    if ('oninput' in Veri_Code_Input) {
+        Veri_Code_Input.addEventListener("input", veri, false);
+    } else {
+        Veri_Code_Input.onpropertychange = veri;
+    }{% endcomment %}
+
+    function veri() {
+        if (flag == false)
+            document.getElementById("varify-input-code").setCustomValidity("Wrong!");
+        else
+            document.getElementById("varify-input-code").setCustomValidity("");
+    }
+
+</script>
+<script>
+    var flag = false;
+    $('#mpanel3').codeVerify({
+        type: 2,
+        figure: 100,	//位数，仅在type=2时生效
+        arith: 0,	//算法，支持加减乘，不填为随机，仅在type=2时生效
+        width: '200px',
+        height: '50px',
+        fontSize: '30px',
+        btnId: 'sign_in-btn',
+        ready: function () {
+        },
+        success: function () {
+            flag=true;
+            veri();
+        },
+        error: function () {
+            flag=false;
+            {#document.getElementById("varify-input-code").setCustomValidity("Wrong!");#}
         }
-    </script >
-    <script>
-        var flag=false;
-        $('#myverify').slideVerify({
-		    	type : 2,		//类型
-        		vOffset : 5,	//误差量，根据需求自行调整
-		        vSpace : 5,	//间隔
-                imgUrl : '/static/images/',
-		        imgName : ['verify-1.jpg', 'verify-2.jpg'],
-		        imgSize : {
-		        	width: '400px',
-		        	height: '200px',
-		        },
-		        blockSize : {
-		        	width: '40px',
-		        	height: '40px',
-		        },
-		        barSize : {
-		        	width : '400px',
-		        	height : '40px',
-		        },
-		        ready : function() {
-		    	},
-		        success : function() {
-		    	    flag = true;
-		        	//alert('验证成功，添加你自己的代码！');
-		        	//......后续操作
-		        },
-		        error : function() {
-		    	    alert('验证失败！');
-		        }
+    });
+</script>
 
-		    });
-    </script>
+
 </body>
-
 </html>

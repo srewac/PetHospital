@@ -46,7 +46,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -64,6 +64,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -117,26 +118,35 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/').replace('\\','/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/').replace('\\', '/')
 STATICFILES_DIRS = (
-    ('css', os.path.join(STATIC_ROOT, 'css').replace('\\','/')),
-    ('images', os.path.join(STATIC_ROOT, 'images').replace('\\','/')),
-    ('fonts', os.path.join(STATIC_ROOT, 'fonts').replace('\\','/')),
-    ('js', os.path.join(STATIC_ROOT, 'js').replace('\\','/')),
+    ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
+    ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),
+    ('fonts', os.path.join(STATIC_ROOT, 'fonts').replace('\\', '/')),
+    ('js', os.path.join(STATIC_ROOT, 'js').replace('\\', '/')),
     ('data', os.path.join(STATIC_ROOT, 'data').replace('\\', '/')),
     ('dist', os.path.join(STATIC_ROOT, 'dist').replace('\\', '/')),
     ('vendor', os.path.join(STATIC_ROOT, 'vendor').replace('\\', '/')),
     ('less', os.path.join(STATIC_ROOT, 'less').replace('\\', '/')),
-
+    ('3dnavigation', os.path.join(STATIC_ROOT, '3dnavigation').replace('\\', '/')),
 )
 # upload folder
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media/').replace('\\','/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/').replace('\\', '/')
 
+EMAIL_HOST = "smtp.163.com"  # 服务器
+EMAIL_PORT = 25  # 一般情况下都为25
+EMAIL_HOST_USER = "pethospital_verify@163.com"  # 账号
+EMAIL_HOST_PASSWORD = "poi233"  # 密码
+EMAIL_USE_TLS = False  # 一般都为False
+EMAIL_FROM = "pethospital_verify@163.com"  # 邮箱来自
 
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
