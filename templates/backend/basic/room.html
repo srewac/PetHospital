@@ -31,7 +31,7 @@
                 url: "room_modify_dict/" + id,
                 success: function (result) {
                     result = JSON.parse(result);
-{#                    TODO: 在修改模态框中预览图片和视频#}
+                    {#                    TODO: 在修改模态框中预览图片和视频#}
                     $('#name_modify').val(result.name);
                     $('#desc_modify').val(result.desc);
                 },
@@ -40,9 +40,9 @@
                 }
             });
             roles.split(' ').forEach(function (room_role) {
-                if (room_role == '前台') document.getElementById('proscenium').checked = true;
-                else if (room_role == '助理') document.getElementById('assistant').checked = true;
-                else if (room_role == '执业兽医师') document.getElementById('veterinary_practitioner').checked = true;
+                if (room_role == '前台') document.getElementById('proscenium_modify').checked = true;
+                else if (room_role == '助理') document.getElementById('assistant_modify').checked = true;
+                else if (room_role == '执业兽医师') document.getElementById('veterinary_practitioner_modify').checked = true;
             });
             $('#id_modify').val(id);
             $('#update').modal('show');
@@ -66,10 +66,10 @@
                 $("#error_desc_modify").html('');
                 $("#error_desc_modify").hide();
             }
-            if (document.getElementById('proscenium').checked == false &&
-                document.getElementById('assistant').checked == false &&
-                document.getElementById('veterinary_practitioner').checked == false) {
-                $("#error_roomroles_modify").html('前选择科室权限！');
+            if ($('#proscenium_modify').checked == false &&
+                $('#assistant_modify').checked == false &&
+                ('#veterinary_practitioner_modify').checked == false) {
+                $("#error_roomroles_modify").html('请选择科室权限！');
                 $("#error_roomroles_modify").show();
             }
             else {
@@ -110,15 +110,19 @@
             $("#id_modify").val('');
             $("#name_modify").val('');
             $("#error_name_modify").html('');
+            $("#error_name_modify").hide('');
             $("#room_pics_modify").val('');
             $("#error_pic_modify").html('');
+            $("#error_pic_modify").hide();
             $("#room_videos_modify").val('');
             $("#error_video_modify").html('');
+            $("#error_video_modify").hide();
             $("#desc_modify").val('');
             $("#error_desc_modify").html('');
-            document.getElementById('proscenium').checked = false;
-            document.getElementById('assistant').checked = false;
-            document.getElementById('veterinary_practitioner').checked = false;
+            $("#error_desc_modify").hide();
+            $('#proscenium_create').checked = false;
+            $('#assistant_create').checked = false;
+            $('#veterinary_practitioner_create').checked = false;
             $("#error_roomroles_modify").html('');
             $("#error_roomroles_modify").hide();
             $('#update').modal('hide');
@@ -161,10 +165,10 @@
                 $("#error_desc_create").html('');
                 $("#error_desc_create").hide();
             }
-            if (document.getElementById('proscenium').checked == false &&
-                document.getElementById('assistant').checked == false &&
-                document.getElementById('veterinary_practitioner').checked == false) {
-                $("#error_roomroles_create").html('前选择科室权限！');
+            if ($('#proscenium_create').checked == false &&
+                $('#assistant_create').checked == false &&
+                $('#veterinary_practitioner_create').checked == false) {
+                $("#error_roomroles_create").html('请选择科室权限！');
                 $("#error_roomroles_create").show();
             }
             else {
@@ -178,7 +182,7 @@
         function create() {
             create_validation();
             if ($("#error_name_create").is(':hidden') && $("#error_pic_create").is(':hidden') && $("#error_video_create").is(':hidden')
-                && $("#error_desc_create").is(':hidden') && $("#error_roomroles_create_create").is(':hidden')) {
+                && $("#error_desc_create").is(':hidden') && $("#error_roomroles_create").is(':hidden')) {
                 var form = new FormData(document.getElementById('room_create'));
                 $.ajax({
                     type: "post",
@@ -191,8 +195,8 @@
                             $('#dataTables-example').DataTable().ajax.reload();
                             clean_create();
                         } else {
-                            $("#room_create div:eq(0) p").show();
-                            $("#room_create div:eq(0) p").html('科室已存在，请重新输入！');
+                            $("#error_name_create").show();
+                            $("#error_name_create").html('科室已存在，请重新输入！');
                         }
                     },
                     error: function (result) {
@@ -215,9 +219,9 @@
             $("#desc_create").val('');
             $("#error_desc_create").html('');
             $("#error_desc_create").hide();
-            document.getElementById('proscenium').checked = false;
-            document.getElementById('assistant').checked = false;
-            document.getElementById('veterinary_practitioner').checked = false;
+            $('#proscenium_create').checked = false;
+            $('#assistant_create').checked = false;
+            $('#veterinary_practitioner_create').checked = false;
             $("#error_roomroles_create").html('');
             $("#error_roomroles_create").hide();
             $('#create').modal('hide');
@@ -314,13 +318,14 @@
                         <div class="form-group">
                             <label>科室权限：</label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="proscenium" id="proscenium" value="0">前台
+                                <input type="checkbox" name="proscenium" id="proscenium_modify" value="0">前台
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="assistant" id="assistant" value="1">助理
+                                <input type="checkbox" name="assistant" id="assistant_modify" value="1">助理
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="veterinary_practitioner" id="veterinary_practitioner"
+                                <input type="checkbox" name="veterinary_practitioner"
+                                       id="veterinary_practitioner_modify"
                                        value="2">执业兽医师
                             </label>
                             <p class="error-message" id="error_roomroles_modify" hidden="hidden" style="color: red">
@@ -387,13 +392,14 @@
                         <div class="form-group">
                             <label>科室权限：</label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="proscenium" id="proscenium" value="0">前台
+                                <input type="checkbox" name="proscenium" id="proscenium_create" value="0">前台
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="assistant" id="assistant" value="1">助理
+                                <input type="checkbox" name="assistant" id="assistant_create" value="1">助理
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="veterinary_practitioner" id="veterinary_practitioner"
+                                <input type="checkbox" name="veterinary_practitioner_create"
+                                       id="veterinary_practitioner"
                                        value="2">执业兽医师
                             </label>
                             <p class="error-message" id="error_roomroles_create" hidden="hidden" style="color: red">
