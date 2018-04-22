@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet Hospital: Learn select disease</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Pets Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design"/>
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- Custom Theme files -->
+    <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="/static/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css'/>
+    <!-- easy-responsive-tabs -->
+
+    <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="all">
+    <link href="/static/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/css/video-js.css" rel="stylesheet" type="text/css">
+    <!-- font-awesome icons -->
+    <!-- //Custom Theme files -->
+    <!-- js -->
+    <script src="/static/js/jquery-2.2.3.min.js"></script>
+    <script src="/static/js/video.js"></script>
+    <!-- //js -->
+    <!-- web-fonts -->
+    <link href="//fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Junge" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
+    <!-- //web-fonts -->
+</head>
+<body>
+
+<div class="agileits-banner-cat">
+    <div>
+        <div class="banner-top w3layouts">
+            <div class="container">
+                <ul class="agile_top_section">
+                    <li>
+                        <p> Pet Hospital</p>
+                    </li>
+                    <li>
+                        <p></p>
+                    </li>
+                    <li>
+                        {% if request.session.user_id %}
+                            <a class="sign" href="#">{{ request.session.username }}</a>
+                            <a class="sign" href="{% url 'User:sign_out' %}">注销</a>
+                        {% else %}
+                            <a class="sign" href="{% url 'User:sign_in' %}">
+                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
+                            <a class="sign" href="{% url 'User:sign_up' %}">
+                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <h3 class="agileits-title two" style="margin-top: 20px">{{ disease_example.name }}</h3>
+
+
+        <div class="process_holder" style="margin-left: 20%;margin-right: 15%">
+
+            <ul id="myTab" class="nav nav-tabs mynav">
+                {% for process in processes %}
+                    {% if process == processes.first %}
+                        <li class="active">
+                            <a href="#process_{{ process.id }}" data-toggle="tab">
+                                {{ process.name }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="#process_{{ process.id }}" data-toggle="tab">
+                                {{ process.name }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <div id="myTabContent" class="tab-content">
+                {% for process in processes %}
+                    {% if process == processes.first %}
+                        <div class="tab-pane fade in active" id="process_{{ process.id }}">
+                            <div style="border: 1px solid white;padding: 30px 40px;margin-top: 20px ">
+                                <ul id="sub_Tab" class="nav nav-tabs mynav">
+                                    <li>
+                                        <a href="#desc_{{ process.id }}" data-toggle="tab">
+                                            文字
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#picture_{{ process.id }}" data-toggle="tab">
+                                            图片
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="#video_{{ process.id }}" data-toggle="tab">
+                                            视频
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div id="sub_myTabContent" class="tab-content">
+                                    <div class="tab-pane fade" id="desc_{{ process.id }}">
+                                        <p class="process_desc">文字：{{ process.desc }}</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="picture_{{ process.id }}">
+                                        <img src="/static/{{ process.picture_set.first }}" alt=""/>
+                                    </div>
+                                    <div class="tab-pane fade in active" id="video_{{ process.id }}">
+                                        <video id="my-player" class="video-js vjs-big-play-centered" controls
+                                               preload="none"
+                                               poster="" data-setup='{}'
+                                               width="640" height="400">
+                                            <source src="/static/{{ process.video_set.first }}"
+                                                    type="video/mp4"></source>
+                                            <source src="/static/{{ process.video_set.first }}"
+                                                    type="video/webm"></source>
+                                            <source src="/static/{{ process.video_set.first }}"
+                                                    type="video/ogg"></source>
+                                            <p class="vjs-no-js">
+                                                To view this video please enable JavaScript, and consider upgrading to a
+                                                web
+                                                browser that
+                                                <span style="white-space:pre;"> </span><a
+                                                    href="http://videojs.com/html5-video-support/" target="_blank">
+                                                supports HTML5 video
+                                            </a>
+                                            </p>
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="tab-pane fade" id="process_{{ process.id }}">
+                            <div style="border: 1px solid white;padding: 30px 40px;margin-top: 20px ">
+                                <ul id="sub_Tab" class="nav nav-tabs mynav">
+                                    <li>
+                                        <a href="#desc_{{ process.id }}" data-toggle="tab">
+                                            文字
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#picture_{{ process.id }}" data-toggle="tab">
+                                            图片
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="#video_{{ process.id }}" data-toggle="tab">
+                                            视频
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div id="sub_myTabContent" class="tab-content">
+                                    <div class="tab-pane fade" id="desc_{{ process.id }}">
+                                        <p class="process_desc">文字：{{ process.desc }}</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="picture_{{ process.id }}">
+                                        <img src="/static/{{ process.picture_set.first }}" alt=""/>
+                                    </div>
+                                    <div class="tab-pane fade in active" id="video_{{ process.id }}">
+                                        <video id="my-player" class="video-js vjs-big-play-centered" controls
+                                               preload="none"
+                                               poster="" data-setup='{}'
+                                               width="640" height="400">
+                                            <source src="/static/{{ process.video_set.first }}"
+                                                    type="video/mp4"></source>
+                                            <source src="/static/{{ process.video_set.first }}"
+                                                    type="video/webm"></source>
+                                            <source src="/static/{{ process.video_set.first }}"
+                                                    type="video/ogg"></source>
+                                            <p class="vjs-no-js">
+                                                To view this video please enable JavaScript, and consider upgrading to a
+                                                web
+                                                browser that
+                                                <span style="white-space:pre;"> </span><a
+                                                    href="http://videojs.com/html5-video-support/" target="_blank">
+                                                supports HTML5 video
+                                            </a>
+                                            </p>
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="banner-top w3layouts" style="margin-top: 100px">
+        </div>
+    </div>
+</div>
+<div class="copy-w3right">
+    <div class="container">
+        <div class="top-nav bottom-w3lnav">
+            <p>© 2018 Pet Hospital. All Rights Reserved | Designed by our Team</p>
+
+        </div>
+    </div>
+</div>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/js/bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet Hospital: HomePage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Pets Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design"/>
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- Custom Theme files -->
+    <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="/static/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css'/>
+    <!-- easy-responsive-tabs -->
+
+    <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="all">
+    <link href="/static/css/font-awesome.css" rel="stylesheet">
+    <!-- font-awesome icons -->
+    <!-- //Custom Theme files -->
+    <!-- js -->
+    <script src="/static/js/jquery-2.2.3.min.js"></script>
+    <!-- //js -->
+    <!-- web-fonts -->
+    <link href="//fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Junge" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
+    <!-- //web-fonts -->
+</head>
+<body>
+<div class="agileits-banner-cd">
+    <div class="bnr-agileinfo">
+        <div class="banner-top w3layouts">
+            <div class="container">
+                <ul class="agile_top_section">
+                    <li>
+                        <p> Pet Hospital</p>
+                    </li>
+                    <li>
+                        <p></p>
+                    </li>
+                    <li>
+                        {% if request.session.user_id %}
+                            <a class="sign" href="#">{{ request.session.username }}</a>
+                            <a class="sign" href="{% url 'User:sign_out' %}">注销</a>
+                        {% else %}
+                            <a class="sign" href="{% url 'User:sign_in' %}">
+                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
+                            <a class="sign" href="{% url 'User:sign_up' %}">
+                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <h3 class="agileits-title two" style="margin-top: 20px">2D导览</h3>
+        <div class="container">
+            <div class="markets-grids" align="center">
+                <img height="500px" width="600px" src="/static/images/2D_Navi.jpg" alt=""/>
+
+                <div class="agile_cat_grid_tags" style="margin-top: 30px">
+                    <ul>
+                        <li><a href="#" onclick="show_room_detail(1)">前台</a></li>
+                        <li><a href="#" onclick="show_room_detail(2)">档案室</a></li>
+                        <li><a href="#" onclick="show_room_detail(3)">免疫室</a></li>
+                        <li><a href="#" onclick="show_room_detail(4)">化验室</a></li>
+                        <li><a href="#" onclick="show_room_detail(5)">影像室</a></li>
+                        <li><a href="#" onclick="show_room_detail(6)">专科检查室</a></li>
+                        <br>
+                        <li><a href="#" onclick="show_room_detail(7)">处置室</a></li>
+                        <li><a href="#" onclick="show_room_detail(8)">药房</a></li>
+                        <li><a href="#" onclick="show_room_detail(9)">注射室</a></li>
+                        <li><a href="#" onclick="show_room_detail(10)">手术准备室</a></li>
+                        <li><a href="#" onclick="show_room_detail(11)">手术室</a></li>
+                        <li><a href="#" onclick="show_room_detail(12)">住院部</a></li>
+                        <li><a href="#" onclick="show_room_detail(13)">病理剖检部</a></li>
+
+                    </ul>
+                </div>
+
+                <div align="center">
+                    <a href="/index" class="button button-isi"
+                       style="margin-bottom: 45px;margin-top: 70px;">
+                        <i class="icon glyphicon glyphicon-arrow-left"></i>
+                        <span>返回</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="banner-w3text w3layouts">
+        </div>
+    </div>
+</div>
+<div class="copy-w3right">
+    <div class="container">
+        <div class="top-nav bottom-w3lnav">
+            <p>© 2018 Pet Hospital. All Rights Reserved | Designed by our Team</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal1 -->
+<div class="modal fade" id="2D_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form id='medicine_create' method="post" style="margin:10px 40px">
+                    <div class="form-group" style="margin-top: 40px">
+                        <label>科室名称：</label>
+{#                        <p id="2D_room_name1"></p>#}
+                        <input style="margin-top: 10px" class="form-control" type="text" name="name" id="2D_room_name" readonly="readonly"/>
+                    </div>
+                    <div class="form-group">
+                        <label>科室概述：</label>
+{#                        <p id="2D_room_desc1"></p>#}
+                        <textarea style="margin-top: 10px" class="form-control" rows="3" name="desc" id="2D_room_desc"
+                                  readonly="readonly"></textarea>
+                    </div>
+                    <div align="center">
+                        <a href="{% url 'Navigation:hall' %}" class="button button-isi"
+                           style="margin-bottom: 30px;margin-top: 10px;">
+                            <span>前往3D导览</span>
+                            <i class="icon glyphicon glyphicon-arrow-right"></i>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+</div>
+<!-- //Modal1 -->
+
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/js/bootstrap.js"></script>
+<script>
+    function show_room_detail(id) {
+        $.ajax({
+            type: "post",
+            url: "TwoD_getRooms/" + id,
+            success: function (result) {
+                result = JSON.parse(result);
+                $('#2D_room_name').val(result.room_name);
+                $('#2D_room_desc').val(result.room_desc);
+                {#$('#2D_room_name1').html(result.room_name);#}
+                {#$('#2D_room_desc1').html(result.room_desc);#}
+                $('#2D_Modal').modal('show');
+            },
+            error: function (result) {
+                alert('get_room error');
+            }
+        });
+
+    }
+</script>
+</body>
+</html>
