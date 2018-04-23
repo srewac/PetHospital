@@ -470,6 +470,12 @@
                 var data = table.row($(this).parents('tr')).data();
                 delete_confirm(data[3]);
             });
+            $("#create").on("hidden.bs.modal", function () {
+                clean_create();
+            });
+            $("#update").on("hidden.bs.modal", function () {
+                clean_modify();
+            });
         });
     </script>
 {% endblock %}
