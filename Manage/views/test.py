@@ -212,6 +212,15 @@ def testpaper_question_delete_all(request, testpaper_id):
     return JsonResponse(True, safe=False)
 
 
+# 添加某张试卷全部试题
+def testpaper_question_add_all(request, testpaper_id):
+    questions = Question.objects.filter(sub_disease__disease=get_object_or_404(TestPaper, pk=testpaper_id).disease).all()
+    testpaper = TestPaper.objects.get(pk=testpaper_id)
+    for question in questions:
+        testpaper.questions.add(question)
+    return JsonResponse(True, safe=False)
+
+
 # 进入考卷管理
 def testpaper_index(request):
     diseases = Disease.objects.all()
