@@ -1,138 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Select Paper</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Pets Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design"/>
-    <script type="application/x-javascript">
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-    <!-- Custom Theme files -->
-    <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-    <link href="/static/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css'/>
-    <!-- easy-responsive-tabs -->
-
-    <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="all">
-    <link href="/static/css/font-awesome.css" rel="stylesheet">
-    <!-- font-awesome icons -->
-    <!-- //Custom Theme files -->
-    <!-- js -->
-    <script src="/static/js/jquery-2.2.3.min.js"></script>
-    <!-- //js -->
-    <!-- web-fonts -->
-    <link href="//fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Junge" rel="stylesheet">
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
-          rel='stylesheet' type='text/css'>
-    <!-- //web-fonts -->
-</head>
-<body>
-
-<div class="agileits-banner">
-    <div class="bnr-agileinfo">
-        <div class="banner-top w3layouts">
-            <div class="container">
-                <ul class="agile_top_section">
-                    <li>
-                        <p> Pet Hospital</p>
-                    </li>
-                    <li>
-                        <p></p>
-                    </li>
-                    <li>
-                        {% if request.session.user_id %}
-                            <a class="sign" href="#">{{ request.session.username }}</a>
-                            <a class="sign" href="{% url 'User:sign_out' %}">注销</a>
-                        {% else %}
-                            <a class="sign" href="{% url 'User:sign_in' %}">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
-                            <a class="sign" href="{% url 'User:sign_up' %}">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <h3 class="agileits-title two" style="margin-top: 60px" id="selectedpaperid">选择试卷</h3>
-        <div class="container">
-            <div class="markets-grids">
-                {% if request.session.test_id %}
+{% extends 'front_base.html' %}
+{% block page_title %}
+    选择试卷
+{% endblock %}
+{% block self_style %}
+{% endblock %}
+{% block bg_class %}
+{% endblock %}
+{% block title %}
+    选择试卷
+{% endblock %}
+{% block container %}
+    <div class="container">
+        <div class="markets-grids">
+            {% if request.session.test_id %}
+                <div class="col-md-4">
+                    <a onclick="selectpaper({{ test.id }})">
+                        <div class="subdisease-grid">
+                            <h3 class="subdisease-grid-h">{{ test.name }} (考试中)</h3>
+                        </div>
+                    </a>
+                </div>
+            {% else %}
+                {% for idx in notaviltest %}
                     <div class="col-md-4">
-                        <a onclick="selectpaper({{ test.id }})">
+                        <a>
                             <div class="subdisease-grid">
-                                <h3 class="subdisease-grid-h">{{ test.name }} (考试中)</h3>
+
+                                <h3 class="subdisease-grid-h">{{ idx.name }}(未开始)</h3>
+
                             </div>
                         </a>
                     </div>
-                {% else %}
-                    {% for idx in notaviltest %}
-                        <div class="col-md-4">
-                            <a>
-                                <div class="subdisease-grid">
+                {% endfor %}
+                {% for idx in test %}
+                    <div class="col-md-4">
+                        <a onclick="selectpaper({{ idx.id }})">
+                            <div class="subdisease-grid">
 
-                                    <h3 class="subdisease-grid-h">{{ idx.name }}(未开始)</h3>
+                                <h3 class="subdisease-grid-h">{{ idx.name }}</h3>
 
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
-                    {% for idx in test %}
-                        <div class="col-md-4">
-                            <a onclick="selectpaper({{ idx.id }})">
-                                <div class="subdisease-grid">
-
-                                    <h3 class="subdisease-grid-h">{{ idx.name }}</h3>
-
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                <div class="clearfix"></div>
-                <div align="center">
-                    <a href="{% url 'Test:select_disease' %}" class="button button-isi"
-                       style="margin-bottom: 45px;margin-top: 70px;">
-                        <i class="icon glyphicon glyphicon-arrow-left"></i>
-                        <span>返回</span>
-                    </a>
-                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="clearfix"></div>
+            <div align="center">
+                <a href="{% url 'Test:select_disease' %}" class="button button-isi"
+                   style="margin-bottom: 45px;margin-top: 70px;">
+                    <i class="icon glyphicon glyphicon-arrow-left"></i>
+                    <span>返回</span>
+                </a>
             </div>
-
-        </div>
-        <div class="banner-w3text w3layouts">
         </div>
     </div>
-</div>
-<div class="copy-w3right">
-    <div class="container">
-        <div class="top-nav bottom-w3lnav">
-            <p>© 2018 Pet Hospital. All Rights Reserved | Designed by our Team</p>
-        </div>
-    </div>
-</div>
-
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/static/js/bootstrap.js"></script>
-<script type="text/javascript">
-    function selectpaper(x) {
-        $.ajax({
-         type:"POST",
-         url:"{% url 'Test:selected_paper' %}",
-         data:{test_id:x},
-         success:function () {
-             window.location.href = '{% url 'Test:paper' %}'
-         }
-     })
-    }
-</script>
-</body>
-</html>
+{% endblock %}
+{% block other_content %}
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        function selectpaper(x) {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'Test:selected_paper' %}",
+                data: {test_id: x},
+                success: function () {
+                    window.location.href = '{% url 'Test:paper' %}'
+                }
+            })
+        }
+    </script>
+{% endblock %}

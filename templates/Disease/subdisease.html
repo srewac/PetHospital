@@ -1,3 +1,43 @@
+{% extends 'front_base.html' %}
+{% block page_title %}
+    选择疾病种类
+{% endblock %}
+{% block self_style %}
+{% endblock %}
+{% block bg_class %}
+    agileits-banner-cat
+{% endblock %}
+{% block title %}
+    选择疾病种类
+{% endblock %}
+{% block container %}
+    <div class="container">
+        <div class="markets-grids">
+            {% for idx in subdisease %}
+                <div class="col-md-4">
+                    <a href="{% url 'Disease:subdisease_desc' idx.id %}">
+                        <div class="subdisease-grid">
+                            <h3 class="subdisease-grid-h">{{ idx.name }}</h3>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="clearfix"></div>
+        <div align="center">
+            <a class="button button-isi" href="{% url 'Disease:select_disease' %}"
+               style="margin-bottom: 45px;margin-top: 70px;">
+                <i class="icon glyphicon glyphicon-arrow-left"></i>
+                <span>返回</span>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+{% block other_content %}
+{% endblock %}
+{% block script %}
+{% endblock %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,9 +109,7 @@
                     <div class="col-md-4">
                         <a href="{% url 'Disease:subdisease_desc' idx.id %}">
                             <div class="subdisease-grid">
-
                                 <h3 class="subdisease-grid-h">{{ idx.name }}</h3>
-
                             </div>
                         </a>
                     </div>
