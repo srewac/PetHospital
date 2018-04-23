@@ -81,7 +81,7 @@
                             {% for question in questions %}
                                 <hr style="height: 1px;border:none;border-top:1px dashed; margin-top: 20px;">
                                 <li>
-                                    <h4>{{ forloop.counter }}. {{ question.text }}</h4>
+                                    <h4>{{ forloop.counter }}. {{ question.text }}</h4><br/>
                                     {% for choice in choices %}
                                         {% if choice.question_id == question.id %}
                                             <input type="radio" style="margin-right: 10px;"
