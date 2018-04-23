@@ -60,6 +60,9 @@ urlpatterns = [
          name='testpaper_question_delete'),
     path('test/testpaper_question_delete_all/<int:testpaper_id>', test.testpaper_question_delete_all,
          name='testpaper_question_delete_all'),
+    path('test/testpaper_question_add_all/<int:testpaper_id>', test.testpaper_question_add_all,
+         name='testpaper_question_add_all'),
+
     # test urls
     path('test/test', test.test_index, name='test_show'),
     path('test/test_dict', test.test_dict, name='test_dict'),

@@ -44,6 +44,19 @@
                 }
             });
         }
+
+        function question_add_all() {
+            $.ajax({
+                type: 'post',
+                url: '{% url 'Manage:testpaper_question_add_all' testpaper_id %}',
+                success: function (result) {
+                    location.reload();
+                },
+                error: function () {
+                    alert("add all error")
+                }
+            });
+        }
     </script>
     <div id="page-wrapper">
         <div class="row">
@@ -57,6 +70,11 @@
                             style="float: right;margin: 10px 5px"
                             onclick="question_delete_all()">清空选择
                     </button>
+                    <button type="button" class="btn btn-success"
+                            style="float: right;margin: 10px 5px"
+                            onclick="question_add_all()">选择全部
+                    </button>
+
                 </h1>
 
             </div>
@@ -67,7 +85,8 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <p>试卷名称:<b>{{ testpaper_name }}</b> 试卷类别:<b>{{ disease }}</b> 已选考题总分:<b id="score_all">{{ score_all }}</b></p>
+                        <p>试卷名称:<b>{{ testpaper_name }}</b> 试卷类别:<b>{{ disease }}</b> 已选考题总分:<b
+                                id="score_all">{{ score_all }}</b></p>
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -131,14 +150,14 @@
             $('#dataTables-example tbody').on("click", 'button[name="add"]', function () {
                 var data = table.row($(this).parents('tr')).data();
                 question_add(data[6].split(';')[0]);
-                $('#score_all').html(parseInt($('#score_all').html())+data[3]);
+                $('#score_all').html(parseInt($('#score_all').html()) + data[3]);
                 $(this).next().show();
                 $(this).hide();
             });
             $('#dataTables-example tbody').on("click", 'button[name="delete"]', function () {
                 var data = table.row($(this).parents('tr')).data();
                 question_delete(data[6].split(';')[0]);
-                $('#score_all').html(parseInt($('#score_all').html())-data[3]);
+                $('#score_all').html(parseInt($('#score_all').html()) - data[3]);
                 $(this).prev().show();
                 $(this).hide();
 

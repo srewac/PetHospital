@@ -379,6 +379,7 @@
                 $("#vaccine_create div:eq(1) p").html('');
                 $("#vaccine_create div:eq(2) textarea").val('');
                 $("#vaccine_create div:eq(2) p").html('');
+                $('#create').modal('hide');
             });
             $("#update").on("hidden.bs.modal", function () {
                 $("#vaccine_modify div:eq(0) input").val('');
@@ -387,6 +388,7 @@
                 $("#vaccine_modify div:eq(1) p").html('');
                 $("#vaccine_modify div:eq(2) textarea").val('');
                 $("#vaccine_modify div:eq(2) p").html('');
+                $('#update').modal('hide');
             });
         });
     </script>

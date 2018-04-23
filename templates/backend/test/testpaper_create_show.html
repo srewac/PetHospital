@@ -32,7 +32,12 @@
                     processData: false,
                     contentType: false,
                     success: function (result) {
-                        window.location.href = 'select_question/'+result
+                        if (result == false) {
+                            $("#error_disease").html("此病类下没有试题");
+                            $("#error_disease").show();
+                        } else {
+                            window.location.href = 'select_question/' + result
+                        }
                     },
                     error: function (result) {
                         alert('testpaper create error');
@@ -72,6 +77,8 @@
                     <div class="form-group">
                         <label for="disease">病大类</label>
                         <select class="form-control" name="disease" id="disease"></select>
+                        <p class="error-message" hidden="hidden" style="color: red" id="error_disease"></p>
+
                     </div>
                 </form>
             </div>

@@ -139,6 +139,9 @@ def question_delete(request, question_id):
 
 # 创建考卷详情
 def testpaper_create(request):
+    if len(Question.objects.filter(
+            sub_disease__disease=get_object_or_404(Disease, pk=request.POST['disease'])).all()) == 0:
+        return JsonResponse(False, safe=False)
     testpaper = TestPaper(name=request.POST['name'],
                           desc=request.POST['desc'],
                           disease_id=request.POST['disease'])
@@ -206,6 +209,15 @@ def testpaper_question_delete_all(request, testpaper_id):
     testpaper = TestPaper.objects.get(pk=testpaper_id)
     for question in testpaper.questions.all():
         testpaper.questions.remove(question)
+    return JsonResponse(True, safe=False)
+
+
+# 添加某张试卷全部试题
+def testpaper_question_add_all(request, testpaper_id):
+    questions = Question.objects.filter(sub_disease__disease=get_object_or_404(TestPaper, pk=testpaper_id).disease).all()
+    testpaper = TestPaper.objects.get(pk=testpaper_id)
+    for question in questions:
+        testpaper.questions.add(question)
     return JsonResponse(True, safe=False)
 
 
@@ -458,7 +470,8 @@ def test_detail_dict(request, test_id):
             else:
                 all_interns_d['data'].append([all_intern.email, all_intern.name, '无成绩', '1;' + str(all_intern.id)])
         else:
-            all_interns_d['data'].append([all_intern.email, all_intern.name, '无成绩', '0;' + str(all_intern.id)])
+            if test_origin.test_status() == 0:
+                all_interns_d['data'].append([all_intern.email, all_intern.name, '无成绩', '0;' + str(all_intern.id)])
     return JsonResponse(all_interns_d, safe=False)
 
 
@@ -493,4 +506,3 @@ def test_detail_delete_all_user(request, test_id):
     for user in test.user_set.all():
         test.user_set.remove(user)
     return JsonResponse(True, safe=False)
-
