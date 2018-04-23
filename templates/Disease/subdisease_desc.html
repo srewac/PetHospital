@@ -71,7 +71,7 @@
                     <div class="gallery-agileinfo" style="margin-left: 10%;margin-right: 10%;">
                         <ul>
                         {% for disease_example in disease_examples %}
-                        <li style="display: inline;list-style-type: none;padding: 5px">
+                        <li style="display: inline;list-style-type: none;">
                         <div class="col-sm-4 col-xs-6 w3gallery-grids">
                             <a href="{% url 'Disease:disease_example_desc' disease_example.id %}" class="imghvr-hinge-right figure">
                                 <img src="/static/images/g{{ disease_example.id }}.jpg" alt="" title="Pets Care Image"/>
