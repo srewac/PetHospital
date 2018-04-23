@@ -132,6 +132,7 @@
         $(document).ready(function () {
             var table = $('#dataTables-example').DataTable({
                 "ajax": "{% url 'Manage:select_question_dict' testpaper_id %}",
+                "iDisplayLength":100,
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,

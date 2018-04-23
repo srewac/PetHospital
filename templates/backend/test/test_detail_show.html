@@ -121,6 +121,7 @@
         $(document).ready(function () {
             var table = $('#dataTables-example').DataTable({
                 "ajax": "{% url 'Manage:test_detail_dict' test_id %}",
+                "iDisplayLength":100,
                 "columnDefs": [{
                     "targets": -1,
                     "data": null,
