@@ -139,6 +139,9 @@ def question_delete(request, question_id):
 
 # 创建考卷详情
 def testpaper_create(request):
+    if len(Question.objects.filter(
+            sub_disease__disease=get_object_or_404(Disease, pk=request.POST['disease'])).all()) == 0:
+        return JsonResponse(False, safe=False)
     testpaper = TestPaper(name=request.POST['name'],
                           desc=request.POST['desc'],
                           disease_id=request.POST['disease'])
@@ -494,4 +497,3 @@ def test_detail_delete_all_user(request, test_id):
     for user in test.user_set.all():
         test.user_set.remove(user)
     return JsonResponse(True, safe=False)
-
