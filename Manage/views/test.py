@@ -458,7 +458,8 @@ def test_detail_dict(request, test_id):
             else:
                 all_interns_d['data'].append([all_intern.email, all_intern.name, '无成绩', '1;' + str(all_intern.id)])
         else:
-            all_interns_d['data'].append([all_intern.email, all_intern.name, '无成绩', '0;' + str(all_intern.id)])
+            if test_origin.test_status() == 0:
+                all_interns_d['data'].append([all_intern.email, all_intern.name, '无成绩', '0;' + str(all_intern.id)])
     return JsonResponse(all_interns_d, safe=False)
 
 
