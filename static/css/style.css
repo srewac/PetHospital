@@ -76,7 +76,6 @@ body a:focus {
 	-webkit-background-size: cover;
 	background-size: cover;
 	-moz-background-size: cover;
-	background-color: rgba(0, 0, 0, 0.15);
 }
 
 
@@ -842,7 +841,7 @@ h3.agileits-title {
 }
 
 h3.agileits-title.two {
-	color: #fff;
+	color: black;
 }
 
 h3.agileits-title span {
