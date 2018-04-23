@@ -87,7 +87,7 @@
 
                         } else {
                             $('#dataTables-example').DataTable().ajax.reload();
-                            clean_modify();
+                            //clean_modify();
                             $('#update').modal('hide');
                         }
                     },
@@ -151,7 +151,7 @@
                     success: function (result) {
                         if (result == true) {
                             $('#dataTables-example').DataTable().ajax.reload();
-                            create_clean();
+                            //create_clean();
                             $('#create').modal('hide');
                         } else {
 
@@ -359,6 +359,7 @@
                 $("#medicine_create div:eq(1) p").html('');
                 $("#medicine_create div:eq(2) input").val("");
                 $("#medicine_create div:eq(2) p").html('');
+                $('#create').modal('hide');
             });
             $("#update").on("hidden.bs.modal", function () {
                 $("#medicine_modify div:eq(0) input").val("");

@@ -95,7 +95,7 @@
 
                         } else {
                             $('#dataTables-example').DataTable().ajax.reload();
-                            clean_modify();
+                            //clean_modify();
                             $('#update').modal('hide');
                         }
                     },
@@ -167,7 +167,7 @@
                     success: function (result) {
                         if (result == true) {
                             $('#dataTables-example').DataTable().ajax.reload();
-                            create_clean();
+                            //create_clean();
                             $('#create').modal('hide');
                         } else {
 
@@ -427,6 +427,7 @@
                 $("#people_create div:eq(4) select option:first").prop("selected", 'selected');
                 $("#people_create div:eq(5) textarea").val('');
                 $("#people_create div:eq(5) p").html('');
+                $('#create').modal('hide');
             });
             $("#update").on("hidden.bs.modal", function () {
                 $("#people_modify div:eq(0) input").val("");
