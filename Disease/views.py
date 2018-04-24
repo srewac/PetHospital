@@ -17,10 +17,10 @@ def select_disease(request):
         return HttpResponseRedirect('/User/sign_in')
 
 
-def select_subdisease(request, disease_name):
+def select_subdisease(request, disease_id):
     if request.session.get('username', None):
         if request.method == "GET":
-            disease = Disease.objects.get(name=disease_name)
+            disease = Disease.objects.get(pk=disease_id)
             subdisease = disease.subdisease_set.all()
             return render_to_response('Disease/subdisease.html', locals())
     else:
@@ -29,19 +29,18 @@ def select_subdisease(request, disease_name):
 
 def subdisease_desc(request, subdisease_id):
     if request.session.get('username', None):
-        if request.method == "GET":
-            subdisease = SubDisease.objects.get(id=subdisease_id)
-            disease_examples = DiseaseExample.objects.filter(sub_disease=subdisease)
-            return render_to_response('Disease/subdisease_desc.html', locals())
+        subdisease = SubDisease.objects.get(pk=subdisease_id)
+        disease_examples = DiseaseExample.objects.filter(sub_disease=subdisease)
+        return render_to_response('Disease/subdisease_desc.html', locals())
     else:
         return HttpResponseRedirect('/User/sign_in/')
 
 
-def disease_example_desc(request,disease_example_id):
+def disease_example_desc(request, disease_example_id):
     if request.session.get('username', None):
         if request.method == "GET":
             disease_example = DiseaseExample.objects.get(id=disease_example_id)
-            processes=Process.objects.filter(disease_example=disease_example)
+            processes = Process.objects.filter(disease_example=disease_example)
             return render_to_response('Disease/disease_example_desc.html', locals())
     else:
         return HttpResponseRedirect('/User/sign_in/')

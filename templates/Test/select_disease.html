@@ -1,112 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Pet Hospital: TEST select disease</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Pets Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design"/>
-    <script type="application/x-javascript">
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-    <!-- Custom Theme files -->
-    <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-    <link href="/static/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css'/>
-    <!-- easy-responsive-tabs -->
-
-    <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="all">
-    <link href="/static/css/font-awesome.css" rel="stylesheet">
-    <!-- font-awesome icons -->
-    <!-- //Custom Theme files -->
-    <!-- js -->
-    <script src="/static/js/jquery-2.2.3.min.js"></script>
-    <!-- //js -->
-    <!-- web-fonts -->
-    <link href="//fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Junge" rel="stylesheet">
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
-          rel='stylesheet' type='text/css'>
-    <!-- //web-fonts -->
-</head>
-<body>
-
-<div class="agileits-banner">
-    <div class="bnr-agileinfo">
-        <div class="banner-top w3layouts">
-            <div class="container">
-                <ul class="agile_top_section">
-                    <li>
-                        <p> Pet Hospital</p>
-                    </li>
-                    <li>
-                        <p></p>
-                    </li>
-                    <li>
-                        {% if request.session.user_id %}
-                            <a class="sign" href="#">{{ request.session.username }}</a>
-                            <a class="sign" href="{% url 'User:sign_out' %}">注销</a>
-                        {% else %}
-                            <a class="sign" href="{% url 'User:sign_in' %}">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
-                            <a class="sign" href="{% url 'User:sign_up' %}">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <h3 class="agileits-title two" style="margin-top: 60px">选择病种</h3>
-        <div class="container">
-            <div class="markets-grids">
-                {% for idx in disease %}
-                    <div class="col-md-4 w3ls-markets-grid">
-                        <div class="agileits-icon-grid">
-                            <a href="/Test/{{ idx.name }}/select_paper">
-                                <div class="icon-left">
-                                    <i class="fa fa-{% if idx.id == 1 %}eyedropper{% endif %}{% if idx.id == 2 %}bug{% endif %}{% if idx.id == 3 %}medkit{% endif %}{% if idx.id == 4 %}bed{% endif %}{% if idx.id == 5 %}calendar-plus-o{% endif %}{% if idx.id == 6 %}shield{% endif %}"
-                                       aria-hidden="true"></i>
-                                </div>
-                                <div class="icon-right">
-                                    <h2 style="color: black;">{{ idx.name }}</h2>
-                                </div>
-                                <div class="clearfix"></div>
-                            </a>
-                        </div>
-                    </div>
-                {% endfor %}
-
-                <div class="clearfix"></div>
-                <div align="center">
-                    <a href="{% url 'Test:test' %}" class="button button-isi"
-                       style="margin-bottom: 45px;margin-top: 70px;">
-                        <i class="icon glyphicon glyphicon-arrow-left"></i>
-                        <span>返回</span>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-        <div class="banner-top w3layouts" style="margin-top: 140px">
-        </div>
-    </div>
-</div>
-<div class="copy-w3right">
+{% extends 'front_base.html' %}
+{% block page_title %}
+    选择病种
+{% endblock %}
+{% block self_style %}
+{% endblock %}
+{% block bg_class %}
+    agileits-banner
+{% endblock %}
+{% block title %}
+    选择病种
+{% endblock %}
+{% block container %}
     <div class="container">
-        <div class="top-nav bottom-w3lnav">
-            <p>© 2018 Pet Hospital. All Rights Reserved | Designed by our Team</p>
+        <div class="markets-grids">
+            {% for idx in disease %}
+                <div class="col-md-4 w3ls-markets-grid">
+                    <div class="agileits-icon-grid">
+                        <a href="/Test/{{ idx.name }}/select_paper">
+                            <div class="icon-left">
+                                <i class="fa fa-{% if idx.id == 1 %}eyedropper{% endif %}{% if idx.id == 2 %}bug{% endif %}{% if idx.id == 3 %}medkit{% endif %}{% if idx.id == 4 %}bed{% endif %}{% if idx.id == 5 %}calendar-plus-o{% endif %}{% if idx.id == 6 %}shield{% endif %}"
+                                   aria-hidden="true"></i>
+                            </div>
+                            <div class="icon-right">
+                                <h2 style="color: black;">{{ idx.name }}</h2>
+                            </div>
+                            <div class="clearfix"></div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
 
+            <div class="clearfix"></div>
+            <div align="center">
+                <a href="{% url 'Test:test' %}" class="button button-isi"
+                   style="margin-bottom: 45px;margin-top: 70px;">
+                    <i class="icon glyphicon glyphicon-arrow-left"></i>
+                    <span>返回</span>
+                </a>
+            </div>
         </div>
     </div>
-</div>
-
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/static/js/bootstrap.js"></script>
-</body>
-</html>
+{% endblock %}
+{% block other_content %}
+{% endblock %}
+{% block script %}
+{% endblock %}

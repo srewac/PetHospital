@@ -1,165 +1,261 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Result Detail</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Pets Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design"/>
-    <script type="application/x-javascript">
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-    <!-- Custom Theme files -->
-    <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-    <link href="/static/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css'/>
-    <!-- easy-responsive-tabs -->
-
-    <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="all">
-    <link href="/static/css/font-awesome.css" rel="stylesheet">
-    <!-- font-awesome icons -->
-    <!-- //Custom Theme files -->
-    <!-- js -->
-    <script src="/static/js/jquery-2.2.3.min.js"></script>
-    <!-- //js -->
-    <!-- web-fonts -->
-    <link href="//fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Junge" rel="stylesheet">
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
-          rel='stylesheet' type='text/css'>
-    <!-- //web-fonts -->
-    <link href="/static/css/main.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/css/test.css" rel="stylesheet" type="text/css"/>
-    <style>
-        .hasBeenAnswer {
-            background: #5d9cec;
-            color: #fff;
-        }
-
-    </style>
-</head>
-<body>
-<div class="agileits-banner">
-    <div class="bnr-agileinfo">
-        <div class="banner-top w3layouts">
-            <div class="container">
-                <ul class="agile_top_section">
-                    <li>
-                        <p> Pet Hospital</p>
-                    </li>
-                    <li>
-                        <p></p>
-                    </li>
-                    <li>
-                        {% if request.session.user_id %}
-                            <a class="sign" href="#">{{ request.session.username }}</a>
-                            <a class="sign" href="{% url 'User:sign_out' %}">注销</a>
-                        {% else %}
-                            <a class="sign" href="{% url 'User:sign_in' %}">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
-                            <a class="sign" href="{% url 'User:sign_up' %}">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <h3 class="agileits-title two" style="margin-top: 60px">Test Result Detail</h3>
-        <div class="container" align="center">
-            <div class="markets-grids" align="left" style="width:60%;">
-                <div class="container well" style="width:100%;">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-lg-4 col-md-4" style="width:100%;"><span
-                                class="text-right"> </span>
-                            <h3>考试结果详情</h3>
-                            {% for question in questions %}
-                                <hr style="height: 1px;border:none;border-top:1px dashed; margin-top: 20px;">
-                                <li>
-                                    <h4>{{ forloop.counter }}. {{ question.text }}</h4><br/>
-                                    {% for choice in choices %}
-                                        {% if choice.question_id == question.id %}
-                                            <input type="radio" style="margin-right: 10px;"
-                                                   value="{{ choice.correct }}"
-                                                   name="{{ question.id }}"/>
-                                            <label id="{{ choice.id }}">{{ choice.text }}</label><br/>
-                                        {% endif %}
-                                    {% endfor %}
-                                </li>
-                            {% endfor %}
-                        </div>
+{% extends 'front_base.html' %}
+{% block page_title %}
+    Test Result Detail
+{% endblock %}
+{% block self_style %}
+{% endblock %}
+{% block bg_class %}
+{#    agileits-banner#}
+{% endblock %}
+{% block title %}
+    Test Result Detail
+{% endblock %}
+{% block container %}
+    <div class="container" align="center">
+        <div class="markets-grids" align="left" style="width:60%;">
+            <div class="container well" style="width:100%;">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-lg-4 col-md-4" style="width:100%;"><span
+                            class="text-right"> </span>
+                        <h3>考试结果详情</h3>
+                        {% for question in questions %}
+                            <hr style="height: 1px;border:none;border-top:1px dashed; margin-top: 20px;">
+                            <li style="list-style: none">
+                                <h4>{{ forloop.counter }}. {{ question.text }}</h4><br/>
+                                {% for choice in choices %}
+                                    {% if choice.question_id == question.id %}
+                                        <input type="radio" style="margin-right: 10px;"
+                                               value="{{ choice.correct }}"
+                                               name="{{ question.id }}"/>
+                                        <label id="{{ choice.id }}">{{ choice.text }}</label><br/>
+                                    {% endif %}
+                                {% endfor %}
+                            </li>
+                        {% endfor %}
                     </div>
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.panel -->
-            <div class="clearfix"></div>
-            <div align="center">
-                <a href="{% url 'Test:result' %}" class="button button-isi"
-                   style="margin-bottom: 45px;margin-top: 70px;">
-                    <i class="icon glyphicon glyphicon-arrow-left"></i>
-                    <span>返回</span>
-                </a>
-            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.panel -->
+        <div class="clearfix"></div>
+        <div align="center">
+            <a href="{% url 'Test:result' %}" class="button button-isi"
+               style="margin-bottom: 45px;margin-top: 70px;">
+                <i class="icon glyphicon glyphicon-arrow-left"></i>
+                <span>返回</span>
+            </a>
         </div>
     </div>
-    <div class="banner-w3text w3layouts">
-    </div>
-</div>
-</div>
-<div class="copy-w3right">
-    <div class="container">
-        <div class="top-nav bottom-w3lnav">
-            <p>© 2018 Pet Hospital. All Rights Reserved | Designed by our Team</p>
-        </div>
-    </div>
-</div>
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/static/js/bootstrap.js"></script>
-<script type="text/javascript">
-    $().ready(function result_detail() {
-        var user_choices = {{ user_choices }};
-        {#console.log(user_choices)#}
-        $("input[type='radio']").each(function () {
-            var lable = $(this).next();
-            var lable_id = $(lable).attr('id');
-            {#console.log(lable_id);#}
-            {#console.log(ArrayIndexOf(user_choices, lable_id));#}
-            if (ArrayIndexOf(user_choices, lable_id) >= 0) {
-                this.setAttribute("checked", "checked");
-                lable.attr("style", "color:red");
-            }
-            if (this.value == "True") {
-                lable.attr("style", "color:green");
-            }
-            this.setAttribute("disabled", true);
+{% endblock %}
+{% block other_content %}
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        $().ready(function result_detail() {
+            var user_choices = {{ user_choices }};
+            console.log(user_choices)
+            $("input[type='radio']").each(function () {
+                var lable = $(this).next();
+                var lable_id = $(lable).attr('id');
+                console.log(lable_id);
+                console.log(ArrayIndexOf(user_choices, lable_id));
+                if (ArrayIndexOf(user_choices, lable_id) >= 0) {
+                    this.setAttribute("checked", "checked");
+                    lable.attr("style", "color:red");
+                }
+                if (this.value == "True") {
+                    lable.attr("style", "color:green");
+                }
+                this.setAttribute("disabled", true);
+            });
         });
-    });
 
-    function ArrayIndexOf(arr, value) {
-        // 检测value在arr中出现的位置
-        for (var i = 0; i < arr.length; i++) {
-            if (arr[i] == value) {
-                return i;
+        function ArrayIndexOf(arr, value) {
+            // 检测value在arr中出现的位置
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] == value) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+    </script>
+    <script>
+        function choose_answer(x) {
+            var cardLi = $("#show_" + x);
+            if (!cardLi.hasClass('hasBeenAnswer')) {
+                cardLi.addClass('hasBeenAnswer');
             }
         }
-        return -1;
-    };
+    </script>
+    <script src="/static/js/jquery.easy-pie-chart.js"></script>
 
-</script>
-<script>
-    function choose_answer(x) {
-        var cardLi = $("#show_" + x);
-        if (!cardLi.hasClass('hasBeenAnswer')) {
-            cardLi.addClass('hasBeenAnswer');
-        }
-    }
-</script>
-<script src="/static/js/jquery.easy-pie-chart.js"></script>
-</body>
-</html>
+{% endblock %}
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Result Detail</title>#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>#}
+{#    <meta name="keywords" content="Pets Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,#}
+{#	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design"/>#}
+{#    <script type="application/x-javascript">#}
+{#        addEventListener("load", function () {#}
+{#            setTimeout(hideURLbar, 0);#}
+{#        }, false);#}
+{##}
+{#        function hideURLbar() {#}
+{#            window.scrollTo(0, 1);#}
+{#        }#}
+{#    </script>#}
+{#    <!-- Custom Theme files -->#}
+{#    <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">#}
+{#    <link href="/static/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css'/>#}
+{#    <!-- easy-responsive-tabs -->#}
+{##}
+{#    <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="all">#}
+{#    <link href="/static/css/font-awesome.css" rel="stylesheet">#}
+{#    <!-- font-awesome icons -->#}
+{#    <!-- //Custom Theme files -->#}
+{#    <!-- js -->#}
+{#    <script src="/static/js/jquery-2.2.3.min.js"></script>#}
+{#    <!-- //js -->#}
+{#    <!-- web-fonts -->#}
+{#    <link href="//fonts.googleapis.com/css?family=Limelight" rel="stylesheet">#}
+{#    <link href="//fonts.googleapis.com/css?family=Junge" rel="stylesheet">#}
+{#    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'#}
+{#          rel='stylesheet' type='text/css'>#}
+{#    <!-- //web-fonts -->#}
+{#    <link href="/static/css/main.css" rel="stylesheet" type="text/css"/>#}
+{#    <link href="/static/css/test.css" rel="stylesheet" type="text/css"/>#}
+{#    <style>#}
+{#        .hasBeenAnswer {#}
+{#            background: #5d9cec;#}
+{#            color: #fff;#}
+{#        }#}
+{##}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#<div class="agileits-banner">#}
+{#    <div class="bnr-agileinfo">#}
+{#        <div class="banner-top w3layouts">#}
+{#            <div class="container">#}
+{#                <ul class="agile_top_section">#}
+{#                    <li>#}
+{#                        <p> Pet Hospital</p>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <p></p>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        {% if request.session.user_id %}#}
+{#                            <a class="sign" href="#">{{ request.session.username }}</a>#}
+{#                            <a class="sign" href="{% url 'User:sign_out' %}">注销</a>#}
+{#                        {% else %}#}
+{#                            <a class="sign" href="{% url 'User:sign_in' %}">#}
+{#                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>#}
+{#                            <a class="sign" href="{% url 'User:sign_up' %}">#}
+{#                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>#}
+{#                        {% endif %}#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+{#        <h3 class="agileits-title two" style="margin-top: 60px">Test Result Detail</h3>#}
+{#        <div class="container" align="center">#}
+{#            <div class="markets-grids" align="left" style="width:60%;">#}
+{#                <div class="container well" style="width:100%;">#}
+{#                    <div class="row">#}
+{#                        <div class="col-xs-6 col-sm-6 col-lg-4 col-md-4" style="width:100%;"><span#}
+{#                                class="text-right"> </span>#}
+{#                            <h3>考试结果详情</h3>#}
+{#                            {% for question in questions %}#}
+{#                                <hr style="height: 1px;border:none;border-top:1px dashed; margin-top: 20px;">#}
+{#                                <li>#}
+{#                                    <h4>{{ forloop.counter }}. {{ question.text }}</h4><br/>#}
+{#                                    {% for choice in choices %}#}
+{#                                        {% if choice.question_id == question.id %}#}
+{#                                            <input type="radio" style="margin-right: 10px;"#}
+{#                                                   value="{{ choice.correct }}"#}
+{#                                                   name="{{ question.id }}"/>#}
+{#                                            <label id="{{ choice.id }}">{{ choice.text }}</label><br/>#}
+{#                                        {% endif %}#}
+{#                                    {% endfor %}#}
+{#                                </li>#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <!-- /.row -->#}
+{#            </div>#}
+{#            <!-- /.panel -->#}
+{#            <div class="clearfix"></div>#}
+{#            <div align="center">#}
+{#                <a href="{% url 'Test:result' %}" class="button button-isi"#}
+{#                   style="margin-bottom: 45px;margin-top: 70px;">#}
+{#                    <i class="icon glyphicon glyphicon-arrow-left"></i>#}
+{#                    <span>返回</span>#}
+{#                </a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="banner-w3text w3layouts">#}
+{#    </div>#}
+{#</div>#}
+{#</div>#}
+{#<div class="copy-w3right">#}
+{#    <div class="container">#}
+{#        <div class="top-nav bottom-w3lnav">#}
+{#            <p>© 2018 Pet Hospital. All Rights Reserved | Designed by our Team</p>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{#<!-- Placed at the end of the document so the pages load faster -->#}
+{#<script src="/static/js/bootstrap.js"></script>#}
+{#<script type="text/javascript">#}
+{#    $().ready(function result_detail() {#}
+{#        var user_choices = {{ user_choices }};#}
+{#console.log(user_choices)#}
+{#        $("input[type='radio']").each(function () {#}
+{#            var lable = $(this).next();#}
+{#            var lable_id = $(lable).attr('id');#}
+{#console.log(lable_id);#}
+{#console.log(ArrayIndexOf(user_choices, lable_id));#}
+{#            if (ArrayIndexOf(user_choices, lable_id) >= 0) {#}
+{#                this.setAttribute("checked", "checked");#}
+{#                lable.attr("style", "color:red");#}
+{#            }#}
+{#            if (this.value == "True") {#}
+{#                lable.attr("style", "color:green");#}
+{#            }#}
+{#            this.setAttribute("disabled", true);#}
+{#        });#}
+{#    });#}
+{##}
+{#    function ArrayIndexOf(arr, value) {#}
+{#        // 检测value在arr中出现的位置#}
+{#        for (var i = 0; i < arr.length; i++) {#}
+{#            if (arr[i] == value) {#}
+{#                return i;#}
+{#            }#}
+{#        }#}
+{#        return -1;#}
+{#    };#}
+{##}
+{#</script>#}
+{#<script>#}
+{#    function choose_answer(x) {#}
+{#        var cardLi = $("#show_" + x);#}
+{#        if (!cardLi.hasClass('hasBeenAnswer')) {#}
+{#            cardLi.addClass('hasBeenAnswer');#}
+{#        }#}
+{#    }#}
+{#</script>#}
+{#<script src="/static/js/jquery.easy-pie-chart.js"></script>#}
+{#</body>#}
+{#</html>#}
