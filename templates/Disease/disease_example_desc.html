@@ -65,7 +65,6 @@
                                     <div class="tab-pane fade in active" id="video_{{ process.id }}">
                                         {% for video in process.video_set.all %}
                                             <video id="my-player" class="video-js vjs-big-play-centered" controls
-                                                   preload="none"
                                                    poster="" data-setup='{}'
                                                    width="100%">
                                                 <source src="/static/{{ video }}"
@@ -123,7 +122,6 @@
                                     <div class="tab-pane fade in active" id="video_{{ process.id }}">
                                        {% for video in process.video_set.all %}
                                             <video id="my-player" class="video-js vjs-big-play-centered" controls
-                                                   preload="none"
                                                    poster="" data-setup='{}'
                                                    width="40%">
                                                 <source src="/static/{{ video }}"
