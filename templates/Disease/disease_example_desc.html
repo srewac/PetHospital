@@ -96,7 +96,7 @@
                                 <ul id="sub_Tab" class="nav nav-tabs mynav">
                                     <li>
                                         <a href="#desc_{{ process.id }}" data-toggle="tab">
-                                            文字
+                                            描述
                                         </a>
                                     </li>
                                     <li>
@@ -113,36 +113,37 @@
 
                                 <div id="sub_myTabContent" class="tab-content">
                                     <div class="tab-pane fade" id="desc_{{ process.id }}">
-                                        <p class="process_desc">文字：{{ process.desc }}</p>
+                                        <p class="process_desc">{{ process.desc }}</p>
                                     </div>
                                     <div class="tab-pane fade" id="picture_{{ process.id }}">
-
-                                        <img src="/static/{{ process.picture_set.first }}" alt=""/>
+                                        {% for pic in process.picture_set.all %}
+                                            <img src="/static/{{ pic }}" width="30%" alt="pic"/>
+                                        {% endfor %}
                                     </div>
                                     <div class="tab-pane fade in active" id="video_{{ process.id }}">
-                                        <video id="my-player" class="video-js vjs-big-play-centered"
-                                               controls
-                                               preload="none"
-                                               poster="" data-setup='{}'
-                                               width="640" height="400">
-                                            <source src="/static/{{ process.video_set.first }}"
-                                                    type="video/mp4"></source>
-                                            <source src="/static/{{ process.video_set.first }}"
-                                                    type="video/webm"></source>
-                                            <source src="/static/{{ process.video_set.first }}"
-                                                    type="video/ogg"></source>
-                                            <p class="vjs-no-js">
-                                                To view this video please enable JavaScript, and
-                                                consider upgrading to a
-                                                web
-                                                browser that
-                                                <span style="white-space:pre;"> </span><a
-                                                    href="http://videojs.com/html5-video-support/"
-                                                    target="_blank">
-                                                supports HTML5 video
-                                            </a>
-                                            </p>
-                                        </video>
+                                       {% for video in process.video_set.all %}
+                                            <video id="my-player" class="video-js vjs-big-play-centered" controls
+                                                   preload="none"
+                                                   poster="" data-setup='{}'
+                                                   width="40%">
+                                                <source src="/static/{{ video }}"
+                                                        type="video/mp4"/>
+                                                <source src="/static/{{ video }}"
+                                                        type="video/webm"/>
+                                                <source src="/static/{{ video }}"
+                                                        type="video/ogg"/>
+                                                <p class="vjs-no-js">
+                                                    To view this video please enable JavaScript, and consider upgrading
+                                                    to a
+                                                    web
+                                                    browser that
+                                                    <span style="white-space:pre;"> </span><a
+                                                        href="http://videojs.com/html5-video-support/" target="_blank">
+                                                    supports HTML5 video
+                                                </a>
+                                                </p>
+                                            </video>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>

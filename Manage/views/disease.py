@@ -13,11 +13,6 @@ def disease_example(request):
     return render(request, 'backend/disease/disease_example_show.html')
 
 
-# 进入新建病例界面
-def disease_example_create_show(request):
-    return render(request, 'backend/disease/disease_example_create.html')
-
-
 # 进入病例详情界面
 def disease_example_detail(request, disease_example_id):
     disease_example = get_object_or_404(DiseaseExample, pk=disease_example_id)
