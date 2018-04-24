@@ -34,6 +34,10 @@ class TestPaper(models.Model):
             full_score = full_score + question.score
         return full_score
 
+    def get_pass_mark(self):
+        pass_mark = self.get_full_score()*0.6
+        return pass_mark
+
     def __str__(self):
         return self.name
 

@@ -43,7 +43,7 @@
                                                 <td>{{ rec.test.test_paper.disease.name }}</td>
                                                 <td>{{ rec.test.test_paper.name }}</td>
                                                 <td>{{ rec.score }}</td>
-                                                {% if rec.score >= 60 %}
+                                                {% if rec.score >= rec.test.test_paper.get_pass_mark %}
                                                     <td>及格</td>
                                                 {% else %}
                                                     <td>不及格</td>
