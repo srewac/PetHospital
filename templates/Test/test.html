@@ -12,8 +12,8 @@
 {% endblock %}
 {% block container %}
     <div class="container">
-        <div class="markets-grids" align="center">
-            <div class="col-md-4 w3ls-markets-grid" style="margin-left: 20%">
+        <div class="col-md-8 col-md-offset-2 markets-grids" align="center">
+            <div class="col-md-6 w3ls-markets-grid">
                 <a href="{% url 'Test:select_disease' %}">
                     <div class="agileits-icon-grid">
                         <div class="icon-left">
@@ -27,7 +27,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-4 w3ls-markets-grid">
+            <div class="col-md-6 w3ls-markets-grid">
                 <a href="{% url 'Test:result' %}">
                     <div class="agileits-icon-grid">
                         <div class="icon-left">
@@ -41,7 +41,8 @@
                     </div>
                 </a>
             </div>
-            <div class="clearfix"></div>
+        </div>
+                <div class="clearfix"></div>
             <div align="center">
                 <a href="/index" class="button button-isi"
                    style="margin-bottom: 45px;margin-top: 70px;">
@@ -49,7 +50,7 @@
                     <span>返回</span>
                 </a>
             </div>
-        </div>
+
     </div>
 {% endblock %}
 {% block other_content %}
