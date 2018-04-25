@@ -20,7 +20,7 @@ def sign_up(request):
         email = request.POST.get('inputEmail')
         password1 = request.POST.get('inputPassword')
         password2 = request.POST.get('inputPasswordConfirm')
-        verifyCode = request.POST.get('emailVerify')
+        # verifyCode = request.POST.get('emailVerify')
 
         Reg_Dict = {
             'username': username,
@@ -38,13 +38,13 @@ def sign_up(request):
         elif user2:
             Reg_Dict['register_err'] = "用户名已存在"
             return render(request, 'User/sign_up.html', Reg_Dict)
-        elif 'verifyCode' not in request.session:
-            Reg_Dict['register_err'] = "邮箱验证码已过期"
-            return render(request, 'User/sign_up.html', Reg_Dict)
-        elif verifyCode != request.session['verifyCode'] and request.session['verifyCode'] != None and \
-                request.session['username'] == username:
-            Reg_Dict['register_err'] = "邮箱验证码不正确"
-            return render(request, 'User/sign_up.html', Reg_Dict)
+        # elif 'verifyCode' not in request.session:
+        #     Reg_Dict['register_err'] = "邮箱验证码已过期"
+        #     return render(request, 'User/sign_up.html', Reg_Dict)
+        # elif verifyCode != request.session['verifyCode'] and request.session['verifyCode'] != None and \
+        #         request.session['username'] == username:
+        #     Reg_Dict['register_err'] = "邮箱验证码不正确"
+        #     return render(request, 'User/sign_up.html', Reg_Dict)
 
         else:
             User.objects.create(email=email, password=password1, name=username)
