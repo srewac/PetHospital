@@ -104,12 +104,12 @@
         </div>
         <h3 class="agileits-title two" style="margin-top: 60px">选择疾病种类</h3>
         <div class="container">
-            <div class="markets-grids">
+            <div class="markets-grids" >
                 {% for idx in subdisease %}
                     <div class="col-md-4">
                         <a href="{% url 'Disease:subdisease_desc' idx.id %}">
-                            <div class="subdisease-grid">
-                                <h3 class="subdisease-grid-h">{{ idx.name }}</h3>
+                            <div class="subdisease-grid" >
+                                <h3 class="subdisease-grid-h" >{{ idx.name }}</h3>
                             </div>
                         </a>
                     </div>
