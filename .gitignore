@@ -2,3 +2,6 @@
 *_initial.py
 *.pyc
 */migrations/*
+.DS_Store
+venv/
+*/__pycahce__/*
