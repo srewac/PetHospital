@@ -16,7 +16,7 @@ entrypoints==0.2.3
 facebook-wda==0.2.2.dev1
 graphviz==0.8.2
 h5py==2.7.1
-html5lib==0.9999999
+html5lib==0.999999999
 idna==2.6
 imageio==2.1.2
 ipykernel==4.6.1
