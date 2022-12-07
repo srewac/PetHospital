@@ -3,7 +3,7 @@ baidu-aip==2.1.0.0
 beautifulsoup4==4.6.0
 bleach==3.1.4
 bs4==0.0.1
-certifi==2017.11.5
+certifi==2022.12.7
 chardet==3.0.4
 cycler==0.10.0
 Cython==0.27.3
